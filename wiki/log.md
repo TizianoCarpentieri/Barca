@@ -6,6 +6,14 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-04] setup | Presentazione web manifesto
+
+- Sito multipagina in `presentazione/` (Vite + vanilla, mobile-first, GitHub Pages).
+- Pagine: home, equipaggio, regole, priorità, base, mercato, status, mosse.
+- Vibe: manifesto da bar; contenuti da requisiti v1 + overview.
+- Dev: `cd presentazione && npm i && npm run dev` · build: `npm run build` → `dist/`.
+- Workflow Pages: `.github/workflows/pages.yml`.
+
 ## [2026-08-04] sintesi | Requisiti v1
 
 - Intervista base chiusa. Profilo in `wiki/sintesi/requisiti-v1.md`.

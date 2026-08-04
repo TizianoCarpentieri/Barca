@@ -16,6 +16,12 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[overview]] | Stato attuale della ricerca |
 | [[log]] | Diario cronologico operazioni |
 
+## Presentazione (per le bestie)
+
+| Path | Sommario |
+|------|----------|
+| `presentazione/` | Sito manifesto multipagina (Vite) — share mobile |
+
 ## Mercato
 
 | Pagina | Sommario |

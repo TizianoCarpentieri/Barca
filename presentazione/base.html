@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <title>Base & rimessaggio — Progetto Barca</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">04 · Dove vive la barca</span>
+        <h1 class="display display-lg">Base</h1>
+        <p class="ph__sub">Hub fisso obbligatorio. Niente “la tengo nel vialetto e si vedrà”.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div class="map-strip" data-reveal>
+          <img
+            src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1400&q=75"
+            alt="Barche in porto"
+            width="1400"
+            height="900"
+            loading="lazy"
+          />
+          <div class="map-strip__overlay">
+            <span class="eyebrow">Litorale laziale</span>
+            <strong class="display" style="font-size:clamp(1.6rem,6vw,2.2rem)">ARDEA → TIRRENO</strong>
+            <div class="hub-pills">
+              <span class="is-base">Casa: Ardea/Pomezia</span>
+              <span>Hub: Anzio/Nettuno</span>
+              <span>Run: Circeo</span>
+              <span>Run: Fiumicino</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Due strade aperte</span></div>
+        <div class="compare">
+          <article class="compare-card compare-card--a" data-reveal data-tilt>
+            <span class="tag">Opzione A</span>
+            <h3>POSTO BARCA</h3>
+            <p style="color:var(--foam-dim);font-size:0.92rem">In acqua, porto fisso. Uscita in 10–20 min. Ideale se si esce spesso.</p>
+            <ul class="procon">
+              <li class="pro">Zero traino, massima spontaneità</li>
+              <li class="pro">Barca sempre “pronta mare”</li>
+              <li class="con">Costo fisso anche da ferma</li>
+              <li class="con">Bandi / liste (es. Anzio comunale)</li>
+              <li class="con">Rischio sforare il cap 3,6k</li>
+            </ul>
+          </article>
+          <article class="compare-card compare-card--c" data-reveal data-tilt>
+            <span class="tag">Opzione C</span>
+            <h3>CANTIERE TERRA</h3>
+            <p style="color:var(--foam-dim);font-size:0.92rem">Rimessaggio a terra + alaggio quando serve. Più controllo costi se uscite moderate.</p>
+            <ul class="procon">
+              <li class="pro">Spesso più leggero sul canone</li>
+              <li class="pro">Meno fouling, lavori più facili</li>
+              <li class="con">Alaggio = tempo + € a uscita</li>
+              <li class="con">Meno “stasera si va” improvviso</li>
+              <li class="con">Serve cantiere affidabile vicino</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Chiusa dal gruppo</span></div>
+        <div class="card dead" data-reveal style="min-height:7rem;display:flex;flex-direction:column;justify-content:center">
+          <div class="card-title">B — Carrello / traino</div>
+          <p>Nessuno si lega al gancio. Trasporti eccezionali = servizio a pagamento, non lifestyle.</p>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Cosa manca ancora</span></div>
+        <div class="card" data-reveal>
+          <div class="card-title">Telefonate tariffe</div>
+          <p>Anzio/Nettuno posto barca + 2 cantieri terra. I PDF 2026 non stampano gli € nelle celle — servono voci umane e numeri veri nel cap da 3.600€.</p>
+        </div>
+      </section>
+
+      <p class="footer-note wrap">Rimessaggio A vs C · carrello out</p>
+    </main>
+    <script type="module" src="/src/js/app.js"></script>
+  </body>
+</html>

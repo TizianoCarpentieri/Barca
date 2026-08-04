@@ -1,0 +1,46 @@
+# Copia in .github/workflows/ alla root del repo GitHub se monorepo.
+name: Deploy Presentazione
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'presentazione/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: presentazione/package-lock.json
+      - name: Build
+        working-directory: presentazione
+        run: |
+          npm ci
+          npx vite build --base=/Barca/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: presentazione/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
