@@ -1,0 +1,254 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "opencode.json",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "opencode_opencode",
+      "community": 0,
+      "norm_label": "opencode.json"
+    },
+    {
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "opencode_opencode_schema",
+      "community": 0,
+      "norm_label": "$schema"
+    },
+    {
+      "label": "plugin",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "opencode_opencode_plugin",
+      "community": 1,
+      "norm_label": "plugin"
+    },
+    {
+      "label": ".opencode/plugins/graphify.js",
+      "file_type": "concept",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "ref_opencode_plugins_graphify_js",
+      "community": 1,
+      "norm_label": ".opencode/plugins/graphify.js"
+    },
+    {
+      "label": "superpowers@git+https://github.com/obra/superpowers.git",
+      "file_type": "concept",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "ref_superpowers_git_https_github_com_obra_superpowers_git",
+      "community": 1,
+      "norm_label": "superpowers@git+https://github.com/obra/superpowers.git"
+    },
+    {
+      "label": "instructions",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "opencode_opencode_instructions",
+      "community": 0,
+      "norm_label": "instructions"
+    },
+    {
+      "label": "AGENTS.md",
+      "file_type": "concept",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "ref_agents_md",
+      "community": 0,
+      "norm_label": "agents.md"
+    },
+    {
+      "label": "skills",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "opencode_opencode_skills",
+      "community": 2,
+      "norm_label": "skills"
+    },
+    {
+      "label": "paths",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "opencode_opencode_skills_paths",
+      "community": 2,
+      "norm_label": "paths"
+    },
+    {
+      "label": ".opencode/skills",
+      "file_type": "concept",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "ref_opencode_skills",
+      "community": 2,
+      "norm_label": ".opencode/skills"
+    },
+    {
+      "label": "graphify.js",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "opencode_plugins_graphify",
+      "community": 3,
+      "norm_label": "graphify.js"
+    },
+    {
+      "label": "GraphifyPlugin()",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "opencode_plugins_graphify_graphifyplugin",
+      "community": 3,
+      "norm_label": "graphifyplugin()"
+    },
+    {
+      "label": "IMPORTANT: keep the reminder string free of backticks and $(...) constructs.",
+      "file_type": "rationale",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "opencode_plugins_graphify_rationale_4",
+      "community": 3,
+      "norm_label": "important: keep the reminder string free of backticks and $(...) constructs."
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_instructions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_plugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_skills",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import",
+      "source": "opencode_opencode_plugin",
+      "target": "ref_opencode_plugins_graphify_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import",
+      "source": "opencode_opencode_plugin",
+      "target": "ref_superpowers_git_https_github_com_obra_superpowers_git",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import",
+      "source": "opencode_opencode_instructions",
+      "target": "ref_agents_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "opencode_opencode_skills",
+      "target": "opencode_opencode_skills_paths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "import",
+      "source": "opencode_opencode_skills_paths",
+      "target": "ref_opencode_skills",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "opencode_plugins_graphify",
+      "target": "opencode_plugins_graphify_graphifyplugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "opencode_plugins_graphify_rationale_4",
+      "target": "opencode_plugins_graphify",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

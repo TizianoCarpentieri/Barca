@@ -1,0 +1,88 @@
+{
+  "communities": {
+    "0": [
+      "opencode_opencode",
+      "opencode_opencode_instructions",
+      "opencode_opencode_schema",
+      "ref_agents_md"
+    ],
+    "1": [
+      "opencode_opencode_plugin",
+      "ref_opencode_plugins_graphify_js",
+      "ref_superpowers_git_https_github_com_obra_superpowers_git"
+    ],
+    "2": [
+      "opencode_opencode_skills",
+      "opencode_opencode_skills_paths",
+      "ref_opencode_skills"
+    ],
+    "3": [
+      "opencode_plugins_graphify",
+      "opencode_plugins_graphify_graphifyplugin",
+      "opencode_plugins_graphify_rationale_4"
+    ]
+  },
+  "cohesion": {
+    "0": 0.5,
+    "1": 0.6666666666666666,
+    "2": 0.6666666666666666,
+    "3": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "opencode_opencode_plugin",
+      "label": "plugin",
+      "degree": 3
+    },
+    {
+      "id": "opencode_opencode_instructions",
+      "label": "instructions",
+      "degree": 2
+    },
+    {
+      "id": "opencode_opencode_skills",
+      "label": "skills",
+      "degree": 2
+    },
+    {
+      "id": "opencode_opencode_skills_paths",
+      "label": "paths",
+      "degree": 2
+    },
+    {
+      "id": "opencode_opencode_schema",
+      "label": "$schema",
+      "degree": 1
+    },
+    {
+      "id": "ref_opencode_plugins_graphify_js",
+      "label": ".opencode/plugins/graphify.js",
+      "degree": 1
+    },
+    {
+      "id": "ref_superpowers_git_https_github_com_obra_superpowers_git",
+      "label": "superpowers@git+https://github.com/obra/superpowers.git",
+      "degree": 1
+    },
+    {
+      "id": "ref_agents_md",
+      "label": "AGENTS.md",
+      "degree": 1
+    },
+    {
+      "id": "ref_opencode_skills",
+      "label": ".opencode/skills",
+      "degree": 1
+    },
+    {
+      "id": "opencode_plugins_graphify_rationale_4",
+      "label": "IMPORTANT: keep the reminder string free of backticks and $(...) constructs.",
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

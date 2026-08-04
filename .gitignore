@@ -1,0 +1,17 @@
+# graphify local
+graphify-out/cost.json
+graphify-out/cache/
+
+# OS / editor
+.DS_Store
+**/.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# secrets accidental
+.env
+*.pem
+
+# deps if any
+node_modules/
