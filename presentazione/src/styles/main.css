@@ -1228,6 +1228,87 @@ ul { list-style: none; }
   .stat--wide {
     grid-column: 1 / -1 !important;
   }
+
+  .grid-2,
+  .compare {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Classe forzata da JS su smartphone (anche con “sito desktop” Chrome) */
+html.is-phone body {
+  font-size: 19px !important;
+}
+
+html.is-phone .dock {
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  padding: 12px 8px calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+html.is-phone .dock a {
+  min-height: 74px !important;
+  font-size: 15px !important;
+}
+
+html.is-phone .dock a svg {
+  width: 34px !important;
+  height: 34px !important;
+}
+
+html.is-phone .btn {
+  width: 100% !important;
+  min-height: 60px !important;
+  font-size: 19px !important;
+  border-radius: 16px !important;
+}
+
+html.is-phone .hero__cta-row {
+  flex-direction: column !important;
+}
+
+html.is-phone .nav-tiles {
+  grid-template-columns: 1fr !important;
+}
+
+html.is-phone .stat-wall {
+  grid-template-columns: 1fr 1fr !important;
+}
+
+html.is-phone .wrap,
+html.is-phone .wrap-wide {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-inline: 18px !important;
+}
+
+html.is-phone .card-title {
+  font-size: 1.45rem !important;
+}
+
+html.is-phone .card p,
+html.is-phone .lede,
+html.is-phone .board-row strong,
+html.is-phone .todo-item p {
+  font-size: 1.15rem !important;
+}
+
+html.is-phone .display-xl {
+  font-size: clamp(3.6rem, 16vw, 5rem) !important;
+}
+
+html.is-phone .display-lg {
+  font-size: clamp(2.8rem, 12vw, 3.8rem) !important;
+}
+
+html.is-phone .badge {
+  font-size: 0.95rem !important;
+  padding: 0.55rem 0.8rem !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
