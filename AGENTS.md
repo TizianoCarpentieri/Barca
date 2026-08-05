@@ -109,24 +109,24 @@ sources: [raw/...]
 
 ## Preferenze note (seed — aggiornare appena emergono dettagli)
 
+Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/requisiti-v1.md`.
+
 ### Gruppo
 - **Core:** tu + Antonio + Peppe ("le bestie")
+- **Base:** Ardea/Pomezia — mare laziale (Anzio/Circeo/Fiumicino)
 - **Capacità target:** 3 comodi per pesca; ideale fino a **6** per uscite sociali
+- **Patente:** nessuno; ideale restare no-patente (≤40,8 CV)
+- **Budget:** acquisto ≤4.500 € (rigidi); gestione ≤1.200 €/testa/anno
 
-### Vincoli hard (ipotesi da validare in wiki/normativa)
-- Barca a **motore**
-- Utilizzabile anche **senza patente** → rispettare limiti IT (potenza/cilindrata/lunghezza — verificare fonti ufficiali, non inventare)
-- Piccolina ma **divertente e performante**
-- Adatta a **pesca** di gruppo
+### Dual track (2026-08-05)
+1. **Rigide** — gozzo/open/lancia; no gommone su questo track; no carrello; tendalino
+2. **Gommoni** — pneumatici no RIB; 3,3–3,9 m; Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
+3. **Motori** — ≥6 CV (no 2.5/4); sweet 9.9–15; max 40,8; 4T gambo corto
 
-### Ancora da definire (tenere in `wiki/preferenze/open-questions.md`)
-- Budget totale e ripartizione
-- Mare/lago/entrambi; base operativa (porto/rimessaggio/carrello)
-- Nuovo vs usato
-- Cabina sì/no, console, open, gommone/RIB, walkaround…
-- Motore fuoribordo vs entro/fuori
-- Esigenze pesca (canne, vivo, sonar/GPS, pozzetti)
-- Trailerabilità, patente nautica di qualcuno del gruppo, assicurazione
+Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`).
+
+### Ancora da definire (`wiki/preferenze/open-questions.md`)
+- Split costi; rimessaggio A vs C con numeri; scelta track vincente; tetto bundle gommone+motore; intestazione
 
 **Regola d'oro:** ogni preferenza espressa in chat va scritta in `wiki/preferenze/` nella stessa sessione. Niente "me lo ricordo dopo".
 

@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-04
+updated: 2026-08-05
 status: active
 ---
 
@@ -13,69 +13,67 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[overview]] | Stato attuale della ricerca |
+| [[overview]] | Stato attuale — **dual track** rigidi + gommoni + motori |
 | [[log]] | Diario cronologico operazioni |
 
 ## Presentazione (per le bestie)
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Sito manifesto multipagina (Vite) — share mobile (rigidi + gommoni + motori paralleli) |
-
-## Mercato
-
-| Pagina | Sommario |
-|--------|----------|
-| [[mercato/litorale-laziale]] | Base Ardea/Pomezia; hub Anzio/Circeo/Fiumicino; opzioni rimessaggio |
-| [[mercato/usato-under-4500]] | Snapshot Subito pacchetti ≤4,5–5,5k € |
+| `presentazione/` | Manifesto Vite + **Annunci** tab Rigide/Gommoni/Motori (GitHub Pages) |
+| [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
 
 ## Preferenze
 
 | Pagina | Sommario |
 |--------|----------|
-| [[preferenze/gruppo]] | Le bestie: Ardea/Pomezia; mare laziale; target 3–6 pax |
-| [[preferenze/must-have]] | Vincoli non negoziabili (seed) |
-| [[preferenze/nice-to-have]] | Desiderata (da riempire) |
-| [[preferenze/budget]] | Budget e split (da definire) |
-| [[preferenze/open-questions]] | Domande aperte del gruppo |
+| [[preferenze/gruppo]] | Le bestie: Ardea/Pomezia; mare laziale; 3–6 pax |
+| [[preferenze/must-have]] | Vincoli trasversali + per track |
+| [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
+| [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
+| [[preferenze/nice-to-have]] | Priorità uso + nice per track |
+| [[preferenze/budget]] | Budget e split |
+| [[preferenze/open-questions]] | Domande aperte |
+| [[preferenze/intervista-requisiti]] | Diario raccolta requisiti |
 
-## Normativa
-
-| Pagina | Sommario |
-|--------|----------|
-| [[normativa/limiti-senza-patente]] | Soglie MIT: ≤30 kW / 40,8 CV, cilindrate, ≤6 miglia; moto d'acqua sempre patente |
-
-## Intervista
+## Modelli / reference
 
 | Pagina | Sommario |
 |--------|----------|
-| [[preferenze/intervista-requisiti]] | Diario raccolta requisiti (in corso) |
+| [[modelli/argo-evo-360]] | **Benchmark gommone** nuovo 970 € (Argo-Evo 360 AL) |
 
 ## Concetti
 
 | Pagina | Sommario |
 |--------|----------|
-| [[concetti/no-patente-6-pax-realta]] | Inviluppo realistico ≤40,8 CV + fino a 6 pax |
-| [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf a bordo; layout low budget |
-| [[concetti/tendalino-copertura]] | Bimini/tendalino su scafo rigido low-cost |
+| [[concetti/feed-annunci-scoring]] | Score feed: distanza Lazio, −20% vs Argo, potenze motore |
+| [[concetti/no-patente-6-pax-realta]] | Inviluppo ≤40,8 CV + fino a 6 pax |
+| [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
+| [[concetti/tendalino-copertura]] | Bimini su scafo rigido low-cost |
 
-## Modelli
+## Normativa
 
-_Nessun modello valutato ancora._
+| Pagina | Sommario |
+|--------|----------|
+| [[normativa/limiti-senza-patente]] | Soglie MIT: ≤30 kW / 40,8 CV, ≤6 miglia |
+
+## Mercato
+
+| Pagina | Sommario |
+|--------|----------|
+| [[mercato/litorale-laziale]] | Base Ardea/Pomezia; hub; rimessaggio |
+| [[mercato/usato-under-4500]] | Snapshot Subito pacchetti ≤4,5–5,5k € |
+| [[mercato/feed-subito-live]] | Automazione annunci live |
 
 ## Confronti
 
 | Pagina | Sommario |
 |--------|----------|
-| [[confronti/rimessaggio-abc]] | Posto barca vs carrello vs terra (A/B/C aperti) |
-
-## Mercato
-
-_Nessuna nota mercato ancora._
+| [[confronti/rimessaggio-abc]] | Posto vs carrello vs terra |
 
 ## Sintesi
 
 | Pagina | Sommario |
 |--------|----------|
-| [[sintesi/shortlist]] | Candidati in shortlist (vuota) |
-| [[sintesi/requisiti-v1]] | **Profilo requisiti completo v1** |
+| [[sintesi/requisiti-v1]] | Profilo requisiti + filtri dual track |
+| [[sintesi/shortlist]] | Candidati (da popolare dai feed) |

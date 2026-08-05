@@ -6,6 +6,13 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-05] lint | Wiki allineata a dual track + scoring
+
+- Aggiornati: overview, must-have, nice-to-have, open-questions, requisiti-v1, index.
+- Nuove pagine: `modelli/argo-evo-360`, `preferenze/track-gommoni`, `preferenze/track-motori`, `concetti/feed-annunci-scoring`, `mercato/feed-subito-live`.
+- Contenuti: ref Argo 970€ e regola −20%; geo-score distanza da Ardea/Pomezia; motori min 6 CV / sweet 9.9–15; UI tab unificata Annunci.
+- Nota storica: “no gommone” resta sul **track rigidi**; gommoni = **track parallelo**, non cancellazione.
+
 ## [2026-08-05] setup | Feed annunci Subito live
 
 - Pagina `presentazione/annunci.html` + JSON `public/data/annunci.json`.

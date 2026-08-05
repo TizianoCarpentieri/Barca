@@ -1,7 +1,7 @@
 ---
 title: Nice-to-have e priorità d'uso
 type: preferenza
-updated: 2026-08-04
+updated: 2026-08-05
 status: active
 tags: [desiderata, pesca, priorita]
 ---
@@ -47,8 +47,16 @@ tags: [desiderata, pesca, priorita]
 | GPS/plotter | media (anche app+supporto) |
 | Portacanne | alta (low cost) |
 | Pozzetto vivo | bassa a 4,5k (secchio ok) |
-| Tendalino / copertura sole alzabile | **alta** (richiesta esplicita; no gommone) |
+| Tendalino / copertura sole alzabile | **alta** su track **rigidi** |
+| Paiolato alluminio / airdeck | **alta** su track **gommoni** |
+| Motore 9.9–15 4T gambo corto | **alta** se track gommone |
 | Tavolo/frigo | bassa |
+
+## Dual track (2026-08-05)
+
+- Track **rigidi**: tendalino, posto/terra, no carrello — [[sintesi/requisiti-v1]]
+- Track **gommoni**: trasporto auto, ref [[modelli/argo-evo-360]], feed parallelo
+- Track **motori**: niente 2.5/4 CV — [[preferenze/track-motori]]
 
 ## Core vs sociale
 

@@ -1,30 +1,57 @@
 ---
 title: Shortlist
 type: sintesi
-updated: 2026-08-04
+updated: 2026-08-05
 status: draft
 tags: [shortlist]
 ---
 
 # Shortlist candidati
 
-_Ancora senza modelli nominati._ Filtri attivi per candidati:
+Ancora senza modelli nominati a mano. Candidati grezzi dai feed live:
 
-- Usato ≤ **4.500 €** (stretch minimo se sogno)
-- **No gommone**; sì gozzo / open / lancia rigida
-- Motore ≤ **40,8 CV** (e cilindrate ok)
-- Pesca a canna + giri costa; tendalino o possibilità di montarlo
-- **No carrello**; hub posto barca **o** cantiere terra
-- Gestione annua gruppo ≤ **3.600 €** all-in → canone fisso contenuto
-- Plus: annuncio già con posto/cantiere in Lazio
+- [Annunci · Rigide](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=rigide)
+- [Annunci · Gommoni](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=gommoni)
+- [Annunci · Motori](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=motori)
 
-| Rank | Modello | Fit must-have | Pax | No-patente? | Stima costo | Note |
-|------|---------|---------------|-----|-------------|-------------|------|
-| — | — | — | — | — | — | in attesa candidati concreti |
+Filtri e scoring: [[concetti/feed-annunci-scoring]] · [[sintesi/requisiti-v1]].
 
-## Criteri di ingresso shortlist
+## Track A — Rigide
 
-1. Motore + uso pesca/divertimento compatibile
-2. Capacità reale verso 3–6 pax
-3. Ipotesi credibile su vincolo no-patente **oppure** piano patente esplicito
-4. Nella fascia di budget (quando definita) o giustificato scostamento
+- Usato ≤ **4.500 €**
+- **No gommone**; sì gozzo / open / lancia
+- Motore ≤ **40,8 CV**
+- Pesca + giri; tendalino o aftermarket
+- **No carrello**; posto barca **o** terra
+- Gestione ≤ **3.600 €**/anno all-in
+
+| Rank | Candidato | Prezzo | Zona | Score/note | Link |
+|------|-----------|--------|------|------------|------|
+| — | — | — | — | da feed | — |
+
+## Track B — Gommoni
+
+- Criteri [[preferenze/track-gommoni]]
+- Ref [[modelli/argo-evo-360]] (970 €): usato ≈ uguale senza motore → **−20%** min
+- Preferenza Lazio (geo-score)
+
+| Rank | Candidato | Prezzo | Zona | vs Argo | Link |
+|------|-----------|--------|------|---------|------|
+| — | — | — | — | — | — |
+
+## Track C — Motori (abbinamento)
+
+- ≥ **6 CV**, sweet **9.9–15**, max 40,8
+- 4T + gambo corto preferiti
+- Hard ~**≤1.200 €**
+
+| Rank | Candidato | CV | Prezzo | Zona | Link |
+|------|-----------|-----|--------|------|------|
+| — | — | — | — | — | — |
+
+## Criteri di ingresso shortlist “seria”
+
+1. Passa i filtri del proprio track  
+2. Documenti / stato credibili a una prima lettura  
+3. Distanza da casa accettabile (o sconto che compensa)  
+4. TCO / totale scafo+motore sensato vs alternative (incluso Argo nuovo)

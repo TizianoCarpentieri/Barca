@@ -1,36 +1,65 @@
 ---
 title: Must-have
 type: preferenza
-updated: 2026-08-04
+updated: 2026-08-05
 status: active
 tags: [requisiti]
 ---
 
 # Must-have (non negoziabili)
 
-Stato: **seed** — raffinare con il gruppo. Ogni voce va validata (soprattutto normativa).
+Trasversali a **tutti** i track, poi vincoli per track.
+
+## Trasversali
 
 | # | Requisito | Note | Status |
 |---|-----------|------|--------|
-| 1 | Barca a **motore** | Non vela | active |
-| 2 | Utilizzabile **senza patente** (target forte) | ≤30 kW/40,8 CV + cilindrate + ≤6 miglia; nessuno ha patente; ideale non prenderla | active |
-| 3 | Adatta a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio canne/attrezzatura | active |
-| 4 | Divertimento **senza aspettative di performance** | Gruppo consapevole: con 6 pax e 40 CV non esistono performance sportive | active (riformulato) |
-| 5 | Capacità **3 comodi**, target **fino a 6** | Omologazione e comfort reale possono differire | active |
-| 6 | Costi sostenibili per gruppo di amici | Include TCO, non solo prezzo d'acquisto | active |
-| 7 | **Solo usato** | Niente nuovo di listino | active |
-| 8 | Budget acquisto mezzo **≤ 4.500 €** | Stretch minimo solo se “sogno”; riserva lavori a parte | active |
+| 1 | Mezzo a **motore** | Non vela | active |
+| 2 | Uso **senza patente** (target forte) | ≤30 kW / 40,8 CV + regole IT; nessuno ha patente | active |
+| 3 | Adatto a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio | active |
+| 4 | Divertimento **senza performance sportive** | Con 6 pax e ≤40 CV non si pretenda planata allegra | active |
+| 5 | Capacità **3 comodi**, picco **fino a ~6** | Omologazione ≠ comfort | active |
+| 6 | Costi sostenibili (TCO) | Non solo prezzo d’acquisto | active |
+| 7 | Preferenza **usato** sul mercato low-budget | Eccezione: gommone nuovo tipo Argo se più razionale dell’usato gonfio | active |
+| 8 | Budget mezzo **≤ 4.500 €** (track rigidi / pacchetti) | Gommone scafo: ref nuovo **970 €**; motori hard feed ~1.200 € | active |
+| 9 | Base **Lazio** (Ardea/Pomezia) | Score annunci penalizza la distanza | active |
 
-## Esclusioni esplicite
+## Track A — Scafi rigidi (requisiti v1)
 
-- Setup che **richiedono patente** per uso normale del gruppo (finché il vincolo no-patente resta ideale).
-- Aspettativa di planata allegra a 6 adulti con motorizzazione no-patente (non realistica).
-- **Gommoni / RIB / semirigidi** (scelta gruppo 2026-08-04).
-- Preferenza scafo: **rigido, comodo, robusto** (gozzo / open / lancia VTR o equiv.).
-- **Copertura sole** alzabile all’occorrenza (tendalino/bimini): must di comfort, anche aftermarket se assente.
-- **Niente traino / carrello** gestito dal gruppo; eventuali spostamenti a terra = **servizio a pagamento** (cantiere/trasporto).
+| Voce | Valore |
+|------|--------|
+| Forma | **Gozzo / open / lancia** rigida |
+| Escluso su questo track | **Gommone / RIB / semirigido** |
+| Comfort | **Tendalino** alzabile (anche aftermarket) |
+| Rimessaggio | **Posto barca o terra** — **no carrello** gestito dal gruppo |
+
+Dettaglio: [[sintesi/requisiti-v1]].
+
+## Track B — Gommoni pneumatici (parallelo, 2026-08-05)
+
+| Voce | Valore |
+|------|--------|
+| Forma | Pneumatico **smontabile**, **non RIB** |
+| Lunghezza | min 3,30 m; ideale **3,50–3,80 m** |
+| Pax / portata | ≥4 pax; ~≥400 kg |
+| Pavimento | **Al alluminio** (prio1) o **airdeck** (prio2) |
+| Chiglia | Gonfiabile preferibile |
+| Trasporto | **In automobile** |
+| Reference | [[modelli/argo-evo-360]] (970 € nuovo) |
+| Usato ≈ ref | almeno **−20%** senza motore |
+
+Dettaglio: [[preferenze/track-gommoni]].
+
+## Track C — Motori (parallelo)
+
+| Voce | Valore |
+|------|--------|
+| Potenza | **≥ 6 CV** (no 2.5/4); sweet **9.9–15**; max 40,8 |
+| Preferenze | 4 tempi, gambo corto, marche buone |
+
+Dettaglio: [[preferenze/track-motori]].
 
 ## Nota patente
 
-- Stato: **nessuna patente** in gruppo; prenderla è solo ipotesi residuale, non piano.
-- Se in futuro si riapre: una sola patente A sblocca motori tipicamente 60–150 CV e cambia shortlist.
+- Nessuna patente in gruppo; prenderla = ipotesi residuale.  
+- Una patente A cambierebbe shortlist (60–150 CV) — oggi **fuori scope**.
