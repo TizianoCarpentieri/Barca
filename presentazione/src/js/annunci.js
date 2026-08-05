@@ -5,14 +5,64 @@ const updatedEl = document.getElementById('ads-updated')
 const noteEl = document.getElementById('ads-note')
 const statsEl = document.getElementById('ads-stats')
 const filtersEl = document.getElementById('ads-filters')
+const catsEl = document.getElementById('ads-cats')
+const stampEl = document.getElementById('ads-stamp')
+const hardChipEl = document.getElementById('ads-hard-chip')
+const howEl = document.getElementById('ads-how')
 
 if (!listEl) {
   /* not on annunci page */
 } else {
-  const isGommoni = location.pathname.includes('gommoni') || document.body.dataset.feed === 'gommoni'
-  const isMotori = location.pathname.includes('motori') || document.body.dataset.feed === 'motori'
+  const FEEDS = {
+    rigide: {
+      file: 'annunci.json',
+      label: 'Rigide',
+      stamp: 'Rigide',
+      hardMax: 4500,
+      hardLabel: '≤4.500€',
+      ph: 'BARCA',
+      fallbackNote:
+        'Scafo rigido (gozzo/open/lancia). No gommone/RIB. Prezzo low-budget, preferenza Lazio, CV ≤40,8 se dichiarato.',
+      how: 'Feed scafi rigidi: scarta gommoni/RIB e motori soli, prezzi ~800–4.500€ (stretch 5.500), ordina per fit (Lazio, gozzo/open, CV).',
+    },
+    gommoni: {
+      file: 'gommoni.json',
+      label: 'Gommoni',
+      stamp: 'Gommoni',
+      hardMax: 4500,
+      hardLabel: '≤4.500€',
+      ph: 'GOMMONE',
+      fallbackNote:
+        'Gommoni pneumatici (no RIB rigido). ≥3.3 m, ≥4 pax, trasportabili auto, pesca. Paiolato alluminio o airdeck. Ref Argo-Evo 360 a 970€ (−20% usato).',
+      how: 'Feed gommoni: no RIB scafo rigido, lunghezza ideale 3.5–3.8 m, paiolato alluminio > airdeck, chiglia gonfiabile. Usato ≈ nuovo deve costare almeno −20%.',
+    },
+    motori: {
+      file: 'motori.json',
+      label: 'Motori',
+      stamp: 'Motori',
+      hardMax: 900,
+      hardLabel: '≤900€',
+      ph: 'MOTORE',
+      fallbackNote:
+        'Fuoribordo piccoli. 4 tempi e gambo corto preferiti. Ideale 5–20 CV, max 40,8. Adatti a gommoni e barche no-patente.',
+      how: 'Feed motori: fuoribordo ≤40,8 CV (ideale 5–20), 4 tempi preferiti, gambo corto, marche buone. Verifica ore e revisione.',
+    },
+  }
+
+  function detectCat() {
+    const q = new URLSearchParams(location.search).get('cat')
+    if (q && FEEDS[q]) return q
+    const h = (location.hash || '').replace(/^#/, '').toLowerCase()
+    if (h && FEEDS[h]) return h
+    if (location.pathname.includes('gommoni') || document.body.dataset.feed === 'gommoni') return 'gommoni'
+    if (location.pathname.includes('motori') || document.body.dataset.feed === 'motori') return 'motori'
+    return 'rigide'
+  }
+
+  let cat = detectCat()
   let all = []
   let filter = 'all'
+  const cache = {}
 
   const euro = (n) =>
     n == null
@@ -40,13 +90,21 @@ if (!listEl) {
   }
 
   function applyFilter(items) {
-    const hardMax = isMotori ? 900 : 4500
+    const hardMax = FEEDS[cat].hardMax
     return items.filter((it) => {
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
       if (filter === 'alto') return it.fit === 'alto'
       if (filter === 'hard') return it.price != null && it.price <= hardMax
       return true
     })
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
   }
 
   function card(it) {
@@ -57,7 +115,7 @@ if (!listEl) {
     const brand = it.brand ? String(it.brand) : ''
     const floor = it.floor ? String(it.floor) : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
-    const ph = isMotori ? 'MOTORE' : isGommoni ? 'GOMMONE' : 'BARCA'
+    const ph = FEEDS[cat].ph
     const img = it.image
       ? `<img class="ads-card__img" src="${it.image}" alt="" loading="lazy" decoding="async" width="640" height="400" />`
       : `<div class="ads-card__img ads-card__img--ph" aria-hidden="true">${ph}</div>`
@@ -85,49 +143,84 @@ if (!listEl) {
     </article>`
   }
 
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-  }
-
   function render() {
     const items = applyFilter(all)
     listEl.innerHTML = items.map(card).join('')
     emptyEl.hidden = items.length > 0
-    // re-trigger reveal
     listEl.querySelectorAll('[data-reveal]').forEach((el, i) => {
       el.style.setProperty('--d', `${Math.min(i, 8) * 40}ms`)
       requestAnimationFrame(() => el.classList.add('is-in'))
     })
   }
 
+  function syncUi() {
+    const conf = FEEDS[cat]
+    catsEl?.querySelectorAll('[data-cat]').forEach((b) => {
+      const on = b.getAttribute('data-cat') === cat
+      b.classList.toggle('is-on', on)
+      b.setAttribute('aria-selected', on ? 'true' : 'false')
+    })
+    if (stampEl) stampEl.textContent = conf.stamp
+    if (hardChipEl) {
+      hardChipEl.textContent = conf.hardLabel
+      hardChipEl.setAttribute('data-filter', 'hard')
+    }
+    if (howEl) {
+      howEl.innerHTML = `${conf.how}
+        <strong style="color:var(--foam)"> I CV e i documenti vanno sempre controllati a mano.</strong>`
+    }
+    document.title = `Annunci · ${conf.label} — Progetto Barca`
+  }
+
+  function setFilterChip(name) {
+    filter = name
+    filtersEl?.querySelectorAll('[data-filter]').forEach((b) => {
+      b.classList.toggle('is-on', b.getAttribute('data-filter') === name)
+    })
+  }
+
   filtersEl?.querySelectorAll('[data-filter]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      filter = btn.getAttribute('data-filter') || 'all'
-      filtersEl.querySelectorAll('[data-filter]').forEach((b) => b.classList.toggle('is-on', b === btn))
+      setFilterChip(btn.getAttribute('data-filter') || 'all')
       render()
     })
   })
 
-  const base = import.meta.env.BASE_URL || './'
-  const feedFile = isMotori ? 'motori.json' : isGommoni ? 'gommoni.json' : 'annunci.json'
-  const candidates = [
-    `${base}data/${feedFile}`,
-    `./data/${feedFile}`,
-    `data/${feedFile}`,
-    `/Barca/data/${feedFile}`,
-  ]
+  catsEl?.querySelectorAll('[data-cat]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = btn.getAttribute('data-cat')
+      if (!next || !FEEDS[next] || next === cat) return
+      cat = next
+      const url = new URL(location.href)
+      url.searchParams.set('cat', cat)
+      url.hash = ''
+      history.replaceState(null, '', url.pathname + url.search)
+      setFilterChip('all')
+      loadCat()
+    })
+  })
 
-  async function load() {
+  const base = import.meta.env.BASE_URL || './'
+
+  function candidatesFor(file) {
+    return [
+      `${base}data/${file}`,
+      `./data/${file}`,
+      `data/${file}`,
+      `/Barca/data/${file}`,
+    ]
+  }
+
+  async function fetchFeed(file) {
+    if (cache[file]) return cache[file]
     let lastErr
-    for (const url of candidates) {
+    for (const url of candidatesFor(file)) {
       try {
         const res = await fetch(url, { cache: 'no-cache' })
         if (!res.ok) throw new Error(`${res.status} ${url}`)
-        return await res.json()
+        const data = await res.json()
+        cache[file] = data
+        return data
       } catch (e) {
         lastErr = e
       }
@@ -135,31 +228,46 @@ if (!listEl) {
     throw lastErr || new Error('Feed non trovato')
   }
 
-  load()
-    .then((data) => {
-      all = data.items || []
-      updatedEl.textContent = `Aggiornato ${when(data.updated_at)}`
-      const s = data.stats || {}
-      noteEl.textContent =
-        data.filters?.note ||
-        (isMotori
-          ? 'Motori fuoribordo piccoli. 4 tempi e gambo corto preferiti. Adatti gommoni 3.3-4m e barche no-patente.'
-          : isGommoni
-            ? 'Gommoni pneumatici (no RIB rigido). Lunghezza ≥3.3m, ≥4 pax, trasportabili auto, pesca. Paiolato alluminio o airdeck preferiti.'
-            : 'Filtri automatici: no gommone, prezzo low-budget, preferenza scafo rigido / Lazio.')
-      statsEl.hidden = false
-      statsEl.innerHTML = `
-        <div class="ads-stats__item"><strong>${s.shown ?? all.length}</strong><span>in lista</span></div>
-        <div class="ads-stats__item"><strong>${s.lazio_in_shown ?? '—'}</strong><span>Lazio</span></div>
-        <div class="ads-stats__item"><strong>${s.scanned_unique ?? '—'}</strong><span>scansionati</span></div>
-      `
-      filtersEl.hidden = false
-      document.getElementById('ads-stamp')?.classList.add('stamp--ok')
-      render()
-    })
-    .catch((e) => {
-      updatedEl.textContent = 'Feed non disponibile'
-      errEl.hidden = false
-      errEl.textContent = `Impossibile caricare gli annunci. (${e.message || e}) Riprova dopo il prossimo aggiornamento automatico.`
-    })
+  function showLoading() {
+    updatedEl.textContent = 'Caricamento…'
+    listEl.innerHTML = ''
+    emptyEl.hidden = true
+    errEl.hidden = true
+    errEl.textContent = ''
+    statsEl.hidden = true
+    filtersEl.hidden = true
+    stampEl?.classList.remove('stamp--ok')
+  }
+
+  function applyData(data) {
+    const conf = FEEDS[cat]
+    all = data.items || []
+    updatedEl.textContent = `Aggiornato ${when(data.updated_at)}`
+    noteEl.textContent = data.filters?.note || conf.fallbackNote
+    const s = data.stats || {}
+    statsEl.hidden = false
+    statsEl.innerHTML = `
+      <div class="ads-stats__item"><strong>${s.shown ?? all.length}</strong><span>in lista</span></div>
+      <div class="ads-stats__item"><strong>${s.lazio_in_shown ?? '—'}</strong><span>Lazio</span></div>
+      <div class="ads-stats__item"><strong>${s.scanned_unique ?? '—'}</strong><span>scansionati</span></div>
+    `
+    filtersEl.hidden = false
+    stampEl?.classList.add('stamp--ok')
+    render()
+  }
+
+  function loadCat() {
+    syncUi()
+    showLoading()
+    fetchFeed(FEEDS[cat].file)
+      .then(applyData)
+      .catch((e) => {
+        all = []
+        updatedEl.textContent = 'Feed non disponibile'
+        errEl.hidden = false
+        errEl.textContent = `Impossibile caricare gli annunci. (${e.message || e}) Riprova dopo il prossimo aggiornamento automatico.`
+      })
+  }
+
+  loadCat()
 }

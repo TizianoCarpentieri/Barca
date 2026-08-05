@@ -2,105 +2,14 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b0908" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content="telephone=no" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-    <style>
-      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
-      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
-      *,*::before,*::after{ box-sizing:border-box; }
-    </style>
+    <meta http-equiv="refresh" content="0;url=./annunci.html?cat=motori" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Motori → Annunci</title>
     <script>
-      (function () {
-        var short = Math.min(screen.width || 0, screen.height || 0);
-        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
-        var phone = touch && short > 0 && short < 700;
-        var m = document.querySelector('meta[name="viewport"]');
-        if (!m) {
-          m = document.createElement('meta');
-          m.name = 'viewport';
-          document.head.insertBefore(m, document.head.firstChild);
-        }
-        if (phone) {
-          m.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover');
-          setTimeout(function () {
-            var cw = document.documentElement.clientWidth || window.innerWidth;
-            if (screen.width && cw > screen.width + 60) {
-              m.setAttribute('content', 'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover');
-            }
-            document.documentElement.classList.add('is-phone');
-          }, 0);
-        } else {
-          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
-        }
-        document.documentElement.style.width = '100%';
-        document.documentElement.style.maxWidth = '100%';
-        if (phone) document.documentElement.classList.add('is-phone');
-      })();
+      location.replace('./annunci.html?cat=motori')
     </script>
-    <meta name="description" content="Motori fuoribordo live filtrati — adatti a gommoni piccoli e barche senza patente. Feed Subito parallelo." />
-    <title>Motori — Progetto Barca</title>
-    <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
-  <body data-feed="motori">
-    <div class="glow-orb" aria-hidden="true"></div>
-    <main class="page">
-      <header class="ph wrap">
-        <a class="ph__back" href="./index.html">← Manifesto</a>
-        <span class="eyebrow">Feed live · Subito · Motori</span>
-        <h1 class="display display-lg">Motori</h1>
-        <p class="ph__sub">Fuoribordo piccoli adatti a gommoni 3.3–4 m e barche no-patente. 4 tempi preferiti, gambo corto, 5–20 CV ideali. Verifica sempre ore e revisione.</p>
-      </header>
-
-      <section class="sec wrap">
-        <div class="ads-meta" id="ads-meta">
-          <div class="ads-meta__row">
-            <span class="stamp stamp--brass" id="ads-stamp">Feed Motori</span>
-            <span class="ads-meta__updated" id="ads-updated">Caricamento…</span>
-          </div>
-          <p class="ads-meta__note" id="ads-note"></p>
-        </div>
-
-        <div class="ads-filters" id="ads-filters" hidden>
-          <button type="button" class="ads-chip is-on" data-filter="all">Tutti</button>
-          <button type="button" class="ads-chip" data-filter="lazio">Lazio</button>
-          <button type="button" class="ads-chip" data-filter="alto">Fit alto</button>
-          <button type="button" class="ads-chip" data-filter="hard">≤900€</button>
-        </div>
-
-        <div class="ads-stats" id="ads-stats" hidden></div>
-        <div class="ads-list" id="ads-list" aria-live="polite"></div>
-        <p class="ads-empty" id="ads-empty" hidden>Nessun annuncio con questi filtri. Prova “Tutti”.</p>
-        <p class="ads-error" id="ads-error" hidden></p>
-      </section>
-
-      <section class="sec wrap">
-        <div class="card" data-reveal>
-          <div class="card-title">Criteri motori (feed parallelo)</div>
-          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.9em; line-height:1.35">
-            <li><strong>Potenza:</strong> ideale 5–15/20 CV (fino a 40.8 CV max)</li>
-            <li><strong>Tipo:</strong> 4 tempi fortemente preferiti</li>
-            <li><strong>Gambo:</strong> corto (15") ideale per gommoni piccoli</li>
-            <li><strong>Marche:</strong> Yamaha, Suzuki, Mercury, Tohatsu, Hidea, Honda</li>
-            <li><strong>Condizione:</strong> poco usato / revisionato / buone condizioni</li>
-            <li><strong>Compatibilità:</strong> per gommoni 3.3–4 m (es. Argo-Evo 360 e simili)</li>
-            <li><strong>No patente:</strong> potenze adatte a barche che non la richiedono</li>
-          </ul>
-          <p style="margin-top:0.5rem">
-            Feed parallelo a rigidi e gommoni. Lo score premia 4 tempi + marche buone + gambo corto + condizioni. 
-            <strong style="color:var(--foam)">Verifica sempre ore di utilizzo, tagliandi e compatibilità.</strong>
-          </p>
-        </div>
-      </section>
-
-      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it · terza pagina parallela (dopo rigidi e gommoni)</p>
-    </main>
-    <script type="module" src="/src/js/app.js"></script>
-    <script type="module" src="/src/js/annunci.js"></script>
+  <body>
+    <p><a href="./annunci.html?cat=motori">Vai agli annunci motori</a></p>
   </body>
 </html>

@@ -1312,6 +1312,38 @@ html.is-phone .badge {
 }
 
 /* ——— annunci feed ——— */
+.ads-cats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+  margin: 0 0 1.15rem;
+  padding: 0.35rem;
+  border-radius: 1rem;
+  background: rgba(28, 23, 20, 0.95);
+  border: 1px solid rgba(243, 235, 224, 0.1);
+}
+
+.ads-cat {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.75rem 0.4rem;
+  min-height: 48px;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--foam-dim);
+}
+
+.ads-cat.is-on {
+  color: var(--foam);
+  background: rgba(255, 59, 10, 0.2);
+  border-color: rgba(255, 59, 10, 0.45);
+  box-shadow: 0 0 0 1px rgba(255, 59, 10, 0.12);
+}
+
 .ads-meta {
   margin-bottom: 1rem;
 }

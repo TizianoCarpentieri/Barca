@@ -43,7 +43,7 @@
         if (phone) document.documentElement.classList.add('is-phone');
       })();
     </script>
-    <meta name="description" content="Annunci live filtrati per i requisiti delle Bestie — Subito Nautica." />
+    <meta name="description" content="Annunci live filtrati — rigide, gommoni e motori. Requisiti Bestie · Subito Nautica." />
     <title>Annunci — Progetto Barca</title>
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
@@ -54,10 +54,16 @@
         <a class="ph__back" href="./index.html">← Manifesto</a>
         <span class="eyebrow">Feed live · Subito</span>
         <h1 class="display display-lg">Annunci</h1>
-        <p class="ph__sub">Candidati grezzi allineati ai filtri Bestie. Non sono consigli d’acquisto: aprili e verifica.</p>
+        <p class="ph__sub">Scegli la categoria. Candidati grezzi allineati ai filtri Bestie — non sono consigli d’acquisto.</p>
       </header>
 
       <section class="sec wrap">
+        <div class="ads-cats" id="ads-cats" role="tablist" aria-label="Categoria annunci">
+          <button type="button" class="ads-cat is-on" data-cat="rigide" role="tab" aria-selected="true">Rigide</button>
+          <button type="button" class="ads-cat" data-cat="gommoni" role="tab" aria-selected="false">Gommoni</button>
+          <button type="button" class="ads-cat" data-cat="motori" role="tab" aria-selected="false">Motori</button>
+        </div>
+
         <div class="ads-meta" id="ads-meta">
           <div class="ads-meta__row">
             <span class="stamp stamp--brass" id="ads-stamp">Feed</span>
@@ -70,7 +76,7 @@
           <button type="button" class="ads-chip is-on" data-filter="all">Tutti</button>
           <button type="button" class="ads-chip" data-filter="lazio">Lazio</button>
           <button type="button" class="ads-chip" data-filter="alto">Fit alto</button>
-          <button type="button" class="ads-chip" data-filter="hard">≤4.500€</button>
+          <button type="button" class="ads-chip" data-filter="hard" id="ads-hard-chip">≤4.500€</button>
         </div>
 
         <div class="ads-stats" id="ads-stats" hidden></div>
@@ -82,10 +88,8 @@
       <section class="sec wrap">
         <div class="card" data-reveal>
           <div class="card-title">Come funziona</div>
-          <p>
-            Ogni giorno (e a ogni deploy) uno script legge l’API pubblica di ricerca Subito (categoria Nautica).
-            Per le barche rigide scarta gommoni/RIB; esiste un feed parallelo per gommoni pneumatici (gommoni.html).
-            Prezzi ~800–4.500€ (stretch 5.500). Ordina per fit (Lazio, scafo, CV).
+          <p id="ads-how">
+            Tre feed paralleli da Subito (cat. Nautica): scafi rigidi, gommoni pneumatici, motori fuoribordo.
             <strong style="color:var(--foam)">I CV e i documenti vanno sempre controllati a mano.</strong>
           </p>
         </div>

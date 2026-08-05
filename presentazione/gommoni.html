@@ -2,106 +2,14 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b0908" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content="telephone=no" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-    <style>
-      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
-      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
-      *,*::before,*::after{ box-sizing:border-box; }
-    </style>
+    <meta http-equiv="refresh" content="0;url=./annunci.html?cat=gommoni" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gommoni → Annunci</title>
     <script>
-      (function () {
-        var short = Math.min(screen.width || 0, screen.height || 0);
-        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
-        var phone = touch && short > 0 && short < 700;
-        var m = document.querySelector('meta[name="viewport"]');
-        if (!m) {
-          m = document.createElement('meta');
-          m.name = 'viewport';
-          document.head.insertBefore(m, document.head.firstChild);
-        }
-        if (phone) {
-          m.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover');
-          setTimeout(function () {
-            var cw = document.documentElement.clientWidth || window.innerWidth;
-            if (screen.width && cw > screen.width + 60) {
-              m.setAttribute('content', 'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover');
-            }
-            document.documentElement.classList.add('is-phone');
-          }, 0);
-        } else {
-          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
-        }
-        document.documentElement.style.width = '100%';
-        document.documentElement.style.maxWidth = '100%';
-        if (phone) document.documentElement.classList.add('is-phone');
-      })();
+      location.replace('./annunci.html?cat=gommoni')
     </script>
-    <meta name="description" content="Gommoni pneumatici live filtrati per i requisiti delle Bestie — Subito Nautica. No RIB rigidi." />
-    <title>Gommoni — Progetto Barca</title>
-    <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
-  <body data-feed="gommoni">
-    <div class="glow-orb" aria-hidden="true"></div>
-    <main class="page">
-      <header class="ph wrap">
-        <a class="ph__back" href="./index.html">← Manifesto</a>
-        <span class="eyebrow">Feed live · Subito · Gommoni</span>
-        <h1 class="display display-lg">Gommoni</h1>
-        <p class="ph__sub">Gommoni pneumatici (no RIB con scafo rigido). Piccoli, trasportabili in auto, adatti pesca. 3.3–3.9 m ideali. Non sono consigli d’acquisto: verifica sempre.</p>
-      </header>
-
-      <section class="sec wrap">
-        <div class="ads-meta" id="ads-meta">
-          <div class="ads-meta__row">
-            <span class="stamp stamp--brass" id="ads-stamp">Feed Gommoni</span>
-            <span class="ads-meta__updated" id="ads-updated">Caricamento…</span>
-          </div>
-          <p class="ads-meta__note" id="ads-note"></p>
-        </div>
-
-        <div class="ads-filters" id="ads-filters" hidden>
-          <button type="button" class="ads-chip is-on" data-filter="all">Tutti</button>
-          <button type="button" class="ads-chip" data-filter="lazio">Lazio</button>
-          <button type="button" class="ads-chip" data-filter="alto">Fit alto</button>
-          <button type="button" class="ads-chip" data-filter="hard">≤4.500€</button>
-        </div>
-
-        <div class="ads-stats" id="ads-stats" hidden></div>
-        <div class="ads-list" id="ads-list" aria-live="polite"></div>
-        <p class="ads-empty" id="ads-empty" hidden>Nessun annuncio con questi filtri. Prova “Tutti”.</p>
-        <p class="ads-error" id="ads-error" hidden></p>
-      </section>
-
-      <section class="sec wrap">
-        <div class="card" data-reveal>
-          <div class="card-title">Criteri gommoni (parallel feed)</div>
-          <ul style="margin:0.5rem 0 0; padding-left:1.1rem; font-size:0.9em; line-height:1.35">
-            <li><strong>Tipo:</strong> gommone smontabile / pneumatico, non RIB (no scafo rigido in vetroresina)</li>
-            <li><strong>Lunghezza:</strong> min 3,30 m — ideale 3,50–3,80 m</li>
-            <li><strong>Capacità:</strong> ≥4 persone, portata minima ~400 kg</li>
-            <li><strong>Chiglia:</strong> gonfiabile preferibile</li>
-            <li><strong>Poppa:</strong> specchio per motore fuoribordo</li>
-            <li><strong>Pavimento:</strong> 1. paiolato rigido alluminio — 2. airdeck alta pressione</li>
-            <li><strong>Trasporto:</strong> trasportabile in automobile (leggero, smontabile o portapacchi)</li>
-            <li><strong>Uso:</strong> pesca in mare prioritario</li>
-          </ul>
-          <p style="margin-top:0.6rem">
-            Regola: usato praticamente identico al nuovo (ref Argo-Evo 360 a 970€) deve costare almeno il 20% in meno (~776€) senza motore. Bundle con motore buono può essere conveniente.
-            <strong style="color:var(--foam)">Verifica sempre telaio, pressione, documenti e motore.</strong>
-          </p>
-        </div>
-      </section>
-
-      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it · feed parallelo ai rigidi</p>
-    </main>
-    <script type="module" src="/src/js/app.js"></script>
-    <script type="module" src="/src/js/annunci.js"></script>
+  <body>
+    <p><a href="./annunci.html?cat=gommoni">Vai agli annunci gommoni</a></p>
   </body>
 </html>

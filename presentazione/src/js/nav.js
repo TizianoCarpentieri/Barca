@@ -25,9 +25,9 @@ export function mountNav() {
     <div class="dock-sheet__panel" role="dialog" aria-label="Menu pagine">
       <div class="dock-sheet__handle"></div>
       <div class="dock-sheet__grid">
-        <a href="./annunci.html"><strong>Annunci</strong><span>Feed rigidi</span></a>
-        <a href="./gommoni.html"><strong>Gommoni</strong><span>Feed parallelo (pneumatici)</span></a>
-        <a href="./motori.html"><strong>Motori</strong><span>Fuoribordo parallelo</span></a>
+        <a href="./annunci.html"><strong>Annunci</strong><span>Rigide · Gommoni · Motori</span></a>
+        <a href="./annunci.html?cat=gommoni"><strong>Gommoni</strong><span>Feed pneumatici</span></a>
+        <a href="./annunci.html?cat=motori"><strong>Motori</strong><span>Fuoribordo</span></a>
         <a href="./equipaggio.html"><strong>Equipaggio</strong><span>Le tre bestie</span></a>
         <a href="./priorita.html"><strong>Priorità</strong><span>Pesca prima di tutto</span></a>
         <a href="./base.html"><strong>Base</strong><span>Lazio · rimessaggio</span></a>
