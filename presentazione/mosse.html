@@ -16,6 +16,20 @@
       img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
       *,*::before,*::after{ box-sizing:border-box; }
     </style>
+    <script>
+      (function () {
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+      })();
+    </script>
+
     <title>Prossime mosse — Progetto Barca</title>
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>

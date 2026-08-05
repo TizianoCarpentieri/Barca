@@ -16,6 +16,20 @@
       img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
       *,*::before,*::after{ box-sizing:border-box; }
     </style>
+    <script>
+      (function () {
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+      })();
+    </script>
+
     <meta name="description" content="Progetto Barca — il manifesto delle Bestie. Missione: barca a motore, no patente, pesca sul Tirreno laziale." />
     <meta property="og:title" content="Progetto Barca — Le Bestie" />
     <meta property="og:description" content="Budget, regole, base Lazio e prossime mosse. Per Antonio, Peppe e il resto della crew." />
