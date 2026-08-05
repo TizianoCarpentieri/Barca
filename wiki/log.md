@@ -14,6 +14,32 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Aggiornamento: ogni deploy + cron GitHub Actions 06:15/18:15 UTC.
 - URL: https://tizianocarpentieri.github.io/Barca/annunci.html
 
+## [2026-08-05] setup | Feed parallelo Gommoni
+
+- Nuova sezione parallela per gommoni pneumatici (no RIB scafo rigido).
+- Script dedicato `presentazione/scripts/fetch-gommoni.mjs` + `public/data/gommoni.json`.
+- Criteri: ≥3.30 m (ideale 3.5–3.8), ≥4 pax, portata ~400kg, paiolato alluminio (prio1) o airdeck (prio2), chiglia gonfiabile pref., trasportabile auto, specchio poppa fuoribordo, pesca.
+- Pagina `presentazione/gommoni.html`, link da index + dock nav.
+- Stesso aggiornamento automatico via GitHub Actions (doppio fetch).
+- Snapshot raw: `subito-gommoni-YYYY-MM-DD.json`.
+- Vedi `gommoni.html` per elenco completo requisiti.
+
+## [2026-08-05] ricerca | Reference Argo-Evo 360 AL
+
+- Prodotto benchmark nuovo: 3.60 m, paiolato alluminio, chiglia gonfiabile, 5 pax, 475 kg, 68 kg barca, max 20 HP (raccom. 9.9-15), 970 €.
+- Salvato in `raw/mercato/argo-evo-360-al-reference-2026-08-05.md`.
+- Regola applicata: usato identico deve costare almeno 20% in meno (~776€) senza motore. Bundle con motore buono può valere di più.
+- Scoring proporzionale anche su lunghezze vicine (non solo esatta 3.6 m).
+
+## [2026-08-05] setup | Feed parallelo Motori
+
+- Terza pagina parallela: `presentazione/motori.html` + `public/data/motori.json`.
+- Script `scripts/fetch-motori.mjs`.
+- Filtro: fuoribordo ≤40.8 CV (ideale 5-20), 4 tempi preferiti, gambo corto, marche buone, adatti gommoni 3.3-4 m.
+- Navigazione: tile + dock + sheet.
+- Aggiornato automaticamente insieme agli altri due feed.
+- "Motori che non serve patente" per combo con i nostri gommoni.
+
 ## [2026-08-04] setup | Presentazione web manifesto
 
 - Sito multipagina in `presentazione/` (Vite + vanilla, mobile-first, GitHub Pages).

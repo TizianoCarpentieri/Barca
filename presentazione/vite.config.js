@@ -16,6 +16,8 @@ export default defineConfig({
         mosse: resolve(__dirname, 'mosse.html'),
         status: resolve(__dirname, 'status.html'),
         annunci: resolve(__dirname, 'annunci.html'),
+        gommoni: resolve(__dirname, 'gommoni.html'),
+        motori: resolve(__dirname, 'motori.html'),
       },
     },
   },

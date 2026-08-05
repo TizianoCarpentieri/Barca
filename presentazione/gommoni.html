@@ -43,24 +43,24 @@
         if (phone) document.documentElement.classList.add('is-phone');
       })();
     </script>
-    <meta name="description" content="Annunci live filtrati per i requisiti delle Bestie — Subito Nautica." />
-    <title>Annunci — Progetto Barca</title>
+    <meta name="description" content="Gommoni pneumatici live filtrati per i requisiti delle Bestie — Subito Nautica. No RIB rigidi." />
+    <title>Gommoni — Progetto Barca</title>
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
-  <body>
+  <body data-feed="gommoni">
     <div class="glow-orb" aria-hidden="true"></div>
     <main class="page">
       <header class="ph wrap">
         <a class="ph__back" href="./index.html">← Manifesto</a>
-        <span class="eyebrow">Feed live · Subito</span>
-        <h1 class="display display-lg">Annunci</h1>
-        <p class="ph__sub">Candidati grezzi allineati ai filtri Bestie. Non sono consigli d’acquisto: aprili e verifica.</p>
+        <span class="eyebrow">Feed live · Subito · Gommoni</span>
+        <h1 class="display display-lg">Gommoni</h1>
+        <p class="ph__sub">Gommoni pneumatici (no RIB con scafo rigido). Piccoli, trasportabili in auto, adatti pesca. 3.3–3.9 m ideali. Non sono consigli d’acquisto: verifica sempre.</p>
       </header>
 
       <section class="sec wrap">
         <div class="ads-meta" id="ads-meta">
           <div class="ads-meta__row">
-            <span class="stamp stamp--brass" id="ads-stamp">Feed</span>
+            <span class="stamp stamp--brass" id="ads-stamp">Feed Gommoni</span>
             <span class="ads-meta__updated" id="ads-updated">Caricamento…</span>
           </div>
           <p class="ads-meta__note" id="ads-note"></p>
@@ -81,17 +81,25 @@
 
       <section class="sec wrap">
         <div class="card" data-reveal>
-          <div class="card-title">Come funziona</div>
-          <p>
-            Ogni giorno (e a ogni deploy) uno script legge l’API pubblica di ricerca Subito (categoria Nautica).
-            Per le barche rigide scarta gommoni/RIB; esiste un feed parallelo per gommoni pneumatici (gommoni.html).
-            Prezzi ~800–4.500€ (stretch 5.500). Ordina per fit (Lazio, scafo, CV).
-            <strong style="color:var(--foam)">I CV e i documenti vanno sempre controllati a mano.</strong>
+          <div class="card-title">Criteri gommoni (parallel feed)</div>
+          <ul style="margin:0.5rem 0 0; padding-left:1.1rem; font-size:0.9em; line-height:1.35">
+            <li><strong>Tipo:</strong> gommone smontabile / pneumatico, non RIB (no scafo rigido in vetroresina)</li>
+            <li><strong>Lunghezza:</strong> min 3,30 m — ideale 3,50–3,80 m</li>
+            <li><strong>Capacità:</strong> ≥4 persone, portata minima ~400 kg</li>
+            <li><strong>Chiglia:</strong> gonfiabile preferibile</li>
+            <li><strong>Poppa:</strong> specchio per motore fuoribordo</li>
+            <li><strong>Pavimento:</strong> 1. paiolato rigido alluminio — 2. airdeck alta pressione</li>
+            <li><strong>Trasporto:</strong> trasportabile in automobile (leggero, smontabile o portapacchi)</li>
+            <li><strong>Uso:</strong> pesca in mare prioritario</li>
+          </ul>
+          <p style="margin-top:0.6rem">
+            Regola: usato praticamente identico al nuovo (ref Argo-Evo 360 a 970€) deve costare almeno il 20% in meno (~776€) senza motore. Bundle con motore buono può essere conveniente.
+            <strong style="color:var(--foam)">Verifica sempre telaio, pressione, documenti e motore.</strong>
           </p>
         </div>
       </section>
 
-      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it</p>
+      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it · feed parallelo ai rigidi</p>
     </main>
     <script type="module" src="/src/js/app.js"></script>
     <script type="module" src="/src/js/annunci.js"></script>

@@ -32,9 +32,17 @@ jobs:
       - name: Install
         working-directory: presentazione
         run: npm ci
-      - name: Fetch annunci Subito
+      - name: Fetch annunci Subito (barche)
         working-directory: presentazione
         run: node scripts/fetch-annunci.mjs
+        continue-on-error: true
+      - name: Fetch annunci Subito (gommoni)
+        working-directory: presentazione
+        run: node scripts/fetch-gommoni.mjs
+        continue-on-error: true
+      - name: Fetch motori fuoribordo
+        working-directory: presentazione
+        run: node scripts/fetch-motori.mjs
         continue-on-error: true
       - name: Build
         working-directory: presentazione

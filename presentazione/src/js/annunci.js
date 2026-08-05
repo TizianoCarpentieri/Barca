@@ -9,6 +9,8 @@ const filtersEl = document.getElementById('ads-filters')
 if (!listEl) {
   /* not on annunci page */
 } else {
+  const isGommoni = location.pathname.includes('gommoni') || document.body.dataset.feed === 'gommoni'
+  const isMotori = location.pathname.includes('motori') || document.body.dataset.feed === 'motori'
   let all = []
   let filter = 'all'
 
@@ -38,10 +40,11 @@ if (!listEl) {
   }
 
   function applyFilter(items) {
+    const hardMax = isMotori ? 900 : 4500
     return items.filter((it) => {
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
       if (filter === 'alto') return it.fit === 'alto'
-      if (filter === 'hard') return it.price != null && it.price <= 4500
+      if (filter === 'hard') return it.price != null && it.price <= hardMax
       return true
     })
   }
@@ -51,10 +54,13 @@ if (!listEl) {
       it.fit === 'alto' ? 'ads-fit--alto' : it.fit === 'stretch' ? 'ads-fit--stretch' : 'ads-fit--mid'
     const cv = it.cv != null ? `${it.cv} CV` : 'CV n.d.'
     const len = it.length_m != null ? `${it.length_m} m` : ''
+    const brand = it.brand ? String(it.brand) : ''
+    const floor = it.floor ? String(it.floor) : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
+    const ph = isMotori ? 'MOTORE' : isGommoni ? 'GOMMONE' : 'BARCA'
     const img = it.image
       ? `<img class="ads-card__img" src="${it.image}" alt="" loading="lazy" decoding="async" width="640" height="400" />`
-      : `<div class="ads-card__img ads-card__img--ph" aria-hidden="true">BARCA</div>`
+      : `<div class="ads-card__img ads-card__img--ph" aria-hidden="true">${ph}</div>`
 
     return `<article class="ads-card" data-reveal>
       <a class="ads-card__link" href="${it.url}" target="_blank" rel="noopener noreferrer">
@@ -68,6 +74,8 @@ if (!listEl) {
           <div class="ads-card__tags">
             <span>${escapeHtml(cv)}</span>
             ${len ? `<span>${escapeHtml(len)}</span>` : ''}
+            ${brand ? `<span>${escapeHtml(brand)}</span>` : ''}
+            ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
             <span>score ${it.score ?? '—'}</span>
           </div>
           ${reasons ? `<p class="ads-card__why">${escapeHtml(reasons)}</p>` : ''}
@@ -105,11 +113,12 @@ if (!listEl) {
   })
 
   const base = import.meta.env.BASE_URL || './'
+  const feedFile = isMotori ? 'motori.json' : isGommoni ? 'gommoni.json' : 'annunci.json'
   const candidates = [
-    `${base}data/annunci.json`,
-    './data/annunci.json',
-    'data/annunci.json',
-    '/Barca/data/annunci.json',
+    `${base}data/${feedFile}`,
+    `./data/${feedFile}`,
+    `data/${feedFile}`,
+    `/Barca/data/${feedFile}`,
   ]
 
   async function load() {
@@ -133,7 +142,11 @@ if (!listEl) {
       const s = data.stats || {}
       noteEl.textContent =
         data.filters?.note ||
-        'Filtri automatici: no gommone, prezzo low-budget, preferenza scafo rigido / Lazio.'
+        (isMotori
+          ? 'Motori fuoribordo piccoli. 4 tempi e gambo corto preferiti. Adatti gommoni 3.3-4m e barche no-patente.'
+          : isGommoni
+            ? 'Gommoni pneumatici (no RIB rigido). Lunghezza ≥3.3m, ≥4 pax, trasportabili auto, pesca. Paiolato alluminio o airdeck preferiti.'
+            : 'Filtri automatici: no gommone, prezzo low-budget, preferenza scafo rigido / Lazio.')
       statsEl.hidden = false
       statsEl.innerHTML = `
         <div class="ads-stats__item"><strong>${s.shown ?? all.length}</strong><span>in lista</span></div>

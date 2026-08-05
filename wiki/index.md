@@ -20,7 +20,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Sito manifesto multipagina (Vite) — share mobile |
+| `presentazione/` | Sito manifesto multipagina (Vite) — share mobile (rigidi + gommoni + motori paralleli) |
 
 ## Mercato
 

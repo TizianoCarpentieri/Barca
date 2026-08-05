@@ -43,24 +43,24 @@
         if (phone) document.documentElement.classList.add('is-phone');
       })();
     </script>
-    <meta name="description" content="Annunci live filtrati per i requisiti delle Bestie — Subito Nautica." />
-    <title>Annunci — Progetto Barca</title>
+    <meta name="description" content="Motori fuoribordo live filtrati — adatti a gommoni piccoli e barche senza patente. Feed Subito parallelo." />
+    <title>Motori — Progetto Barca</title>
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
-  <body>
+  <body data-feed="motori">
     <div class="glow-orb" aria-hidden="true"></div>
     <main class="page">
       <header class="ph wrap">
         <a class="ph__back" href="./index.html">← Manifesto</a>
-        <span class="eyebrow">Feed live · Subito</span>
-        <h1 class="display display-lg">Annunci</h1>
-        <p class="ph__sub">Candidati grezzi allineati ai filtri Bestie. Non sono consigli d’acquisto: aprili e verifica.</p>
+        <span class="eyebrow">Feed live · Subito · Motori</span>
+        <h1 class="display display-lg">Motori</h1>
+        <p class="ph__sub">Fuoribordo piccoli adatti a gommoni 3.3–4 m e barche no-patente. 4 tempi preferiti, gambo corto, 5–20 CV ideali. Verifica sempre ore e revisione.</p>
       </header>
 
       <section class="sec wrap">
         <div class="ads-meta" id="ads-meta">
           <div class="ads-meta__row">
-            <span class="stamp stamp--brass" id="ads-stamp">Feed</span>
+            <span class="stamp stamp--brass" id="ads-stamp">Feed Motori</span>
             <span class="ads-meta__updated" id="ads-updated">Caricamento…</span>
           </div>
           <p class="ads-meta__note" id="ads-note"></p>
@@ -70,7 +70,7 @@
           <button type="button" class="ads-chip is-on" data-filter="all">Tutti</button>
           <button type="button" class="ads-chip" data-filter="lazio">Lazio</button>
           <button type="button" class="ads-chip" data-filter="alto">Fit alto</button>
-          <button type="button" class="ads-chip" data-filter="hard">≤4.500€</button>
+          <button type="button" class="ads-chip" data-filter="hard">≤900€</button>
         </div>
 
         <div class="ads-stats" id="ads-stats" hidden></div>
@@ -81,17 +81,24 @@
 
       <section class="sec wrap">
         <div class="card" data-reveal>
-          <div class="card-title">Come funziona</div>
-          <p>
-            Ogni giorno (e a ogni deploy) uno script legge l’API pubblica di ricerca Subito (categoria Nautica).
-            Per le barche rigide scarta gommoni/RIB; esiste un feed parallelo per gommoni pneumatici (gommoni.html).
-            Prezzi ~800–4.500€ (stretch 5.500). Ordina per fit (Lazio, scafo, CV).
-            <strong style="color:var(--foam)">I CV e i documenti vanno sempre controllati a mano.</strong>
+          <div class="card-title">Criteri motori (feed parallelo)</div>
+          <ul style="margin:0.4rem 0 0; padding-left:1.1rem; font-size:0.9em; line-height:1.35">
+            <li><strong>Potenza:</strong> ideale 5–15/20 CV (fino a 40.8 CV max)</li>
+            <li><strong>Tipo:</strong> 4 tempi fortemente preferiti</li>
+            <li><strong>Gambo:</strong> corto (15") ideale per gommoni piccoli</li>
+            <li><strong>Marche:</strong> Yamaha, Suzuki, Mercury, Tohatsu, Hidea, Honda</li>
+            <li><strong>Condizione:</strong> poco usato / revisionato / buone condizioni</li>
+            <li><strong>Compatibilità:</strong> per gommoni 3.3–4 m (es. Argo-Evo 360 e simili)</li>
+            <li><strong>No patente:</strong> potenze adatte a barche che non la richiedono</li>
+          </ul>
+          <p style="margin-top:0.5rem">
+            Feed parallelo a rigidi e gommoni. Lo score premia 4 tempi + marche buone + gambo corto + condizioni. 
+            <strong style="color:var(--foam)">Verifica sempre ore di utilizzo, tagliandi e compatibilità.</strong>
           </p>
         </div>
       </section>
 
-      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it</p>
+      <p class="footer-note wrap">Fonte non ufficiale · link a Subito.it · terza pagina parallela (dopo rigidi e gommoni)</p>
     </main>
     <script type="module" src="/src/js/app.js"></script>
     <script type="module" src="/src/js/annunci.js"></script>
