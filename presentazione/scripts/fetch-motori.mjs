@@ -1,7 +1,7 @@
 /**
- * Fetch annunci Subito per MOTORI FUORIBORDO piccoli (adatti gommoni 3.3-4m e barche senza patente).
- * Focus: 4 tempi preferiti, gambo corto, potenza utile per gommoni (5-20 HP ideale), fino a ~25-40 CV max.
- * Pagina parallela ai feed rigidi e gommoni.
+ * Fetch annunci Subito per MOTORI FUORIBORDO adatti a gommoni 3.3–4 m (es. Argo-Evo 360).
+ * Min 6 CV (scarta 2.5/3.5/4 — troppo piccoli). Ideale 9.9–15–20 CV. Max 40.8 no-patente.
+ * 4 tempi + gambo corto preferiti.
  *
  * Scrive public/data/motori.json
  */
@@ -23,31 +23,41 @@ const HEADERS = {
   Referer: 'https://www.subito.it/annunci-italia/vendita/nautica/',
 }
 
-const PRICE_MIN = 120
-const PRICE_HARD = 900
-const PRICE_STRETCH = 1100
+const PRICE_MIN = 200
+const PRICE_HARD = 1200
+const PRICE_STRETCH = 1600
+const MIN_CV = 6 // sotto: troppo piccoli per gommoni 3.5–4 m (scarta 2.5 / 3.5 / 4)
+const IDEAL_CV_MIN = 8
+const IDEAL_CV_MAX = 20
+const SWEET_CV_MIN = 9.9
+const SWEET_CV_MAX = 15
 const MAX_CV = 40.8
 
 const QUERIES = [
-  'motore fuoribordo',
-  'fuoribordo 4 tempi',
-  'fuoribordo 4t',
+  'fuoribordo 9.9',
+  'fuoribordo 15',
+  'fuoribordo 20',
   'yamaha 9.9',
-  'yamaha 15',
-  'suzuki 10',
+  'yamaha 15 4t',
+  'yamaha 20 4t',
+  'suzuki 9.9',
   'suzuki 15 4t',
+  'suzuki df15',
+  'suzuki df20',
   'mercury 9.9',
   'mercury 15 4 tempi',
-  'tohatsu 8',
+  'mercury 20 4t',
+  'tohatsu 9.9',
   'tohatsu 15',
+  'honda 10',
+  'honda 15 4t',
   'hidea 9.9',
-  'motore 10 cv',
+  'hidea 15',
+  'motore 10 cv 4t',
   'motore 15 cv 4t',
-  'fuoribordo 20 cv',
-  'fuoribordo usato 4 tempi',
-  'motore fuoribordo lazio',
-  'yamaha 4t usato',
-  'suzuki df',
+  'fuoribordo 8 cv 4t',
+  'fuoribordo lazio 15',
+  'fuoribordo lazio 9.9',
 ]
 
 const EXCLUDE_BIG_RE = /\b(40|50|60|70|80|90|100|115|150)\s*(cv|hp|cavalli)\b/i
@@ -69,19 +79,30 @@ function priceOf(ad) {
   return Number.isFinite(n) ? n : null
 }
 
-function extractCv(text) {
-  if (!text) return null
-  const t = text.replace(',', '.')
-  const cvs = []
-  const re = /(\d{1,2}(?:\.\d)?)\s*(?:cv|hp|cavalli)\b/gi
-  let m
-  while ((m = re.exec(t))) cvs.push(parseFloat(m[1]))
-  const kws = []
-  const rekw = /(\d{1,2}(?:\.\d)?)\s*kw\b/gi
-  while ((m = rekw.exec(t))) kws.push(parseFloat(m[1]) * 1.3596)
-  const all = [...cvs, ...kws].filter((n) => n > 0 && n < 200)
-  if (!all.length) return null
-  return Math.max(...all)
+function extractCv(text, subject = '') {
+  if (!text && !subject) return null
+  // Preferisci CV dal titolo (più affidabile)
+  const pick = (src) => {
+    if (!src) return []
+    const t = src.replace(',', '.')
+    const cvs = []
+    const re = /(\d{1,2}(?:\.\d)?)\s*(?:cv|hp|cavalli)\b/gi
+    let m
+    while ((m = re.exec(t))) cvs.push(parseFloat(m[1]))
+    return cvs.filter((n) => n > 0 && n < 200)
+  }
+  const fromSub = pick(subject)
+  if (fromSub.length) {
+    // nel titolo di solito c'è la potenza reale; prendi il max ragionevole ≤40.8
+    const ok = fromSub.filter((n) => n <= MAX_CV)
+    return ok.length ? Math.max(...ok) : Math.max(...fromSub)
+  }
+  const fromAll = pick(text)
+  if (!fromAll.length) return null
+  // evita di prendere "2.5" da confronti se c'è anche un 15 nel body
+  const useful = fromAll.filter((n) => n >= MIN_CV && n <= MAX_CV)
+  if (useful.length) return Math.max(...useful)
+  return Math.max(...fromAll)
 }
 
 function extractBrand(text) {
@@ -139,7 +160,7 @@ function normalize(ad) {
   const city = ad.geo?.city?.value || ''
   const town = ad.geo?.town?.value || ''
   const place = [town, city, region].filter(Boolean).join(' · ')
-  const cv = extractCv(text)
+  const cv = extractCv(text, subject)
   const brand = extractBrand(text)
   const fourStroke = is4T(text)
   const twoStroke = is2T(text)
@@ -195,25 +216,33 @@ function classify(item) {
     // troppi "solo motore" senza contesto
   }
 
-  // Potenza
+  // Potenza — scarta i “motorini” 2.5/3.5/4 CV (troppo piccoli per 3.5–4 m)
   if (item.cv != null) {
     if (item.cv > MAX_CV) {
       return { status: 'reject', score: 0, reasons: [`${item.cv} CV > ${MAX_CV}`] }
     }
-    if (item.cv >= 5 && item.cv <= 15) {
-      score += 22
-      reasons.push(`${item.cv} CV (ideale gommoni)`)
-    } else if (item.cv <= 20) {
-      score += 14
-      reasons.push(`${item.cv} CV`)
+    if (item.cv < MIN_CV) {
+      return { status: 'reject', score: 0, reasons: [`${item.cv} CV troppo piccolo (min ${MIN_CV})`] }
+    }
+    if (item.cv >= SWEET_CV_MIN && item.cv <= SWEET_CV_MAX) {
+      score += 28
+      reasons.push(`${item.cv} CV (sweet 9.9–15)`)
+    } else if (item.cv >= IDEAL_CV_MIN && item.cv <= IDEAL_CV_MAX) {
+      score += 20
+      reasons.push(`${item.cv} CV (ideale 8–20)`)
+    } else if (item.cv >= MIN_CV && item.cv < IDEAL_CV_MIN) {
+      score += 4
+      reasons.push(`${item.cv} CV (al limite basso)`)
     } else if (item.cv <= 25) {
-      score += 6
+      score += 8
+      reasons.push(`${item.cv} CV`)
     } else {
       score -= 4
+      reasons.push(`${item.cv} CV alto`)
     }
   } else {
     reasons.push('CV n.d. — verificare')
-    score -= 5
+    score -= 8
   }
 
   // 4 tempi forte preferito
@@ -336,9 +365,9 @@ async function main() {
     source: 'subito.it via hades.subito.it',
     filters: {
       price_eur: `${PRICE_MIN}–${PRICE_HARD} (stretch ≤${PRICE_STRETCH})`,
-      power: `≤${MAX_CV} CV (ideale 5-20 CV per gommoni piccoli)`,
+      power: `${MIN_CV}–${MAX_CV} CV (scarta <${MIN_CV}; sweet 9.9–15; ideale 8–20)`,
       type: 'fuoribordo 4 tempi preferiti, gambo corto',
-      note: 'Feed parallelo per motori adatti a gommoni 3.3-4m e barche no-patente. Verifica sempre ore, revisione e compatibilità gambo.',
+      note: 'Niente 2.5/4 CV: troppo piccoli per gommoni 3.5–4 m. Target 9.9–15–20 CV. Verifica ore, revisione e gambo.',
     },
     stats: {
       scanned_unique: byId.size,

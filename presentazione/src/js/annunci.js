@@ -119,12 +119,12 @@ if (!listEl) {
       file: 'motori.json',
       label: 'Motori',
       stamp: 'Motori',
-      hardMax: 900,
-      hardLabel: '≤900€',
+      hardMax: 1200,
+      hardLabel: '≤1.200€',
       ph: 'MOTORE',
       fallbackNote:
-        'Fuoribordo ≤40,8 CV (ideale 5–20). Filtro hard ≤900€. Lazio preferito; lontano penalizza lo score.',
-      how: 'Feed motori. Filtro prezzo hard ≤900€. Score ridotto fuori zona operativa.',
+        'Fuoribordo da 6 CV in su (niente 2.5/4). Sweet 9.9–15 CV, ideale 8–20. Hard ≤1.200€. Lazio preferito.',
+      how: 'Feed motori per gommoni 3.5–4 m: scarta sotto 6 CV. Target 9.9–15–20. Hard ≤1.200€.',
     },
   }
 
