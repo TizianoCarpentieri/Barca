@@ -15,6 +15,7 @@ export default defineConfig({
         mercato: resolve(__dirname, 'mercato.html'),
         mosse: resolve(__dirname, 'mosse.html'),
         status: resolve(__dirname, 'status.html'),
+        annunci: resolve(__dirname, 'annunci.html'),
       },
     },
   },
