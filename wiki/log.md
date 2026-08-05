@@ -6,6 +6,14 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-05] setup | Feed annunci Subito live
+
+- Pagina `presentazione/annunci.html` + JSON `public/data/annunci.json`.
+- Script `presentazione/scripts/fetch-annunci.mjs` (hades.subito.it, cat. Nautica).
+- Filtri: no gommone/RIB, prezzo ~800–4500 (stretch 5500), preferenza gozzo/open/Lazio, CV≤40,8 se dichiarato.
+- Aggiornamento: ogni deploy + cron GitHub Actions 06:15/18:15 UTC.
+- URL: https://tizianocarpentieri.github.io/Barca/annunci.html
+
 ## [2026-08-04] setup | Presentazione web manifesto
 
 - Sito multipagina in `presentazione/` (Vite + vanilla, mobile-first, GitHub Pages).
