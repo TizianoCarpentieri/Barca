@@ -8,6 +8,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { applyDistanceScore } from './geo-score.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/gommoni.json')
@@ -362,9 +363,19 @@ function classify(item) {
     reasons.push('cv n.d.')
   }
 
+  // Distanza da base (Ardea/Pomezia): lontano = come se costasse di più
+  const geo = applyDistanceScore(item, score, reasons)
+  score = geo.score
+
   if (score < 40 && status === 'ok') status = 'weak'
 
-  return { status, score, reasons }
+  return {
+    status,
+    score,
+    reasons,
+    distance_factor: geo.factor,
+    effective_price: geo.effectivePrice,
+  }
 }
 
 async function main() {
@@ -406,6 +417,8 @@ async function main() {
       status: c.status,
       score: c.score,
       reasons: c.reasons,
+      distance_factor: c.distance_factor ?? 1,
+      effective_price: c.effective_price ?? item.price,
       fit:
         c.status === 'ok' && c.score >= 55
           ? 'alto'

@@ -7,12 +7,91 @@ const statsEl = document.getElementById('ads-stats')
 const filtersEl = document.getElementById('ads-filters')
 const catsEl = document.getElementById('ads-cats')
 const stampEl = document.getElementById('ads-stamp')
-const hardChipEl = document.getElementById('ads-hard-chip')
 const howEl = document.getElementById('ads-how')
 
 if (!listEl) {
   /* not on annunci page */
 } else {
+  /* ——— geo: base Ardea/Pomezia (allineato a scripts/geo-score.mjs) ——— */
+  const LAZIO_TOWNS =
+    /\b(anzio|nettuno|pomezia|ardea|fiumicino|roma|ostia|circeo|san\s*felice|sperlonga|gaeta|formia|latina|civitavecchia|santa\s*marinella|ladispoli|torvaianica|aprilia|minturno|fondi|terracina|sabaudia)\b/i
+  const REGION_PRICE_FACTOR = {
+    Lazio: 1.0,
+    Toscana: 1.12,
+    Umbria: 1.14,
+    Abruzzo: 1.14,
+    Marche: 1.15,
+    Campania: 1.12,
+    Molise: 1.18,
+    'Emilia-Romagna': 1.2,
+    Liguria: 1.18,
+    Basilicata: 1.2,
+    Puglia: 1.2,
+    Calabria: 1.25,
+    Sicilia: 1.3,
+    Sardegna: 1.32,
+    Lombardia: 1.28,
+    Piemonte: 1.3,
+    "Valle d'Aosta": 1.32,
+    Veneto: 1.28,
+    'Friuli-Venezia Giulia': 1.3,
+    'Trentino-Alto Adige': 1.3,
+  }
+
+  function distanceFactor(it) {
+    const place = `${it.place || ''} ${it.town || ''} ${it.city || ''}`
+    if (it.region === 'Lazio' || LAZIO_TOWNS.test(place)) return 1.0
+    const f = REGION_PRICE_FACTOR[it.region]
+    return typeof f === 'number' ? f : 1.28
+  }
+
+  /** Ricalcola score se il JSON non ha ancora distance_factor (o per coerenza UI). */
+  function withGeoScore(it) {
+    const factor =
+      it.distance_factor != null && it.distance_factor > 0 ? it.distance_factor : distanceFactor(it)
+    const price = it.price
+    const effectivePrice =
+      it.effective_price != null
+        ? it.effective_price
+        : price != null
+          ? Math.round(price * factor)
+          : null
+
+    // Se il feed ha già applicato la distanza (reason lontano / distance_factor), non doppiare
+    const already =
+      it.distance_factor != null ||
+      (it.reasons || []).some((r) => /lontano/i.test(String(r)))
+
+    let score = it.score ?? 0
+    const reasons = [...(it.reasons || [])]
+    if (!already && factor > 1.001) {
+      let penalty = Math.round((factor - 1) * 80)
+      if (effectivePrice != null && price != null) {
+        penalty = Math.max(penalty, Math.round((effectivePrice - price) / 12.5))
+      }
+      score -= penalty
+      if (effectivePrice != null) reasons.push(`lontano (≈${effectivePrice}€ eq.)`)
+    }
+
+    const fit =
+      it.status === 'stretch'
+        ? 'stretch'
+        : score >= 55 && it.status !== 'weak'
+          ? 'alto'
+          : score >= 45
+            ? 'medio'
+            : 'basso'
+
+    return {
+      ...it,
+      score,
+      reasons,
+      distance_factor: factor,
+      effective_price: effectivePrice,
+      fit,
+    }
+  }
+
   const FEEDS = {
     rigide: {
       file: 'annunci.json',
@@ -22,8 +101,8 @@ if (!listEl) {
       hardLabel: '≤4.500€',
       ph: 'BARCA',
       fallbackNote:
-        'Scafo rigido (gozzo/open/lancia). No gommone/RIB. Prezzo low-budget, preferenza Lazio, CV ≤40,8 se dichiarato.',
-      how: 'Feed scafi rigidi: scarta gommoni/RIB e motori soli, prezzi ~800–4.500€ (stretch 5.500), ordina per fit (Lazio, gozzo/open, CV).',
+        'Scafo rigido. Score ridotto se lontano da Ardea/Pomezia (es. 1000€ in Puglia ≈ 1200€).',
+      how: 'Feed scafi rigidi. Score anche in base alla distanza dalla base Lazio (Ardea/Pomezia).',
     },
     gommoni: {
       file: 'gommoni.json',
@@ -33,8 +112,8 @@ if (!listEl) {
       hardLabel: '≤4.500€',
       ph: 'GOMMONE',
       fallbackNote:
-        'Gommoni pneumatici (no RIB rigido). ≥3.3 m, ≥4 pax, trasportabili auto, pesca. Paiolato alluminio o airdeck. Ref Argo-Evo 360 a 970€ (−20% usato).',
-      how: 'Feed gommoni: no RIB scafo rigido, lunghezza ideale 3.5–3.8 m, paiolato alluminio > airdeck, chiglia gonfiabile. Usato ≈ nuovo deve costare almeno −20%.',
+        'Gommoni pneumatici. Distanza da casa pesa sullo score (Puglia ×1.2). Ref Argo 970€ (−20% usato).',
+      how: 'Feed gommoni. Lontano dalla base = prezzo equivalente più alto e score più basso.',
     },
     motori: {
       file: 'motori.json',
@@ -44,8 +123,8 @@ if (!listEl) {
       hardLabel: '≤900€',
       ph: 'MOTORE',
       fallbackNote:
-        'Fuoribordo piccoli. 4 tempi e gambo corto preferiti. Ideale 5–20 CV, max 40,8. Adatti a gommoni e barche no-patente.',
-      how: 'Feed motori: fuoribordo ≤40,8 CV (ideale 5–20), 4 tempi preferiti, gambo corto, marche buone. Verifica ore e revisione.',
+        'Fuoribordo ≤40,8 CV (ideale 5–20). Filtro hard ≤900€. Lazio preferito; lontano penalizza lo score.',
+      how: 'Feed motori. Filtro prezzo hard ≤900€. Score ridotto fuori zona operativa.',
     },
   }
 
@@ -54,8 +133,8 @@ if (!listEl) {
     if (q && FEEDS[q]) return q
     const h = (location.hash || '').replace(/^#/, '').toLowerCase()
     if (h && FEEDS[h]) return h
-    if (location.pathname.includes('gommoni') || document.body.dataset.feed === 'gommoni') return 'gommoni'
-    if (location.pathname.includes('motori') || document.body.dataset.feed === 'motori') return 'motori'
+    if (location.pathname.includes('gommoni')) return 'gommoni'
+    if (location.pathname.includes('motori')) return 'motori'
     return 'rigide'
   }
 
@@ -76,8 +155,7 @@ if (!listEl) {
   const when = (iso) => {
     if (!iso) return '—'
     try {
-      const d = new Date(iso)
-      return d.toLocaleString('it-IT', {
+      return new Date(iso).toLocaleString('it-IT', {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -89,12 +167,16 @@ if (!listEl) {
     }
   }
 
+  function hardMax() {
+    return FEEDS[cat].hardMax
+  }
+
   function applyFilter(items) {
-    const hardMax = FEEDS[cat].hardMax
+    const max = hardMax()
     return items.filter((it) => {
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
       if (filter === 'alto') return it.fit === 'alto'
-      if (filter === 'hard') return it.price != null && it.price <= hardMax
+      if (filter === 'hard') return it.price != null && it.price <= max
       return true
     })
   }
@@ -120,13 +202,23 @@ if (!listEl) {
       ? `<img class="ads-card__img" src="${it.image}" alt="" loading="lazy" decoding="async" width="640" height="400" />`
       : `<div class="ads-card__img ads-card__img--ph" aria-hidden="true">${ph}</div>`
 
+    const showEq =
+      it.effective_price != null &&
+      it.price != null &&
+      it.distance_factor > 1.05 &&
+      it.effective_price !== it.price
+
     return `<article class="ads-card" data-reveal>
       <a class="ads-card__link" href="${it.url}" target="_blank" rel="noopener noreferrer">
         <div class="ads-card__media">${img}
           <span class="ads-fit ${fitClass}">${it.fit || '—'}</span>
         </div>
         <div class="ads-card__body">
-          <div class="ads-card__price">${euro(it.price)}</div>
+          <div class="ads-card__price">${euro(it.price)}${
+            showEq
+              ? `<span class="ads-card__eq" title="Prezzo equivalente a casa (distanza)"> ≈${euro(it.effective_price)}</span>`
+              : ''
+          }</div>
           <h2 class="ads-card__title">${escapeHtml(it.subject)}</h2>
           <p class="ads-card__place">${escapeHtml(it.place || 'Italia')}</p>
           <div class="ads-card__tags">
@@ -153,6 +245,17 @@ if (!listEl) {
     })
   }
 
+  function syncHardChip() {
+    const conf = FEEDS[cat]
+    const hardBtn =
+      document.getElementById('ads-hard-chip') ||
+      filtersEl?.querySelector('[data-filter="hard"]')
+    if (hardBtn) {
+      hardBtn.textContent = conf.hardLabel
+      hardBtn.dataset.hardMax = String(conf.hardMax)
+    }
+  }
+
   function syncUi() {
     const conf = FEEDS[cat]
     catsEl?.querySelectorAll('[data-cat]').forEach((b) => {
@@ -161,13 +264,10 @@ if (!listEl) {
       b.setAttribute('aria-selected', on ? 'true' : 'false')
     })
     if (stampEl) stampEl.textContent = conf.stamp
-    if (hardChipEl) {
-      hardChipEl.textContent = conf.hardLabel
-      hardChipEl.setAttribute('data-filter', 'hard')
-    }
+    syncHardChip()
     if (howEl) {
       howEl.innerHTML = `${conf.how}
-        <strong style="color:var(--foam)"> I CV e i documenti vanno sempre controllati a mano.</strong>`
+        <strong style="color:var(--foam)"> Verifica sempre documenti e stato.</strong>`
     }
     document.title = `Annunci · ${conf.label} — Progetto Barca`
   }
@@ -179,25 +279,23 @@ if (!listEl) {
     })
   }
 
-  filtersEl?.querySelectorAll('[data-filter]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      setFilterChip(btn.getAttribute('data-filter') || 'all')
-      render()
-    })
+  filtersEl?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-filter]')
+    if (!btn || !filtersEl.contains(btn)) return
+    setFilterChip(btn.getAttribute('data-filter') || 'all')
+    render()
   })
 
-  catsEl?.querySelectorAll('[data-cat]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const next = btn.getAttribute('data-cat')
-      if (!next || !FEEDS[next] || next === cat) return
-      cat = next
-      const url = new URL(location.href)
-      url.searchParams.set('cat', cat)
-      url.hash = ''
-      history.replaceState(null, '', url.pathname + url.search)
-      setFilterChip('all')
-      loadCat()
-    })
+  catsEl?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-cat]')
+    if (!btn || !catsEl.contains(btn)) return
+    const next = btn.getAttribute('data-cat')
+    if (!next || !FEEDS[next] || next === cat) return
+    cat = next
+    const url = new URL(location.href)
+    history.replaceState(null, '', `${url.pathname}?cat=${encodeURIComponent(cat)}`)
+    setFilterChip('all')
+    loadCat()
   })
 
   const base = import.meta.env.BASE_URL || './'
@@ -235,23 +333,27 @@ if (!listEl) {
     errEl.hidden = true
     errEl.textContent = ''
     statsEl.hidden = true
-    filtersEl.hidden = true
+    if (filtersEl) filtersEl.hidden = true
     stampEl?.classList.remove('stamp--ok')
   }
 
   function applyData(data) {
     const conf = FEEDS[cat]
-    all = data.items || []
+    all = (data.items || []).map(withGeoScore)
+    all.sort((a, b) => b.score - a.score || (a.price || 9e9) - (b.price || 9e9))
+
     updatedEl.textContent = `Aggiornato ${when(data.updated_at)}`
     noteEl.textContent = data.filters?.note || conf.fallbackNote
     const s = data.stats || {}
+    const lazioN = all.filter((x) => x.region === 'Lazio' || /lazio/i.test(x.place || '')).length
     statsEl.hidden = false
     statsEl.innerHTML = `
       <div class="ads-stats__item"><strong>${s.shown ?? all.length}</strong><span>in lista</span></div>
-      <div class="ads-stats__item"><strong>${s.lazio_in_shown ?? '—'}</strong><span>Lazio</span></div>
+      <div class="ads-stats__item"><strong>${s.lazio_in_shown ?? lazioN}</strong><span>Lazio</span></div>
       <div class="ads-stats__item"><strong>${s.scanned_unique ?? '—'}</strong><span>scansionati</span></div>
     `
-    filtersEl.hidden = false
+    if (filtersEl) filtersEl.hidden = false
+    syncHardChip()
     stampEl?.classList.add('stamp--ok')
     render()
   }
@@ -259,13 +361,15 @@ if (!listEl) {
   function loadCat() {
     syncUi()
     showLoading()
+    // assicurati che il chip hard sia aggiornato anche a filtri hidden
+    syncHardChip()
     fetchFeed(FEEDS[cat].file)
       .then(applyData)
       .catch((e) => {
         all = []
         updatedEl.textContent = 'Feed non disponibile'
         errEl.hidden = false
-        errEl.textContent = `Impossibile caricare gli annunci. (${e.message || e}) Riprova dopo il prossimo aggiornamento automatico.`
+        errEl.textContent = `Impossibile caricare gli annunci. (${e.message || e})`
       })
   }
 
