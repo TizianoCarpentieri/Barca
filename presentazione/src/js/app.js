@@ -1,5 +1,25 @@
 import { mountNav } from './nav.js'
 
+/* Forza viewport mobile se il browser “pensa” di essere desktop */
+;(function fixViewport() {
+  const w = Math.min(screen.width || 0, window.innerWidth || 0) || window.innerWidth
+  const meta = document.querySelector('meta[name="viewport"]')
+  if (!meta) return
+  // Se il layout è più largo dello schermo fisico, riallinea
+  const layoutW = document.documentElement.clientWidth
+  if (screen.width && layoutW > screen.width + 40) {
+    meta.setAttribute(
+      'content',
+      'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
+    )
+    // trigger reflow
+    document.documentElement.style.width = '100%'
+  } else {
+    meta.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover')
+  }
+  document.documentElement.classList.add(window.matchMedia('(pointer: coarse)').matches || w < 700 ? 'is-touch' : 'is-desk')
+})()
+
 mountNav()
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
