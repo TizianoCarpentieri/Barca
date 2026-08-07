@@ -1,10 +1,8 @@
 /**
- * Fetch accessori nautici — Subito (hades) + eBay (Browse API).
- * Scrive public/data/accessori.json (unico feed fuso, tag source per item).
+ * Fetch accessori nautici — Subito (hades).
+ * Scrive public/data/accessori.json (feed Subito).
  *
  * Uso: node scripts/fetch-accessori.mjs
- * eBay: legge EBAY_CLIENT_ID / EBAY_CLIENT_SECRET da env o .env.ebay (locale).
- *       Se mancano le chiavi → solo Subito (con avviso).
  */
 import fs from 'fs'
 import path from 'path'
@@ -49,20 +47,6 @@ const QUERIES = [
   'secchio vivo',
   'kit riparazione gommone',
 ]
-
-/** Load .env.ebay se esiste (locale); in CI arrivano da env del workflow. */
-function loadEnv() {
-  const p = path.join(__dirname, '../.env.ebay')
-  try {
-    const txt = fs.readFileSync(p, 'utf8')
-    for (const line of txt.split('\n')) {
-      const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.*)\s*$/)
-      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].trim()
-    }
-  } catch {
-    /* .env.ebay non esiste → solo env di sistema */
-  }
-}
 
 /* ———————————————————— SUBITO ———————————————————— */
 
@@ -127,88 +111,6 @@ function normalizeSubito(ad) {
   }
 }
 
-/* ———————————————————— EBAY ———————————————————— */
-
-const EBAY_TOKEN_URL = 'https://api.ebay.com/identity/v1/oauth2/token'
-const EBAY_SEARCH_URL = 'https://apim.ebay.com/buy/browse/v1/item_summary/search'
-const EBAY_SCOPE = 'https://api.ebay.com/oauth/api_scope'
-
-async function ebayToken(clientId, clientSecret) {
-  const res = await fetch(EBAY_TOKEN_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
-    },
-    body: new URLSearchParams({
-      grant_type: 'client_credentials',
-      scope: EBAY_SCOPE,
-    }),
-  })
-  if (!res.ok) throw new Error(`eBay token ${res.status}`)
-  const data = await res.json()
-  return data.access_token
-}
-
-async function ebaySearch(token, q, maxPrice) {
-  const u = new URL(EBAY_SEARCH_URL)
-  u.searchParams.set('q', q)
-  u.searchParams.set('limit', '50')
-  u.searchParams.set('filter', `buyingOptions:{FIXED_PRICE},price:[1..${maxPrice}]`)
-  const res = await fetch(u, {
-    headers: { Authorization: `Bearer ${token}`, 'X-EBAY-C-MARKETPLACE-ID': 'EBAY_IT' },
-  })
-  if (!res.ok) {
-    const t = await res.text().catch(() => '')
-    throw new Error(`eBay search ${res.status} q=${q} ${t.slice(0, 120)}`)
-  }
-  return res.json()
-}
-
-function normalizeEbay(it) {
-  const price = parseFloat(it.price?.value)
-  if (!Number.isFinite(price) || price <= 0) return null
-  const shipOpts = (it.shippingOptions || []).filter(
-    (s) => s.shippingCostType === 'FIXED' || s.shippingCostType === 'FREE',
-  )
-  let shippingCost = 0
-  let shippingFree = false
-  let shippingCalculated = false
-  if (it.shippingOptions?.length) {
-    for (const s of it.shippingOptions) {
-      if (s.shippingCostType === 'FREE') { shippingFree = true; break }
-      if (s.shippingCostType === 'FIXED' && s.cost?.value) {
-        shippingCost = parseFloat(s.cost.value) || 0
-        break
-      }
-    }
-  }
-  if (!shippingFree && !shippingCost && it.shippingOptions?.some((s) => s.shippingCostType === 'CALCULATED')) {
-    shippingCalculated = true
-  }
-  const loc = it.itemLocation || {}
-  const region = loc.region || ''
-  const country = loc.country || ''
-  return {
-    source: 'ebay',
-    id: `ebay-${it.itemId}`,
-    subject: (it.title || '').trim(),
-    body: (it.legacyItemId ? `eBay ref ${it.legacyItemId}` : ''),
-    price,
-    effective_price: Math.round((price + shippingCost) * 100) / 100,
-    shipping_cost: shippingCost,
-    shipping_free: shippingFree,
-    shipping_calculated: shippingCalculated,
-    condition: it.condition ? String(it.condition).toLowerCase() : null,
-    region,
-    place: [loc.city, region, country].filter(Boolean).join(' · '),
-    url: it.itemWebUrl,
-    image: it.image?.imageUrl || null,
-    date: it.itemCreationDate || null,
-    brand: null,
-  }
-}
-
 /* ———————————————————— MAIN ———————————————————— */
 
 async function fetchSubito() {
@@ -231,40 +133,11 @@ async function fetchSubito() {
   return { items: [...byId.values()], errors, scanned: byId.size }
 }
 
-async function fetchEbay() {
-  const clientId = process.env.EBAY_CLIENT_ID
-  const clientSecret = process.env.EBAY_CLIENT_SECRET
-  if (!clientId || !clientSecret) {
-    process.stderr.write('EBAY: chiavi mancanti → solo feed Subito\n')
-    return { items: [], errors: ['eBay: chiavi mancanti'], skipped: true }
-  }
-  const token = await ebayToken(clientId, clientSecret)
-  const byId = new Map()
-  const errors = []
-  for (const q of QUERIES) {
-    try {
-      const cat = TIPOLOGIE.find((t) => q === 'elica yamaha 9.9' ? t.id === 'elica' : t.re.test(q))
-      const maxPrice = Math.round((cat?.cap ?? 400) * 1.5)
-      const data = await ebaySearch(token, q, maxPrice)
-      for (const it of data.itemSummaries || []) {
-        const n = normalizeEbay(it)
-        if (!n) continue
-        if (!byId.has(n.id)) byId.set(n.id, n)
-      }
-      await new Promise((r) => setTimeout(r, 400))
-    } catch (e) {
-      errors.push(`ebay ${q}: ${e.message}`)
-    }
-  }
-  return { items: [...byId.values()], errors, scanned: byId.size }
-}
-
 async function main() {
-  loadEnv()
-  const [subito, ebay] = await Promise.all([fetchSubito(), fetchEbay()])
+  const subito = await fetchSubito()
 
   const items = []
-  for (const raw of [...subito.items, ...ebay.items]) {
+  for (const raw of subito.items) {
     const withCat = { ...raw, category: detectCategory(raw) }
     const c = classifyAccessorio(withCat)
     if (c.status === 'reject' || !c.category) continue
@@ -288,20 +161,19 @@ async function main() {
 
   const payload = {
     updated_at: new Date().toISOString(),
-    source: 'subito.it (hades) + ebay.it (Browse API)',
+    source: 'subito.it (hades)',
     filters: {
       note: 'Accessori nautici per barche piccole. Score su ratio prezzo vs nuovo, condizione, marca, distanza/spedizione.',
     },
     stats: {
-      scanned_unique: subito.scanned + ebay.scanned,
+      scanned_unique: subito.scanned,
       kept: items.length,
       subito: subito.items.length,
-      ebay: ebay.items.length,
       alto: items.filter((x) => x.fit === 'alto').length,
       medio: items.filter((x) => x.fit === 'medio').length,
       stretch: items.filter((x) => x.fit === 'stretch').length,
     },
-    errors: [...subito.errors, ...ebay.errors],
+    errors: subito.errors,
     items,
   }
 

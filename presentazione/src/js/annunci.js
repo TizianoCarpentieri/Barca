@@ -57,17 +57,9 @@ if (!listEl) {
           ? Math.round(price * factor)
           : null
 
-    // eBay: il costo di spedizione è già nel prezzo effettivo (no penalità per regione sconosciuta)
-    if (it.source === 'ebay') {
-      const fitE =
-        it.status === 'stretch'
-          ? 'stretch'
-          : it.score >= (FEEDS[cat]?.fitHigh ?? 55)
-            ? 'alto'
-            : it.score >= 45
-              ? 'medio'
-              : 'basso'
-      return { ...it, fit: it.fit ?? fitE, distance_factor: 1, effective_price: effectivePrice }
+    // Accessori: niente penalità distanza (oggetti spedibili via Subito)
+    if (cat === 'accessori') {
+      return { ...it, distance_factor: 1, effective_price: effectivePrice }
     }
 
     // Se il feed ha già applicato la distanza (reason lontano / distance_factor), non doppiare
@@ -147,9 +139,9 @@ if (!listEl) {
       fitHigh: 65,
       ph: 'ACCESSORIO',
       hasEngine: false,
-      fallbackNote:
-        'Accessori nautici per barche piccole (Subito + eBay). Score su rapporto prezzo vs nuovo, condizione, marca, spedizione/distanza.',
-      how: 'Feed accessori (Subito + eBay): ecoscandagli, portacanne, bimini, ancore, sicurezza, pompe… Score premia quanto sei sotto il prezzo nuovo di riferimento.',
+        fallbackNote:
+        'Accessori nautici per barche piccole (Subito). Score su rapporto prezzo vs nuovo, condizione, marca, spedizione/distanza.',
+      how: 'Feed accessori (Subito): ecoscandagli, portacanne, bimini, ancore, sicurezza, pompe… Score premia quanto sei sotto il prezzo nuovo di riferimento.',
     },
   }
 
@@ -224,7 +216,7 @@ if (!listEl) {
     const catLabel = it.category_label ? String(it.category_label) : ''
     const cond = it.condition ? String(it.condition) : ''
     const ratio = it.ratio != null ? `${Math.round(it.ratio * 100)}% del nuovo` : ''
-    const src = it.source === 'ebay' ? 'eBay' : it.source === 'subito' ? 'Subito' : ''
+    const src = it.source === 'subito' ? 'Subito' : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
     const ph = FEEDS[cat].ph
     const img = it.image
