@@ -121,8 +121,8 @@ if (!listEl) {
       file: 'gommoni.json',
       label: 'Gommoni',
       stamp: 'Gommoni',
-      hardMax: 4500,
-      hardLabel: '≤4.500€',
+      hardMax: 1500,
+      hardLabel: '≤1.500€',
       ph: 'GOMMONE',
       fallbackNote:
         'Gommoni pneumatici. Distanza da casa pesa sullo score (Puglia ×1.2). Ref Argo 970€ (−20% usato).',

@@ -24,7 +24,7 @@ const HEADERS = {
   Referer: 'https://www.subito.it/annunci-italia/vendita/nautica/',
 }
 const PRICE_MIN = 300
-const PRICE_HARD = 4500
+const PRICE_HARD = 1500
 const PRICE_STRETCH = 5500
 
 // Reference product benchmark (Argo-Evo 360 AL a 970€ nuovo)
@@ -70,7 +70,7 @@ const RIB_HARD_RE =
 const MOTOR_ONLY_RE =
   /^(vendo\s+)?(motore|fuoribordo|mercury|yamaha|suzuki|tohatsu|evinrude|johnson|honda\s+bf|selva)\b/i
 
-const TRAILER_ONLY_RE = /\b(solo\s+)?carrello\b/i
+const TRAILER_ONLY_RE = /\b(solo\s+)?(carrello|rimorchio)\b/i
 
 const LAZIO_TOWNS =
   /\b(anzio|nettuno|pomezia|ardea|fiumicino|roma|ostia|circeo|san\s*felice|sperlonga|gaeta|formia|latina|civitavecchia|santa\s*marinella|ladispoli|torvaianica|ardea)\b/i

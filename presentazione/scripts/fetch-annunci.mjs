@@ -53,7 +53,7 @@ const MOTOR_ONLY_RE =
 const HULL_HINT_RE =
   /\b(gozzo|open|lancia|barca|fishing|walkaround|vtr|vetroresina|scafo|imbarcazione|pesc)\b/i
 
-const TRAILER_ONLY_RE = /\b(solo\s+)?carrello\b/i
+const TRAILER_ONLY_RE = /\b(solo\s+)?(carrello|rimorchio)\b/i
 
 const LAZIO_TOWNS =
   /\b(anzio|nettuno|pomezia|ardea|fiumicino|roma|ostia|circeo|san\s*felice|sperlonga|gaeta|formia|latina|civitavecchia|santa\s*marinella|ladispoli|torvaianica|ardea)\b/i
