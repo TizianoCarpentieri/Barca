@@ -1417,6 +1417,23 @@ html.is-phone .badge {
   border-color: rgba(243, 235, 224, 0.3);
 }
 
+.ads-new {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 0.35rem;
+  background: rgba(255, 59, 10, 0.88);
+  color: #f3ebe0;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  pointer-events: none;
+}
+
 .ads-chip.is-on {
   color: var(--foam);
   border-color: rgba(255, 59, 10, 0.5);

@@ -205,6 +205,14 @@ if (!listEl) {
     }
   }
 
+  const NOW = new Date()
+  const isRecent = (it) => {
+    try { const d = new Date(it.date); return (NOW - d) / 86400000 < 7 } catch { return false }
+  }
+  const isNewBadge = (it) => {
+    try { const d = new Date(it.date); return (NOW - d) / 86400000 < 2 } catch { return false }
+  }
+
   function hardMax() {
     return FEEDS[cat].hardMax
   }
@@ -215,6 +223,7 @@ if (!listEl) {
       if (isAccess() && destFilter !== 'all' && it.dest !== destFilter) return false
       if (isAccess() && tipFilter !== 'all' && it.category !== tipFilter) return false
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
+      if (filter === 'recent') return isRecent(it)
       if (filter === 'alto') return it.fit === 'alto'
       if (filter === 'hard') return max != null && it.price != null && it.price <= max
       return true
@@ -256,6 +265,7 @@ if (!listEl) {
       <a class="ads-card__link" href="${it.url}" target="_blank" rel="noopener noreferrer">
         <div class="ads-card__media">${img}
           <span class="ads-fit ${fitClass}">${it.fit || '—'}</span>
+          ${isNewBadge(it) ? `<span class="ads-new">Nuovo</span>` : ''}
         </div>
         <div class="ads-card__body">
           <div class="ads-card__price">${euro(it.price)}${
