@@ -44,6 +44,10 @@ jobs:
         working-directory: presentazione
         run: node scripts/fetch-motori.mjs
         continue-on-error: true
+      - name: Update ref prezzi (Subito nuovo mediana)
+        working-directory: presentazione
+        run: node scripts/update-accessori-ref.mjs
+        continue-on-error: true
       - name: Fetch accessori (Subito)
         working-directory: presentazione
         run: node scripts/fetch-accessori.mjs

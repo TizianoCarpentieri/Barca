@@ -10,7 +10,8 @@
     "fetch-annunci": "node scripts/fetch-annunci.mjs",
     "fetch-gommoni": "node scripts/fetch-gommoni.mjs",
     "fetch-motori": "node scripts/fetch-motori.mjs",
-    "fetch-accessori": "node scripts/fetch-accessori.mjs"
+    "fetch-accessori": "node scripts/fetch-accessori.mjs",
+    "update-accessori-ref": "node scripts/update-accessori-ref.mjs"
   },
   "devDependencies": {
     "vite": "^6.0.0"
