@@ -146,6 +146,7 @@ if (!listEl) {
   }
 
   function detectCat() {
+    if (location.pathname.includes('accessori')) return 'accessori'
     const q = new URLSearchParams(location.search).get('cat')
     if (q && FEEDS[q]) return q
     const h = (location.hash || '').replace(/^#/, '').toLowerCase()
@@ -155,10 +156,30 @@ if (!listEl) {
     return 'rigide'
   }
 
+  function isAccess() { return cat === 'accessori' }
+
   let cat = detectCat()
   let all = []
   let filter = 'all'
+  let destFilter = 'all'
+  let tipFilter = 'all'
+  const TIP_LABEL = {}
   const cache = {}
+
+  const DEST_LABELS = {
+    elettronica: 'Elettronica',
+    pesca: 'Pesca',
+    sicurezza: 'Sicurezza & dotazione',
+    scafo: 'Scafo & comfort',
+    motore: 'Motore & manutenzione',
+  }
+  const DEST_TIPS = {
+    elettronica: ['fishfinder', 'fishfinder-deeper', 'plotter', 'supporto', 'radio-vhf', 'binocolo'],
+    pesca: ['portacanne-kit', 'portacanne-poppa', 'killbag', 'sedile', 'galleggianti', 'canne-mulinelli'],
+    sicurezza: ['ancora', 'giubbotto', 'estintore', 'fanali', 'cime'],
+    scafo: ['bimini', 'ombrellone', 'telone', 'parabordi'],
+    motore: ['pompa-sentina', 'elica', 'batteria', 'tanica', 'kit-riparazione', 'cassetta-attrezzi'],
+  }
 
   const euro = (n) =>
     n == null
@@ -191,6 +212,8 @@ if (!listEl) {
   function applyFilter(items) {
     const max = hardMax()
     return items.filter((it) => {
+      if (isAccess() && destFilter !== 'all' && it.dest !== destFilter) return false
+      if (isAccess() && tipFilter !== 'all' && it.category !== tipFilter) return false
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
       if (filter === 'alto') return it.fit === 'alto'
       if (filter === 'hard') return max != null && it.price != null && it.price <= max
@@ -244,6 +267,7 @@ if (!listEl) {
           <p class="ads-card__place">${escapeHtml(it.place || 'Italia')}</p>
           <div class="ads-card__tags">
             ${src ? `<span class="ads-tag--src">${escapeHtml(src)}</span>` : ''}
+            ${it.dest_label ? `<span class="ads-tag--dest">${escapeHtml(it.dest_label)}</span>` : ''}
             ${catLabel ? `<span>${escapeHtml(catLabel)}</span>` : ''}
             ${cond ? `<span>${escapeHtml(cond)}</span>` : ''}
             ${cv ? `<span>${escapeHtml(cv)}</span>` : ''}
@@ -268,6 +292,24 @@ if (!listEl) {
       el.style.setProperty('--d', `${Math.min(i, 8) * 40}ms`)
       requestAnimationFrame(() => el.classList.add('is-in'))
     })
+  }
+
+  function indexTipLabels(items) {
+    for (const it of items) {
+      if (it.category && !TIP_LABEL[it.category]) TIP_LABEL[it.category] = it.category_label || it.category
+    }
+  }
+
+  function renderTips() {
+    const el = document.getElementById('ads-tips')
+    if (!el) return
+    const ids = destFilter === 'all' ? Object.values(DEST_TIPS).flat() : (DEST_TIPS[destFilter] || [])
+    const chips = [`<button type="button" class="ads-chip is-on" data-tip="all">Tutte</button>`]
+    for (const id of ids) {
+      chips.push(`<button type="button" class="ads-chip" data-tip="${id}">${escapeHtml(TIP_LABEL[id] || id)}</button>`)
+    }
+    el.innerHTML = chips.join('')
+    el.hidden = false
   }
 
   function syncHardChip() {
@@ -328,6 +370,24 @@ if (!listEl) {
     loadCat()
   })
 
+  document.getElementById('ads-dests')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-dest]')
+    if (!btn) return
+    destFilter = btn.getAttribute('data-dest') || 'all'
+    document.querySelectorAll('#ads-dests .ads-chip').forEach((b) => b.classList.toggle('is-on', b === btn))
+    tipFilter = 'all'
+    renderTips()
+    render()
+  })
+
+  document.getElementById('ads-tips')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-tip]')
+    if (!btn) return
+    tipFilter = btn.getAttribute('data-tip') || 'all'
+    document.querySelectorAll('#ads-tips .ads-chip').forEach((b) => b.classList.toggle('is-on', b === btn))
+    render()
+  })
+
   const base = import.meta.env.BASE_URL || './'
 
   function candidatesFor(file) {
@@ -372,6 +432,8 @@ if (!listEl) {
     all = (data.items || []).map(withGeoScore)
     all.sort((a, b) => b.score - a.score || (a.price || 9e9) - (b.price || 9e9))
 
+    if (isAccess()) { indexTipLabels(all); renderTips() }
+
     updatedEl.textContent = `Aggiornato ${when(data.updated_at)}`
     noteEl.textContent = data.filters?.note || conf.fallbackNote
     const s = data.stats || {}
@@ -391,7 +453,10 @@ if (!listEl) {
   function loadCat() {
     syncUi()
     showLoading()
-    // assicurati che il chip hard sia aggiornato anche a filtri hidden
+    if (isAccess()) {
+      const destsEl = document.getElementById('ads-dests')
+      if (destsEl) destsEl.hidden = false
+    }
     syncHardChip()
     fetchFeed(FEEDS[cat].file)
       .then(applyData)

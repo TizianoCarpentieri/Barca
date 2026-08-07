@@ -28,6 +28,7 @@ export function mountNav() {
         <a href="./annunci.html"><strong>Annunci</strong><span>Rigide · Gommoni · Motori</span></a>
         <a href="./annunci.html?cat=gommoni"><strong>Gommoni</strong><span>Feed pneumatici</span></a>
         <a href="./annunci.html?cat=motori"><strong>Motori</strong><span>Fuoribordo</span></a>
+        <a href="./accessori.html"><strong>Accessori</strong><span>Ecoscandagli, portacanne, bimini…</span></a>
         <a href="./equipaggio.html"><strong>Equipaggio</strong><span>Le tre bestie</span></a>
         <a href="./priorita.html"><strong>Priorità</strong><span>Pesca prima di tutto</span></a>
         <a href="./base.html"><strong>Base</strong><span>Lazio · rimessaggio</span></a>
