@@ -1,37 +1,58 @@
 /**
- * Scoring accessori nautici — modulo condiviso Subito + eBay.
+ * Scoring accessori nautici — modulo condiviso Subito.
  * Formula: score = 20 (base) + peso_tipologia + bonus_prezzo + condizione + marca + trasporto + compatibilità
  * Fit: alto ≥65 · medio ≥45 · stretch se prezzo > cap · basso <45
+ *
+ * v2 (2026-08-08): sola Subito · cap = ref×2 · 27 tipologie · 5 destinazioni · penalità addolcite · niente distanza
  */
-import { applyDistanceScore } from './geo-score.mjs'
-
 export const TIPOLOGIE = [
-  { id: 'fishfinder',       label: 'Ecoscandaglio',          peso: 30, ref_new: 180, cap: 400, re: /ecoscandaglio|fishfinder|sounder|striker|hook\s?\d|garmin\s+striker|lowrance/i },
-  { id: 'fishfinder-deeper',label: 'Fishfinder portatile',   peso: 28, ref_new: 220, cap: 350, re: /deeper\s*(pro|start)?|fishfinder\s+portatile|portatile.*(fishfinder|ecoscandaglio)/i },
-  { id: 'plotter',          label: 'Plotter / GPS',          peso: 22, ref_new: 350, cap: 700, re: /plotter|gps\s+nautic|chartplotter|gpsmap/i },
-  { id: 'supporto',         label: 'Supporto tablet/phone',  peso: 16, ref_new: 40,  cap: 80,  re: /supporto\s+(tablet|telefono|phone|iphone)|tablet\s+holder|phone\s+holder|staffa\s+tablet|impermeabile.*(tablet|telefono|cellulare)/i },
-  { id: 'portacanne-kit',   label: 'Portacanne kit',         peso: 28, ref_new: 55,  cap: 120, re: /portacanne|porta\s+canne|rod\s*holder|scotty|plastimo/i },
-  { id: 'portacanne-poppa', label: 'Portacanne da poppa',    peso: 26, ref_new: 45,  cap: 100, re: /portacanne.*(poppa|falchetta|gunwale|rail)|poppa.*portacanne|falchetta.*(portacanne|porta\s+canne)/i },
-  { id: 'ancora',           label: 'Ancora + sagola',        peso: 25, ref_new: 35,  cap: 80,  re: /\bancora\b|sagola|anchor/i },
-  { id: 'killbag',          label: 'Kill bag / secchio vivo',peso: 20, ref_new: 35,  cap: 90,  re: /kill\s*bags?|secchio\s+(porta\s*)?vivo|livewell|porta\s*vivo|killbag/i },
-  { id: 'bimini',           label: 'Bimini / tendalino',     peso: 25, ref_new: 130, cap: 320, re: /bimini|tendalino|cagnaro|tenda\s+(parasole|solare)/i },
-  { id: 'ombrellone',       label: 'Ombrellone da barca',    peso: 18, ref_new: 60,  cap: 150, re: /ombrellone/i },
-  { id: 'telone',           label: 'Telone copertura',       peso: 14, ref_new: 90,  cap: 220, re: /telone|cover\s*barca|copertura\s+(stiva|barca|tesa)|boat\s*cover/i },
-  { id: 'giubbotto',        label: 'Giubbotto salvagente',   peso: 20, ref_new: 45,  cap: 100, re: /giubbotto|salvagente|life\s*jacket|\bpfd\b/i },
-  { id: 'estintore',        label: 'Estintore nautico',      peso: 16, ref_new: 40,  cap: 90,  re: /estintore|fire\s*extinguisher/i },
-  { id: 'fanali',           label: 'Fanali di via',          peso: 16, ref_new: 50,  cap: 120, re: /fanali?|luce\s+di\s+via|navigat(ion)?\s+light|fanale/i },
-  { id: 'pompa-sentina',    label: 'Pompa di sentina',       peso: 14, ref_new: 45,  cap: 100, re: /pompa\s+di\s+sentina|bilge\s*pump|pompa\s+sentina/i },
-  { id: 'elica',            label: 'Elica di scorta',        peso: 12, ref_new: 75,  cap: 180, re: /elica|propeller/i },
-  { id: 'batteria',         label: 'Batteria 12V',           peso: 10, ref_new: 60,  cap: 140, re: /batteria|battery/i },
-  { id: 'tanica',           label: 'Tanica / cavi / oli',    peso: 10, ref_new: 25,  cap: 60,  re: /tanica|jerry\s*can|olio\s+motore|cavo\s+di\s+(accensione|avviamento)/i },
-  { id: 'parabordi',        label: 'Parabordi',              peso: 8,  ref_new: 15,  cap: 45,  re: /parabordi|fender/i },
-  { id: 'cime',             label: 'Cime / ormeggio',        peso: 8,  ref_new: 20,  cap: 50,  re: /\bcime\b|cavo\s+(ormeggio|mooring)|ormeggio/i },
-  { id: 'sedile',           label: 'Sedile da pesca',        peso: 12, ref_new: 60,  cap: 140, re: /sedile\s+pesca|seat\s+fishing|pedestal\s*seat/i },
-  { id: 'kit-riparazione',  label: 'Kit riparazione gommone',peso: 10, ref_new: 30,  cap: 70,  re: /kit\s+(riparazione|riparaz)|repair\s+kit|tappo\s+riparazione/i },
+  { id: 'fishfinder',        label: 'Ecoscandaglio',          peso: 30, ref_new: 180, cap: 360, re: /ecoscandaglio|fishfinder|\bsounder\b|striker|hook\s?\d|garmin\s+striker|lowrance/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'fishfinder-deeper', label: 'Fishfinder portatile',   peso: 28, ref_new: 220, cap: 440, re: /deeper\s*(pro|start)?|fishfinder\s+portatile|portatile.*(fishfinder|ecoscandaglio)/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'plotter',           label: 'Plotter / GPS',          peso: 22, ref_new: 350, cap: 700, re: /plotter|gps\s+nautic|chartplotter|gpsmap/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'supporto',          label: 'Supporto tablet/phone',  peso: 16, ref_new: 40,  cap: 80,  re: /supporto\s+(tablet|telefono|phone|iphone)|tablet\s+holder|phone\s+holder|staffa\s+tablet|impermeabile.*(tablet|telefono|cellulare)/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'radio-vhf',         label: 'Radio VHF',              peso: 22, ref_new: 90,  cap: 180, re: /\bvhf\b|radio\s+vhf|marine\s+vhf/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'binocolo',          label: 'Binocolo / vista',       peso: 12, ref_new: 45,  cap: 90,  re: /binocolo|binocular/i, dest: 'elettronica', dest_label: 'Elettronica' },
+  { id: 'portacanne-kit',    label: 'Portacanne kit',         peso: 28, ref_new: 55,  cap: 110, re: /portacanne|porta\s+canne|rod\s*holder|scotty|plastimo/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'portacanne-poppa',  label: 'Portacanne da poppa',    peso: 26, ref_new: 45,  cap: 90,  re: /portacanne.*(poppa|falchetta|gunwale|rail)|poppa.*portacanne|falchetta.*(portacanne|porta\s+canne)/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'killbag',           label: 'Kill bag / secchio vivo',peso: 20, ref_new: 35,  cap: 70,  re: /kill\s*bags?|secchio\s+(porta\s*)?vivo|livewell|porta\s*vivo|killbag/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'sedile',            label: 'Sedile da pesca',        peso: 12, ref_new: 60,  cap: 120, re: /sedile\s+pesca|seat\s+fishing|pedestal\s*seat/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'galleggianti',      label: 'Galleggianti / boe',     peso: 10, ref_new: 10,  cap: 20,  re: /galleggiant|boe|segnalet\w*/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'canne-mulinelli',   label: 'Canne & mulinelli',      peso: 18, ref_new: 50,  cap: 100, re: /mulinell|canna\s+da\s+pesca|spinning\s+rod|combo\s+canne/i, dest: 'pesca', dest_label: 'Pesca' },
+  { id: 'ancora',            label: 'Ancora + sagola',        peso: 25, ref_new: 35,  cap: 70,  re: /\bancora\b|sagola|anchor/i, dest: 'sicurezza', dest_label: 'Sicurezza & dotazione' },
+  { id: 'giubbotto',         label: 'Giubbotto salvagente',   peso: 20, ref_new: 45,  cap: 90,  re: /giubbotto|salvagente|life\s*jacket|\bpfd\b/i, dest: 'sicurezza', dest_label: 'Sicurezza & dotazione' },
+  { id: 'estintore',         label: 'Estintore nautico',      peso: 16, ref_new: 40,  cap: 80,  re: /estintore|fire\s*extinguisher/i, dest: 'sicurezza', dest_label: 'Sicurezza & dotazione' },
+  { id: 'fanali',            label: 'Fanali di via',          peso: 16, ref_new: 50,  cap: 100, re: /fanali?|luce\s+di\s+via|navigat(ion)?\s+light|fanale/i, dest: 'sicurezza', dest_label: 'Sicurezza & dotazione' },
+  { id: 'cime',              label: 'Cime / ormeggio',        peso: 8,  ref_new: 20,  cap: 40,  re: /\bcime\b|cavo\s+(ormeggio|mooring)|ormeggio/i, dest: 'sicurezza', dest_label: 'Sicurezza & dotazione' },
+  { id: 'bimini',            label: 'Bimini / tendalino',     peso: 25, ref_new: 130, cap: 260, re: /bimini|tendalino|cagnaro|tenda\s+(parasole|solare)/i, dest: 'scafo', dest_label: 'Scafo & comfort' },
+  { id: 'ombrellone',        label: 'Ombrellone da barca',    peso: 18, ref_new: 60,  cap: 120, re: /ombrellone/i, dest: 'scafo', dest_label: 'Scafo & comfort' },
+  { id: 'telone',            label: 'Telone copertura',       peso: 14, ref_new: 90,  cap: 180, re: /telone|cover\s*barca|copertura\s+(stiva|barca|tesa)|boat\s*cover/i, dest: 'scafo', dest_label: 'Scafo & comfort' },
+  { id: 'parabordi',         label: 'Parabordi',              peso: 8,  ref_new: 15,  cap: 30,  re: /parabordi|fender/i, dest: 'scafo', dest_label: 'Scafo & comfort' },
+  { id: 'pompa-sentina',     label: 'Pompa di sentina',       peso: 14, ref_new: 45,  cap: 90,  re: /pompa\s+di\s+sentina|bilge\s*pump|pompa\s+sentina/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
+  { id: 'elica',             label: 'Elica di scorta',        peso: 12, ref_new: 75,  cap: 150, re: /elica|propeller/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
+  { id: 'batteria',          label: 'Batteria 12V',           peso: 10, ref_new: 60,  cap: 120, re: /batteria|battery/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
+  { id: 'tanica',            label: 'Tanica / cavi / oli',    peso: 10, ref_new: 25,  cap: 50,  re: /tanica|jerry\s*can|olio\s+motore|cavo\s+di\s+(accensione|avviamento)/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
+  { id: 'kit-riparazione',   label: 'Kit riparazione gommone',peso: 10, ref_new: 30,  cap: 60,  re: /kit\s+(riparazione|riparaz)|repair\s+kit|tappo\s+riparazione/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
+  { id: 'cassetta-attrezzi', label: 'Cassetta attrezzi',      peso: 8,  ref_new: 25,  cap: 50,  re: /cassetta\s+attrezz|attrezz\s+cassetta|tool\s*box/i, dest: 'motore', dest_label: 'Motore & manutenzione' },
 ]
 
 export const BRANDS =
   /\b(garmin|lowrance|raymarine|humminbird|b&g|navionics|deeper|plastimo|lalizas|crewsaver|spinlock|scotty|shakespeare|mercury|yamaha|suzuki|tohatsu|solas|rodcraft|king)\b/i
+
+export const DESTINAZIONI = {
+  elettronica: 'Elettronica',
+  pesca: 'Pesca',
+  sicurezza: 'Sicurezza & dotazione',
+  scafo: 'Scafo & comfort',
+  motore: 'Motore & manutenzione',
+}
+
+export const DEST_TIPS = {
+  elettronica: ['fishfinder', 'fishfinder-deeper', 'plotter', 'supporto', 'radio-vhf', 'binocolo'],
+  pesca: ['portacanne-kit', 'portacanne-poppa', 'killbag', 'sedile', 'galleggianti', 'canne-mulinelli'],
+  sicurezza: ['ancora', 'giubbotto', 'estintore', 'fanali', 'cime'],
+  scafo: ['bimini', 'ombrellone', 'telone', 'parabordi'],
+  motore: ['pompa-sentina', 'elica', 'batteria', 'tanica', 'kit-riparazione', 'cassetta-attrezzi'],
+}
 
 // REJECT fissi di sicurezza
 const SAFETY_REJECT_RE = /giubbotto|salvagente|estintore|razzo|flare/i
@@ -72,10 +93,11 @@ export function extractCondition(item) {
 
 /**
  * Classifica un accessorio.
- * @param {object} item { price, effective_price, shipping_cost, source, subject, body, region, place, town, city, condition, ref_new }
- * @returns {{ status, score, fit, reasons, category, ref_new, cap, ratio }}
+ * @param {object} item { price, effective_price, shipping_cost, source, subject, body, region, place, town, city, condition, ref_new, cap }
+ * @param {object} [refs={}] mappa id→{ref_new,cap} da ref-prezzi.json (model override)
+ * @returns {{ status, score, fit, reasons, category, dest, dest_label, ref_new, cap, ratio }}
  */
-export function classifyAccessorio(item) {
+export function classifyAccessorio(item, refs = {}) {
   const blob = `${item.subject} ${item.body}`.toLowerCase()
   const reasons = []
   const cat = item.category || detectCategory(item)
@@ -84,8 +106,9 @@ export function classifyAccessorio(item) {
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['tipologia non riconosciuta'] }
   }
 
-  const refNew = item.ref_new ?? cat.ref_new
-  const cap = cat.cap
+  const fromRef = refs[cat.id]
+  const refNew = item.ref_new ?? fromRef?.ref_new ?? cat.ref_new
+  const cap = fromRef?.cap ?? cat.cap
   const price = item.price
   if (price == null || price <= 0) {
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['prezzo assente'] }
@@ -104,10 +127,8 @@ export function classifyAccessorio(item) {
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['già venduto'] }
   }
   if (BOAT_AD_RE.test(item.subject.trim()) && !cat.re.test(item.subject)) {
-    // titolo da barca senza parola accessorio nel titolo → scarta
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['annuncio-imbarcazione'] }
   }
-  // titolo che menziona uno scafo ovunque (marca+gommone) senza parola accessorio → quasi certamente barca intera
   if (/\b(gommone|gozzo|open|lancia|barca|tender)\b/i.test(item.subject) && !cat.re.test(item.subject)) {
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['annuncio-imbarcazione'] }
   }
@@ -150,16 +171,16 @@ export function classifyAccessorio(item) {
     return { status: 'reject', score: 0, fit: 'reject', reasons: ['olio/carburante usato'] }
   }
 
-  // ——— bonus prezzo per bande ———
+  // ——— bonus prezzo per bande (penalità addolcite vs v1) ———
   if (cond === 'nuovo' || cond === 'come nuovo') {
     if (ratio <= 1.0) { score += 10; reasons.push(`in linea col nuovo (${Math.round(ratio * 100)}%)`) }
-    else { score -= 15; reasons.push('sopra prezzo nuovo') }
+    else { score -= 10; reasons.push('sopra prezzo nuovo') }
   } else {
     if (ratio <= 0.3) { score += 25; reasons.push(`affare (${Math.round(ratio * 100)}% del nuovo)`) }
     else if (ratio <= 0.5) { score += 15; reasons.push(`buon prezzo (${Math.round(ratio * 100)}%)`) }
     else if (ratio <= 0.75) { score += 5; reasons.push(`in linea (${Math.round(ratio * 100)}%)`) }
     else if (ratio <= 0.9) { score -= 20; reasons.push('tanto vale nuovo') }
-    else { score -= 25; reasons.push('usato carissimo') }
+    else { score -= 15; reasons.push('usato carissimo') }
   }
 
   // ——— sonda inclusa (fishfinder) ———
@@ -176,17 +197,8 @@ export function classifyAccessorio(item) {
   // ——— compatibilità / fit barca ———
   if (SMALL_BOAT_RE.test(blob)) { score += 5; reasons.push('fit barca piccola') }
 
-  // ——— trasporto / distanza ———
-  if (item.source === 'ebay') {
-    const ship = item.shipping_cost ?? 0
-    if (ship > 0) reasons.push(`spedizione ${Math.round(ship)}€`)
-    else if (item.shipping_free) { score += 8; reasons.push('spedizione gratuita') }
-    if (item.shipping_calculated) reasons.push('spedizione da calcolare')
-  } else {
-    if (item.region === 'Lazio' || /lazio/i.test(item.place || '')) { score += 15; reasons.push('Lazio') }
-    const geo = applyDistanceScore(item, score, reasons)
-    score = geo.score
-  }
+  // ——— trasporto / distanza (accessori = spedibili; bonus Lazio contenuto, niente penalità) ———
+  if (item.region === 'Lazio' || /lazio/i.test(item.place || '')) { score += 5; reasons.push('Lazio') }
 
   // ——— cap → stretch ———
   if (price > cap) { status = 'stretch'; reasons.push(`oltre cap ${cap}€`) }
@@ -200,6 +212,8 @@ export function classifyAccessorio(item) {
     reasons: reasons.slice(0, 6),
     category: cat.id,
     category_label: cat.label,
+    dest: cat.dest,
+    dest_label: cat.dest_label || cat.dest,
     ref_new: refNew,
     cap,
     ratio: Number(ratio.toFixed(2)),

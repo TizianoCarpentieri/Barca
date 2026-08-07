@@ -136,15 +136,23 @@ async function fetchSubito() {
 async function main() {
   const subito = await fetchSubito()
 
+  let refs = {}
+  try {
+    const raw = JSON.parse(fs.readFileSync(path.join(__dirname, 'ref-prezzi.json'), 'utf8'))
+    for (const m of raw.modelli || []) refs[m.id] = m
+  } catch { /* ref-prezzi.json assente o non valido — fallback alla baseline di TIPOLOGIE */ }
+
   const items = []
   for (const raw of subito.items) {
     const withCat = { ...raw, category: detectCategory(raw) }
-    const c = classifyAccessorio(withCat)
+    const c = classifyAccessorio(withCat, refs)
     if (c.status === 'reject' || !c.category) continue
     items.push({
       ...raw,
       category: c.category,
       category_label: c.category_label,
+      dest: c.dest,
+      dest_label: c.dest_label,
       condition: withCat.condition ?? null,
       status: c.status,
       score: c.score,

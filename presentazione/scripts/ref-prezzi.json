@@ -1,0 +1,195 @@
+{
+  "updated_at": "2026-08-08",
+  "source": "baseline manuale da TIPOLOGIE",
+  "modelli": [
+    {
+      "id": "fishfinder",
+      "ref_new": 180,
+      "cap": 360,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "fishfinder-deeper",
+      "ref_new": 220,
+      "cap": 440,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "plotter",
+      "ref_new": 350,
+      "cap": 700,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "supporto",
+      "ref_new": 40,
+      "cap": 80,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "radio-vhf",
+      "ref_new": 90,
+      "cap": 180,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "binocolo",
+      "ref_new": 45,
+      "cap": 90,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "portacanne-kit",
+      "ref_new": 55,
+      "cap": 110,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "portacanne-poppa",
+      "ref_new": 45,
+      "cap": 90,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "killbag",
+      "ref_new": 35,
+      "cap": 70,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "sedile",
+      "ref_new": 60,
+      "cap": 120,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "galleggianti",
+      "ref_new": 10,
+      "cap": 20,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "canne-mulinelli",
+      "ref_new": 50,
+      "cap": 100,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "ancora",
+      "ref_new": 35,
+      "cap": 70,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "giubbotto",
+      "ref_new": 45,
+      "cap": 90,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "estintore",
+      "ref_new": 40,
+      "cap": 80,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "fanali",
+      "ref_new": 50,
+      "cap": 100,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "cime",
+      "ref_new": 20,
+      "cap": 40,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "bimini",
+      "ref_new": 130,
+      "cap": 260,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "ombrellone",
+      "ref_new": 60,
+      "cap": 120,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "telone",
+      "ref_new": 90,
+      "cap": 180,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "parabordi",
+      "ref_new": 15,
+      "cap": 30,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "pompa-sentina",
+      "ref_new": 45,
+      "cap": 90,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "elica",
+      "ref_new": 75,
+      "cap": 150,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "batteria",
+      "ref_new": 60,
+      "cap": 120,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "tanica",
+      "ref_new": 25,
+      "cap": 50,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "kit-riparazione",
+      "ref_new": 30,
+      "cap": 60,
+      "sample": 0,
+      "data": "2026-08-08"
+    },
+    {
+      "id": "cassetta-attrezzi",
+      "ref_new": 25,
+      "cap": 50,
+      "sample": 0,
+      "data": "2026-08-08"
+    }
+  ]
+}
