@@ -11,6 +11,7 @@ graphify-out/cache/
 
 # secrets accidental
 .env
+.env.ebay
 *.pem
 
 # deps if any

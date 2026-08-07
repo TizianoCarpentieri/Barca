@@ -1556,6 +1556,12 @@ html.is-phone .badge {
   color: var(--foam-dim);
 }
 
+.ads-card__tags .ads-tag--src {
+  color: var(--brass);
+  border-color: rgba(196, 155, 75, 0.35);
+  background: rgba(196, 155, 75, 0.08);
+}
+
 .ads-card__why {
   margin-top: 0.55rem;
   font-size: 0.9rem;

@@ -138,3 +138,13 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Preferenze dettagliate ancora da raccogliere in chat successive.
 - Fonte pattern salvata in `raw/manuali/karpathy-llm-wiki.md`.
 - Grafo iniziale `graphify-out/` (bootstrap AST; si arricchirà con `/graphify .` quando la wiki cresce).
+
+## [2026-08-07] build | Sezione Accessori (Subito + eBay)
+
+- Nuovo tab **Accessori** in annunci.html, doppia fonte: Subito (hades) + eBay (Browse API).
+- `scoring-accessori.mjs`: formula score = 20 + peso tipologia + bonus prezzo (ratio vs ref_new) + condizione + marca + trasporto + compatibilità; fit alto ≥65 / medio ≥45 / stretch >cap / basso.
+- Tabella 22 tipologie con ref_new e cap da ricerca mercato: `wiki/concetti/feed-accessori-scoring.md`.
+- `fetch-accessori.mjs`: scrive `presentazione/public/data/accessori.json` (fuso, tag source). eBay in try/catch: senza chiavi o errore esce solo Subito.
+- Workflow pages.yml: step fetch-accessori con secrets EBAY_CLIENT_ID/SECRET (continue-on-error).
+- Test locale: feed Subito ok (60 item, barche intere escluse). eBay: **404 Browse API** — app nel portale eBay senza scope buy (invalid_scope). Da abilitare Browse API sull'app (vedi open question).
+- Deploy: push → GitHub Pages.

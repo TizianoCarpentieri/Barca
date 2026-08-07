@@ -44,6 +44,13 @@ jobs:
         working-directory: presentazione
         run: node scripts/fetch-motori.mjs
         continue-on-error: true
+      - name: Fetch accessori (Subito + eBay)
+        working-directory: presentazione
+        run: node scripts/fetch-accessori.mjs
+        continue-on-error: true
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
       - name: Build
         working-directory: presentazione
         run: npx vite build --base=/Barca/

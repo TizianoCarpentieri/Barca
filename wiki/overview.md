@@ -20,8 +20,8 @@ Le bestie (tu + Antonio + Peppe) cercano un mezzo **no-patente**, **usato low-bu
 | **Gommoni** | Pneumatico smontabile, no RIB | Benchmark [[modelli/argo-evo-360]] a **970 €** nuovo |
 | **Motori** | Fuoribordo 6–40,8 CV | Sweet **9.9–15**; niente 2.5/4 CV |
 
-UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori).  
-Logica score: [[concetti/feed-annunci-scoring]].
+UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · **Accessori**).  
+Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scoring]].
 
 ## Stato
 

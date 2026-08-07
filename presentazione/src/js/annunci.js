@@ -57,6 +57,19 @@ if (!listEl) {
           ? Math.round(price * factor)
           : null
 
+    // eBay: il costo di spedizione è già nel prezzo effettivo (no penalità per regione sconosciuta)
+    if (it.source === 'ebay') {
+      const fitE =
+        it.status === 'stretch'
+          ? 'stretch'
+          : it.score >= (FEEDS[cat]?.fitHigh ?? 55)
+            ? 'alto'
+            : it.score >= 45
+              ? 'medio'
+              : 'basso'
+      return { ...it, fit: it.fit ?? fitE, distance_factor: 1, effective_price: effectivePrice }
+    }
+
     // Se il feed ha già applicato la distanza (reason lontano / distance_factor), non doppiare
     const already =
       it.distance_factor != null ||
@@ -76,7 +89,7 @@ if (!listEl) {
     const fit =
       it.status === 'stretch'
         ? 'stretch'
-        : score >= 55 && it.status !== 'weak'
+        : score >= (FEEDS[cat]?.fitHigh ?? 55) && it.status !== 'weak'
           ? 'alto'
           : score >= 45
             ? 'medio'
@@ -125,6 +138,18 @@ if (!listEl) {
       fallbackNote:
         'Fuoribordo da 6 CV in su (niente 2.5/4). Sweet 9.9–15 CV, ideale 8–20. Hard ≤1.200€. Lazio preferito.',
       how: 'Feed motori per gommoni 3.5–4 m: scarta sotto 6 CV. Target 9.9–15–20. Hard ≤1.200€.',
+    },
+    accessori: {
+      file: 'accessori.json',
+      label: 'Accessori',
+      stamp: 'Accessori',
+      hardMax: null,
+      fitHigh: 65,
+      ph: 'ACCESSORIO',
+      hasEngine: false,
+      fallbackNote:
+        'Accessori nautici per barche piccole (Subito + eBay). Score su rapporto prezzo vs nuovo, condizione, marca, spedizione/distanza.',
+      how: 'Feed accessori (Subito + eBay): ecoscandagli, portacanne, bimini, ancore, sicurezza, pompe… Score premia quanto sei sotto il prezzo nuovo di riferimento.',
     },
   }
 
@@ -176,7 +201,7 @@ if (!listEl) {
     return items.filter((it) => {
       if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
       if (filter === 'alto') return it.fit === 'alto'
-      if (filter === 'hard') return it.price != null && it.price <= max
+      if (filter === 'hard') return max != null && it.price != null && it.price <= max
       return true
     })
   }
@@ -192,10 +217,14 @@ if (!listEl) {
   function card(it) {
     const fitClass =
       it.fit === 'alto' ? 'ads-fit--alto' : it.fit === 'stretch' ? 'ads-fit--stretch' : 'ads-fit--mid'
-    const cv = it.cv != null ? `${it.cv} CV` : 'CV n.d.'
+    const cv = it.cv != null ? `${it.cv} CV` : null
     const len = it.length_m != null ? `${it.length_m} m` : ''
     const brand = it.brand ? String(it.brand) : ''
     const floor = it.floor ? String(it.floor) : ''
+    const catLabel = it.category_label ? String(it.category_label) : ''
+    const cond = it.condition ? String(it.condition) : ''
+    const ratio = it.ratio != null ? `${Math.round(it.ratio * 100)}% del nuovo` : ''
+    const src = it.source === 'ebay' ? 'eBay' : it.source === 'subito' ? 'Subito' : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
     const ph = FEEDS[cat].ph
     const img = it.image
@@ -222,14 +251,18 @@ if (!listEl) {
           <h2 class="ads-card__title">${escapeHtml(it.subject)}</h2>
           <p class="ads-card__place">${escapeHtml(it.place || 'Italia')}</p>
           <div class="ads-card__tags">
-            <span>${escapeHtml(cv)}</span>
+            ${src ? `<span class="ads-tag--src">${escapeHtml(src)}</span>` : ''}
+            ${catLabel ? `<span>${escapeHtml(catLabel)}</span>` : ''}
+            ${cond ? `<span>${escapeHtml(cond)}</span>` : ''}
+            ${cv ? `<span>${escapeHtml(cv)}</span>` : ''}
             ${len ? `<span>${escapeHtml(len)}</span>` : ''}
             ${brand ? `<span>${escapeHtml(brand)}</span>` : ''}
+            ${ratio ? `<span>${escapeHtml(ratio)}</span>` : ''}
             ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
             <span>score ${it.score ?? '—'}</span>
           </div>
           ${reasons ? `<p class="ads-card__why">${escapeHtml(reasons)}</p>` : ''}
-          <span class="ads-card__cta">Apri su Subito →</span>
+          <span class="ads-card__cta">Apri su ${src || 'Subito'} →</span>
         </div>
       </a>
     </article>`
@@ -251,8 +284,13 @@ if (!listEl) {
       document.getElementById('ads-hard-chip') ||
       filtersEl?.querySelector('[data-filter="hard"]')
     if (hardBtn) {
-      hardBtn.textContent = conf.hardLabel
-      hardBtn.dataset.hardMax = String(conf.hardMax)
+      if (conf.hardMax == null) {
+        hardBtn.hidden = true
+      } else {
+        hardBtn.hidden = false
+        hardBtn.textContent = conf.hardLabel
+        hardBtn.dataset.hardMax = String(conf.hardMax)
+      }
     }
   }
 

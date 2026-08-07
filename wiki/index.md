@@ -20,7 +20,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Manifesto Vite + **Annunci** tab Rigide/Gommoni/Motori (GitHub Pages) |
+| `presentazione/` | Manifesto Vite + **Annunci** tab Rigide/Gommoni/Motori/**Accessori** (GitHub Pages) |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
 
 ## Preferenze
@@ -47,6 +47,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Pagina | Sommario |
 |--------|----------|
 | [[concetti/feed-annunci-scoring]] | Score feed: distanza Lazio, −20% vs Argo, potenze motore |
+| [[concetti/feed-accessori-scoring]] | **Accessori**: score ratio vs nuovo + ref_new/cap + doppia fonte Subito+eBay |
 | [[concetti/no-patente-6-pax-realta]] | Inviluppo ≤40,8 CV + fino a 6 pax |
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
 | [[concetti/tendalino-copertura]] | Bimini su scafo rigido low-cost |
