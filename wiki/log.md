@@ -156,3 +156,12 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Fix ipotizzato: portale → abilitare Buy APIs. **Errato**: il portale non permette di modificare la lista degli scope (è fissa).
 - Verità (fonti: Cleo support, mfalkus/ebay-bargains, hendt/ebay-api #99): la pagina OAuth scopes di `developer.ebay.com/my/keys` è **read-only**; gli scope sono assegnati al keyset quando viene creato. Per avere Buy/Browse: creare nuova app/keyset con Buy APIs, oppure contattare eBay developer support.
 - Nessuna modifica al codice: `EBAY_SCOPE` resta `api_scope` (lo scope generico basta per `item_summary/search` quando il keyset ha la Buy API).
+
+## [2026-08-08] feat(access) | Revamp v2 completato
+
+- Rinazione completa eBay (fetch+UI+workflow+.env.ebay)
+- Automatismo ref_new: mediana prezzi Subito condizione "nuovo" 2x/giorno (update-accessori-ref.mjs → ref-prezzi.json)
+- Scoring addolcito: 27 tipologie, 5 destinazioni, cap=ref×2, Lazio+5, niente penalità distanza
+- UI: icona Accessori stessa riga (fix grid 3+1), accessori.html dedicato con filtri destinazione/tipologia
+- Fix collaterali: gommoni hardMax 1500, regex rimorchio, scanned_unique da null a numero
+- Commits: cd76edf 9c2d7ae 640a5f9 fc3c398 c995b64

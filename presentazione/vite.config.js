@@ -18,6 +18,7 @@ export default defineConfig({
         annunci: resolve(__dirname, 'annunci.html'),
         gommoni: resolve(__dirname, 'gommoni.html'),
         motori: resolve(__dirname, 'motori.html'),
+        accessori: resolve(__dirname, 'accessori.html'),
       },
     },
   },
