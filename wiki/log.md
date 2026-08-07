@@ -148,3 +148,11 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Workflow pages.yml: step fetch-accessori con secrets EBAY_CLIENT_ID/SECRET (continue-on-error).
 - Test locale: feed Subito ok (60 item, barche intere escluse). eBay: **404 Browse API** — app nel portale eBay senza scope buy (invalid_scope). Da abilitare Browse API sull'app (vedi open question).
 - Deploy: push → GitHub Pages.
+
+## [2026-08-07] debug | eBay Browse 404 — causa confermata
+
+- Riprodotto in locale con le chiavi reali: token scope generico → 200; supporto `buy.browse.readonly` → 400 invalid_scope; Browse search → 404 errorId 2002.
+- Causa: app keyset creata come Sell/Commerce, senza Buy API (nessuno scope `buy.*` concesso).
+- Fix ipotizzato: portale → abilitare Buy APIs. **Errato**: il portale non permette di modificare la lista degli scope (è fissa).
+- Verità (fonti: Cleo support, mfalkus/ebay-bargains, hendt/ebay-api #99): la pagina OAuth scopes di `developer.ebay.com/my/keys` è **read-only**; gli scope sono assegnati al keyset quando viene creato. Per avere Buy/Browse: creare nuova app/keyset con Buy APIs, oppure contattare eBay developer support.
+- Nessuna modifica al codice: `EBAY_SCOPE` resta `api_scope` (lo scope generico basta per `item_summary/search` quando il keyset ha la Buy API).

@@ -75,15 +75,44 @@ score = 20 (base) + peso_tipologia + bonus_prezzo + condizione + marca + traspor
 ## eBay — note tecniche
 
 - Token OAuth `client_credentials` dalle chiavi in `.env.ebay` (locale) / secrets workflow (deploy)
+- **Scope**: il keyset dell'app nel portale (developer.ebay.com/my/keys → OAuth Scopes) deve avere la **Buy API / Browse** assegnata. La pagina è **sola lettura**: gli scope sono fissati alla **creazione del keyset**, non si aggiungono dal portale. Se manca qualunque scope `buy.*`, Browse risponde `404 errorId 2002` (testato 2026-08-07); per ottenere l'accesso: nuova app/keyset con Buy APIs oppure contattare eBay developer support.
 - Browse API: `GET /buy/browse/v1/item_summary/search` con `q=<keyword>`, `filter=buyingOptions:{FIXED_PRICE}`, `price:[0..cap]`, `limit=50`
 - Spedizione: `shippingOptions[].cost` sommato al prezzo; `shippingCostType` FREE → +8; CALCULATED → "da calcolare"
 - Nessun filtro categoria (26429 = "Barche"): keyword + classificatore
 - Solo 1ª pagina per keyword (budget chiamate)
 
+## REVAMP v2 (2026-08-08, in implementazione)
+
+Decisioni concordate in chat: **sola fonte Subito**, score con **ref automatico da Subito "nuovo"**, nuova UI.
+
+### Architettura v2
+
+```
+presentazione/scripts/
+  scoring-accessori.mjs      # 27 tipologie + destinazioni (5 gruppi) + classify()
+  ref-prezzi.json             # baseline curata + override per modello (commitata)
+  update-accessori-ref.mjs    # AUTO: mediana prezzi Subito "nuovo" per modello → riscrive ref-prezzi.json (stesso cron feed 2×/giorno)
+  fetch-accessori.mjs         # solo Subito (hades) → public/data/accessori.json
+presentazione/src/js/annunci.js   # modalità pathname: annunci.html (3 tab) + accessori.html (pagina dedicata)
+presentazione/annunci.html        # 3 tab + icona Accessori stessa riga (fix grid)
+presentazione/accessori.html      # NUOVA: filtro destinazione (5) + tipologia (chips) + card riusate
+presentazione/src/js/nav.js       # voce Accessori nel sheet menu
+.github/workflows/pages.yml       # step update-accessori-ref (stesso cron) + fetch solo-subito; via env EBAY
+```
+
+### Cambi vs v1
+
+* **eBay RIMOSSA** (nessuno scope Buy/Browse; portale read-only → fonte inutile). Eliminati blocco in `fetch-accessori.mjs`, env/workflow, `.env.ebay`; label sorgente resta solo Subito.
+* **ref_new automatico 2×/giorno**: `update-accessori-ref.mjs` cerca su hades le query per modello, tiene i soli annunci condizione **nuovo**, calcola **mediana** prezzo → scrive `scripts/ref-prezzi.json` (`updated_at`, fonte subito, n). Se sample < 3 → keep baseline.
+* **Scoring addolcito**: penalità "usato carissimo" −25→**−15**; "sopra prezzo nuovo" −15→**−10**; **cap ≈ ref_new×2** (meno stretch: oggi 29/60); **bonus Lazio +15→+5** e **nessuna penalità distanza** per accessori (spedibili); ref per modello sovrascrive ref categoria.
+* **5 destinazioni**: `Elettronica`, `Pesca`, `Sicurezza & dotazione`, `Scafo & comfort`, `Motore & manutenzione` — campo `dest`/`dest_label` sull'item.
+* **+5 tipologie** (tot 27): galleggianti/boie, canne&mulinelle, radio VHF, cassetta attrezzi, binocolo.
+* **UI dead-end**: `annunci.html` grid `repeat(3,1fr)` → il 4° tab andava a capo. Fix: tab restano 3, accanto un **ico-elemento compatto "Accessori"** sulla stessa riga → redirect a `accessori.html` (destinzioni + tipologia + card riusate da `annunci.js`).
+
 ## Status
 
-- [x] Design approvato
-- [ ] Script scoring + fetch
-- [ ] UI tab
-- [ ] Workflow + secrets
+- [x] Design v1 approvato (2026-08-07)
+- [x] eBay chiusa come fonte (2026-08-07/08)
+- [x] Design v2 approvato (2026-08-08): sola Subito + ref automatico + 5 dest + icona UI
+- [ ] Implementazione (spec + plan in `docs/superpowers/`)
 - [ ] Deploy online
