@@ -6,8 +6,9 @@ on:
       - 'presentazione/**'
       - '.github/workflows/pages.yml'
   schedule:
-    # Aggiorna feed annunci 2× al giorno (UTC)
+    # Aggiorna feed annunci 2×/giorno (UTC) + refresh pomeridiano 3x tot
     - cron: '15 6,18 * * *'
+    - cron: '45 14 * * *'
   workflow_dispatch:
 
 permissions:

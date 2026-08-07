@@ -80,6 +80,10 @@ const mediana = (arr) => {
   return n % 2 === 1 ? s[(n - 1) >> 1] : (s[n / 2 - 1] + s[n / 2]) / 2
 }
 
+/** Prezzo massimo per un accessorio; sopra = quasi certamente una barca. */
+const MAX_ACCESSORY_PRICE = 2000
+const BOAT_AD_RE = /^(gommone|gozzo|open|lancia|barca|walkaround|tender)\b/i
+
 async function main() {
   const modelli = []
   for (const t of TIPOLOGIE) {
@@ -90,8 +94,11 @@ async function main() {
         const data = await subitoSearch(`${q} nuovo`)
         for (const ad of data.ads || []) {
           const price = subitoPrice(ad)
-          if (price == null || price <= 0) continue
-          const cond = extractCondition({ subject: ad.subject || '', body: ad.body || '' })
+          if (price == null || price <= 0 || price > MAX_ACCESSORY_PRICE) continue
+          const subject = (ad.subject || '').toLowerCase().trim()
+          if (BOAT_AD_RE.test(subject)) continue
+          if (/\b(gommone|gozzo|open|lancia|barca|tender)\b/i.test(subject) && !t.re.test(subject)) continue
+          const cond = extractCondition({ subject: subject, body: ad.body || '' })
           if (cond === 'nuovo' || cond === 'come nuovo') prices.push(price)
         }
       } catch (e) {
