@@ -106,10 +106,12 @@ async function main() {
       }
     }
     const med = mediana(prices)
+    const safe = med != null && med <= t.ref_new * 4 ? med : null
+    if (med != null && safe == null) console.warn(`ref ${t.id}: mediana ${med}€ scartata (>4× baseline ${t.ref_new}€) — tengo baseline`)
     modelli.push({
       id: t.id,
-      ref_new: med ?? t.ref_new,
-      cap: Math.round((med ?? t.ref_new) * 2),
+      ref_new: safe ?? t.ref_new,
+      cap: Math.round((safe ?? t.ref_new) * 2),
       sample: prices.length,
       data: new Date().toISOString(),
     })
