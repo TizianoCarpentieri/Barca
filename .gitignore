@@ -16,3 +16,7 @@ graphify-out/cache/
 
 # deps if any
 node_modules/
+
+# wrangler local cache
+worker/.wrangler/
+presentazione/dist/
