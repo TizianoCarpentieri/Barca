@@ -1,0 +1,20 @@
+name = "sbarco"
+main = "src/index.js"
+compatibility_date = "2025-08-09"
+
+# KV namespaces — create with:
+#   wrangler kv:namespace create "SBARCO_KV"
+#   wrangler kv:namespace create "SBARCO_KV" --preview
+[[kv_namespaces]]
+binding = "SBARCO_KV"
+id = "75418a1d20b3448c822f42727329a6b6"
+preview_id = "55f0e6aa687744868b827b7580f2ed0d"
+
+# Secrets — set with:
+#   wrangler secret put DEEPSEEK_API_KEY
+[vars]
+DEEPSEEK_MODEL = "deepseek-chat"
+ALLOWED_ORIGIN = "https://tizianocarpentieri.github.io"
+
+[observability]
+enabled = true

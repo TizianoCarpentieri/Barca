@@ -1,4 +1,6 @@
 import { mountNav } from './nav.js'
+import './sbarco.js'
+import '../styles/sbarco.css'
 
 /* Forza viewport mobile se il browser “pensa” di essere desktop */
 ;(function fixViewport() {

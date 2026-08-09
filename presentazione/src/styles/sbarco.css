@@ -1,0 +1,208 @@
+/* ── Sbarco chat widget ─────────────────────────────────────── */
+/* Floating in bottom-right, expands to chat panel */
+
+:root {
+  --sbarco-bg: #0b0908;
+  --sbarco-surface: #151210;
+  --sbarco-border: #2a2520;
+  --sbarco-text: #f3ebe0;
+  --sbarco-muted: #8a8076;
+  --sbarco-accent: #d4943a;
+  --sbarco-accent-glow: rgba(212, 148, 58, 0.25);
+  --sbarco-self: #1e3a2f;
+  --sbarco-radius: 8px;
+}
+
+/* ── FAB button ─────────────────────────────────────────────── */
+.sbarco-fab {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 9998;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--sbarco-border);
+  background: var(--sbarco-surface);
+  color: var(--sbarco-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .5);
+  transition: transform .2s, box-shadow .2s;
+}
+.sbarco-fab:hover { transform: scale(1.06); box-shadow: 0 2px 20px var(--sbarco-accent-glow); }
+.sbarco-fab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ── Panel ──────────────────────────────────────────────────── */
+.sbarco-panel {
+  position: fixed;
+  bottom: 76px;
+  right: 18px;
+  z-index: 9999;
+  width: min(92vw, 380px);
+  height: min(75vh, 520px);
+  background: var(--sbarco-bg);
+  border: 1px solid var(--sbarco-border);
+  border-radius: var(--sbarco-radius);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, .6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px) scale(.97);
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.sbarco-panel.open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.sbarco-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--sbarco-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.sbarco-header__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--sbarco-accent);
+  flex: 1;
+}
+.sbarco-header select {
+  background: var(--sbarco-surface);
+  color: var(--sbarco-text);
+  border: 1px solid var(--sbarco-border);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 12px;
+  font-family: inherit;
+}
+.sbarco-header__close {
+  background: none;
+  border: none;
+  color: var(--sbarco-muted);
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+  font-size: 18px;
+}
+
+/* ── Messages ───────────────────────────────────────────────── */
+.sbarco-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scroll-behavior: smooth;
+}
+.sbarco-msg {
+  max-width: 85%;
+  padding: 7px 10px;
+  border-radius: var(--sbarco-radius);
+  font-size: 13px;
+  line-height: 1.45;
+  word-break: break-word;
+  animation: sbarco-in .2s ease;
+}
+@keyframes sbarco-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+.sbarco-msg--sbarco {
+  background: var(--sbarco-surface);
+  border: 1px solid var(--sbarco-border);
+  align-self: flex-start;
+  color: var(--sbarco-text);
+}
+.sbarco-msg--user {
+  background: var(--sbarco-self);
+  align-self: flex-end;
+  color: var(--sbarco-text);
+}
+.sbarco-msg__who {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 2px;
+  opacity: .6;
+}
+
+/* ── Input ──────────────────────────────────────────────────── */
+.sbarco-input-wrap {
+  display: flex;
+  border-top: 1px solid var(--sbarco-border);
+  flex-shrink: 0;
+}
+.sbarco-input-wrap input {
+  flex: 1;
+  background: var(--sbarco-surface);
+  border: none;
+  color: var(--sbarco-text);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+.sbarco-input-wrap input::placeholder { color: var(--sbarco-muted); }
+.sbarco-input-wrap button {
+  background: var(--sbarco-accent);
+  color: var(--sbarco-bg);
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: opacity .15s;
+}
+.sbarco-input-wrap button:disabled { opacity: .5; cursor: default; }
+
+/* ── Typing indicator ───────────────────────────────────────── */
+.sbarco-typing {
+  align-self: flex-start;
+  padding: 7px 12px;
+  color: var(--sbarco-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+.sbarco-typing span { animation: blink 1.4s infinite; }
+.sbarco-typing span:nth-child(2) { animation-delay: .2s; }
+.sbarco-typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%, 60%, 100% { opacity: .2; } 30% { opacity: 1; } }
+
+/* ── Spinner ────────────────────────────────────────────────── */
+.sbarco-spinner {
+  align-self: center;
+  width: 18px; height: 18px;
+  border: 2px solid var(--sbarco-border);
+  border-top-color: var(--sbarco-accent);
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  margin: 6px 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 440px) {
+  .sbarco-panel {
+    right: 4px;
+    bottom: 60px;
+    width: calc(100vw - 8px);
+    height: calc(65vh);
+  }
+  .sbarco-fab { right: 8px; bottom: 12px; }
+}
