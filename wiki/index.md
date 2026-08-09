@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-05
+updated: 2026-08-09
 status: active
 ---
 
@@ -32,7 +32,8 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
 | [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
 | [[preferenze/nice-to-have]] | Priorità uso + nice per track |
-| [[preferenze/budget]] | Budget e split |
+| [[preferenze/split-costi]] | Regole danni, split 1/3, uscita socio, accordo scritto |
+| [[preferenze/budget]] | Budget, split e TCO |
 | [[preferenze/open-questions]] | Domande aperte |
 | [[preferenze/intervista-requisiti]] | Diario raccolta requisiti |
 
@@ -50,7 +51,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/feed-accessori-scoring]] | **Accessori**: score ratio vs nuovo + ref_new/cap + doppia fonte Subito+eBay |
 | [[concetti/no-patente-6-pax-realta]] | Inviluppo ≤40,8 CV + fino a 6 pax |
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
-| [[concetti/tendalino-copertura]] | Bimini su scafo rigido low-cost |
+| [[concetti/montaggio-gommone]] | Fatica operativa gommone vs rigido: ciclo completo, criticità |
 
 ## Normativa
 
@@ -77,4 +78,4 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Pagina | Sommario |
 |--------|----------|
 | [[sintesi/requisiti-v1]] | Profilo requisiti + filtri dual track |
-| [[sintesi/shortlist]] | Candidati (da popolare dai feed) |
+| [[sintesi/conversazioni-audio-20260809]] | Trascrizioni 45 vocali WhatsApp del 9 ago |

@@ -1,6 +1,13 @@
 # graphify local
 graphify-out/cost.json
 graphify-out/cache/
+graphify-out/.graphify_*
+graphify-out/_*
+graphify-out/transcripts/
+graphify-out/graph.html
+
+# audio source duplicate  
+kb barca/
 
 # OS / editor
 .DS_Store

@@ -11,14 +11,15 @@ tags: [todo]
 ## Gruppo e uso
 
 - [x] Budget mezzo: **≤4.500 € usato** (track rigidi); gommone ref **970 €** nuovo scafo
-- [ ] Split costi tra le 3 bestie
+- [x] Split costi tra le 3 bestie → [[split-costi]] (regole danni, split, uscita socio)
+- [ ] Accordo scritto da firmare
 - [x] Budget annuo gestione: **≤1200 €/testa** all-in
-- [ ] Riserva lavori post-acquisto (consigliata 500–1500 € extra)
+- [x] Riserva lavori post-acquisto: ~500 €/anno già stimata in costi fissi
 - [x] Zona: **mare laziale** (Ardea/Pomezia; Anzio–Circeo–Fiumicino)
 - [x] Dual track: **rigide + gommoni + motori** (feed live)
-- [ ] Scelta finale: investire più su **rigido** o su **gommone+motore**?
+- [x] Scelta finale: **scafo rigido** preferito (praticità > costo) da conversazioni 9 ago
 - [x] Patente: nessuno; ideale restare senza
-- [ ] Frequenza uscite/anno più precisa
+- [x] Frequenza uscite/anno: moderata + inverno pesca (conversazioni 9 ago)
 
 ## Barca / gommone
 

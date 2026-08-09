@@ -139,6 +139,41 @@
   opacity: .6;
 }
 
+/* ── Markdown content ───────────────────────────────────────── */
+.sbarco-msg__body strong { color: var(--sbarco-accent); font-weight: 700; }
+.sbarco-msg__body em { color: var(--sbarco-text); font-style: italic; opacity: .85; }
+.sbarco-msg__body code {
+  background: rgba(212, 148, 58, 0.12);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+}
+.sbarco-msg__body ul {
+  margin: 4px 0;
+  padding-left: 16px;
+  list-style: disc;
+}
+.sbarco-msg__body li { margin: 2px 0; line-height: 1.4; }
+.sbarco-msg__body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0;
+  font-size: 11px;
+}
+.sbarco-msg__body th,
+.sbarco-msg__body td {
+  border: 1px solid var(--sbarco-border);
+  padding: 3px 6px;
+  text-align: left;
+}
+.sbarco-msg__body th {
+  background: rgba(212, 148, 58, 0.1);
+  color: var(--sbarco-accent);
+  font-weight: 600;
+}
+.sbarco-msg__body td { color: var(--sbarco-text); }
+
 /* ── Input ──────────────────────────────────────────────────── */
 .sbarco-input-wrap {
   display: flex;

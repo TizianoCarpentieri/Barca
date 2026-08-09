@@ -157,6 +157,14 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Verità (fonti: Cleo support, mfalkus/ebay-bargains, hendt/ebay-api #99): la pagina OAuth scopes di `developer.ebay.com/my/keys` è **read-only**; gli scope sono assegnati al keyset quando viene creato. Per avere Buy/Browse: creare nuova app/keyset con Buy APIs, oppure contattare eBay developer support.
 - Nessuna modifica al codice: `EBAY_SCOPE` resta `api_scope` (lo scope generico basta per `item_summary/search` quando il keyset ha la Buy API).
 
+## [2026-08-09] ingest | 45 vocali WhatsApp tra bestie
+
+- Trascritti 45 file `.ogg` da `raw/audio/` con Whisper base (graphify transcribe).
+- Estratti temi chiave: split costi/danni, dibattito gommone vs rigido, stime assicurazione, ormeggio, uso invernale, barche valutate, regole danni.
+- Nuove pagine wiki: `sintesi/conversazioni-audio-20260809`, `preferenze/split-costi`, `concetti/montaggio-gommone`.
+- Aggiornate: `preferenze/budget` (stime da audio), `preferenze/open-questions` (chiuse split, scelta rigido, frequenza inverno), `index.md`.
+- Consenso emerso: scafo rigido > gommone per praticità; accordo scritto obbligatorio su danni/split.
+
 ## [2026-08-08] feat(access) | Revamp v2 completato
 
 - Rinazione completa eBay (fetch+UI+workflow+.env.ebay)

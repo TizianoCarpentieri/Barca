@@ -724,6 +724,69 @@
       "norm_label": "fino a 6 persone picco sociale"
     },
     {
+      "id": "feed_accessori_design_e_scoring",
+      "label": "Feed accessori — design e scoring",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "feed accessori — design e scoring"
+    },
+    {
+      "id": "accessori",
+      "label": "#accessori",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#accessori"
+    },
+    {
+      "id": "scoring",
+      "label": "#scoring",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scoring"
+    },
+    {
+      "id": "subito",
+      "label": "#subito",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#subito"
+    },
+    {
+      "id": "ebay",
+      "label": "#ebay",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ebay"
+    },
+    {
+      "id": "feed",
+      "label": "#feed",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#feed"
+    },
+    {
+      "id": "design",
+      "label": "#design",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#design"
+    },
+    {
       "id": "feed_annunci_e_scoring",
       "label": "Feed annunci e scoring",
       "file_type": "concetto",
@@ -733,7 +796,7 @@
       "norm_label": "feed annunci e scoring"
     },
     {
-      "id": "subito",
+      "id": "subito_wiki_concetti_feed_annunci_scoring_md",
       "label": "#subito",
       "file_type": "tag",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -742,7 +805,7 @@
       "norm_label": "#subito"
     },
     {
-      "id": "scoring",
+      "id": "scoring_wiki_concetti_feed_annunci_scoring_md",
       "label": "#scoring",
       "file_type": "tag",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -751,7 +814,7 @@
       "norm_label": "#scoring"
     },
     {
-      "id": "feed",
+      "id": "feed_wiki_concetti_feed_annunci_scoring_md",
       "label": "#feed",
       "file_type": "tag",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -767,6 +830,51 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#distanza"
+    },
+    {
+      "id": "montaggio_e_logistica_gommone",
+      "label": "Montaggio e logistica gommone",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "montaggio e logistica gommone"
+    },
+    {
+      "id": "gommone",
+      "label": "#gommone",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#gommone"
+    },
+    {
+      "id": "montaggio",
+      "label": "#montaggio",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#montaggio"
+    },
+    {
+      "id": "logistica",
+      "label": "#logistica",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#logistica"
+    },
+    {
+      "id": "fatica",
+      "label": "#fatica",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#fatica"
     },
     {
       "id": "no_patente_6_pax_cosa_realistico",
@@ -1093,7 +1201,7 @@
       "norm_label": "argo-evo 360 al (reference gommone)"
     },
     {
-      "id": "gommone",
+      "id": "gommone_wiki_modelli_argo_evo_360_md",
       "label": "#gommone",
       "file_type": "tag",
       "source_file": "wiki/modelli/argo-evo-360.md",
@@ -1345,6 +1453,60 @@
       "norm_label": "#todo"
     },
     {
+      "id": "split_costi_e_danni",
+      "label": "Split costi e danni",
+      "file_type": "preferenza",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "split costi e danni"
+    },
+    {
+      "id": "budget_wiki_preferenze_split_costi_md",
+      "label": "#budget",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#budget"
+    },
+    {
+      "id": "split",
+      "label": "#split",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#split"
+    },
+    {
+      "id": "danni",
+      "label": "#danni",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#danni"
+    },
+    {
+      "id": "regole",
+      "label": "#regole",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#regole"
+    },
+    {
+      "id": "accordo",
+      "label": "#accordo",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#accordo"
+    },
+    {
       "id": "track_gommoni_parallelo",
       "label": "Track gommoni (parallelo)",
       "file_type": "preferenza",
@@ -1417,6 +1579,51 @@
       "norm_label": "#dual-track"
     },
     {
+      "id": "conversazioni_audio_2026_08_09",
+      "label": "Conversazioni audio 2026-08-09",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "conversazioni audio 2026-08-09"
+    },
+    {
+      "id": "audio",
+      "label": "#audio",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#audio"
+    },
+    {
+      "id": "whatsapp",
+      "label": "#whatsapp",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#whatsapp"
+    },
+    {
+      "id": "conversazioni",
+      "label": "#conversazioni",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#conversazioni"
+    },
+    {
+      "id": "bestie_wiki_sintesi_conversazioni_audio_20260809_md",
+      "label": "#bestie",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#bestie"
+    },
+    {
       "id": "requisiti_v1_intervista",
       "label": "Requisiti v1 (intervista)",
       "file_type": "sintesi",
@@ -1460,6 +1667,114 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#shortlist"
+    },
+    {
+      "id": "split_costi_1_3",
+      "label": "Split costi 1/3",
+      "file_type": "rule",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "split costi 1/3"
+    },
+    {
+      "id": "accordo_scritto_danni_split",
+      "label": "Accordo scritto danni/split",
+      "file_type": "rule",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "accordo scritto danni/split"
+    },
+    {
+      "id": "danno_da_errore_conducente_paga_conducente",
+      "label": "Danno da errore conducente → paga conducente",
+      "file_type": "rule",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "danno da errore conducente → paga conducente"
+    },
+    {
+      "id": "danno_imprevedibile_tutti_insieme",
+      "label": "Danno imprevedibile → tutti insieme",
+      "file_type": "rule",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "danno imprevedibile → tutti insieme"
+    },
+    {
+      "id": "uscita_socio_rimborso_quota",
+      "label": "Uscita socio → rimborso quota",
+      "file_type": "rule",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "uscita socio → rimborso quota"
+    },
+    {
+      "id": "rc_assicurazione_100_150_anno",
+      "label": "RC assicurazione 100-150€/anno",
+      "file_type": "estimate",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "rc assicurazione 100-150€/anno"
+    },
+    {
+      "id": "costi_fissi_1800_anno",
+      "label": "Costi fissi 1800€/anno",
+      "file_type": "estimate",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "costi fissi 1800€/anno"
+    },
+    {
+      "id": "montaggio_gommone_faticoso",
+      "label": "Montaggio gommone faticoso",
+      "file_type": "insight",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "montaggio gommone faticoso"
+    },
+    {
+      "id": "scafo_rigido_preferito_per_praticit",
+      "label": "Scafo rigido preferito per praticità",
+      "file_type": "decision",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "scafo rigido preferito per praticità"
+    },
+    {
+      "id": "pesca_invernale",
+      "label": "Pesca invernale",
+      "file_type": "activity",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "pesca invernale"
+    },
+    {
+      "id": "postazione_guida_console",
+      "label": "Postazione guida (console)",
+      "file_type": "feature",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "postazione guida (console)"
+    },
+    {
+      "id": "conversazioni_audio_2026_08_09_wiki_sintesi_conversazioni_audio_20260809_md",
+      "label": "Conversazioni audio 2026-08-09",
+      "file_type": "source",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "conversazioni audio 2026-08-09"
     },
     {
       "id": "assicurazione_rc_150_400_anno",
@@ -2112,6 +2427,60 @@
       "weight": 1.0
     },
     {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "accessori",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "scoring",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "subito",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "ebay",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "feed",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_accessori_design_e_scoring",
+      "target": "design",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-accessori-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "feed_annunci_e_scoring",
       "target": "lunghezza_min_3_30_m",
       "relation": "references",
@@ -2140,7 +2509,7 @@
     },
     {
       "source": "feed_annunci_e_scoring",
-      "target": "subito",
+      "target": "subito_wiki_concetti_feed_annunci_scoring_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -2149,7 +2518,7 @@
     },
     {
       "source": "feed_annunci_e_scoring",
-      "target": "scoring",
+      "target": "scoring_wiki_concetti_feed_annunci_scoring_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -2158,7 +2527,7 @@
     },
     {
       "source": "feed_annunci_e_scoring",
-      "target": "feed",
+      "target": "feed_wiki_concetti_feed_annunci_scoring_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -2171,6 +2540,42 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "montaggio_e_logistica_gommone",
+      "target": "gommone",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "montaggio_e_logistica_gommone",
+      "target": "montaggio",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "montaggio_e_logistica_gommone",
+      "target": "logistica",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "montaggio_e_logistica_gommone",
+      "target": "fatica",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/montaggio-gommone.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -2419,6 +2824,15 @@
     },
     {
       "source": "indice_wiki",
+      "target": "feed_accessori_design_e_scoring",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "no_patente_6_pax_cosa_realistico",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -2437,7 +2851,7 @@
     },
     {
       "source": "indice_wiki",
-      "target": "tendalino",
+      "target": "montaggio_e_logistica_gommone",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -2653,7 +3067,7 @@
     },
     {
       "source": "argo_evo_360_al_reference_gommone",
-      "target": "gommone",
+      "target": "gommone_wiki_modelli_argo_evo_360_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/modelli/argo-evo-360.md",
@@ -2735,6 +3149,15 @@
     {
       "source": "overview",
       "target": "feed_annunci_subito",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "overview",
+      "target": "feed_accessori_design_e_scoring",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/overview.md",
@@ -2958,6 +3381,51 @@
       "weight": 1.0
     },
     {
+      "source": "split_costi_e_danni",
+      "target": "budget_wiki_preferenze_split_costi_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
+      "target": "split",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
+      "target": "danni",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
+      "target": "regole",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
+      "target": "accordo",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "track_gommoni_parallelo",
       "target": "argo_evo_360_al",
       "relation": "references",
@@ -3053,6 +3521,42 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/track-motori.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "audio",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "whatsapp",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "conversazioni",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "bestie_wiki_sintesi_conversazioni_audio_20260809_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3251,6 +3755,150 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/shortlist.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
+      "target": "split_costi_1_3",
+      "relation": "governed_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
+      "target": "accordo_scritto_danni_split",
+      "relation": "requires",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_1_3",
+      "target": "danno_da_errore_conducente_paga_conducente",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_1_3",
+      "target": "danno_imprevedibile_tutti_insieme",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_1_3",
+      "target": "uscita_socio_rimborso_quota",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_assicurazione_100_150_anno",
+      "target": "tco_3600_anno_totale",
+      "relation": "part_of",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_fissi_1800_anno",
+      "target": "tco_3600_anno_totale",
+      "relation": "part_of",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_b_gommoni",
+      "target": "montaggio_gommone_faticoso",
+      "relation": "has_drawback",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "montaggio_gommone_faticoso",
+      "target": "scafo_rigido_preferito_per_praticit",
+      "relation": "leads_to",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_a_rigide",
+      "target": "scafo_rigido_preferito_per_praticit",
+      "relation": "supported_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
+      "target": "pesca_invernale",
+      "relation": "activity",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "pesca_invernale",
+      "target": "pesca_a_canna_priorit_1",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "postazione_guida_console",
+      "target": "track_a_rigide",
+      "relation": "desired_for",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09_wiki_sintesi_conversazioni_audio_20260809_md",
+      "target": "split_costi_1_3",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09_wiki_sintesi_conversazioni_audio_20260809_md",
+      "target": "montaggio_gommone_faticoso",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09_wiki_sintesi_conversazioni_audio_20260809_md",
+      "target": "scafo_rigido_preferito_per_praticit",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
       "source_location": "L1",
       "weight": 1.0
     },

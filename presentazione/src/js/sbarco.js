@@ -152,12 +152,51 @@ const LS_KEY = "barca_user";
       whoEl.textContent = who;
       div.appendChild(whoEl);
     }
-    const p = document.createElement("div");
-    p.textContent = content;
-    div.appendChild(p);
+    const body = document.createElement("div");
+    body.className = "sbarco-msg__body";
+    body.innerHTML = renderMarkdown(content);
+    div.appendChild(body);
     msgsEl.appendChild(div);
     msgsEl.scrollTop = msgsEl.scrollHeight;
     return div;
+  }
+
+  function renderMarkdown(text) {
+    let html = text;
+    // Escape HTML first
+    html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // Bold: **text**
+    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    // Italic: *text* (but not **)
+    html = html.replace(/(?<!\*)\*([^*\n]+?)\*(?!\*)/g, "<em>$1</em>");
+    // Inline code: `text`
+    html = html.replace(/`([^`\n]+?)`/g, "<code>$1</code>");
+    // Line breaks
+    html = html.replace(/\n/g, "<br>");
+    // List items: - text or * text (at start of line)
+    html = html.replace(/(?:^|<br>)[*-] (.+?)(?=<br>|$)/g, "<li>$1</li>");
+    // Wrap consecutive <li> in <ul>
+    html = html.replace(/((?:<li>.*?<\/li>)+)/g, "<ul>$1</ul>");
+    // Simple tables: detect | col | col | pattern
+    if (html.includes("|")) {
+      html = html.replace(/((?:<br>\|.*\|)+)/g, function(match) {
+        const rows = match.split("<br>").filter(r => r.trim());
+        let table = "<table>";
+        let isHeader = true;
+        for (const row of rows) {
+          const cells = row.split("|").filter(c => c.trim());
+          if (cells.length < 2) continue;
+          // Skip separator rows like |---|---|
+          if (cells.every(c => /^[-:]+$/.test(c.trim()))) { isHeader = false; continue; }
+          const tag = isHeader ? "th" : "td";
+          table += "<tr>" + cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join("") + "</tr>";
+          isHeader = false;
+        }
+        table += "</table>";
+        return table;
+      });
+    }
+    return html;
   }
 
   function addTyping() {

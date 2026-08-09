@@ -297,7 +297,41 @@ for f in md_files:
         if tag_node:
             add_edge(title, f"#{tag}", "tagged", source_file=rel)
 
-# ── Assicurazione / extra ────────────────────────────────────────
+# ── Regole danni e split (da conversazioni 2026-08-09) ──────────
+add_node("Split costi 1/3", "rule", "wiki/preferenze/split-costi.md")
+add_node("Accordo scritto danni/split", "rule", "wiki/preferenze/split-costi.md")
+add_node("Danno da errore conducente → paga conducente", "rule", "wiki/preferenze/split-costi.md")
+add_node("Danno imprevedibile → tutti insieme", "rule", "wiki/preferenze/split-costi.md")
+add_node("Uscita socio → rimborso quota", "rule", "wiki/preferenze/split-costi.md")
+add_node("RC assicurazione 100-150€/anno", "estimate", "wiki/preferenze/split-costi.md")
+add_node("Costi fissi 1800€/anno", "estimate", "wiki/preferenze/split-costi.md")
+
+add_edge("Progetto Barca", "Split costi 1/3", "governed_by")
+add_edge("Progetto Barca", "Accordo scritto danni/split", "requires")
+add_edge("Split costi 1/3", "Danno da errore conducente → paga conducente", "defines")
+add_edge("Split costi 1/3", "Danno imprevedibile → tutti insieme", "defines")
+add_edge("Split costi 1/3", "Uscita socio → rimborso quota", "defines")
+add_edge("RC assicurazione 100-150€/anno", "TCO 3600€/anno totale", "part_of")
+add_edge("Costi fissi 1800€/anno", "TCO 3600€/anno totale", "part_of")
+
+# ── Dibattito gommone vs rigido ──────────────────────────────────
+add_node("Montaggio gommone faticoso", "insight", "wiki/concetti/montaggio-gommone.md")
+add_node("Scafo rigido preferito per praticità", "decision", "wiki/concetti/montaggio-gommone.md")
+add_node("Pesca invernale", "activity", "wiki/sintesi/conversazioni-audio-20260809.md")
+add_node("Postazione guida (console)", "feature", "wiki/sintesi/conversazioni-audio-20260809.md")
+
+add_edge("Track B - Gommoni", "Montaggio gommone faticoso", "has_drawback")
+add_edge("Montaggio gommone faticoso", "Scafo rigido preferito per praticità", "leads_to")
+add_edge("Track A - Rigide", "Scafo rigido preferito per praticità", "supported_by")
+add_edge("Progetto Barca", "Pesca invernale", "activity")
+add_edge("Pesca invernale", "Pesca a canna (priorità #1)", "extends")
+add_edge("Postazione guida (console)", "Track A - Rigide", "desired_for")
+
+# ── Conversazioni audio 2026-08-09 ───────────────────────────────
+add_node("Conversazioni audio 2026-08-09", "source", "wiki/sintesi/conversazioni-audio-20260809.md")
+add_edge("Conversazioni audio 2026-08-09", "Split costi 1/3", "documents")
+add_edge("Conversazioni audio 2026-08-09", "Montaggio gommone faticoso", "documents")
+add_edge("Conversazioni audio 2026-08-09", "Scafo rigido preferito per praticità", "documents")
 add_node("Assicurazione RC 150-400€/anno", "estimate", "wiki/preferenze/budget.md")
 add_node("Manutenzione 150-600€/anno", "estimate", "wiki/preferenze/budget.md")
 add_node("Carburante 200-500€/anno", "estimate", "wiki/preferenze/budget.md")

@@ -1,9 +1,10 @@
 ---
 title: Budget
 type: preferenza
-updated: 2026-08-04
+updated: 2026-08-09
 status: active
 tags: [budget, usato, tco]
+sources: [raw/audio/, wiki/preferenze/split-costi.md]
 ---
 
 # Budget
@@ -72,8 +73,25 @@ canone_fisso + (costo_per_uscita × N) + assicurazione + buffer ≤ 3600
 
 Con uso moderato, target sano: **canone fisso ≤ ~1.500–2.000 €/anno** così restano carburante e guasti.
 
+## Stime aggiornate da conversazioni 2026-08-09
+
+| Voce | Stima audio | Note |
+|------|-------------|------|
+| Costi fissi totali | ~1.800 €/anno | 150 €/mese |
+| RC assicurazione | 100–150 €/anno | Rialzata da 40 €, principio "principianti" |
+| Manutenzione ordinaria | 300–500 €/anno | Tagliandi, antifouling, piccoli lavori |
+| Alaggio/Varo | ~150 € a operazione | A parte, non incluso in posto |
+| Carburante uscite | 200–500 €/anno | Motore ~25–40 CV |
+
+## Split danni (regola)
+
+Vedi [[split-costi]]:
+- **Errore conducente → paga il conducente**
+- **Evento imprevedibile → tutti insieme (1/3)**
+- **Uscita socio → rimborso quota proporzionale**
+
 ## Open
 
-- [ ] Split non uguale?  
 - [ ] Numeri reali Anzio + 2 cantieri  
-- [ ] Quante uscite/anno per chiudere formula  
+- [ ] Redigere accordo scritto firmato
+- [ ] Quante uscite/anno per chiudere formula
