@@ -3,6 +3,7 @@ import graphData from "../graph.json" with { type: "json" };
 const MAX_HISTORY = 8;
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 300;
+const MAX_DAILY_MESSAGES = 3;
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 
 // ── Graph traversal ─────────────────────────────────────────────
@@ -386,6 +387,38 @@ async function maybeSummarize(kv, userId, history) {
   await setChatHistory(kv, userId, history.slice(-MAX_HISTORY));
 }
 
+// ── Rate limiter ─────────────────────────────────────────────────
+
+async function checkRateLimit(kv, userId) {
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const key = `rate:${userId}:${today}`;
+  try {
+    const raw = await kv.get(key);
+    const count = raw ? parseInt(raw) : 0;
+    return { count, key, allowed: count < MAX_DAILY_MESSAGES };
+  } catch {
+    return { count: 0, key, allowed: true };
+  }
+}
+
+async function incrementRateLimit(kv, userId) {
+  const today = new Date().toISOString().slice(0, 10);
+  const key = `rate:${userId}:${today}`;
+  try {
+    const raw = await kv.get(key);
+    const count = raw ? parseInt(raw) : 0;
+    const newCount = count + 1;
+    // TTL: expire tomorrow at midnight UTC
+    const tomorrow = new Date();
+    tomorrow.setUTCHours(24, 0, 0, 0);
+    const ttl = Math.floor((tomorrow.getTime() - Date.now()) / 1000);
+    await kv.put(key, String(newCount), { expirationTtl: ttl });
+    return newCount;
+  } catch {
+    return 999; // fail-open on error
+  }
+}
+
 // ── Debug log ────────────────────────────────────────────────────
 
 const DEBUG_BUFFER = []; // in-memory (lost on cold start, but fine for dev)
@@ -469,6 +502,20 @@ export default {
           return new Response(JSON.stringify(report, null, 2), { headers: corsHeaders });
         }
 
+        // Rate limit check
+        if (env.SBARCO_KV) {
+          const rate = await checkRateLimit(env.SBARCO_KV, userId);
+          if (!rate.allowed) {
+            return new Response(
+              JSON.stringify({
+                error: `Limite giornaliero raggiunto (${MAX_DAILY_MESSAGES}/${MAX_DAILY_MESSAGES} msg). Torna domani!`,
+                remaining: 0,
+              }),
+              { status: 429, headers: corsHeaders }
+            );
+          }
+        }
+
         // 1. Traverse graph
         const subgraph = traverseGraph(question);
         const subgraphText = subgraphToText(subgraph);
@@ -526,10 +573,14 @@ export default {
         });
         if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
 
+        // 9. Increment rate limit
+        const newCount = env.SBARCO_KV ? await incrementRateLimit(env.SBARCO_KV, userId) : 0;
+
         return new Response(
           JSON.stringify({
             response: result.content,
             subgraphSize: subgraph.nodes?.length || 0,
+            remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
           }),
           { headers: corsHeaders }
         );
@@ -541,6 +592,121 @@ export default {
         });
         return new Response(
           JSON.stringify({ error: "Errore interno. Tiziano può usare /debug per i dettagli." }),
+          { status: 500, headers: corsHeaders }
+        );
+      }
+    }
+
+    // ── Web search endpoint ─────────────────────────────────────
+    if (url.pathname === "/api/search" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        const { userId, query } = body;
+        if (!userId || !VALID_USERS.includes(userId)) {
+          return new Response(
+            JSON.stringify({ error: "userId non valido." }),
+            { status: 400, headers: corsHeaders }
+          );
+        }
+        if (!query || query.trim().length < 3) {
+          return new Response(
+            JSON.stringify({ error: "Query di ricerca troppo corta." }),
+            { status: 400, headers: corsHeaders }
+          );
+        }
+
+        // Rate limit
+        if (env.SBARCO_KV) {
+          const rate = await checkRateLimit(env.SBARCO_KV, userId);
+          if (!rate.allowed) {
+            return new Response(
+              JSON.stringify({ error: `Limite giornaliero raggiunto (${MAX_DAILY_MESSAGES}/${MAX_DAILY_MESSAGES} msg).` }),
+              { status: 429, headers: corsHeaders }
+            );
+          }
+        }
+
+        // Fetch from DuckDuckGo HTML (no API key needed)
+        const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+        const ddgResp = await fetch(ddgUrl, {
+          headers: { "User-Agent": "Sbarco/1.0 (boat research bot)" },
+        });
+        const html = await ddgResp.text();
+
+        // Extract result snippets
+        const results = [];
+        const snippetRegex = /<a rel="nofollow" class="result__a" href="([^"]+)">([^<]+)<\/a>[\s\S]*?<a class="result__snippet[^"]*">([^<]+)<\/a>/gi;
+        let match;
+        while ((match = snippetRegex.exec(html)) !== null) {
+          results.push({
+            title: match[2].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+            url: match[1],
+            snippet: match[3].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+          });
+          if (results.length >= 5) break;
+        }
+
+        // Increment rate limit
+        const newCount = env.SBARCO_KV ? await incrementRateLimit(env.SBARCO_KV, userId) : 0;
+
+        return new Response(
+          JSON.stringify({
+            query,
+            results,
+            remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
+          }),
+          { headers: corsHeaders }
+        );
+      } catch (err) {
+        return new Response(
+          JSON.stringify({ error: "Ricerca web fallita: " + err.message }),
+          { status: 500, headers: corsHeaders }
+        );
+      }
+    }
+
+    // ── Document export endpoint ────────────────────────────────
+    if (url.pathname === "/api/export" && request.method === "POST") {
+      try {
+        const body = await request.json();
+        const { userId, format, content } = body;
+        if (!userId || !VALID_USERS.includes(userId)) {
+          return new Response(
+            JSON.stringify({ error: "userId non valido." }),
+            { status: 400, headers: corsHeaders }
+          );
+        }
+        if (!content) {
+          return new Response(
+            JSON.stringify({ error: "Contenuto mancante." }),
+            { status: 400, headers: corsHeaders }
+          );
+        }
+
+        const fmt = format || "md";
+        let mimeType, fileContent;
+        if (fmt === "md" || fmt === "markdown") {
+          mimeType = "text/markdown; charset=utf-8";
+          fileContent = content;
+        } else if (fmt === "txt") {
+          mimeType = "text/plain; charset=utf-8";
+          fileContent = content.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\*(.+?)\*/g, "$1");
+        } else {
+          mimeType = "text/plain; charset=utf-8";
+          fileContent = content;
+        }
+
+        const fileName = `sbarco-${userId}-${new Date().toISOString().slice(0, 10)}.${fmt}`;
+        return new Response(fileContent, {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": mimeType,
+            "Content-Disposition": `attachment; filename="${fileName}"`,
+          },
+        });
+      } catch (err) {
+        return new Response(
+          JSON.stringify({ error: "Export fallito: " + err.message }),
           { status: 500, headers: corsHeaders }
         );
       }

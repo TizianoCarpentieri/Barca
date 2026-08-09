@@ -9,6 +9,7 @@ const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const LS_KEY = "barca_user";
+const MAX_DAILY = 3;
 
 (function () {
   if (document.querySelector(".sbarco-root")) return;
@@ -31,6 +32,7 @@ const LS_KEY = "barca_user";
     <div class="sbarco-panel">
       <div class="sbarco-header">
         <span class="sbarco-header__title">⚓ Sbarco</span>
+        <span class="sbarco-header__counter" title="Messaggi rimanenti oggi">3/3</span>
         <select class="sbarco-header__user">
           <option value="">Chi sei?</option>
           <option value="tiziano">Tiziano</option>
@@ -52,6 +54,7 @@ const LS_KEY = "barca_user";
   const panel = root.querySelector(".sbarco-panel");
   const closeBtn = root.querySelector(".sbarco-header__close");
   const userSelect = root.querySelector(".sbarco-header__user");
+  const counterEl = root.querySelector(".sbarco-header__counter");
   const msgsEl = root.querySelector(".sbarco-msgs");
   const inputEl = root.querySelector(".sbarco-input-wrap input");
   const sendBtn = root.querySelector(".sbarco-input-wrap button");
@@ -59,10 +62,22 @@ const LS_KEY = "barca_user";
   let isOpen = false;
   let isSending = false;
   let currentUser = initialUser;
+  let remaining = MAX_DAILY;
 
   if (currentUser) {
     userSelect.value = currentUser;
     greet();
+  }
+
+  function updateCounter(rem) {
+    remaining = rem;
+    counterEl.textContent = `${rem}/${MAX_DAILY}`;
+    counterEl.className = `sbarco-header__counter ${rem <= 1 ? "low" : ""}`;
+    if (rem <= 0) {
+      sendBtn.disabled = true;
+      inputEl.disabled = true;
+      inputEl.placeholder = "Limite giornaliero raggiunto";
+    }
   }
 
   // ── Open / close ────────────────────────────────────────────
@@ -88,6 +103,8 @@ const LS_KEY = "barca_user";
       currentUser = v;
       localStorage.setItem(LS_KEY, v);
       msgsEl.innerHTML = "";
+      remaining = MAX_DAILY;
+      updateCounter(MAX_DAILY);
       greet();
     }
   });
@@ -125,11 +142,17 @@ const LS_KEY = "barca_user";
 
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
+        if (resp.status === 429) {
+          updateCounter(0);
+        }
         addMsg("sbarco", err.error || "Sbarco ha un problema. Riprova.");
         return;
       }
 
       const data = await resp.json();
+      if (data.remaining !== undefined) {
+        updateCounter(data.remaining);
+      }
       addMsg("sbarco", data.response);
     } catch (err) {
       typingEl.remove();

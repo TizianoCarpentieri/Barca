@@ -98,6 +98,28 @@
   font-size: 18px;
 }
 
+/* ── Rate limit counter ─────────────────────────────────────── */
+.sbarco-header__counter {
+  background: var(--sbarco-surface);
+  border: 1px solid var(--sbarco-border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  color: var(--sbarco-accent);
+  white-space: nowrap;
+}
+.sbarco-header__counter.low {
+  color: #d46a3a;
+  border-color: rgba(212, 106, 58, 0.4);
+  animation: pulse-counter 1.5s ease-in-out infinite;
+}
+@keyframes pulse-counter {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 /* ── Messages ───────────────────────────────────────────────── */
 .sbarco-msgs {
   flex: 1;
