@@ -32,9 +32,9 @@ const MAX_DAILY = 3;
     <div class="sbarco-panel">
       <div class="sbarco-header">
         <span class="sbarco-header__title">⚓ Sbarco</span>
-        <span class="sbarco-header__counter" title="Messaggi rimanenti oggi">3/3</span>
+        <span class="sbarco-header__counter" title="Messaggi rimanenti oggi">-/-</span>
         <select class="sbarco-header__user">
-          <option value="">Chi sei?</option>
+          <option value="" disabled>Chi sei?</option>
           <option value="tiziano">Tiziano</option>
           <option value="antonio">Antonio</option>
           <option value="peppe">Peppe</option>
@@ -66,12 +66,22 @@ const MAX_DAILY = 3;
 
   if (currentUser) {
     userSelect.value = currentUser;
+    setUser(currentUser);
     greet();
+  } else {
+    sendBtn.disabled = true;
+    inputEl.disabled = true;
+    inputEl.placeholder = "Seleziona chi sei per iniziare";
+  }
+
+  function getMaxDaily(user) {
+    return user === "tiziano" ? 10 : MAX_DAILY;
   }
 
   function updateCounter(rem) {
     remaining = rem;
-    counterEl.textContent = `${rem}/${MAX_DAILY}`;
+    var max = getMaxDaily(currentUser);
+    counterEl.textContent = `${rem}/${max}`;
     counterEl.className = `sbarco-header__counter ${rem <= 1 ? "low" : ""}`;
     if (rem <= 0) {
       sendBtn.disabled = true;
@@ -100,14 +110,21 @@ const MAX_DAILY = 3;
   userSelect.addEventListener("change", () => {
     const v = userSelect.value;
     if (VALID_USERS.includes(v)) {
-      currentUser = v;
-      localStorage.setItem(LS_KEY, v);
-      msgsEl.innerHTML = "";
-      remaining = MAX_DAILY;
-      updateCounter(MAX_DAILY);
-      greet();
+      setUser(v);
     }
   });
+
+  function setUser(v) {
+    currentUser = v;
+    localStorage.setItem(LS_KEY, v);
+    msgsEl.innerHTML = "";
+    remaining = getMaxDaily(v);
+    updateCounter(remaining);
+    sendBtn.disabled = false;
+    inputEl.disabled = false;
+    inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
+    greet();
+  }
 
   function greet() {
     if (!currentUser) return;
@@ -220,7 +237,8 @@ const MAX_DAILY = 3;
             bodyEl.innerHTML = data.error;
           }
           if (data.done) {
-            updateCounter(Math.max(0, (remaining || MAX_DAILY) - 1));
+            var newRem = Math.max(0, remaining - 1);
+            updateCounter(newRem);
           }
         } catch (e) {}
       }

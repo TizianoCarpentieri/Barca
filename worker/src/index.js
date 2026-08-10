@@ -434,6 +434,36 @@ const TOOLS = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "read_url",
+      description: "Legge il contenuto testuale di una pagina web. Usa per approfondire un risultato di ricerca: prima cerca con search_web, poi leggi le pagine piu' rilevanti con read_url. Estrae il testo principale dalla pagina.",
+      parameters: {
+        type: "object",
+        properties: {
+          url: { type: "string", description: "URL completo della pagina da leggere (es. https://example.com/articolo)" }
+        },
+        required: ["url"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "remember",
+      description: "Salva un'informazione importante nella memoria condivisa delle bestie. Usala dopo aver fatto una ricerca approfondita, per registrare un fatto, un prezzo, una normativa o una scoperta. Includi sempre chi ha chiesto e la data.",
+      parameters: {
+        type: "object",
+        properties: {
+          fact: { type: "string", description: "Fatto o informazione da ricordare, in italiano. Sii specifico: includi numeri, fonti, date." }
+        },
+        required: ["fact"],
+        additionalProperties: false,
+      },
+    },
+  },
 ];
 
 // ── Tool execution ────────────────────────────────────────────────
@@ -477,6 +507,31 @@ async function executeReadWiki(page) {
   }
 }
 
+async function executeReadUrl(url) {
+  try {
+    const resp = await fetch(url, {
+      headers: { "User-Agent": "Sbarco/1.0 (boat research bot)" },
+    });
+    if (!resp.ok) return `Impossibile leggere ${url} (HTTP ${resp.status}).`;
+    const html = await resp.text();
+    // Extract text: remove scripts, styles, then strip tags
+    const cleaned = html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+/g, " ")
+      .trim();
+    return cleaned.length > 12000 ? cleaned.slice(0, 12000) + "\n\n[... troncato]" : cleaned;
+  } catch (err) {
+    return `Errore nel leggere ${url}: ${err.message}`;
+  }
+}
+
 async function executeTool(toolCall) {
   const { name, arguments: argsStr } = toolCall.function;
   let args = {};
@@ -487,8 +542,12 @@ async function executeTool(toolCall) {
       return await executeSearchWeb(args.query || "");
     case "read_wiki":
       return await executeReadWiki(args.page || "");
+    case "read_url":
+      return await executeReadUrl(args.url || "");
     case "save_doc":
       return `Documento "${args.title}" salvato con successo.\n\nContenuto:\n${args.content}`;
+    case "remember":
+      return `Fatto "${args.fact}" ricordato dalle bestie.`;
     default:
       return `Tool sconosciuto: ${name}`;
   }
