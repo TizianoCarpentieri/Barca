@@ -1,7 +1,7 @@
 ---
-title: Track gommoni (parallelo)
+title: Track gommoni (PRIMARIO)
 type: preferenza
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [gommone, dual-track, pesca]
 sources:
@@ -9,14 +9,9 @@ sources:
   - presentazione/scripts/fetch-gommoni.mjs
 ---
 
-# Track parallelo — Gommoni pneumatici
+# Track primario — Gommoni pneumatici
 
-Dal 2026-08-05 il gruppo valuta **due rotte in parallelo**:
-
-1. **Rigide** — gozzo/open/lancia (track storico requisiti v1)  
-2. **Gommoni** — pneumatici puri, non RIB (questo track)
-
-Non si annulla il “no gommone” del track rigidi: è una **seconda shortlist** con criteri propri.
+Dal 2026-08-10 il gommone è il **track primario**. Lo scafo rigido resta come scenario futuro condizionato a ≥5 soci (vedi [[sintesi/scenario-rigido-5-soci]]).
 
 ## Tipo di mezzo (must track gommone)
 
@@ -40,11 +35,25 @@ Non si annulla il “no gommone” del track rigidi: è una **seconda shortlist*
 | Pavimento prio 1 | **Paiolato rigido alluminio** |
 | Pavimento prio 2 | **AirDeck** alta pressione |
 
+## Logistica e trasporto — open questions
+
+- Chi ha un'auto adatta? (gommone piegato + motore + attrezzatura)
+- Dove si tiene durante la settimana?
+- Ciclo completo di un'uscita: vedi [[concetti/montaggio-gommone]]
+- Dettaglio trasporto e custodia: [[concetti/logistica-trasporto]]
+
+## Costi da verificare
+
+Vedi [[concetti/costi-nascosti-gommone]] per il dettaglio di:
+- Passaggio proprietà e documenti
+- Dotazioni sicurezza obbligatorie
+- Manutenzione ordinaria gommone e motore
+
 ## Reference prodotto
 
 **[[modelli/argo-evo-360]]** — nuovo a **970 €** (scafo solo).
 
-Regola usato “quasi uguale”: almeno **−20%** senza motore (~776 €), altrimenti score basso.  
+Regola usato "quasi uguale": almeno **−20%** senza motore (~776 €), altrimenti score basso.  
 Bundle con motore buono può giustificare totali più alti.
 
 ## Feed automatico
