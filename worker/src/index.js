@@ -4,7 +4,12 @@ const MAX_HISTORY = 8;
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 300;
 const MAX_DAILY_MESSAGES = 3;
+const MAX_DAILY_TIZIANO = 10;
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
+
+function getMaxDaily(userId) {
+  return userId === "tiziano" ? MAX_DAILY_TIZIANO : MAX_DAILY_MESSAGES;
+}
 
 // ── Graph traversal ─────────────────────────────────────────────
 
@@ -870,7 +875,7 @@ async function checkRateLimit(kv, userId) {
   try {
     const raw = await kv.get(key);
     const count = raw ? parseInt(raw) : 0;
-    return { count, key, allowed: count < MAX_DAILY_MESSAGES };
+    return { count, key, allowed: count < getMaxDaily(userId) };
   } catch {
     return { count: 0, key, allowed: true };
   }
@@ -1005,7 +1010,7 @@ export default {
           if (!rate.allowed) {
             return new Response(
               JSON.stringify({
-                error: `Limite giornaliero raggiunto (${MAX_DAILY_MESSAGES}/${MAX_DAILY_MESSAGES} msg). Torna domani!`,
+                error: `Limite giornaliero raggiunto (${getMaxDaily(userId)} msg). Torna domani!`,
                 remaining: 0,
               }),
               { status: 429, headers: corsHeaders }
@@ -1094,7 +1099,7 @@ export default {
           const rate = await checkRateLimit(env.SBARCO_KV, userId);
           if (!rate.allowed) {
             return new Response(
-              JSON.stringify({ error: `Limite giornaliero raggiunto (${MAX_DAILY_MESSAGES}/${MAX_DAILY_MESSAGES} msg).` }),
+              JSON.stringify({ error: `Limite giornaliero raggiunto (${getMaxDaily(userId)} msg).` }),
               { status: 429, headers: corsHeaders }
             );
           }
@@ -1127,7 +1132,7 @@ export default {
           JSON.stringify({
             query,
             results,
-            remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
+            remaining: Math.max(0, getMaxDaily(userId) - newCount),
           }),
           { headers: corsHeaders }
         );
