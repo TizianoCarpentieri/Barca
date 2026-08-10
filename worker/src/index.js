@@ -494,7 +494,138 @@ async function executeTool(toolCall) {
   }
 }
 
-// ── Tool loop ─────────────────────────────────────────────────────
+// ── Streaming chat (tool loop + streamed final answer) ─────────
+
+async function chatWithToolsStream(apiKey, model, messages, signal) {
+  const allMessages = [...messages];
+  const documents = [];
+
+  for (let i = 0; i < 3; i++) {
+    const body = {
+      model: model || "deepseek-v4-flash",
+      messages: allMessages,
+      tools: TOOLS,
+      temperature: 0.7,
+      max_tokens: 8000,
+      extra_body: { thinking: { type: "enabled" } },
+      stream: false,
+    };
+
+    const resp = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(body),
+      signal,
+    });
+
+    if (!resp.ok) {
+      const err = await resp.text();
+      throw new Error(`DeepSeek HTTP ${resp.status}: ${err.slice(0, 200)}`);
+    }
+
+    const data = await resp.json();
+    const message = data.choices[0].message;
+    allMessages.push(message);
+
+    if (message.tool_calls && message.tool_calls.length > 0) {
+      for (const toolCall of message.tool_calls) {
+        const result = await executeTool(toolCall);
+        if (toolCall.function.name === "save_doc") {
+          const args = JSON.parse(toolCall.function.arguments);
+          documents.push({ title: args.title, content: args.content });
+        }
+        allMessages.push({
+          role: "tool",
+          tool_call_id: toolCall.id,
+          content: result,
+        });
+      }
+    } else {
+      return { documents, messages: allMessages, finalResponse: message.content };
+    }
+  }
+
+  const last = allMessages[allMessages.length - 1];
+  return { documents, messages: allMessages, finalResponse: last?.content || "" };
+}
+
+function createSSEStream(apiKey, model, messages, documents, onComplete) {
+  return new ReadableStream({
+    async start(controller) {
+      const encoder = new TextEncoder();
+
+      const body = JSON.stringify({
+        model: model || "deepseek-v4-flash",
+        messages,
+        temperature: 0.7,
+        max_tokens: 8000,
+        extra_body: { thinking: { type: "enabled" } },
+        stream: true,
+      });
+
+      try {
+        const resp = await fetch("https://api.deepseek.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+          },
+          body,
+        });
+
+        if (!resp.ok) {
+          const err = await resp.text();
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: `DeepSeek HTTP ${resp.status}` })}\n\n`));
+          controller.close();
+          return;
+        }
+
+        let fullContent = "";
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            const data = line.slice(6);
+            if (data === "[DONE]") continue;
+
+            try {
+              const parsed = JSON.parse(data);
+              const delta = parsed.choices?.[0]?.delta?.content;
+              if (delta) {
+                fullContent += delta;
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token: delta })}\n\n`));
+              }
+            } catch {}
+          }
+        }
+
+        if (documents.length > 0) {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ documents })}\n\n`));
+        }
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+        controller.close();
+
+        if (onComplete) onComplete(fullContent);
+      } catch (err) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: err.message })}\n\n`));
+        controller.close();
+      }
+    },
+  });
+}
 
 async function chatWithTools(apiKey, model, messages, maxIterations = 3) {
   const allMessages = [...messages];
@@ -790,59 +921,44 @@ export default {
           summary
         );
 
-        // 3. Call DeepSeek with tool loop
-        const result = await chatWithTools(apiKey, env.DEEPSEEK_MODEL, messages);
+        // 3. Call DeepSeek with tool loop (non-streaming for tool phase)
+        const toolResult = await chatWithToolsStream(apiKey, env.DEEPSEEK_MODEL, messages, request.signal);
 
-        // 4. Save to history
-        const newHistory = [
-          ...history,
-          { role: "user", content: question },
-          { role: "assistant", content: result.response },
-        ];
-        await setChatHistory(env.SBARCO_KV, userId, newHistory);
+        // 4. Stream final response as SSE, save history on complete
+        const documents = toolResult.documents;
 
-        // 5. Summarize if too long
-        await maybeSummarize(env.SBARCO_KV, userId, newHistory);
-
-        // 6. Extract memory (async, don't await)
-        env.SBARCO_KV && extractMemoryIfNeeded(
-          apiKey,
-          env.DEEPSEEK_MODEL,
-          question,
-          result.response,
-          env.SBARCO_KV,
-          userId
-        );
-
-        // 7. Log to debug buffer
-        DEBUG_BUFFER.push({
-          ts: new Date().toISOString(),
-          user: userId,
-          question: question.slice(0, 100),
-          toolRounds: result.toolRounds || 0,
-          documents: result.documents?.length || 0,
-          promptTokens: result.usage?.prompt_tokens,
-          responseTokens: result.usage?.completion_tokens,
-          elapsedMs: Date.now() - startTime,
+        const stream = createSSEStream(apiKey, env.DEEPSEEK_MODEL, toolResult.messages, documents, (fullText) => {
+          if (!fullText) return;
+          const newHistory = [
+            ...history,
+            { role: "user", content: question },
+            { role: "assistant", content: fullText },
+          ];
+          setChatHistory(env.SBARCO_KV, userId, newHistory).catch(() => {});
+          maybeSummarize(env.SBARCO_KV, userId, newHistory).catch(() => {});
+          if (env.SBARCO_KV) {
+            extractMemoryIfNeeded(apiKey, env.DEEPSEEK_MODEL, question, fullText, env.SBARCO_KV, userId).catch(() => {});
+          }
+          DEBUG_BUFFER.push({
+            ts: new Date().toISOString(),
+            user: userId,
+            question: question.slice(0, 100),
+            elapsedMs: Date.now() - startTime,
+          });
+          if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
         });
-        if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
 
-        // 8. Increment rate limit
+        // Increment rate limit
         const newCount = env.SBARCO_KV ? await incrementRateLimit(env.SBARCO_KV, userId) : 0;
 
-        const responsePayload = {
-          response: result.response,
-          remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
-        };
-
-        if (result.documents && result.documents.length > 0) {
-          responsePayload.documents = result.documents;
-        }
-
-        return new Response(
-          JSON.stringify(responsePayload),
-          { headers: corsHeaders }
-        );
+        return new Response(stream, {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "text/event-stream",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+          },
+        });
 
       } catch (err) {
         DEBUG_BUFFER.push({

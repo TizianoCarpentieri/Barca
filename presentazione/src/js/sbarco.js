@@ -129,7 +129,6 @@ const MAX_DAILY = 3;
     inputEl.disabled = true;
 
     addMsg("user", text, currentUser);
-    const typingEl = addTyping();
 
     try {
       const resp = await fetch(`${SBARCO_WORKER}/api/chat`, {
@@ -138,35 +137,93 @@ const MAX_DAILY = 3;
         body: JSON.stringify({ userId: currentUser, question: text }),
       });
 
-      typingEl.remove();
-
       if (!resp.ok) {
+        if (resp.status === 429) updateCounter(0);
         const err = await resp.json().catch(() => ({}));
-        if (resp.status === 429) {
-          updateCounter(0);
-        }
         addMsg("sbarco", err.error || "Sbarco ha un problema. Riprova.");
+        isSending = false;
+        sendBtn.disabled = false;
+        inputEl.disabled = false;
         return;
       }
 
-      const data = await resp.json();
-      if (data.remaining !== undefined) {
-        updateCounter(data.remaining);
-      }
-      addMsg("sbarco", data.response);
-      if (data.documents && data.documents.length > 0) {
-        for (const doc of data.documents) {
-          addDocumentMsg(doc);
+      const contentType = resp.headers.get("content-type") || "";
+      if (contentType.includes("text/event-stream")) {
+        await handleStream(resp);
+      } else {
+        const data = await resp.json();
+        if (data.remaining !== undefined) updateCounter(data.remaining);
+        addMsg("sbarco", data.response);
+        if (data.documents && data.documents.length > 0) {
+          for (const doc of data.documents) addDocumentMsg(doc);
         }
       }
     } catch (err) {
-      typingEl.remove();
       addMsg("sbarco", "Non riesco a contattare Sbarco. Controlla la connessione.");
     } finally {
       isSending = false;
       sendBtn.disabled = false;
       inputEl.disabled = false;
       inputEl.focus();
+    }
+  }
+
+  async function handleStream(resp) {
+    var msgDiv = null;
+    var bodyEl = null;
+    var fullText = "";
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
+    var buffer = "";
+
+    while (true) {
+      var result = await reader.read();
+      if (result.done) break;
+
+      buffer += decoder.decode(result.value, { stream: true });
+      var lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (!line.startsWith("data: ")) continue;
+
+        try {
+          var data = JSON.parse(line.slice(6));
+          if (data.token) {
+            fullText += data.token;
+            if (!msgDiv) {
+              msgDiv = document.createElement("div");
+              msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
+              bodyEl = document.createElement("div");
+              bodyEl.className = "sbarco-msg__body";
+              msgDiv.appendChild(bodyEl);
+              msgsEl.appendChild(msgDiv);
+            }
+            bodyEl.innerHTML = renderMarkdown(fullText);
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+          }
+          if (data.documents) {
+            for (var d = 0; d < data.documents.length; d++) {
+              addDocumentMsg(data.documents[d]);
+            }
+          }
+          if (data.error) {
+            if (!msgDiv) {
+              msgDiv = document.createElement("div");
+              msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
+              bodyEl = document.createElement("div");
+              bodyEl.className = "sbarco-msg__body";
+              msgDiv.appendChild(bodyEl);
+              msgsEl.appendChild(msgDiv);
+            }
+            bodyEl.innerHTML = data.error;
+          }
+          if (data.done) {
+            updateCounter(Math.max(0, (remaining || MAX_DAILY) - 1));
+          }
+        } catch (e) {}
+      }
     }
   }
 
