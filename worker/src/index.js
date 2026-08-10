@@ -229,74 +229,112 @@ async function callDeepSeek(apiKey, model, messages, env) {
 
 // ── Prompt builder ───────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `Sei Sbarco, l'assistente del Progetto Barca delle Bestie (Tiziano, Antonio, Peppe).
+const WIKI_REPO_RAW = "https://raw.githubusercontent.com/tizianocarpentieri/Barca/main";
+
+const WIKI_PAGES = {
+  overview: { path: "wiki/overview.md", cacheTtl: 21600 },
+  mustHave: { path: "wiki/preferenze/must-have.md", cacheTtl: 21600 },
+  budget: { path: "wiki/preferenze/budget.md", cacheTtl: 21600 },
+  openQuestions: { path: "wiki/preferenze/open-questions.md", cacheTtl: 21600 },
+  splitCosti: { path: "wiki/preferenze/split-costi.md", cacheTtl: 21600 },
+  requisiti: { path: "wiki/sintesi/requisiti-v1.md", cacheTtl: 21600 },
+  index: { path: "wiki/index.md", cacheTtl: 3600 },
+};
+
+const EMBEDDED_WIKI = {
+  montaggio: `{montaggio-gommone.md content}`,
+  normativa: `{limiti-senza-patente.md content}`,
+};
+
+async function fetchWikiPage(kv, key, pageDef) {
+  const cacheKey = `wiki:cache:${key}`;
+  try {
+    const cached = await kv.get(cacheKey);
+    if (cached) return cached;
+  } catch {}
+
+  const url = `${WIKI_REPO_RAW}/${pageDef.path}`;
+  try {
+    const resp = await fetch(url, { headers: { "User-Agent": "Sbarco/1.0" } });
+    if (!resp.ok) return `[${key} non disponibile]`;
+    const text = await resp.text();
+    await kv.put(cacheKey, text, { expirationTtl: pageDef.cacheTtl });
+    return text;
+  } catch {
+    return `[${key} non disponibile]`;
+  }
+}
+
+async function buildSystemPrompt(kv) {
+  const pages = {};
+  for (const [key, def] of Object.entries(WIKI_PAGES)) {
+    pages[key] = await fetchWikiPage(kv, key, def);
+  }
+
+  return `Sei Sbarco, l'assistente del Progetto Barca delle Bestie (Tiziano, Antonio, Peppe).
 Rispondi in italiano, tono amichevole e diretto. Sei un membro della crew.
-Usa **grassetto** per enfasi, elenchi puntati, e testo strutturato quando utile.
+Usa **grassetto** per enfasi, elenchi puntati e testo strutturato.
 
-CONTESTO PROGETTO:
-- Budget max: 4.500€ usato (track rigidi); gommone benchmark Argo-Evo 360 a 970€ nuovo
-- Nessuno ha la patente nautica → limite 40,8 CV, entro 6 miglia
-- Base: Ardea/Pomezia, mare Tirreno laziale (Anzio, Circeo, Fiumicino)
-- Dual track: scafi rigidi (gozzo/open) + gommoni pneumatici + motori fuoribordo
-- Priorità: pesca a canna (#1), giri costa (#2), bagno (#3)
-- 3 persone comode per pesca, fino a 6 per uscite sociali
-- Gestione: ≤1.200€/testa/anno (3.600€ totali)
+Usa gli strumenti disponibili quando necessario:
+- **search_web**: per cercare prezzi, normative, costi reali, recensioni modelli
+- **read_wiki**: per leggere pagine della wiki non incluse nel contesto
+- **save_doc**: per salvare confronti, checklist, analisi in documenti scaricabili
 
-CONSENSO GRUPPO (da conversazioni 9 ago 2026):
-- Scafo rigido preferito al gommone per praticità quotidiana (montaggio gommone troppo faticoso)
-- Split costi: 1/3 fisso su costi fissi; danni: chi sbaglia paga (se errore conducente), oppure tutti insieme (se imprevedibile)
-- Accordo scritto da firmare con regole danni, split e uscita socio
-- Assicurazione RC: stima realistica 100-150€/anno (siamo principianti)
-- Interesse per pesca anche d'inverno nelle giornate calme
-- Costi fissi stimati: ~1.800€/anno totali (150€/mese), ~450€/testa/anno
+STATO PROGETTO:
+${pages.overview || "Non disponibile"}
+
+REQUISITI:
+${pages.mustHave || "Non disponibile"}
+
+BUDGET:
+${pages.budget || "Non disponibile"}
+
+DOMANDE APERTE:
+${pages.openQuestions || "Non disponibile"}
+
+REGOLE DANNI E SPLIT:
+${pages.splitCosti || "Non disponibile"}
+
+REQUISITI DETTAGLIATI:
+${pages.requisiti || "Non disponibile"}
+
+NORMATIVA NO-PATENTE:
+${EMBEDDED_WIKI.normativa}
+
+LOGISTICA GOMMONE:
+${EMBEDDED_WIKI.montaggio}
 
 REGOLE:
-- Se un utente esprime una preferenza o un vincolo, ricordalo.
-- Cita sempre la fonte se presente nel grafo (es. "Secondo i requisiti v1...").
-- Se non hai abbastanza informazioni, dillo sinceramente.
+- Se l'utente esprime una preferenza o un vincolo, ricordalo.
+- Cita sempre la fonte se presente nella wiki o trovata via web.
+- Se non hai dati certi su una domanda, dillo e offri di cercare con search_web.
+- Per generare documenti (confronti, checklist, analisi), usa save_doc.
 - Non inventare prezzi, modelli o normative.
 - Se la domanda riguarda Peppe, Antonio o Tiziano, usa il nome.
-- Usa formattazione markdown semplice: **grassetto**, elenchi con -, tabelle semplici se utili.`;
+- Usa formattazione markdown semplice.`;
+}
 
-function buildMessages(userId, question, subgraphText, memoryFacts, history, summary) {
+function buildMessages(systemPrompt, question, memoryFacts, history, summary) {
   const messages = [
-    { role: "system", content: SYSTEM_PROMPT },
+    { role: "system", content: systemPrompt },
   ];
 
-  // Inject shared memory
   if (memoryFacts.length > 0) {
     const factsText = memoryFacts
       .slice(-MAX_MEMORY_FACTS)
       .map(f => `- [${f.date?.slice(0, 10) || "?"}] ${f.user}: ${f.fact}`)
       .join("\n");
-    messages.push({
-      role: "system",
-      content: `MEMORIA CONDIVISA DELLE BESTIE:\n${factsText}`,
-    });
+    messages.push({ role: "system", content: `MEMORIA CONDIVISA:\n${factsText}` });
   }
 
-  // Inject summary (old messages)
   if (summary) {
-    messages.push({
-      role: "system",
-      content: `RIEPILOGO CONVERSAZIONI PRECEDENTI (${userId}):\n${summary}`,
-    });
+    messages.push({ role: "system", content: `RIEPILOGO CONVERSAZIONI PRECEDENTI:\n${summary}` });
   }
 
-  // Inject subgraph
-  if (subgraphText) {
-    messages.push({
-      role: "system",
-      content: `INFORMAZIONI DAL GRAFO DI PROGETTO:\n${subgraphText}`,
-    });
-  }
-
-  // Recent history
   for (const msg of history) {
     messages.push(msg);
   }
 
-  // Current question
   messages.push({ role: "user", content: question });
 
   return messages;
@@ -518,20 +556,19 @@ export default {
 
         // 1. Traverse graph
         const subgraph = traverseGraph(question);
-        const subgraphText = subgraphToText(subgraph);
 
-        // 2. Load memory + history
-        const [memoryFacts, history, summary] = await Promise.all([
+        // 2. Load memory + history + system prompt
+        const [memoryFacts, history, summary, systemPrompt] = await Promise.all([
           getMemory(env.SBARCO_KV),
           getChatHistory(env.SBARCO_KV, userId),
           getSummary(env.SBARCO_KV, userId),
+          buildSystemPrompt(env.SBARCO_KV),
         ]);
 
         // 3. Build messages
         const messages = buildMessages(
-          userId,
+          systemPrompt,
           question,
-          subgraphText,
           memoryFacts,
           history,
           summary
