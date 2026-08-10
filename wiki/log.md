@@ -6,6 +6,13 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-10] ingest | Nuova pagina costi-nascosti-gommone
+
+- Creata `wiki/concetti/costi-nascosti-gommone.md` (status: draft).
+- Elenca voci da verificare: burocrazia, dotazioni sicurezza, navigazione notturna, manutenzione, assicurazione, ricambi.
+- Le stime sono segnaposto; vanno validate con fonti reali (agenzie nautiche, assicurazioni, Guardia Costiera).
+- Aggiornato index.
+
 ## [2026-08-05] lint | Wiki allineata a dual track + scoring
 
 - Aggiornati: overview, must-have, nice-to-have, open-questions, requisiti-v1, index.

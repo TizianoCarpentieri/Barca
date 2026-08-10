@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-09
+updated: 2026-08-10
 status: active
 ---
 
@@ -52,6 +52,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/no-patente-6-pax-realta]] | Inviluppo ≤40,8 CV + fino a 6 pax |
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
 | [[concetti/montaggio-gommone]] | Fatica operativa gommone vs rigido: ciclo completo, criticità |
+| [[concetti/costi-nascosti-gommone]] | Costi oltre scafo+motore: burocrazia, dotazioni, manutenzione, assicurazione |
 
 ## Normativa
 
