@@ -1,7 +1,7 @@
 ---
 title: Budget
 type: preferenza
-updated: 2026-08-09
+updated: 2026-08-10
 status: active
 tags: [budget, usato, tco]
 sources: [raw/audio/, wiki/preferenze/split-costi.md]
@@ -9,14 +9,14 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 
 # Budget
 
-## Acquisto (intervista 2026-08-04)
+## Acquisto (intervista 2026-08-04, aggiornato 2026-08-10)
 
 | Voce | Valore |
 |------|--------|
-| Nuovo vs usato | **Solo usato** |
-| Max acquisto mezzo | **4.500 €** |
-| Stretch acquisto | Poco più solo se “sogno della vita” (~5–5,5k eccezione) |
-| Carrello | **Non previsto** |
+| Nuovo vs usato | **Solo usato** per bundle; eccezione scafo gommone nuovo se <1.000 € |
+| Max acquisto bundle | **2.000 €** (gommone + motore) |
+| Stretch acquisto | Poco più solo se affare eccezionale |
+| Split acquisto | 1/3 (≈670 €/testa) |
 
 ## Gestione annua (intervista 2026-08-04)
 
@@ -35,7 +35,28 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 - Carburante uscite  
 - Piccoli imprevisti  
 
-## Modello TCO grezzo (da validare con preventivi)
+## Scenario gommone primario (2026-08-10)
+
+Il gommone smontabile elimina i costi di rimessaggio (posto barca/terra).
+I costi fissi si riducono a: assicurazione RC + manutenzione motore + carburante + piccola manutenzione gommone.
+
+| Voce | Stima mensile | Stima annua | Note |
+|------|---------------|-------------|------|
+| Assicurazione RC | ~10 €/mese | 100–150 € | Principianti, stima realistica |
+| Manutenzione motore | ~8 €/mese | ~100 € | Tagliando annuale |
+| Carburante | ~8 €/mese | ~100 € | Uscite moderate, 10-15 CV |
+| Manutenzione gommone | ~4 €/mese | ~50 € | Toppe, colla, valvole |
+| **Totale** | **~30 €/mese** | **~350–400 €** | Ben sotto il cap |
+| **Per testa (÷3)** | **~10 €/mese** | **~115–135 €** | Ampio margine |
+
+### Note scenario gommone
+
+- **Nessun costo di rimessaggio**: il gommone si tiene a casa (garage/cantina/terrazzo).
+- **Nessun costo di alaggio/varo**: si gonfia in spiaggia/scivolo.
+- **Costi una tantum da verificare**: passaggio di proprietà, immatricolazione (se >10 CV), dotazioni di sicurezza obbligatorie, accessori notturni.
+- Vedi [[concetti/costi-nascosti-gommone]] per il dettaglio.
+
+## Scenario scafo rigido (condizionale, ≥5 soci) (da validare con preventivi)
 
 Envelope annuo: **3.600 €**. Uso moderato.
 
