@@ -1027,6 +1027,8 @@ export default {
           "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
+          "Cache-Control": "no-store",
+          "Vary": "Origin",
         },
       });
     }
@@ -1034,6 +1036,8 @@ export default {
     const corsHeaders = {
       "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
       "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+      "Vary": "Origin",
     };
 
     if (["/api/status", "/api/chat"].includes(url.pathname) && !isAllowedOrigin(request, env)) {

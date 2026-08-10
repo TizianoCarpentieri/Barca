@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786374668.422899,
-    "ast_hash": "e8ddd485fbaecb62f5a20ddf92f24963",
+    "mtime": 1786374909.441249,
+    "ast_hash": "add03f0a592524ca28f4da7f67df91cb",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
