@@ -175,7 +175,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
         } }] });
       }
       assert.equal(body.tool_choice, "auto");
-      assert.equal(body.thinking.type, "enabled");
+      assert.equal(body.thinking.type, "disabled");
       assert.ok(body.messages.filter(message => message.role === "assistant").every(message => message.content != null));
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Sintesi finale con due fonti verificate." } }],
