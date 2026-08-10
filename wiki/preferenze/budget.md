@@ -18,7 +18,9 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 | Stretch acquisto | Poco più solo se affare eccezionale |
 | Split acquisto | 1/3 (≈670 €/testa) |
 
-## Gestione annua (intervista 2026-08-04)
+## Gestione annua — scenario scafo rigido (superato per gommone)
+
+> ⚠️ Questi valori valgono solo per lo scenario scafo rigido con 3 soci. Per il gommone primario vedi lo scenario sotto.
 
 | Voce | Valore |
 |------|--------|

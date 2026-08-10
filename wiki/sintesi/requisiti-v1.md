@@ -84,11 +84,12 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 ## Prossimi passi consigliati
 
-1. Telefonate **tariffe Anzio/Nettuno** + 2 **cantieri terra** (cap 3,6k?)  
-2. Feed live: shortlist da tab Rigide / Gommoni / Motori  
-3. Checklist ispezione usati (per track)  
-4. Decidere intestazione quando c’è il candidato  
-5. Decidere se spingere di più su **rigido** o **gommone+motore**  
+1. Verificare costi reali: assicurazione RC, passaggio proprietà, tagliando, dotazioni obbligatorie (vedi [[concetti/costi-nascosti-gommone]])
+2. Feed live: shortlist bundle gommone+motore ≤2.000 € da tab Gommoni / Motori
+3. Chiarire logistica: auto, custodia, scivolo (vedi [[concetti/logistica-trasporto]])
+4. Checklist ispezione gommoni+motori usati
+5. Redigere accordo scritto tra bestie (split costi, danni, uscita socio)
+6. Scenario rigido: da valutare solo con ≥5 soci e preventivi reali (vedi [[sintesi/scenario-rigido-5-soci]])
 
 ## Pagine collegate
 
