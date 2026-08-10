@@ -1,7 +1,7 @@
 ---
 title: Open questions
 type: preferenza
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [todo]
 ---
@@ -17,7 +17,8 @@ tags: [todo]
 - [x] Riserva lavori post-acquisto: ~500 €/anno già stimata in costi fissi
 - [x] Zona: **mare laziale** (Ardea/Pomezia; Anzio–Circeo–Fiumicino)
 - [x] Dual track: **rigide + gommoni + motori** (feed live)
-- [x] Scelta finale: **scafo rigido** preferito (praticità > costo) da conversazioni 9 ago
+- [x] Scelta finale: **gommone primario**, scafo rigido solo con ≥5 soci (2026-08-10)
+- [x] ~~Scafo rigido preferito~~ → superato dai vincoli di budget mensile
 - [x] Patente: nessuno; ideale restare senza
 - [x] Frequenza uscite/anno: moderata + inverno pesca (conversazioni 9 ago)
 
@@ -29,6 +30,24 @@ tags: [todo]
 - [ ] Bundle ideale gommone+motore: tetto totale €?
 - [ ] Fuoribordo vs entro (solo track rigidi)
 - [ ] Cabina: no di default a questo budget
+
+## [2026-08-10] Logistica gommone — DA VERIFICARE
+
+- [ ] Chi ha un'auto adatta a caricare gommone (70 kg) + motore + attrezzatura?
+- [ ] Dove si tiene il gommone durante la settimana? (garage, cantina, terrazzo?)
+- [ ] Quante uscite/anno sono realistiche con montaggio/smontaggio?
+- [ ] Chi si occupa di gonfiaggio/sgonfiaggio e montaggio motore?
+- [ ] C'è uno scivolo/accesso comodo vicino alla base (Ardea/Pomezia)?
+
+## [2026-08-10] Costi reali — DA VERIFICARE
+
+- [ ] Costo passaggio di proprietà per gommone usato
+- [ ] Costo immatricolazione motore (>10 CV?)
+- [ ] Dotazioni di sicurezza obbligatorie per legge (costo e lista)
+- [ ] Accessori per navigazione notturna (fanali, batteria)
+- [ ] Costo tagliando annuale motore fuoribordo 9.9-15 CV
+- [ ] Costo assicurazione RC per gommone (preventivo reale)
+- [ ] Eventuali costi di ricovero invernale se non si tiene a casa
 
 ## [2026-08-07] Accessori — decisioni revamp (chiuse)
 
