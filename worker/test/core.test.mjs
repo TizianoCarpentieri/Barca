@@ -61,7 +61,7 @@ test("il debug espone metriche ma non conversazioni o fatti", async () => {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ userId: "tiziano", question: "/debug" }),
-  }), { SBARCO_KV: kv, DEEPSEEK_API_KEY: "test", ALLOWED_ORIGIN: "*" }, {});
+  }), { SBARCO_KV: kv, DEEPSEEK_API_KEY: "test", ALLOWED_ORIGIN: "*", TIZIANO_PASSKEY_TEST_BYPASS: "true" }, {});
   const report = await response.json();
   const serialized = JSON.stringify(report);
   assert.equal(response.status, 200);
@@ -109,6 +109,7 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
       DEEPSEEK_API_KEY: "test-key",
       DEEPSEEK_MODEL: "deepseek-v4-flash",
       ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
     }, {
       waitUntil(promise) { background.push(promise); },
     });
@@ -202,6 +203,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
       DEEPSEEK_API_KEY: "test-key",
       DEEPSEEK_MODEL: "deepseek-v4-flash",
       ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
     }, {
       waitUntil(promise) { background.push(promise); },
     });

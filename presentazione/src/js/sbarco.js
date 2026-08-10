@@ -20,7 +20,8 @@ const MAX_DAILY = 3;
     localStorage.setItem(LS_KEY, urlUser);
   }
   const savedUser = localStorage.getItem(LS_KEY);
-  const initialUser = VALID_USERS.includes(savedUser) ? savedUser : null;
+  // Tiziano deve confermare la passkey: non riapriamo il suo account dal localStorage.
+  const initialUser = savedUser && savedUser !== "tiziano" && VALID_USERS.includes(savedUser) ? savedUser : null;
 
   // ── DOM ──────────────────────────────────────────────────────
   const root = document.createElement("div");
@@ -113,11 +114,65 @@ const MAX_DAILY = 3;
     if (!currentUser) return;
     const requestedUser = currentUser;
     try {
-      const resp = await fetch(`${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`);
+      const headers = requestedUser === "tiziano" ? await getTizianoPasskeyHeaders() : {};
+      const resp = await fetch(`${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`, { headers });
       if (!resp.ok) return;
       const data = await resp.json();
       if (currentUser === requestedUser && data.remaining !== undefined) updateCounter(data.remaining);
     } catch {}
+  }
+
+  function bytesToBase64Url(bytes) {
+    let binary = "";
+    for (const byte of new Uint8Array(bytes)) binary += String.fromCharCode(byte);
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+  }
+
+  function base64UrlToBytes(value) {
+    const padded = String(value).replace(/-/g, "+").replace(/_/g, "/") + "===".slice((String(value).length + 3) % 4);
+    const binary = atob(padded);
+    return Uint8Array.from(binary, char => char.charCodeAt(0));
+  }
+
+  async function passkeyJson(response) {
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Verifica Galaxy non riuscita.");
+    return data;
+  }
+
+  async function getTizianoPasskeyHeaders() {
+    if (!window.PublicKeyCredential || !navigator.credentials) throw new Error("Apri Sbarco dal Galaxy per usare la passkey di Tiziano.");
+    let optionsResp = await fetch(`${SBARCO_WORKER}/api/passkey/challenge?purpose=assert`);
+    if (optionsResp.status === 401) {
+      const unavailable = await optionsResp.json().catch(() => ({}));
+      if (!/non ancora registrato/i.test(unavailable.error || "")) throw new Error(unavailable.error || "Galaxy non autorizzato.");
+      const code = window.prompt("Prima attivazione: inserisci il codice ricevuto da Tiziano.");
+      if (!code) throw new Error("Attivazione Galaxy annullata.");
+      const enrollOptions = await passkeyJson(await fetch(`${SBARCO_WORKER}/api/passkey/challenge?purpose=enroll&code=${encodeURIComponent(code)}`));
+      const created = await navigator.credentials.create({ publicKey: {
+        ...enrollOptions,
+        challenge: base64UrlToBytes(enrollOptions.challenge),
+        user: { ...enrollOptions.user, id: base64UrlToBytes(enrollOptions.user.id) },
+      } });
+      await passkeyJson(await fetch(`${SBARCO_WORKER}/api/passkey/enroll`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientDataJSON: bytesToBase64Url(created.response.clientDataJSON), attestationObject: bytesToBase64Url(created.response.attestationObject) }),
+      }));
+      optionsResp = await fetch(`${SBARCO_WORKER}/api/passkey/challenge?purpose=assert`);
+    }
+    const options = await passkeyJson(optionsResp);
+    const credential = await navigator.credentials.get({ publicKey: {
+      ...options,
+      challenge: base64UrlToBytes(options.challenge),
+      allowCredentials: options.allowCredentials.map(id => ({ type: "public-key", id: base64UrlToBytes(id) })),
+    } });
+    const payload = {
+      credentialId: bytesToBase64Url(credential.rawId),
+      clientDataJSON: bytesToBase64Url(credential.response.clientDataJSON),
+      authenticatorData: bytesToBase64Url(credential.response.authenticatorData),
+      signature: bytesToBase64Url(credential.response.signature),
+    };
+    return { "X-Tiziano-Passkey": bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload))) };
   }
 
   // ── Open / close ────────────────────────────────────────────
@@ -147,9 +202,13 @@ const MAX_DAILY = 3;
   userSelect.addEventListener("change", () => {
     const v = userSelect.value;
     if (VALID_USERS.includes(v)) {
-      setUser(v);
+      void selectUser(v);
     }
   });
+
+  async function selectUser(v) {
+    setUser(v);
+  }
 
   function setUser(v) {
     currentUser = v;
@@ -216,9 +275,10 @@ const MAX_DAILY = 3;
     const timeout = setTimeout(() => activeController?.abort("client-timeout"), 240_000);
 
     try {
+      const passkeyHeaders = currentUser === "tiziano" ? await getTizianoPasskeyHeaders() : {};
       const resp = await fetch(`${SBARCO_WORKER}/api/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...passkeyHeaders },
         body: JSON.stringify({ userId: currentUser, question: text, mode: deepMode ? "deep" : "auto" }),
         signal: activeController.signal,
       });

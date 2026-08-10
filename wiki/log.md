@@ -267,3 +267,10 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Rigide: luogo/recenza, compattezza/no-patente, budget. Gommoni: misura/bundle/pavimento, affare, logistica.
 - Motori: fascia CV, 4T/gambo corto, affare/distanza. Accessori: uso padre, tipologia figlia, occasione.
 - Ogni scelta mostra il numero di annunci compatibili; le opzioni senza risultati sono disabilitate.
+## [2026-08-10] security(sbarco) | Account Tiziano vincolato a passkey Galaxy
+
+- Rimossa l'impersonificazione basata sul solo `userId`: chat, status e debug
+  di Tiziano verificano una passkey WebAuthn platform con UV.
+- La prima associazione richiede un codice di attivazione mantenuto come secret
+  Cloudflare; KV non conserva chiavi private.
+- La quota giornaliera di Tiziano viene azzerata in produzione durante il deploy.

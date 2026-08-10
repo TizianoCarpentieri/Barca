@@ -24,6 +24,21 @@ npx wrangler secret put DEEPSEEK_API_KEY
 # Inserisci la API key di DeepSeek (https://platform.deepseek.com)
 ```
 
+### 2b. Attiva la passkey esclusiva di Tiziano
+
+Imposta un codice monouso, comunicalo solo a Tiziano e poi apri Sbarco dal suo
+Galaxy: selezionando **Tiziano** verrà chiesto il codice e il telefono
+registrerà una passkey platform con verifica biometrica/PIN. Da quel momento
+chat, quota, status e `/debug` di Tiziano richiedono la firma della stessa
+passkey; scegliere “Tiziano” nel menu non è sufficiente.
+
+```bash
+npx wrangler secret put TIZIANO_ENROLLMENT_CODE
+```
+
+Non committare mai il codice. Per sostituire il telefono, cancella la chiave KV
+`auth:tiziano:passkey`, imposta un nuovo codice e ripeti la registrazione.
+
 ### 3. Configura ALLOWED_ORIGIN
 In `wrangler.toml`, modifica `ALLOWED_ORIGIN` con l'URL del tuo GitHub Pages:
 ```toml

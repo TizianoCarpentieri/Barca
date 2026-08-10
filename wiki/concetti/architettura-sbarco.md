@@ -60,6 +60,11 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 - Il Worker accetta chat e status dall'origine Pages configurata, ritira gli
   endpoint legacy e non espone testi di chat o memoria in `/debug`.
+- L'identità `tiziano` richiede una **passkey platform**: firma WebAuthn con
+  verifica biometrica/PIN del Galaxy per status, chat e `/debug`; il selettore
+  del browser non costituisce più autenticazione.
+- La prima associazione richiede un codice segreto esterno al repository; KV
+  conserva soltanto id credenziale, chiave pubblica e contatore di firma.
 - `read_url` ricontrolla ogni redirect contro reti locali; il prompt tratta le
   pagine esterne come dati non affidabili, mai come istruzioni.
 

@@ -1,5 +1,5 @@
 const MAX_HISTORY = 8;
-const WORKER_VERSION = "2.0.5";
+const WORKER_VERSION = "2.1.0";
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 1600;
 const MAX_DAILY_MESSAGES = 3;
@@ -21,6 +21,139 @@ const WEB_TIMEOUT_MS = 12_000;
 
 function getMaxDaily(userId) {
   return userId === "tiziano" ? MAX_DAILY_TIZIANO : MAX_DAILY_MESSAGES;
+}
+
+// ── Passkey di Tiziano ───────────────────────────────────────────────────
+// L'id utente nel client non è un'identità: per Tiziano richiediamo una
+// WebAuthn platform passkey. La chiave privata resta nel telefono.
+const TIZIANO_PASSKEY_KEY = "auth:tiziano:passkey";
+const PASSKEY_CHALLENGE_PREFIX = "auth:tiziano:challenge:";
+const PASSKEY_CHALLENGE_TTL = 300;
+
+function bytesToBase64Url(bytes) {
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function base64UrlToBytes(value) {
+  const padded = String(value).replace(/-/g, "+").replace(/_/g, "/") + "===".slice((String(value).length + 3) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, char => char.charCodeAt(0));
+}
+
+function bytesEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i += 1) diff |= a[i] ^ b[i];
+  return diff === 0;
+}
+
+async function sha256(value) {
+  return new Uint8Array(await crypto.subtle.digest("SHA-256", value));
+}
+
+// Decoder CBOR minimale: copre l'attestationObject e la chiave COSE ES256.
+function decodeCbor(bytes, offset = 0) {
+  const initial = bytes[offset++];
+  const major = initial >> 5;
+  const additional = initial & 31;
+  let length;
+  if (additional < 24) length = additional;
+  else if (additional === 24) length = bytes[offset++];
+  else if (additional === 25) { length = (bytes[offset] << 8) | bytes[offset + 1]; offset += 2; }
+  else if (additional === 26) { length = (bytes[offset] * 2 ** 24) + (bytes[offset + 1] << 16) + (bytes[offset + 2] << 8) + bytes[offset + 3]; offset += 4; }
+  else throw new Error("CBOR non supportato");
+  if (major === 0) return { value: length, offset };
+  if (major === 1) return { value: -1 - length, offset };
+  if (major === 2) return { value: bytes.slice(offset, offset + length), offset: offset + length };
+  if (major === 3) return { value: new TextDecoder().decode(bytes.slice(offset, offset + length)), offset: offset + length };
+  if (major === 4) {
+    const value = [];
+    for (let i = 0; i < length; i += 1) { const item = decodeCbor(bytes, offset); value.push(item.value); offset = item.offset; }
+    return { value, offset };
+  }
+  if (major === 5) {
+    const value = new Map();
+    for (let i = 0; i < length; i += 1) { const key = decodeCbor(bytes, offset); const item = decodeCbor(bytes, key.offset); value.set(key.value, item.value); offset = item.offset; }
+    return { value, offset };
+  }
+  throw new Error("Tipo CBOR non supportato");
+}
+
+function coseToJwk(cose) {
+  const map = decodeCbor(cose).value;
+  if (!(map instanceof Map) || map.get(1) !== 2 || map.get(3) !== -7 || map.get(-1) !== 1) throw new Error("Passkey non ES256");
+  const x = map.get(-2), y = map.get(-3);
+  if (!(x instanceof Uint8Array) || !(y instanceof Uint8Array) || x.length !== 32 || y.length !== 32) throw new Error("Chiave passkey non valida");
+  return { kty: "EC", crv: "P-256", x: bytesToBase64Url(x), y: bytesToBase64Url(y), ext: true };
+}
+
+function derSignatureToRaw(signature) {
+  if (signature[0] !== 0x30 || signature[1] + 2 !== signature.length) throw new Error("Firma passkey non valida");
+  let pos = 2;
+  const readInt = () => {
+    if (signature[pos++] !== 0x02) throw new Error("Firma passkey non valida");
+    const length = signature[pos++];
+    const raw = signature.slice(pos, pos + length); pos += length;
+    const clean = raw[0] === 0 ? raw.slice(1) : raw;
+    if (clean.length > 32) throw new Error("Firma passkey non valida");
+    const out = new Uint8Array(32); out.set(clean, 32 - clean.length); return out;
+  };
+  const r = readInt(), s = readInt();
+  const out = new Uint8Array(64); out.set(r); out.set(s, 32); return out;
+}
+
+function getRpId(env) { return new URL(env.ALLOWED_ORIGIN).hostname; }
+
+async function validateClientData(clientDataJSON, expectedChallenge, expectedType, env) {
+  const data = JSON.parse(new TextDecoder().decode(clientDataJSON));
+  if (data.type !== expectedType || data.challenge !== expectedChallenge || data.origin !== env.ALLOWED_ORIGIN) throw new Error("Verifica passkey fallita");
+  return data;
+}
+
+async function validateAuthenticatorData(authenticatorData, env, requireAttestedCredential = false) {
+  if (authenticatorData.length < 37) throw new Error("Dati passkey non validi");
+  if (!bytesEqual(authenticatorData.slice(0, 32), await sha256(new TextEncoder().encode(getRpId(env))))) throw new Error("Dominio passkey non valido");
+  const flags = authenticatorData[32];
+  if (!(flags & 0x01) || !(flags & 0x04)) throw new Error("Conferma biometrica o PIN richiesta");
+  if (requireAttestedCredential && !(flags & 0x40)) throw new Error("Credenziale passkey mancante");
+}
+
+async function newPasskeyChallenge(kv, purpose) {
+  const bytes = crypto.getRandomValues(new Uint8Array(32));
+  const challenge = bytesToBase64Url(bytes);
+  await kv.put(`${PASSKEY_CHALLENGE_PREFIX}${challenge}`, JSON.stringify({ purpose }), { expirationTtl: PASSKEY_CHALLENGE_TTL });
+  return challenge;
+}
+
+async function takePasskeyChallenge(kv, challenge, purpose) {
+  const key = `${PASSKEY_CHALLENGE_PREFIX}${challenge}`;
+  const value = await kv.get(key);
+  await kv.delete(key);
+  if (!value || JSON.parse(value).purpose !== purpose) throw new Error("Sfida passkey scaduta: riprova");
+}
+
+async function verifyTizianoAssertion(request, env) {
+  if (env.TIZIANO_PASSKEY_TEST_BYPASS === "true") return;
+  const encoded = request.headers.get("X-Tiziano-Passkey");
+  if (!encoded) throw new Error("Conferma dal Galaxy richiesta");
+  const assertion = JSON.parse(new TextDecoder().decode(base64UrlToBytes(encoded)));
+  const clientDataJSON = base64UrlToBytes(assertion.clientDataJSON);
+  const authenticatorData = base64UrlToBytes(assertion.authenticatorData);
+  const signature = base64UrlToBytes(assertion.signature);
+  const clientData = JSON.parse(new TextDecoder().decode(clientDataJSON));
+  await takePasskeyChallenge(env.SBARCO_KV, clientData.challenge, "assert");
+  await validateClientData(clientDataJSON, clientData.challenge, "webauthn.get", env);
+  await validateAuthenticatorData(authenticatorData, env);
+  const stored = JSON.parse((await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY)) || "null");
+  if (!stored || stored.credentialId !== assertion.credentialId) throw new Error("Questo dispositivo non è autorizzato per Tiziano");
+  const count = new DataView(authenticatorData.buffer, authenticatorData.byteOffset, authenticatorData.byteLength).getUint32(33);
+  if (stored.signCount && count && count <= stored.signCount) throw new Error("Contatore passkey non valido");
+  const key = await crypto.subtle.importKey("jwk", stored.publicKeyJwk, { name: "ECDSA", namedCurve: "P-256" }, false, ["verify"]);
+  const signed = new Uint8Array(authenticatorData.length + 32); signed.set(authenticatorData); signed.set(await sha256(clientDataJSON), authenticatorData.length);
+  if (!await crypto.subtle.verify({ name: "ECDSA", hash: "SHA-256" }, key, derSignatureToRaw(signature), signed)) throw new Error("Firma passkey non valida");
+  if (count) await env.SBARCO_KV.put(TIZIANO_PASSKEY_KEY, JSON.stringify({ ...stored, signCount: count }));
 }
 
 // ── Graph traversal ─────────────────────────────────────────────
@@ -1033,7 +1166,7 @@ export default {
         headers: {
           "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Headers": "Content-Type, X-Tiziano-Passkey",
           "Cache-Control": "no-store",
           "Vary": "Origin",
         },
@@ -1061,10 +1194,62 @@ export default {
       );
     }
 
+    if (url.pathname === "/api/passkey/challenge" && request.method === "GET") {
+      try {
+        const purpose = url.searchParams.get("purpose");
+        if (!["assert", "enroll"].includes(purpose)) throw new Error("Operazione passkey non valida");
+        if (!env.SBARCO_KV) throw new Error("Archivio credenziali non disponibile");
+        const existing = await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY);
+        if (purpose === "enroll") {
+          if (existing) throw new Error("Il Galaxy di Tiziano è già registrato");
+          const code = url.searchParams.get("code") || "";
+          if (!env.TIZIANO_ENROLLMENT_CODE || code !== env.TIZIANO_ENROLLMENT_CODE) throw new Error("Codice di attivazione non valido");
+        } else if (!existing) {
+          throw new Error("Galaxy non ancora registrato");
+        }
+        const challenge = await newPasskeyChallenge(env.SBARCO_KV, purpose);
+        const rpId = getRpId(env);
+        const payload = purpose === "enroll"
+          ? { challenge, rp: { id: rpId, name: "Sbarco Barca" }, user: { id: bytesToBase64Url(new TextEncoder().encode("tiziano")), name: "tiziano", displayName: "Tiziano" }, pubKeyCredParams: [{ type: "public-key", alg: -7 }], authenticatorSelection: { authenticatorAttachment: "platform", residentKey: "required", userVerification: "required" }, attestation: "none", timeout: 60000 }
+          : { challenge, rpId, allowCredentials: [JSON.parse(existing).credentialId], userVerification: "required", timeout: 60000 };
+        return new Response(JSON.stringify(payload), { headers: corsHeaders });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), { status: 401, headers: corsHeaders });
+      }
+    }
+
+    if (url.pathname === "/api/passkey/enroll" && request.method === "POST") {
+      try {
+        if (!env.SBARCO_KV) throw new Error("Archivio credenziali non disponibile");
+        if (await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY)) throw new Error("Il Galaxy di Tiziano è già registrato");
+        const body = await request.json();
+        const clientDataJSON = base64UrlToBytes(body.clientDataJSON);
+        const clientData = JSON.parse(new TextDecoder().decode(clientDataJSON));
+        await takePasskeyChallenge(env.SBARCO_KV, clientData.challenge, "enroll");
+        await validateClientData(clientDataJSON, clientData.challenge, "webauthn.create", env);
+        const authData = decodeCbor(base64UrlToBytes(body.attestationObject)).value.get("authData");
+        if (!(authData instanceof Uint8Array)) throw new Error("Attestazione passkey non valida");
+        await validateAuthenticatorData(authData, env, true);
+        const credentialIdLength = (authData[53] << 8) | authData[54];
+        const credentialId = authData.slice(55, 55 + credentialIdLength);
+        const cose = authData.slice(55 + credentialIdLength);
+        if (!credentialId.length || !cose.length) throw new Error("Credenziale passkey mancante");
+        const signCount = new DataView(authData.buffer, authData.byteOffset, authData.byteLength).getUint32(33);
+        await env.SBARCO_KV.put(TIZIANO_PASSKEY_KEY, JSON.stringify({ credentialId: bytesToBase64Url(credentialId), publicKeyJwk: coseToJwk(cose), signCount, enrolledAt: new Date().toISOString() }));
+        return new Response(JSON.stringify({ ok: true }), { headers: corsHeaders });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), { status: 400, headers: corsHeaders });
+      }
+    }
+
     if (url.pathname === "/api/status" && request.method === "GET") {
       const userId = url.searchParams.get("userId");
       if (!userId || !VALID_USERS.includes(userId)) {
         return new Response(JSON.stringify({ error: "userId non valido." }), { status: 400, headers: corsHeaders });
+      }
+      if (userId === "tiziano") {
+        try { await verifyTizianoAssertion(request, env); }
+        catch (err) { return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders }); }
       }
       const rate = await checkRateLimit(env.SBARCO_KV, userId);
       const max = getMaxDaily(userId);
@@ -1095,6 +1280,11 @@ export default {
             JSON.stringify({ error: "Domanda troppo corta." }),
             { status: 400, headers: corsHeaders }
           );
+        }
+
+        if (userId === "tiziano") {
+          try { await verifyTizianoAssertion(request, env); }
+          catch (err) { return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders }); }
         }
 
         if (!["auto", "deep"].includes(mode)) {
