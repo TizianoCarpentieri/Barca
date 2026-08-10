@@ -494,7 +494,7 @@ async function executeSearchWeb(query) {
         url: match[1],
         snippet: match[3].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
       });
-      if (results.length >= 5) break;
+      if (results.length >= 10) break;
     }
     return results.length > 0
       ? results.map((r, i) => `${i + 1}. **${r.title}**\n   ${r.snippet}\n   ${r.url}`).join("\n\n")
@@ -536,7 +536,7 @@ async function executeReadUrl(url) {
       .replace(/&#39;/g, "'")
       .replace(/\s+/g, " ")
       .trim();
-    return cleaned.length > 12000 ? cleaned.slice(0, 12000) + "\n\n[... troncato]" : cleaned;
+    return cleaned.length > 8000 ? cleaned.slice(0, 8000) + "\n\n[... troncato]" : cleaned;
   } catch (err) {
     return `Errore nel leggere ${url}: ${err.message}`;
   }
@@ -569,7 +569,7 @@ async function chatWithToolsStream(apiKey, model, messages, signal) {
   const allMessages = [...messages];
   const documents = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 8; i++) {
     const body = {
       model: model || "deepseek-v4-flash",
       messages: allMessages,
@@ -1117,7 +1117,7 @@ export default {
             url: match[1],
             snippet: match[3].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
           });
-          if (results.length >= 5) break;
+          if (results.length >= 10) break;
         }
 
         // Increment rate limit
