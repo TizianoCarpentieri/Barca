@@ -246,7 +246,16 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Worker Cloudflare completato: workflow finale `31402710940`; health `2.0.1`, risposte dinamiche `no-store` e `Vary: Origin`.
 - Feed live verificati in produzione: 80 rigide, 80 gommoni, 70 motori, 63 accessori.
 - Smoke rapido: primo evento 678 ms, risposta completa 2,119 s, output `Sbarco v2 operativo.`.
-- Smoke deep: primo evento 655 ms, risposta completa 18,319 s, due o piu' fonti lette e risposta finale non vuota.
+- Smoke deep 2.0.1: primo evento 655 ms e risposta completa in 18,319 s; il debug ha poi mostrato 1 ricerca e 0 aperture, quindi gli URL citati provenivano dagli snippet e non da fonti lette integralmente.
 - Corretto il nome dell'utente attivo dopo che lo smoke deep di Peppe aveva risposto `per te, Tiziano`; test successivo: `Peppe` in 2,100 s.
 - Aggiunto `scripts/smoke-sbarco.mjs` per ripetere il test SSE con tempi, status, output ed errori.
 - Le prove reali hanno consumato due messaggi di Antonio e due di Peppe; la quota giornaliera residua al termine era 1 ciascuno.
+
+## [2026-08-10] fix(sbarco) | Deep research deterministica e thinking spento
+
+- Le fasi deep ora forzano almeno 2 `search_web`, poi almeno 2 `read_url`, prima di consentire la sintesi.
+- Aggiunta `toolSequence` alle metriche per verificare dai log la sequenza effettiva senza esporre conversazioni.
+- DeepSeek V4 mappa `reasoning_effort: low` a `high`: per evitare i 400 con `tool_choice` e `reasoning_content`, tutte e tre le chiamate usano `thinking: disabled` e nessuna invia `reasoning_effort`.
+- Le versioni intermedie 2.0.2-2.0.4 hanno prodotto errori di compatibilita' durante lo smoke e sono state subito sostituite; gli errori sono rimasti visibili in `/debug`.
+- Produzione finale `2.0.5`, commit `2c24600`, workflow Worker `31404793764` riuscito; health e header anti-cache verificati dopo propagazione.
+- Test locali: 8/8 Worker. Le prove in produzione hanno esaurito le quote del 10 agosto; lo smoke deep completo 2.0.5 va ripetuto dopo il reset automatico a mezzanotte UTC (02:00 Europe/Rome).
