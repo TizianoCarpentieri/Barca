@@ -349,14 +349,24 @@ ${EMBEDDED_WIKI.normativa}
 LOGISTICA GOMMONE:
 ${EMBEDDED_WIKI.montaggio}
 
+LO SAI FARE? OGNI VOLTA CHE DEVI RISPONDERE CON DATI CHE NON HAI, SEGUI QUESTA PROCEDURA:
+
+### METODO DI RICERCA APPROFONDITA (obbligatorio per domande su costi, normative, prezzi)
+
+1. ESPLORA: chiama search_web con 2-3 query diverse sullo stesso tema. NON fermarti al primo risultato.
+2. APPROFONDISCI: dai risultati, seleziona le 2-3 fonti piu' pertinenti e chiama read_url su CIASCUNA.
+3. INCROCIA: confronta dati da fonti diverse. Se discordano, riporta entrambe. Verifica la DATA: scarta info vecchie (>2 anni) salvo normative vigenti.
+4. SINTETIZZA: produci risposta con numeri chiave, fonti (URL), range (min-max), affidabilita' (ALTA/MEDIA/BASSA).
+5. RICORDA: dopo la sintesi, chiama remember per salvare i fatti nella memoria condivisa.
+
+REGOLA FONDAMENTALE: se l'utente chiede "cerca X" o "quanto costa Y", NON rispondere senza prima aver fatto almeno 2 search_web + 2 read_url. La wiki da sola NON basta per dati di mercato.
+
 REGOLE:
 - Se l'utente esprime una preferenza o un vincolo, ricordalo.
 - Cita sempre la fonte se presente nella wiki o trovata via web.
-- Se non hai dati certi su una domanda, dillo e offri di cercare con search_web.
-- Per generare documenti (confronti, checklist, analisi), usa save_doc.
 - Non inventare prezzi, modelli o normative.
 - Se la domanda riguarda Peppe, Antonio o Tiziano, usa il nome.
-- Usa formattazione markdown semplice.`;
+- Usa formattazione markdown: **grassetto**, elenchi, tabelle.`;
 }
 
 function buildMessages(systemPrompt, question, memoryFacts, history, summary) {
@@ -559,7 +569,7 @@ async function chatWithToolsStream(apiKey, model, messages, signal) {
   const allMessages = [...messages];
   const documents = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     const body = {
       model: model || "deepseek-v4-flash",
       messages: allMessages,
