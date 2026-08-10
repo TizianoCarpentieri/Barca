@@ -238,3 +238,15 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Wrangler aggiornato e fissato alla versione 4.120.0 con audit npm a zero vulnerabilita'.
 - Ritirati gli endpoint Worker legacy e ridotto `/debug` a diagnostica senza contenuto delle conversazioni.
 - Bloccati origin estranei e redirect web verso reti private; le fonti sono marcate come dati non affidabili contro prompt injection.
+
+## [2026-08-10] deploy | Sbarco 2.0.1 e sito pubblicati
+
+- Release principale `39a574e`, compatibilita' CI Node 22 `d0503a0`, identita' utente `6d62b39`, header anti-cache `97a604d`.
+- GitHub Pages completato: workflow `31401507364`; online asset UI con stati luminosi, stop e modalita' deep.
+- Worker Cloudflare completato: workflow finale `31402710940`; health `2.0.1`, risposte dinamiche `no-store` e `Vary: Origin`.
+- Feed live verificati in produzione: 80 rigide, 80 gommoni, 70 motori, 63 accessori.
+- Smoke rapido: primo evento 678 ms, risposta completa 2,119 s, output `Sbarco v2 operativo.`.
+- Smoke deep: primo evento 655 ms, risposta completa 18,319 s, due o piu' fonti lette e risposta finale non vuota.
+- Corretto il nome dell'utente attivo dopo che lo smoke deep di Peppe aveva risposto `per te, Tiziano`; test successivo: `Peppe` in 2,100 s.
+- Aggiunto `scripts/smoke-sbarco.mjs` per ripetere il test SSE con tempi, status, output ed errori.
+- Le prove reali hanno consumato due messaggi di Antonio e due di Peppe; la quota giornaliera residua al termine era 1 ciascuno.
