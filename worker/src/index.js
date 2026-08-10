@@ -544,12 +544,29 @@ async function chatWithToolsStream(apiKey, model, messages, signal) {
         });
       }
     } else {
-      return { documents, messages: allMessages, finalResponse: message.content };
+      return { documents, messages: allMessages, finalResponse: message.content, needsStream: true };
     }
   }
 
   const last = allMessages[allMessages.length - 1];
-  return { documents, messages: allMessages, finalResponse: last?.content || "" };
+  return { documents, messages: allMessages, finalResponse: last?.content || "", needsStream: true };
+}
+
+function streamTextAsSSE(text, documents) {
+  return new ReadableStream({
+    start(controller) {
+      const encoder = new TextEncoder();
+      const chunks = text.match(/[\s\S]{1,12}/g) || [text];
+      for (const chunk of chunks) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token: chunk })}\n\n`));
+      }
+      if (documents.length > 0) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ documents })}\n\n`));
+      }
+      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`));
+      controller.close();
+    },
+  });
 }
 
 function createSSEStream(apiKey, model, messages, documents, onComplete) {
@@ -560,6 +577,7 @@ function createSSEStream(apiKey, model, messages, documents, onComplete) {
       const body = JSON.stringify({
         model: model || "deepseek-v4-flash",
         messages,
+        tools: TOOLS,
         temperature: 0.7,
         max_tokens: 8000,
         extra_body: { thinking: { type: "enabled" } },
@@ -833,6 +851,28 @@ async function getDebugReport(kv) {
   };
 }
 
+// ── Helpers ──────────────────────────────────────────────────────
+
+function saveChatHistory(kv, userId, history, question, fullText, apiKey, model, startTime) {
+  const newHistory = [
+    ...history,
+    { role: "user", content: question },
+    { role: "assistant", content: fullText },
+  ];
+  setChatHistory(kv, userId, newHistory).catch(() => {});
+  maybeSummarize(kv, userId, newHistory).catch(() => {});
+  if (kv) {
+    extractMemoryIfNeeded(apiKey, model, question, fullText, kv, userId).catch(() => {});
+  }
+  DEBUG_BUFFER.push({
+    ts: new Date().toISOString(),
+    user: userId,
+    question: question.slice(0, 100),
+    elapsedMs: startTime ? Date.now() - startTime : 0,
+  });
+  if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
+}
+
 // ── Main handler ─────────────────────────────────────────────────
 
 export default {
@@ -923,30 +963,20 @@ export default {
 
         // 3. Call DeepSeek with tool loop (non-streaming for tool phase)
         const toolResult = await chatWithToolsStream(apiKey, env.DEEPSEEK_MODEL, messages, request.signal);
-
-        // 4. Stream final response as SSE, save history on complete
         const documents = toolResult.documents;
 
-        const stream = createSSEStream(apiKey, env.DEEPSEEK_MODEL, toolResult.messages, documents, (fullText) => {
-          if (!fullText) return;
-          const newHistory = [
-            ...history,
-            { role: "user", content: question },
-            { role: "assistant", content: fullText },
-          ];
-          setChatHistory(env.SBARCO_KV, userId, newHistory).catch(() => {});
-          maybeSummarize(env.SBARCO_KV, userId, newHistory).catch(() => {});
-          if (env.SBARCO_KV) {
-            extractMemoryIfNeeded(apiKey, env.DEEPSEEK_MODEL, question, fullText, env.SBARCO_KV, userId).catch(() => {});
-          }
-          DEBUG_BUFFER.push({
-            ts: new Date().toISOString(),
-            user: userId,
-            question: question.slice(0, 100),
-            elapsedMs: Date.now() - startTime,
-          });
-          if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
-        });
+        // 4. Stream: if tools were used, re-call with streaming + tools for final answer;
+        //    otherwise simulate stream from the already-received response
+        const stream = toolResult.needsStream && toolResult.messages.length > messages.length + 1
+          ? createSSEStream(apiKey, env.DEEPSEEK_MODEL, toolResult.messages, documents, (fullText) => {
+              saveChatHistory(env.SBARCO_KV, userId, history, question, fullText, apiKey, env.DEEPSEEK_MODEL, startTime);
+            })
+          : streamTextAsSSE(toolResult.finalResponse || "", documents);
+
+        // Background: save history if not handled by stream callback
+        if (toolResult.finalResponse && !(toolResult.needsStream && toolResult.messages.length > messages.length + 1)) {
+          saveChatHistory(env.SBARCO_KV, userId, history, question, toolResult.finalResponse, apiKey, env.DEEPSEEK_MODEL, startTime);
+        }
 
         // Increment rate limit
         const newCount = env.SBARCO_KV ? await incrementRateLimit(env.SBARCO_KV, userId) : 0;
