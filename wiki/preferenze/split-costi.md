@@ -1,7 +1,7 @@
 ---
 title: Split costi e danni
 type: preferenza
-updated: 2026-08-09
+updated: 2026-08-10
 status: active
 tags: [budget, split, danni, regole, accordo]
 sources: [raw/audio/, wiki/sintesi/conversazioni-audio-20260809.md]
@@ -11,23 +11,25 @@ sources: [raw/audio/, wiki/sintesi/conversazioni-audio-20260809.md]
 
 Regole discusse nelle conversazioni del 9 agosto 2026.
 
-## Costi fissi — split 1/3 (o 1/4 se quarto socio)
+## Costi fissi — split 1/3
 
-| Voce | Stima annua | /3 bestie |
-|------|-------------|-----------|
-| Posto barca / terra | 800–2.000 € | ~270–670 € |
-| Assicurazione RC | 100–150 € | ~35–50 € |
-| Manutenzione ordinaria | 300–500 € | ~100–170 € |
-| Carburante | 200–500 € | ~70–170 € |
-| **Totale testa** | — | **~475–1.060 €** |
+**Tetto massimo: 30 €/testa/mese (90 €/mese totali)**
 
-Restano sotto il cap di **1.200 €/testa/anno** anche nello scenario alto.
+| Voce | Stima annua | /3 bestie | /mese testa |
+|------|-------------|-----------|-------------|
+| Assicurazione RC | 100–150 € | ~35–50 € | ~3–4 € |
+| Manutenzione motore | ~100 € | ~35 € | ~3 € |
+| Carburante | ~100 € | ~35 € | ~3 € |
+| Manutenzione gommone | ~50 € | ~17 € | ~1,50 € |
+| **Totale testa** | **~350–400 €** | **~115–135 €** | **~10–11 €** |
+
+Ampio margine sotto il cap di 30 €/testa/mese. Resta budget per imprevisti e accessori.
 
 ## Acquisto — split 1/3
 
-- Barca + motore + carrello (se rigido) diviso in 3 parti uguali
-- Con 4 soci: quota ridotta proporzionalmente
-- Stima gommone: ~500 €/testa | Stima rigido 5m: ~700 €/testa
+- Bundle gommone+motore ≤2.000 € diviso in 3 parti uguali
+- Stima: ~670 €/testa
+- Con 4 soci: ~500 €/testa
 
 ## Regola danni
 
