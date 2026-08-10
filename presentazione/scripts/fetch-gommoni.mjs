@@ -9,10 +9,11 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { applyDistanceScore } from './geo-score.mjs'
+import { detectIncludedMotor, hasHardHull, normalizeBoatLength } from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/gommoni.json')
-const RAW_OUT = path.join(__dirname, '../../../raw/mercato')
+const RAW_OUT = path.join(__dirname, '../../raw/mercato')
 
 const CAT = 22 // Nautica
 const HEADERS = {
@@ -64,9 +65,6 @@ const QUERIES = [
 const EXCLUDE_RIGID_RE =
   /\b(gozzo|open|lancia|walkaround|barca a motore|vtr|vetroresina|scafo rigido|imbarcazione rigida|gommoni? rigido)\b/i
 
-const RIB_HARD_RE =
-  /\b(rib\b|semi[\s-]?rigido|semirigido|zodiac|joker\s*boat|novamarine|bwa\b|scanner\s+\d|lomac|williams|capelli\s+tempest|nuova\s+jolly)\b/i
-
 const MOTOR_ONLY_RE =
   /^(vendo\s+)?(motore|fuoribordo|mercury|yamaha|suzuki|tohatsu|evinrude|johnson|honda\s+bf|selva)\b/i
 
@@ -101,14 +99,9 @@ function extractCv(text) {
   return Math.max(...all)
 }
 
-function extractLength(ad, text) {
+function extractLength(ad, subject, body) {
   const f = feat(ad, '/ship_length')
-  if (f?.value) {
-    const n = parseFloat(String(f.value).replace(',', '.'))
-    if (Number.isFinite(n)) return n
-  }
-  const m = String(text).match(/(\d(?:[.,]\d)?)\s*m(?:etri)?\b/i)
-  return m ? parseFloat(m[1].replace(',', '.')) : null
+  return normalizeBoatLength(f?.value, subject, body)
 }
 
 function extractPersons(text) {
@@ -144,8 +137,8 @@ function matchesArgoEvo360Ref(item, blob) {
 }
 
 function hasDecentMotor(item, blob) {
-  if (item.cv == null || item.cv < 5 || item.cv > 25) return false
-  return /motore|fuoribordo|con\s*(9\.9|10|15|20)\s*(cv|hp)/i.test(blob) || item.cv >= 8
+  if (!item.has_engine || item.cv == null || item.cv < 5 || item.cv > 25) return false
+  return /motore|fuoribordo/i.test(blob)
 }
 
 function imgUrl(ad) {
@@ -180,7 +173,8 @@ function normalize(ad) {
   const town = ad.geo?.town?.value || ''
   const place = [town, city, region].filter(Boolean).join(' · ')
   const cv = extractCv(text)
-  const length_m = extractLength(ad, text)
+  const has_engine = detectIncludedMotor(text, cv)
+  const length_m = extractLength(ad, subject, body)
   const persons = extractPersons(text)
   const floor = extractFloor(text)
   const keel = extractKeel(text)
@@ -190,10 +184,12 @@ function normalize(ad) {
 
   return {
     id,
+    source: 'subito',
     subject: subject.trim(),
     body: body.trim().slice(0, 600),
     price,
     cv,
+    has_engine,
     length_m,
     persons,
     floor,
@@ -239,11 +235,8 @@ function classify(item) {
   if (EXCLUDE_RIGID_RE.test(blob)) {
     return { status: 'reject', score: 0, reasons: ['scafo rigido/gozzo/open'] }
   }
-  if (RIB_HARD_RE.test(blob)) {
-    // permetti solo se chiaramente "tender" piccolo o "pneumatico" senza menzione scafo rigido
-    if (!/tender|pneumatico|smontabile/.test(blob) || /fibra|vetroresina|rigido/.test(blob)) {
-      return { status: 'reject', score: 0, reasons: ['RIB scafo rigido'] }
-    }
+  if (hasHardHull(blob)) {
+    return { status: 'reject', score: 0, reasons: ['RIB/scafo o chiglia rigida'] }
   }
 
   if (TRAILER_ONLY_RE.test(item.subject) && !/gommone/.test(item.subject)) {

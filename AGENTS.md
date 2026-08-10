@@ -116,17 +116,18 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Base:** Ardea/Pomezia — mare laziale (Anzio/Circeo/Fiumicino)
 - **Capacità target:** 3 comodi per pesca; ideale fino a **6** per uscite sociali
 - **Patente:** nessuno; ideale restare no-patente (≤40,8 CV)
-- **Budget:** acquisto ≤4.500 € (rigidi); gestione ≤1.200 €/testa/anno
+- **Budget piano A:** bundle gommone+motore ≤2.000 €; costi fissi ≤30 €/testa/mese
+- **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi reali
 
-### Dual track (2026-08-05)
-1. **Rigide** — gozzo/open/lancia; no gommone su questo track; no carrello; tendalino
-2. **Gommoni** — pneumatici no RIB; 3,3–3,9 m; Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
-3. **Motori** — ≥6 CV (no 2.5/4); sweet 9.9–15; max 40,8; 4T gambo corto
+### Piano corrente (2026-08-10)
+1. **Gommoni — piano A** — pneumatici no RIB; 3,3–3,9 m; Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
+2. **Motori abbinati** — ≥6 CV (no 2.5/4); sweet 9.9–15; max 40,8; 4T gambo corto
+3. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
 
 Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`).
 
 ### Ancora da definire (`wiki/preferenze/open-questions.md`)
-- Split costi; rimessaggio A vs C con numeri; scelta track vincente; tetto bundle gommone+motore; intestazione
+- Auto e custodia; accesso/scivolo; preventivi reali; checklist candidati; accordo e intestazione
 
 **Regola d'oro:** ogni preferenza espressa in chat va scritta in `wiki/preferenze/` nella stessa sessione. Niente "me lo ricordo dopo".
 
@@ -161,6 +162,8 @@ Trigger: "preferiamo…", "budget max…", "no cabina…", feedback di Antonio/P
 
 1. Aggiorna il file giusto in `wiki/preferenze/`.
 2. Propaga l'impatto: shortlist, must-have, open-questions.
+   Aggiorna anche `wiki/sintesi/contesto-sbarco.md` se cambia lo stato corrente
+   che il bot deve conoscere.
 3. Log: `## [YYYY-MM-DD] preferenze | <cosa è cambiato>`
 4. Se qualcosa diventa deciso → sposta/riassumi in `wiki/sintesi/`.
 
@@ -178,6 +181,15 @@ Controlla:
 
 Poi: fix, log `## [YYYY-MM-DD] lint | …`, suggerisci prossime ricerche.
 
+Lint deterministico da eseguire sempre prima della verifica manuale:
+
+```bash
+node scripts/lint-wiki.mjs
+```
+
+Controlla wikilink rotti, pagine non catalogate in `wiki/index.md`, frontmatter
+incompleto, status non ammessi e caratteri Unicode corrotti.
+
 ### 5. Ricerca attiva (web)
 
 Quando servono dati freschi (prezzi, normativa, modelli):
@@ -192,6 +204,17 @@ Quando servono dati freschi (prezzi, normativa, modelli):
 2. Aggiorna `wiki/sintesi/shortlist.md` e `wiki/confronti/`.
 3. Ogni candidato: pro/contro vs must-have, fit pesca, fit 6 pax, no-patente, costo totale di possesso.
 4. Esplicita cosa manca per decidere.
+
+### 7. Sbarco / deep research
+
+Quando si modifica `worker/` o `presentazione/src/js/sbarco.js`:
+
+1. Leggi [[concetti/architettura-sbarco]] e mantieni separati i modi rapido e deep.
+2. Non aumentare round, fonti o `max_tokens` senza un budget e una garanzia di uscita.
+3. La sintesi finale deve essere eseguita senza strumenti disponibili.
+4. Il client deve mostrare avanzamento, errore esplicito e possibilità di annullare.
+5. Esegui check sintassi, build presentazione, lint wiki e test smoke post-deploy.
+6. Aggiorna [[sintesi/contesto-sbarco]] quando cambiano requisiti e decisioni.
 
 ---
 

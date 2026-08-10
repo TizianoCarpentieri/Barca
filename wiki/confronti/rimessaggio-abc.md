@@ -1,8 +1,8 @@
 ---
 title: Confronto rimessaggio A/B/C
 type: confronto
-updated: 2026-08-04
-status: active
+updated: 2026-08-10
+status: draft
 tags: [rimessaggio, anzio, carrello, cantiere]
 sources:
   - raw/mercato/litorale-laziale-rimessaggio-2026-08-04.md
@@ -12,6 +12,9 @@ sources:
 ---
 
 # Confronto rimessaggio — A / B / C (aperte)
+
+> Analisi conservata per il piano B scafo rigido. Il piano A gommone smontabile
+> non richiede posto barca né cantiere; vedere [[sintesi/scenario-rigido-5-soci]].
 
 Decisione gruppo (2026-08-04): **escludere D (ibrido) e E (non so)**; inizialmente A/B/C aperti.
 

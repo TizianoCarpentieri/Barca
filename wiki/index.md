@@ -13,15 +13,22 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[overview]] | Stato attuale — **dual track** rigidi + gommoni + motori |
+| [[overview]] | Stato attuale — **gommone primario**, motore abbinato, rigido condizionale |
 | [[log]] | Diario cronologico operazioni |
 
 ## Presentazione (per le bestie)
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Manifesto Vite + **Annunci** tab Rigide/Gommoni/Motori/**Accessori** (GitHub Pages) |
+| `presentazione/` | Sito Vite mobile-first + annunci + widget Sbarco (GitHub Pages) |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
+
+## Sbarco
+
+| Pagina | Sommario |
+|--------|----------|
+| [[sintesi/contesto-sbarco]] | Contesto corrente compatto usato dal bot |
+| [[concetti/architettura-sbarco]] | Flusso chat/deep research, limiti, memoria e manutenzione |
 
 ## Preferenze
 
@@ -54,6 +61,8 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/montaggio-gommone]] | Fatica operativa gommone vs rigido: ciclo completo, criticità |
 | [[concetti/costi-nascosti-gommone]] | Costi oltre scafo+motore: burocrazia, dotazioni, manutenzione, assicurazione |
 | [[concetti/logistica-trasporto]] | Auto, custodia, ciclo uscita — da verificare |
+| [[concetti/tendalino-copertura]] | Nota storica sul tendalino per lo scenario scafo rigido |
+| [[concetti/architettura-sbarco]] | Architettura e garanzie operative del chatbot |
 
 ## Normativa
 
@@ -79,6 +88,9 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[sintesi/requisiti-v1]] | Profilo requisiti + filtri dual track |
+| [[sintesi/requisiti-v1]] | Profilo requisiti: piano A gommone + piano B rigido condizionale |
 | [[sintesi/conversazioni-audio-20260809]] | Trascrizioni 45 vocali WhatsApp del 9 ago |
 | [[sintesi/scenario-rigido-5-soci]] | Cosa servirebbe per attivare il track scafo rigido |
+| [[sintesi/shortlist]] | Candidati gommone e motore da promuovere dopo verifica |
+| [[sintesi/contesto-sbarco]] | Source of truth compatta per Sbarco |
+| [[sintesi/audit-sbarco-wiki-20260810]] | Cause dei problemi del 10 agosto, correzioni e limiti residui |

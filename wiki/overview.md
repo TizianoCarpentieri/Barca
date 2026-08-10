@@ -43,6 +43,8 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Accordo scritto bestie | ⬜ da redigere |
 | Scenario rigido 5 soci | ⬜ [[sintesi/scenario-rigido-5-soci]] |
 | Feed Subito automatico | ✅ 3 feed + geo-score + cron |
+| Sbarco deep research v2 | 🟡 implementata localmente; test/deploy da completare |
+| Lint wiki automatico | ✅ `node scripts/lint-wiki.mjs` |
 | Shortlist candidati | ⬜ da popolare dai feed |
 | Visite/prove | ⬜ non iniziato |
 
@@ -53,10 +55,12 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 3. Popolare shortlist gommoni+motori bundle ≤2.000 € dai feed live.
 4. Redigere accordo scritto tra bestie (split costi, danni, uscita socio).
 5. Scenario rigido: calcolare con 5 soci se i numeri tornano.
+6. Testare e distribuire Sbarco v2 con una domanda rapida e una deep research.
 
 ## Come usare questo repo
 
 - Drop fonti in `raw/`, poi ingest
 - `preferenza: …` → `wiki/preferenze/`
+- `node scripts/lint-wiki.mjs` → controlla link, indice e frontmatter
 - Annunci: tab su Pages / `annunci.html?cat=…`
 - Dettaglio: `AGENTS.md` · [[mercato/feed-subito-live]]

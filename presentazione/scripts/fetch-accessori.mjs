@@ -11,7 +11,7 @@ import { classifyAccessorio, detectCategory, TIPOLOGIE } from './scoring-accesso
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/accessori.json')
-const RAW_OUT = path.join(__dirname, '../../../raw/mercato')
+const RAW_OUT = path.join(__dirname, '../../raw/mercato')
 
 const SUBITO_CAT = 22 // Nautica
 const SUBITO_HEADERS = {

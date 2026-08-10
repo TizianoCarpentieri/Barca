@@ -1,24 +1,24 @@
-name: Deploy Pages + Worker
+name: Deploy Sbarco Worker
 
 on:
   push:
     branches: [main, master]
-  schedule:
-    - cron: '0 8 * * 1'  # ogni lunedì ore 8 UTC
+    paths:
+      - 'worker/**'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: sbarco-worker-production
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  test-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -26,44 +26,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: presentazione/package-lock.json
+          cache-dependency-path: worker/package-lock.json
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
+      - name: Install
+        working-directory: worker
+        run: npm ci
 
-      - name: Install Python deps (graphify)
-        run: pip install graphifyy
-
-      - name: Fetch annunci
-        working-directory: presentazione
+      - name: Verify Worker
+        working-directory: worker
         run: |
-          npm ci
-          npm run fetch-annunci || echo "fetch-annunci skipped"
-          npm run fetch-gommoni || echo "fetch-gommoni skipped"
-          npm run fetch-motori || echo "fetch-motori skipped"
-
-      - name: Rebuild knowledge graph
-        run: python graphify-out/build_graph.py
-
-      - name: Copy graph to worker
-        run: cp graphify-out/graph.json worker/graph.json
-
-      - name: Build Vite site
-        working-directory: presentazione
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: presentazione/dist
-          publish_branch: gh-pages
-          force_orphan: true
+          npm run check
+          npm test
 
       - name: Deploy Worker
         working-directory: worker
-        run: npx wrangler deploy
+        run: npm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

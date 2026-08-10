@@ -1,12 +1,15 @@
 ---
 title: Intervista requisiti
 type: preferenza
-updated: 2026-08-04
-status: active
+updated: 2026-08-10
+status: deprecated
 tags: [intervista, requisiti]
 ---
 
 # Intervista raccolta requisiti
+
+> Storico dell’intervista iniziale del 4 agosto. È superato dalla decisione del
+> 10 agosto: per lo stato corrente usare [[sintesi/requisiti-v1]].
 
 Metodo: una domanda alla volta + ricerca web contestuale prima di ogni punto. Risposte → preferenze + log.
 

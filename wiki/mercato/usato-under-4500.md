@@ -1,8 +1,8 @@
 ---
 title: Mercato usato ≤4500€
 type: mercato
-updated: 2026-08-04
-status: active
+updated: 2026-08-10
+status: deprecated
 tags: [usato, subito, budget]
 sources:
   - raw/mercato/subito-pacchetti-under-5500-2026-08-04.md
@@ -10,6 +10,9 @@ sources:
 ---
 
 # Mercato usato — tetto ~4.500 € (sample Subito 2026-08-04)
+
+> Snapshot storico del vecchio budget per scafi rigidi. Non usare questa pagina
+> per il piano A corrente; vedere [[sintesi/shortlist]] e i feed live.
 
 ## Metodo
 

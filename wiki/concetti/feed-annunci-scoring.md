@@ -1,7 +1,7 @@
 ---
 title: Feed annunci e scoring
 type: concetto
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [subito, scoring, feed, distanza]
 sources:
@@ -9,6 +9,8 @@ sources:
   - presentazione/scripts/fetch-gommoni.mjs
   - presentazione/scripts/fetch-motori.mjs
   - presentazione/scripts/geo-score.mjs
+  - presentazione/scripts/feed-normalizers.mjs
+  - presentazione/scripts/validate-feeds.mjs
 ---
 
 # Feed annunci Subito — logica di scoring
@@ -65,6 +67,18 @@ Altrimenti penalità forte (“meglio nuovo”).
 **Bundle con motore** decente a totale ragionevole → bonus.
 
 Pavimento: paiolato alluminio > airdeck. Chiglia gonfiabile preferita.
+
+### Normalizzazione e gate (2026-08-10)
+
+- Le misure Subito `330`, `380` e `3600` diventano 3,30 m, 3,80 m e
+  3,60 m; una misura esplicita nel titolo prevale sul campo API.
+- RIB, semirigidi, scafo/carena/chiglia rigida e modelli RIB noti sono reject.
+- `has_engine` distingue i bundle reali dalle descrizioni che citano soltanto
+  la potenza consigliata.
+- Per i motori marca, potenza e gambo nel titolo prevalgono sulle compatibilita'
+  elencate nel corpo.
+- `validate-feeds.mjs` blocca il deploy per file mancanti, feed vecchi o piccoli,
+  duplicati, misure/CV fuori scala e RIB sfuggiti al filtro.
 
 ## Track motori
 

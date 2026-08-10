@@ -8,76 +8,43 @@ tags: [todo]
 
 # Open questions
 
-## Gruppo e uso
+Questa pagina contiene soltanto decisioni ancora necessarie. Le decisioni chiuse
+restano nel [[log]] e nelle pagine tematiche.
 
-- [x] Budget mezzo: **≤4.500 € usato** (track rigidi); gommone ref **970 €** nuovo scafo
-- [x] Split costi tra le 3 bestie → [[split-costi]] (regole danni, split, uscita socio)
-- [ ] Accordo scritto da firmare
-- [x] Budget annuo gestione: **≤1200 €/testa** all-in
-- [x] Riserva lavori post-acquisto: ~500 €/anno già stimata in costi fissi
-- [x] Zona: **mare laziale** (Ardea/Pomezia; Anzio–Circeo–Fiumicino)
-- [x] Dual track: **rigide + gommoni + motori** (feed live)
-- [x] Scelta finale: **gommone primario**, scafo rigido solo con ≥5 soci (2026-08-10)
-- [x] ~~Scafo rigido preferito~~ → superato dai vincoli di budget mensile
-- [x] Patente: nessuno; ideale restare senza
-- [x] Frequenza uscite/anno: moderata + inverno pesca (conversazioni 9 ago)
+## Bloccanti prima di comprare
 
-## Barca / gommone
+- [ ] Identificare l’auto che trasporta gommone, motore e attrezzatura.
+- [ ] Confermare il luogo asciutto e sicuro di custodia settimanale.
+- [ ] Provare un ciclo reale di carico, montaggio, lavaggio e rientro.
+- [ ] Individuare almeno uno scivolo/accesso pratico da Ardea/Pomezia.
+- [ ] Preparare e firmare l’accordo tra le bestie: split, danni, uscita socio.
+- [ ] Decidere intestatario di gommone, motore e assicurazione.
 
-- [x] Track rigidi: **no gommone**; gozzo/open/lancia + tendalino
-- [x] Track gommoni: criteri + ref [[modelli/argo-evo-360]]
-- [x] Motori: min 6 CV, sweet 9.9–15
-- [ ] Bundle ideale gommone+motore: tetto totale €?
-- [ ] Fuoribordo vs entro (solo track rigidi)
-- [ ] Cabina: no di default a questo budget
+## Costi e documenti da verificare con fonti/preventivi
 
-## [2026-08-10] Logistica gommone — DA VERIFICARE
+- [ ] Obblighi e costo del passaggio per il bene effettivamente acquistato.
+- [ ] Documenti del motore e adempimenti applicabili alla potenza scelta.
+- [ ] Elenco e costo delle dotazioni obbligatorie per distanza di navigazione.
+- [ ] Preventivo RC reale per motore/gommone e tre utilizzatori.
+- [ ] Preventivo tagliando per un 9.9–15 CV 4T.
+- [ ] Fondo iniziale per batteria/fanali, ancora, giubbotti e riparazioni.
 
-- [ ] Chi ha un'auto adatta a caricare gommone (70 kg) + motore + attrezzatura?
-- [ ] Dove si tiene il gommone durante la settimana? (garage, cantina, terrazzo?)
-- [ ] Quante uscite/anno sono realistiche con montaggio/smontaggio?
-- [ ] Chi si occupa di gonfiaggio/sgonfiaggio e montaggio motore?
-- [ ] C'è uno scivolo/accesso comodo vicino alla base (Ardea/Pomezia)?
+Dettaglio: [[concetti/costi-nascosti-gommone]].
 
-## [2026-08-10] Costi reali — DA VERIFICARE
+## Scelta del candidato
 
-- [ ] Costo passaggio di proprietà per gommone usato
-- [ ] Costo immatricolazione motore (>10 CV?)
-- [ ] Dotazioni di sicurezza obbligatorie per legge (costo e lista)
-- [ ] Accessori per navigazione notturna (fanali, batteria)
-- [ ] Costo tagliando annuale motore fuoribordo 9.9-15 CV
-- [ ] Costo assicurazione RC per gommone (preventivo reale)
-- [ ] Eventuali costi di ricovero invernale se non si tiene a casa
+- [ ] Popolare [[sintesi/shortlist]] con almeno 3 bundle verificabili entro 2.000 €.
+- [ ] Stabilire checklist di ispezione per tubolari, paiolato, specchio di poppa e motore.
+- [ ] Definire quanto del budget lasciare come riserva post-acquisto.
+- [ ] Decidere se 4 persone omologate sono sufficienti o se 5–6 è vincolo reale.
 
-## [2026-08-07] Accessori — decisioni revamp (chiuse)
+## Gestione operativa
 
-- [x] **eBay: RIMOSSA completamente** dal feed accessori (UI, script, workflow, `.env.ebay`). Motivo: keyset senza Buy API, portale read-only, nessun fix possibile → fonte inutile.
-- [x] **Prezzo nuovo = automatismo**: mediana prezzi annunci Subito con condizione "nuovo" per modello, stesso cron dei feed (2×/giorno, 06:15/18:15 UTC). Nessuna API aggiuntiva (stessa hades).
-- [x] **+5 nuove tipologie** approvate: galleggianti/boie, canne & mulinelli, radio VHF, cassetta attrezzi, binocolo → griglia 27 tipologie in 5 destinazioni.
-- [x] **5 destinazioni** (filtri UI): Elettronica · Pesca · Sicurezza & dotazione · Scafo & comfort · Motore & manutenzione.
-- [x] **Icona Accessori** accanto ai 3 tab su stessa riga (fix accapo grid `repeat(3,1fr)`), clic → pagina dedicata `accessori.html`.
+- [ ] Assegnare responsabilità per manutenzione, pratiche e dotazioni.
+- [ ] Stimare il numero realistico di uscite annue dopo la prova di montaggio.
+- [ ] Definire dove asciugare e lavare il gommone dopo ogni uscita.
 
-## Logistica
+## Manutenzione della knowledge base
 
-- [x] Traino/carrello: **no** sul track rigidi
-- [ ] A posto barca vs C terra (numeri € nel cap)
-- [x] Intestazione: da decidere (non blocca caccia)
-- [ ] Chi gestisce manutenzione e pratiche?
-
-## Normativa / sicurezza
-
-- [ ] Tenere allineate fonti ufficiali limiti no-patente
-- [ ] Dotazioni e assicurazione per fascia scelta
-
-## [2026-08-07] eBay API — Browse non abilitata (diagnosi CONFERMATA in locale)
-
-- Riproduzione live fatta il 2026-08-07 con le chiavi reali di `.env.ebay`:
-  - Token `grant_type=client_credentials` con scope generico `https://api.ebay.com/oauth/api_scope` → **200** (token emesso).
-  - Token con scope `https://api.ebay.com/oauth/api_scope/buy.browse.readonly` → **400 invalid_scope "exceeds the scope granted to the client"**.
-  - Browse API `GET /buy/browse/v1/item_summary/search` col token generico → **404 errorId 2002** "Resource not found".
-- Causa: il keyset dell'app è stato creato con i **Sell/Commerce APIs**, senza **Buy APIs**. La pagina OAuth scopes del portale è **read-only e NON modificabile**: gli scope sono assegnati al keyset al momento della creazione (fonti: supporto Cleo "se manca uno scope contattare eBay support"; guida mfalkus/ebay-bargains "non si possono aggiungere scope nel portale, sono assegnati alla creazione del keyset").
-- Buy API/Browse quindi NON è raggiungibile per questo keyset → 404. Nel codice `EBAY_SCOPE` resta `api_scope` (scope generico ok per `item_summary/search` una volta che il keyset ha la Buy API); NON usare `buy.browse.readonly` finchè lo scope non è concesso, altrimenti il token fallisce con 400.
-- Strade per sbloccare:
-  1. **Creare una nuova application/keyset** selezionando nel flusso di creazione le **Buy APIs (Browse)**; usare le client id/secret Production del nuovo keyset in `.env.ebay` / secrets CI.
-  2. **Contattare il supporto eBay developer** (developer.ebay.com/support) richiedendo l'accesso `buy.browse.readonly` / Buy API per il keyset esistente (citare errorId 2002/404, endpoint `buy/browse/v1/item_summary/search`, marketplace EBAY_IT).
-- Verifica finale: `node scripts/fetch-accessori.mjs` locale → `stats.ebay > 0`.
+- [ ] Verificare periodicamente le fonti ufficiali sui limiti senza patente.
+- [ ] Trasferire in wiki le ricerche web utili prima che restino solo nella memoria KV di Sbarco.

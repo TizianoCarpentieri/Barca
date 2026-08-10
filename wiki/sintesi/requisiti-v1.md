@@ -26,7 +26,7 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 | | |
 |--|--|
-| Condizione | **Solo usato** |
+| Condizione | Bundle preferibilmente **usato**; scafo nuovo sotto 1.000 € ammesso se più conveniente |
 | Patente | **Nessuno** ce l’ha; **ideale non prenderla** → ≤**30 kW / 40,8 CV** + cilindrate + **≤6 miglia** |
 | Performance | **Non attese** (consapevoli) |
 | Scafo | **Gommone pneumatico smontabile**, no RIB, trasportabile auto |
@@ -42,7 +42,7 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 | Prezzo max | **≤2.000 €** bundle gommone+motore usato |
 | Gestione annua | **≤30 €/testa/mese** = **≤360 €/testa/anno** |
 | Rimessaggio | **Nessuno** (gommone a casa, in auto) |
-| Hub | Fisso (es. Anzio/Nettuno/cantiere zona); Circeo/Fiumicino in navigazione |
+| Accesso al mare | Da scegliere e raggiungere **via terra** per ogni uscita; priorità Anzio/Nettuno e litorale vicino |
 | Timeline | **Affare giusto** (anche 6–12 mesi) |
 | Intestazione | **Da decidere** tra le bestie |
 
@@ -75,7 +75,7 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 ## Rischi dichiarati
 
-- A 4,5k € i “6 pax comodi” sono rari → 6 = picco, non standard  
+- Nel bundle da 2.000 € i “6 pax comodi” sono rari → 6 = picco, non standard
 - Usato cheap = alta probabilità lavori (riserva consigliata)  
 - Ormeggio Lazio può sforare il cap annuo se non si sceglie con cura  
 - Surf lunghe a bordo scomode finché non si passa a kit da barca  

@@ -11,7 +11,7 @@ import { applyDistanceScore } from './geo-score.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/annunci.json')
-const RAW_OUT = path.join(__dirname, '../../../raw/mercato')
+const RAW_OUT = path.join(__dirname, '../../raw/mercato')
 
 const CAT = 22 // Nautica
 const HEADERS = {
@@ -134,6 +134,7 @@ function normalize(ad) {
 
   return {
     id,
+    source: 'subito',
     subject: subject.trim(),
     body: body.trim().slice(0, 600),
     price,

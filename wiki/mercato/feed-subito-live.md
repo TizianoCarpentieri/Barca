@@ -1,7 +1,7 @@
 ---
 title: Feed Subito live
 type: mercato
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [subito, automazione, pages]
 ---
@@ -27,7 +27,7 @@ tags: [subito, automazione, pages]
 | `presentazione/scripts/fetch-*.mjs` | scrape/score Subito |
 | `presentazione/scripts/geo-score.mjs` | distanza da base Lazio |
 | `presentazione/public/data/*.json` | output statico su Pages |
-| `.github/workflows/pages.yml` | build + 3 fetch + deploy |
+| `.github/workflows/pages.yml` | test + 4 fetch + quality gate + deploy |
 
 ## Comandi locali
 
@@ -36,12 +36,17 @@ cd presentazione
 npm run fetch-annunci
 npm run fetch-gommoni
 npm run fetch-motori
+npm run fetch-accessori
+npm run validate-feeds
 npm run build
 ```
 
 ## Snapshot raw
 
 Dopo fetch: `raw/mercato/subito-feed-*.json`, `subito-gommoni-*.json`, `subito-motori-*.json`.
+
+La pubblicazione mantiene l'ultima versione online se un fetch core o il quality
+gate falliscono: non distribuisce tab mancanti fingendo un deploy riuscito.
 
 ## Documentazione logica
 

@@ -1,7 +1,7 @@
 ---
 title: Nice-to-have e priorità d'uso
 type: preferenza
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [desiderata, pesca, priorita]
 ---
@@ -17,7 +17,7 @@ tags: [desiderata, pesca, priorita]
 | **3** | Bagno / relax / amici | Picco sociale fino a ~6 |
 | **4** | Facilità | Montaggio, rimessaggio, pochi casini — **ultima** priorità |
 
-## Impatto sulla barca (fascia ≤4.500 €)
+## Impatto sul piano A (bundle ≤2.000 €)
 
 ### Da priorità pesca a canna
 - Serve **spazio di coperta** e possibilità di stare in piedi in 2–3 senza pestarsi
@@ -37,7 +37,7 @@ tags: [desiderata, pesca, priorita]
 
 ### Facilità (4° — esplicitamente bassa)
 - Il gruppo accetta un po’ di sbatti logistico se pesca e giri sono meglio
-- Comunque budget basso spinge verso soluzioni semplici (carrello/terra)
+- Il budget basso spinge verso gommone smontabile, custodia domestica e componenti semplici
 
 ## Nice-to-have tecnici (non bloccanti)
 
@@ -52,11 +52,11 @@ tags: [desiderata, pesca, priorita]
 | Motore 9.9–15 4T gambo corto | **alta** se track gommone |
 | Tavolo/frigo | bassa |
 
-## Dual track (2026-08-05)
+## Piano corrente (aggiornato 2026-08-10)
 
-- Track **rigidi**: tendalino, posto/terra, no carrello — [[sintesi/requisiti-v1]]
-- Track **gommoni**: trasporto auto, ref [[modelli/argo-evo-360]], feed parallelo
-- Track **motori**: niente 2.5/4 CV — [[preferenze/track-motori]]
+- Piano A **gommoni**: trasporto auto, ref [[modelli/argo-evo-360]], paiolato Al/airdeck.
+- Motore abbinato: niente 2.5/4 CV — [[preferenze/track-motori]].
+- Piano B **rigidi**: solo con ≥5 soci; tendalino e posto/terra — [[sintesi/scenario-rigido-5-soci]].
 
 ## Core vs sociale
 

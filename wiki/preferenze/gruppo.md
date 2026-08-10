@@ -1,7 +1,7 @@
 ---
 title: Gruppo
 type: preferenza
-updated: 2026-08-04
+updated: 2026-08-10
 status: active
 tags: [gruppo, bestie, lazio]
 ---
@@ -34,7 +34,7 @@ tags: [gruppo, bestie, lazio]
 |------|--------|
 | Intensità | **Tra “1–2/mese” e “quasi ogni weekend”** |
 | Lettura operativa | Uso **moderato**: ~2–6 uscite/mese in alta stagione (stima da rifinire), non flotta quotidiana |
-| Impatto rimessaggio | Sfavorevole a posto barca costoso se poco usato; **carrello o terra** spesso più razionali; posto ok solo se tariffa bassa/affare |
+| Impatto logistico | Piano A smontabile: niente posto barca; vanno verificati auto, custodia e sostenibilità del montaggio |
 
 ## Base operativa (intervista 2026-08-04)
 
@@ -44,7 +44,7 @@ tags: [gruppo, bestie, lazio]
 | Residenza | **Ardea e Pomezia** |
 | Zone uscite | Litorale laziale: in primis **Anzio**, **Circeo**, **Fiumicino** |
 | Lago | Non citato come priorità |
-| Rimessaggio | **Aperto** — da definire (posto barca vs terra vs carrello) |
+| Logistica piano A | **Da verificare** — auto, custodia, scivolo/accesso; niente carrello |
 
 Dettaglio mercato: [[mercato/litorale-laziale]].
 
@@ -62,3 +62,4 @@ Dettaglio inviluppo: [[concetti/no-patente-6-pax-realta]].
 
 - Decisione d’acquisto e preferenze da allineare tra i tre.
 - Nessuno del gruppo indicato come residente Anzio → agevolazioni “residenti porto Anzio” probabilmente non applicabili.
+- Dal 2026-08-10 il gommone smontabile è il piano primario; il rimessaggio A/C riguarda soltanto lo scenario rigido futuro.

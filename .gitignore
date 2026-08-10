@@ -5,6 +5,7 @@ graphify-out/.graphify_*
 graphify-out/_*
 graphify-out/transcripts/
 graphify-out/graph.html
+graphify-out/20??-??-??/
 
 # audio source duplicate  
 kb barca/
@@ -23,6 +24,8 @@ kb barca/
 
 # deps if any
 node_modules/
+.tools/
+.npm-cache/
 
 # wrangler local cache
 worker/.wrangler/

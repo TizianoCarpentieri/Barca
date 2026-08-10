@@ -1,14 +1,17 @@
 ---
 title: Tendalino / copertura sole
 type: concetto
-updated: 2026-08-04
-status: active
+updated: 2026-08-10
+status: draft
 tags: [tendalino, bimini, comfort]
 sources:
   - wiki/preferenze/nice-to-have.md
 ---
 
 # Tendalino e copertura sole (barca piccola)
+
+> Pagina valida per il solo scenario scafo rigido futuro. Nel piano A gommone
+> il tendalino è opzionale e non guida la scelta.
 
 ## Esigenza gruppo
 

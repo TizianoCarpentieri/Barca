@@ -39,23 +39,24 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 
 ## Scenario gommone primario (2026-08-10)
 
-Il gommone smontabile elimina i costi di rimessaggio (posto barca/terra).
-I costi fissi si riducono a: assicurazione RC + manutenzione motore + carburante + piccola manutenzione gommone.
+Il gommone smontabile **può** eliminare i costi di rimessaggio se il gruppo
+conferma una custodia domestica adatta. Le cifre seguenti sono un’ipotesi di
+lavoro emersa dalle conversazioni, **non preventivi verificati**.
 
 | Voce | Stima mensile | Stima annua | Note |
 |------|---------------|-------------|------|
-| Assicurazione RC | ~10 €/mese | 100–150 € | Principianti, stima realistica |
-| Manutenzione motore | ~8 €/mese | ~100 € | Tagliando annuale |
-| Carburante | ~8 €/mese | ~100 € | Uscite moderate, 10-15 CV |
-| Manutenzione gommone | ~4 €/mese | ~50 € | Toppe, colla, valvole |
-| **Totale** | **~30 €/mese** | **~350–400 €** | Ben sotto il cap |
-| **Per testa (÷3)** | **~10 €/mese** | **~115–135 €** | Ampio margine |
+| Assicurazione RC | ~10 €/mese | 100–150 € | da preventivo reale |
+| Manutenzione motore | ~8 €/mese | ~100 € | da preventivo tagliando |
+| Carburante | ~8 €/mese | ~100 € | dipende da uscite e consumi |
+| Manutenzione gommone | ~4 €/mese | ~50 € | fondo ipotetico |
+| **Totale ipotetico** | **~30 €/mese** | **~350–400 €** | da validare |
+| **Per testa (÷3)** | **~10 €/mese** | **~115–135 €** | prima dei costi una tantum |
 
 ### Note scenario gommone
 
-- **Nessun costo di rimessaggio**: il gommone si tiene a casa (garage/cantina/terrazzo).
-- **Nessun costo di alaggio/varo**: si gonfia in spiaggia/scivolo.
-- **Costi una tantum da verificare**: passaggio di proprietà, immatricolazione (se >10 CV), dotazioni di sicurezza obbligatorie, accessori notturni.
+- **Rimessaggio zero solo se** viene confermato un luogo domestico asciutto e sicuro.
+- **Varo a costo zero solo se** esiste un accesso legale e gratuito adatto.
+- **Costi una tantum da verificare**: adempimenti del bene/motore scelto, dotazioni di sicurezza, eventuali fanali/batteria e ripristini iniziali.
 - Vedi [[concetti/costi-nascosti-gommone]] per il dettaglio.
 
 ## Scenario scafo rigido (condizionale, ≥5 soci) (da validare con preventivi)
@@ -115,6 +116,11 @@ Vedi [[split-costi]]:
 
 ## Open
 
-- [ ] Numeri reali Anzio + 2 cantieri  
+- [ ] Preventivo RC e tagliando sul motore target.
+- [ ] Costi documentali e dotazioni per il bundle effettivo.
+- [ ] Conferma custodia e accesso al mare senza canone.
 - [ ] Redigere accordo scritto firmato
 - [ ] Quante uscite/anno per chiudere formula
+
+Per il solo piano B rigido restano da raccogliere i numeri reali di Anzio e di
+almeno due cantieri: [[sintesi/scenario-rigido-5-soci]].

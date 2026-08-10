@@ -2,7 +2,7 @@
 title: Scenario scafo rigido (5 soci)
 type: sintesi
 updated: 2026-08-10
-status: conditional
+status: draft
 tags: [scafo-rigido, scenario, 5-soci]
 ---
 

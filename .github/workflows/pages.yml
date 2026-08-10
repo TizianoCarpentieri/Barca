@@ -23,6 +23,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,18 +34,18 @@ jobs:
       - name: Install
         working-directory: presentazione
         run: npm ci
+      - name: Test normalizzazione feed
+        working-directory: presentazione
+        run: npm test
       - name: Fetch annunci Subito (barche)
         working-directory: presentazione
         run: node scripts/fetch-annunci.mjs
-        continue-on-error: true
       - name: Fetch annunci Subito (gommoni)
         working-directory: presentazione
         run: node scripts/fetch-gommoni.mjs
-        continue-on-error: true
       - name: Fetch motori fuoribordo
         working-directory: presentazione
         run: node scripts/fetch-motori.mjs
-        continue-on-error: true
       - name: Update ref prezzi (Subito nuovo mediana)
         working-directory: presentazione
         run: node scripts/update-accessori-ref.mjs
@@ -52,7 +53,9 @@ jobs:
       - name: Fetch accessori (Subito)
         working-directory: presentazione
         run: node scripts/fetch-accessori.mjs
-        continue-on-error: true
+      - name: Valida freschezza e qualita feed
+        working-directory: presentazione
+        run: npm run validate-feeds
       - name: Build
         working-directory: presentazione
         run: npx vite build --base=/Barca/

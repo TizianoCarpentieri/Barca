@@ -1,6 +1,7 @@
 # Sbarco Worker — Cloudflare
 
-Assistente chat per Progetto Barca con Retrieval basato su graphify.
+Assistente chat per Progetto Barca con contesto wiki, memoria KV, strumenti web
+e risposta SSE progressiva.
 
 ## Setup
 
@@ -46,7 +47,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","graphNodes":166,"graphEdges":198}
+# → {"status":"ok","version":"2.0.0","deepResearch":true,"knowledgeSource":"wiki-runtime"}
 ```
 
 ## Struttura KV
@@ -61,14 +62,45 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 
 | Comando | Chi | Effetto |
 |---------|-----|---------|
-| `/debug` | Solo Tiziano | Scarica JSON con log, KV state, errori |
+| `/debug` | Tiziano | Metriche aggregate ed errori, senza conversazioni o fatti KV |
+
+## API
+
+| Endpoint | Metodo | Uso |
+|----------|--------|-----|
+| `/api/health` | GET | versione e stato Worker |
+| `/api/status?userId=...` | GET | contatore giornaliero reale |
+| `/api/chat` | POST | chat SSE; body `{userId, question, mode}` |
+
+`mode` può essere `auto` o `deep`. La modalità profonda apre lo stream prima
+della ricerca, invia fasi/heartbeat, limita fonti e round e forza la sintesi
+finale senza ulteriori tool. Dettaglio: `wiki/concetti/architettura-sbarco.md`.
+
+## Verifica prima del deploy
+
+```bash
+node --check src/index.js
+cd ../presentazione && npm run build
+cd .. && node scripts/lint-wiki.mjs
+```
+
+Dopo il deploy verificare:
+
+1. `/api/health` riporta `version: 2.0.0`.
+2. Una domanda rapida produce stato e risposta.
+3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
+4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,
+   `contextReadyMs`, `firstAgentMs`, `firstTokenMs`, `elapsedMs`).
 
 ## Aggiornare il grafo
 
-Dopo modifiche alla wiki:
+Il grafo serve alla navigazione e all'analisi del repository, ma non viene più
+incorporato nel bundle del Worker. Dopo modifiche sostanziali al progetto:
+
 ```bash
 cd ..
-python graphify-out/build_graph.py
-copy graphify-out\graph.json worker\graph.json
-cd worker && npm run deploy
+graphify update .
 ```
+
+Il Worker legge il contesto compatto e l'indice da GitHub Raw e li mantiene in
+cache KV per un'ora; non e' necessario incorporare o copiare il grafo.

@@ -191,3 +191,50 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - UI: icona Accessori stessa riga (fix grid 3+1), accessori.html dedicato con filtri destinazione/tipologia
 - Fix collaterali: gommoni hardMax 1500, regex rimorchio, scanned_unique da null a numero
 - Commits: cd76edf 9c2d7ae 640a5f9 fc3c398 c995b64
+
+## [2026-08-10] audit | Revisione operazioni DeepSeek e causa risposta vuota Sbarco
+
+- Ricostruito il flusso introdotto nei commit del 10 agosto.
+- Causa primaria: dopo fino a 8 round non-streaming da 8.000 token partiva una nuova chiamata streaming con i tool ancora attivi; le `tool_call` emesse nello stream non venivano interpretate e il client riceveva solo `done`.
+- Concause: nessun avanzamento visibile prima della risposta, nessun limite temporale per fonte, `remember` non persisteva, summary KV ridotta a contatori ripetitivi e debug solo in-memory.
+- Il problema non era quindi il solo esaurimento dei token, ma il contratto incompleto tra agent loop, SSE e widget.
+
+## [2026-08-10] feat(sbarco) | Deep research v2 e mobile UX
+
+- Stream SSE aperto subito con fasi e heartbeat; modalità rapida/ricerca profonda.
+- Budget: 3 ricerche, 5 fonti aperte, 14 tool call, concorrenza 4, timeout 12s per fonte e 6 round massimi.
+- Sintesi finale forzata senza tool; eliminato il percorso che poteva concludersi senza testo.
+- Aggiunti annullamento, fallback risposta vuota, status rate-limit dal server e pannello mobile full-screen con safe-area.
+- `remember` salva in KV; cronologia e debug diventano persistenti e utili.
+- Documentazione: [[concetti/architettura-sbarco]] e [[sintesi/contesto-sbarco]].
+
+## [2026-08-10] lint | Riallineamento wiki al piano A
+
+- Shortlist promossa a bundle gommone+motore ≤2.000 €; rigide spostate a scenario condizionale.
+- Ripulite le open question: rimosse decisioni chiuse e diagnosi eBay già storicizzate.
+- Marcate come storiche/condizionali intervista iniziale, mercato ≤4.500 €, tendalino e rimessaggio A/B/C.
+- Corrette incoerenze su hub, custodia e stime di costo non ancora verificate.
+- Aggiunto lint deterministico `scripts/lint-wiki.mjs` per wikilink, copertura indice, frontmatter e status.
+
+## [2026-08-10] perf(sbarco) | Contesto e bundle alleggeriti
+
+- Rimosso il grafo statico dal bundle del Worker: resta un indice di progetto aggiornato con Graphify.
+- Sbarco carica da KV il contesto compatto e l'indice wiki, aprendo le altre pagine solo quando servono.
+
+## [2026-08-10] perf(sbarco) | Feedback di attesa e diagnostica latenza
+
+- Aggiunti stati grigio-luminosi e messaggi di bordo durante attesa e heartbeat.
+- Ridotti a 1.000 i token dei round intermedi; ragionamento deep esteso solo nel primo round.
+- Ridotto il rumore delle fonti web a 6 risultati e 6.000 caratteri per pagina.
+- `/debug` registra ora tempo contesto, primo round, primo token e durata totale.
+- Eliminata una lettura KV duplicata prima dell'apertura dello stream.
+
+## [2026-08-10] fix(release) | Quality gate feed e pipeline unica
+
+- Corrette misure Subito in cm/mm, precedenza del titolo, bundle con motore, marca/potenza/gambo motori.
+- Esclusi rigidamente RIB, semirigidi e scafo/carena/chiglia rigida dal piano A.
+- Aggiunti test dei normalizzatori e gate sui quattro feed; validati 80 rigide, 80 gommoni, 70 motori e 62 accessori.
+- Separati deploy Pages e Worker; rimossi i fallimenti silenziosi dei fetch core.
+- Wrangler aggiornato e fissato alla versione 4.120.0 con audit npm a zero vulnerabilita'.
+- Ritirati gli endpoint Worker legacy e ridotto `/debug` a diagnostica senza contenuto delle conversazioni.
+- Bloccati origin estranei e redirect web verso reti private; le fonti sono marcate come dati non affidabili contro prompt injection.

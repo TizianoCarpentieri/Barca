@@ -1,16 +1,16 @@
-# Graph Report - barca  (2026-08-09)
+# Graph Report - barca  (2026-08-10)
 
 ## Corpus Check
-- 81 files · ~134,494 words
+- 102 files · ~213,003 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 870 nodes · 990 edges · 104 communities (79 shown, 25 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.5)
+- 1091 nodes · 1059 edges · 270 communities (73 shown, 197 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1b115cb4`
+- Built from commit: `d9bc51cb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,74 +23,73 @@
 - Log — Progetto Barca
 - AGENTS.md — Progetto Barca (Le Bestie)
 - fetch-gommoni.mjs
-- app.js
+- sbarco.js
 - index.js
 - Risposte grezze
 - scripts
-- Track A - Rigide
+- Anzio
 - Ricerca mercato — litorale laziale (base Ardea/Pomezia)
 - Split costi e danni
 - Montaggio e logistica gommone
-- Motore fuoribordo 9.9-15 CV
-- Indice wiki
+- #argo
+- Bimini aftermarket 150-600€
 - Budget
-- Progetto Barca
+- 3 persone comode pesca
 - Hook | Tutte le 22 esistenti: cap = ref_new × 2
 - 2. Cambi vs v1
-- Requisiti v1 — Le Bestie
-- Setup
-- Conversazioni audio 2026-08-09
-- Argo-Evo 360 AL
+- Requisiti v2 — Le Bestie
+- Sbarco Worker — Cloudflare
+- #audio
+- Capienza 5 persone
 - Priorità d'uso e nice-to-have
 - Temi principali
-- worker/package.json
-- Feed Subito live
-- Requisiti v1 (intervista)
+- package.json
+- #automazione
+- #budget
 - opencode.json
 - LLM Wiki — Progetto Barca
 - LLM Wiki
 - Feed accessori — design approvato (2026-08-07)
 - Feed annunci Subito — logica di scoring
 - Indice wiki — Progetto Barca
-- No-patente + 6 pax — cosa è realistico
+- #6-pax
 - graphify reference: extra exports and benchmark
 - No-patente + fino a 6 persone — inviluppo realistico
 - Mercato usato — tetto ~4.500 € (sample Subito 2026-08-04)
 - Open questions
 - Gruppo — Le Bestie
-- Feed accessori — design e scoring
+- #accessori
 - Frontend Design
 - Progetto Barca — Presentazione
 - Pesca da barca piccola — contesto Bestie
 - Tendalino e copertura sole (barca piccola)
 - Litorale laziale — base Bestie
 - Argo-Evo 360 AL — riferimento gommone
-- Track parallelo — Gommoni pneumatici
-- Litorale laziale (base operativa)
-- TCO 3600€/anno totale
-- Pesca da barca piccola (no-patente)
-- Track B - Gommoni
-- Lunghezza min 3.30 m
+- Track primario — Gommoni pneumatici
+- #anzio
+- Assicurazione RC 150-400€/anno
+- #bolentino
+- Dual Track
+- Gozzo
 - graphify reference: query, path, explain
 - Argo-Evo 360 AL — Reference product (new)
 - Fonte: MIT — Conseguimento patente nautica
 - Feed Subito live (presentazione)
 - Must-have (non negoziabili)
 - Track parallelo — Motori fuoribordo
-- Mare Tirreno Laziale
-- Feed annunci e scoring
+- Ardea-Pomezia
+- #distanza
 - Note traino rimorchio — patente B (IT)
 - Note secondarie — patente nautica (non ufficiali)
 - Limiti navigazione senza patente (IT)
 - Shortlist candidati
-- Tendalino / copertura sole
-- Nice-to-have e priorità d'uso
-- Track motori (parallelo)
+- #bimini
+- #desiderata
+- #dual-track
 - graphify reference: add a URL and watch a folder
 - graphify reference: commit hook and native CLAUDE.md integration
 - graphify reference: incremental update and cluster-only
 - Intervista — patente nautica (risposta grezza)
-- index.md
 - graphify.js
 - graphify reference: GitHub clone and cross-repo merge
 - graphify reference: transcribe video and audio
@@ -98,7 +97,7 @@
 - extraction-spec.md
 - patch-head.mjs
 - cantieri-anzio-nettuno-paginegialle-2026-08-04.md
-- raw/README.md
+- README.md
 - Bagno relax
 - Capienza min 4 persone
 - Carrello escluso
@@ -115,39 +114,203 @@
 - Tohatsu
 - Traina leggera
 - Yamaha
+- FASE 1 — Revisione Wiki
+- 3. Sbarco Agentico (Worker Refactor)
+- lavoroDeepSeekdel10agosto.md
+- lint-wiki.mjs
+- Costi nascosti — gommone pneumatico
+- Logistica e trasporto gommone
+- Audit Sbarco e wiki — 10 agosto 2026
+- Contesto operativo Sbarco
+- Architettura e flusso di Sbarco
+- Overview — ricerca barca
+- Scenario scafo rigido — con 5 soci
+- #accordo
+- Accordo scritto danni/split
+- Antonio
+- #anzio
+- #benchmark
+- #bestie
+- #bestie
+- Bolentino
+- Budget motore ≤1200€
+- #budget
+- #canne
+- Canone ormeggio 800-2000€/anno
+- #cantiere
+- Cantiere a terra (Opzione C)
+- Carburante 200-500€/anno
+- #carrello
+- Chiglia gonfiabile
+- Circeo
+- #circeo
+- #comfort
+- Confronto rimessaggio A/B/C
+- #conversazioni
+- Conversazioni audio 2026-08-09
+- Costi fissi 1800€/anno
+- #danni
+- Danno da errore conducente → paga conducente
+- Danno imprevedibile → tutti insieme
+- #design
+- #dual-track
+- #ebay
+- Ecoscandaglio
+- Entro 6 miglia dalla costa
+- #fatica
+- Fattore Puglia x1.20
+- Fattore Sicilia x1.30
+- #feed
+- Feed accessori — design e scoring
+- Feed annunci e scoring
+- Feed annunci Subito
+- #feed
+- Fino a 6 persone picco sociale
+- #fisica
+- Fiumicino
+- #fiumicino
+- #fuoribordo
+- Gambo corto
+- Garanzia 3 anni
+- Geo-score distanza Lazio
+- #gommone
+- Gommone pneumatico non RIB
+- #gommone
+- #gommone
+- Indice wiki
+- #intervista
+- Lancia VTR
+- #lazio
+- #lazio
+- Le Bestie
+- Limite 40.8 CV (30 kW)
+- #logistica
+- Lunghezza 3.60 m
+- Lunghezza min 3.30 m
+- Manutenzione 150-600€/anno
+- Mare Tirreno Laziale
+- Mercato usato ≤4500€
+- #mit
+- MIT - Ministero Infrastrutture e Trasporti
+- #montaggio
+- #motore
+- Motore fuoribordo 9.9-15 CV
+- Motore max 20 HP
+- Nettuno
+- No carrello
+- No gommone su Track A
+- #no-patente
+- No-patente + 6 pax — cosa è realistico
+- No patente nautica
+- #no-patente
+- Open
+- #pages
+- #patente
+- Pavimento alluminio
+- Peppe
+- #pesca
+- Pesca a canna (priorità #1)
+- Pesca invernale
+- #pesca
+- #pesca
+- Peso 68 kg
+- Portacanne aftermarket
+- Portata 475 kg
+- Portata min 400 kg
+- Postazione guida (console)
+- Posto barca (Opzione A)
+- Preferenza 4 tempi
+- #prestazioni
+- Prezzo 970€ nuovo
+- #priorita
+- Progetto Barca
+- RC assicurazione 100-150€/anno
+- #reference
+- Regola -20% usato vs nuovo
+- #regole
+- #requisiti
+- #requisiti
+- #requisiti
+- #rimessaggio
+- #rimessaggio
+- Scafo rigido preferito per praticità
+- #scoring
+- #scoring
+- #shortlist-filtri
+- Smontabile trasportabile auto
+- Solo usato
+- #split
+- #stato
+- #subito
+- #subito
+- #subito
+- #subito
+- #surfcasting
+- Sweet spot 9.9-15 CV
+- #tco
+- TCO 3600€/anno totale
+- Tendalino
+- #tendalino
+- Tiziano
+- #todo
+- Track A - Rigide
+- Track B - Gommoni
+- Track C - Motori
+- #usato
+- USato gommone benchmark 776€
+- #usato
+- Uscita socio → rimborso quota
+- Varata+alaggio 300-1200€/anno
+- #whatsapp
+- Montaggio gommone faticoso
+- Pesca da barca piccola (no-patente)
+- Tendalino / copertura sole
+- Litorale laziale (base operativa)
+- Argo-Evo 360 AL
+- Argo-Evo 360 AL (reference gommone)
+- Limiti senza patente (Italia)
+- Budget acquisto ≤4500€
+- Budget gestione ≤1200€/testa/anno
+- #gruppo
+- Nice-to-have e priorità d'uso
+- Split costi 1/3
+- Track gommoni (parallelo)
+- Track motori (parallelo)
+- Requisiti v1 (intervista)
+- #shortlist
 
 ## God Nodes (most connected - your core abstractions)
-1. `Log — Progetto Barca` - 26 edges
-2. `Argo-Evo 360 AL` - 25 edges
-3. `Indice wiki` - 17 edges
-4. `Requisiti v1 (intervista)` - 17 edges
-5. `fetch()` - 13 edges
-6. `What You Must Do When Invoked` - 12 edges
-7. `Risposte grezze` - 12 edges
-8. `Open questions` - 12 edges
-9. `Split costi e danni` - 12 edges
-10. `/graphify` - 11 edges
+1. `Log — Progetto Barca` - 34 edges
+2. `What You Must Do When Invoked` - 12 edges
+3. `FASE 1 — Revisione Wiki` - 12 edges
+4. `Risposte grezze` - 12 edges
+5. `scripts` - 11 edges
+6. `normalize()` - 11 edges
+7. `/graphify` - 11 edges
+8. `Indice wiki — Progetto Barca` - 11 edges
+9. `fetch()` - 10 edges
+10. `Requisiti v2 — Le Bestie` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Progetto Barca` --aspires_to--> `Fino a 6 persone picco sociale`  [EXTRACTED]
-  wiki/index.md → wiki/preferenze/must-have.md
-- `Progetto Barca` --activity--> `Pesca invernale`  [EXTRACTED]
-  wiki/index.md → wiki/sintesi/conversazioni-audio-20260809.md
-- `Argo-Evo 360 AL` --compatible_with--> `Sweet spot 9.9-15 CV`  [EXTRACTED]
-  wiki/modelli/argo-evo-360.md → wiki/preferenze/track-motori.md
 - `classify()` --calls--> `applyDistanceScore()`  [EXTRACTED]
   presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/geo-score.mjs
-- `Indice wiki` --references--> `Montaggio e logistica gommone`  [EXTRACTED]
-  wiki/index.md → wiki/concetti/montaggio-gommone.md
+- `classify()` --calls--> `applyDistanceScore()`  [EXTRACTED]
+  presentazione/scripts/fetch-motori.mjs → presentazione/scripts/geo-score.mjs
+- `extractLength()` --calls--> `normalizeBoatLength()`  [EXTRACTED]
+  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
+- `classify()` --calls--> `hasHardHull()`  [EXTRACTED]
+  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
+- `normalize()` --calls--> `detectIncludedMotor()`  [EXTRACTED]
+  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
 
 ## Import Cycles
 - None detected.
 
-## Communities (104 total, 25 thin omitted)
+## Communities (270 total, 197 thin omitted)
 
 ### Community 0 - "fetch-motori.mjs"
-Cohesion: 0.09
-Nodes (35): classify(), __dirname, extractCv(), extractLength(), feat(), HEADERS, imgUrl(), main() (+27 more)
+Cohesion: 0.18
+Nodes (17): classify(), __dirname, extractCv(), extractLength(), feat(), HEADERS, imgUrl(), main() (+9 more)
 
 ### Community 1 - "annunci.js"
 Cohesion: 0.11
@@ -166,64 +329,48 @@ Cohesion: 0.07
 Nodes (26): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+18 more)
 
 ### Community 5 - "Log — Progetto Barca"
-Cohesion: 0.08
-Nodes (26): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+18 more)
+Cohesion: 0.06
+Nodes (34): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+26 more)
 
 ### Community 6 - "AGENTS.md — Progetto Barca (Le Bestie)"
-Cohesion: 0.09
-Nodes (22): 1. Ingest (nuova fonte), 2. Query (domanda), 3. Preferenze (update), 4. Lint (salute wiki), 5. Ricerca attiva (web), 6. Decisione / shortlist, AGENTS.md — Progetto Barca (Le Bestie), Ancora da definire (`wiki/preferenze/open-questions.md`) (+14 more)
+Cohesion: 0.08
+Nodes (23): 1. Ingest (nuova fonte), 2. Query (domanda), 3. Preferenze (update), 4. Lint (salute wiki), 5. Ricerca attiva (web), 6. Decisione / shortlist, 7. Sbarco / deep research, AGENTS.md — Progetto Barca (Le Bestie) (+15 more)
 
 ### Community 7 - "fetch-gommoni.mjs"
-Cohesion: 0.17
-Nodes (20): classify(), __dirname, extractCv(), extractFloor(), extractKeel(), extractLength(), extractPersons(), feat() (+12 more)
+Cohesion: 0.06
+Nodes (54): detectIncludedMotor(), extractPreferredBrand(), extractPreferredPower(), extractPreferredShaft(), findBrand(), findShaft(), hasHardHull(), labeledPowers() (+46 more)
 
-### Community 8 - "app.js"
-Cohesion: 0.12
-Nodes (15): barIo, countIo, path, revealEls, sheet, splash, icons, mountNav() (+7 more)
+### Community 8 - "sbarco.js"
+Cohesion: 0.11
+Nodes (24): barIo, countIo, path, revealEls, sheet, splash, icons, mountNav() (+16 more)
 
 ### Community 9 - "index.js"
-Cohesion: 0.23
-Nodes (19): addMemory(), bfsFrom(), buildMessages(), callDeepSeek(), DEBUG_BUFFER, extractMemoryIfNeeded(), fetch(), findNodes() (+11 more)
+Cohesion: 0.08
+Nodes (45): addMemory(), addUsage(), appendDebugEvent(), buildSystemPrompt(), checkRateLimit(), createChatSSEStream(), DEBUG_BUFFER, decodeHtml() (+37 more)
 
 ### Community 10 - "Risposte grezze"
-Cohesion: 0.11
-Nodes (18): #intervista, #requisiti, Intervista requisiti, 2026-08-04 — Budget, 2026-08-04 — Frequenza, 2026-08-04 — Gestione annua, 2026-08-04 — Intestazione, 2026-08-04 — Patente (+10 more)
+Cohesion: 0.12
+Nodes (15): 2026-08-04 — Budget, 2026-08-04 — Frequenza, 2026-08-04 — Gestione annua, 2026-08-04 — Intestazione, 2026-08-04 — Patente, 2026-08-04 — Priorità d'uso, 2026-08-04 — Rimessaggio, 2026-08-04 — Scafo (+7 more)
 
 ### Community 11 - "scripts"
-Cohesion: 0.12
-Nodes (16): devDependencies, vite, name, private, scripts, build, dev, fetch-accessori (+8 more)
-
-### Community 12 - "Track A - Rigide"
-Cohesion: 0.13
-Nodes (16): Anzio, #anzio, Canone ormeggio 800-2000€/anno, #cantiere, Cantiere a terra (Opzione C), #carrello, Confronto rimessaggio A/B/C, Lancia VTR (+8 more)
+Cohesion: 0.11
+Nodes (18): devDependencies, vite, name, private, scripts, build, dev, fetch-accessori (+10 more)
 
 ### Community 13 - "Ricerca mercato — litorale laziale (base Ardea/Pomezia)"
 Cohesion: 0.12
 Nodes (15): Altri hub (ricerca parziale — da approfondire), Caratteristiche operative (schede secondarie), Contesto geografico (dichiarato utente), Costa “aperta” Torvaianica / Lavinio / Lido dei Pini, Fiumicino, Fonti, Gestione, Modelli di “dove tenere la barca” (framework) (+7 more)
 
 ### Community 14 - "Split costi e danni"
-Cohesion: 0.14
-Nodes (14): #accordo, #budget, #danni, #regole, #split, Accordo scritto, Acquisto — split 1/3, Casi specifici (+6 more)
+Cohesion: 0.22
+Nodes (9): Accordo scritto, Acquisto — split 1/3, Casi specifici, Costi fissi — split 1/3, Open, Principio generale, Regola danni, Split costi e danni (+1 more)
 
 ### Community 15 - "Montaggio e logistica gommone"
-Cohesion: 0.14
-Nodes (13): #fatica, #gommone, #logistica, #montaggio, Arrivo in spiaggia/scivolo, Ciclo completo di un'uscita, Confronto con scafo rigido, Criticità (+5 more)
-
-### Community 16 - "Motore fuoribordo 9.9-15 CV"
-Cohesion: 0.15
-Nodes (13): #argo, #benchmark, #dual-track, Gambo corto, #gommone, #gommone, Motore fuoribordo 9.9-15 CV, #pesca (+5 more)
-
-### Community 17 - "Indice wiki"
-Cohesion: 0.18
-Nodes (13): Bimini aftermarket 150-600€, Bolentino, Entro 6 miglia dalla costa, Fino a 6 persone picco sociale, Indice wiki, Limite 40.8 CV (30 kW), MIT - Ministero Infrastrutture e Trasporti, No patente nautica (+5 more)
+Cohesion: 0.20
+Nodes (9): Arrivo in spiaggia/scivolo, Ciclo completo di un'uscita, Confronto con scafo rigido, Criticità, Fonti, Montaggio e logistica gommone, Preparazione (carico), Rientro (+1 more)
 
 ### Community 18 - "Budget"
 Cohesion: 0.15
-Nodes (13): #tco, #usato, Acquisto (intervista 2026-08-04), Budget, Cosa **non** è nel tetto mezzo ma **sì** nel tetto annuo, Gestione annua (intervista 2026-08-04), Modello TCO grezzo (da validare con preventivi), Open (+5 more)
-
-### Community 19 - "Progetto Barca"
-Cohesion: 0.20
-Nodes (12): 3 persone comode pesca, Accordo scritto danni/split, Antonio, Le Bestie, #mit, #no-patente, #patente, Peppe (+4 more)
+Nodes (13): Acquisto (intervista 2026-08-04, aggiornato 2026-08-10), Budget, Cosa **non** è nel tetto mezzo ma **sì** nel tetto annuo, Gestione annua — scenario scafo rigido (superato per gommone), Note scenario gommone, Open, Regola pratica, Scenario A — posto barca (+5 more)
 
 ### Community 20 - "Hook | Tutte le 22 esistenti: cap = ref_new × 2"
 Cohesion: 0.17
@@ -233,41 +380,25 @@ Nodes (11): Accessori Revamp v2 Implementation Plan, Global Constraints, Hook | 
 Cohesion: 0.17
 Nodes (11): 1. Obiettivo, 2.1 Rimozione eBay (completa), 2.2 ref automatico (mediana prezzi Subito "nuovo"), 2.3 Scoring addolcito, 2.4 Tipologie e destinazioni, 2.5 UI, 2.6 Workflow CI, 2. Cambi vs v1 (+3 more)
 
-### Community 22 - "Requisiti v1 — Le Bestie"
-Cohesion: 0.17
-Nodes (11): Chi e dove, Filtri shortlist — track gommoni (parallelo), Filtri shortlist — track motori, Filtri shortlist — track rigidi (go / no-go), Mezzo, Pagine collegate, Plus forti in annuncio, Possesso e costi (+3 more)
-
-### Community 23 - "Setup"
-Cohesion: 0.17
-Nodes (11): 1. Crea KV namespace, 2. Imposta il secret DeepSeek, 3. Configura ALLOWED_ORIGIN, 4. Aggiorna l'URL nel frontend, 5. Deploy, 6. Test, Aggiornare il grafo, Comandi speciali in chat (+3 more)
-
-### Community 24 - "Conversazioni audio 2026-08-09"
-Cohesion: 0.20
-Nodes (11): #audio, #bestie, #conversazioni, Conversazioni audio 2026-08-09, Danno da errore conducente → paga conducente, Danno imprevedibile → tutti insieme, Scafo rigido preferito per praticità, Uscita socio → rimborso quota (+3 more)
-
-### Community 25 - "Argo-Evo 360 AL"
+### Community 22 - "Requisiti v2 — Le Bestie"
 Cohesion: 0.18
-Nodes (11): Capienza 5 persone, Chiglia gonfiabile, Garanzia 3 anni, Gommone pneumatico non RIB, Lunghezza 3.60 m, Motore max 20 HP, Pavimento alluminio, Peso 68 kg (+3 more)
+Nodes (10): Chi e dove, Filtri shortlist — track gommoni (PRIMARIO), Filtri shortlist — track rigidi (CONDIZIONALE, ≥5 soci), Mezzo, Pagine collegate, Plus forti in annuncio, Possesso e costi, Prossimi passi consigliati (+2 more)
+
+### Community 23 - "Sbarco Worker — Cloudflare"
+Cohesion: 0.14
+Nodes (13): 1. Crea KV namespace, 2. Imposta il secret DeepSeek, 3. Configura ALLOWED_ORIGIN, 4. Aggiorna l'URL nel frontend, 5. Deploy, 6. Test, Aggiornare il grafo, API (+5 more)
 
 ### Community 26 - "Priorità d'uso e nice-to-have"
 Cohesion: 0.18
-Nodes (10): Core vs sociale, Da bagno/relax (3°), Da priorità giri costa, Da priorità pesca a canna, Dual track (2026-08-05), Facilità (4° — esplicitamente bassa), Impatto sulla barca (fascia ≤4.500 €), Nice-to-have tecnici (non bloccanti) (+2 more)
+Nodes (10): Core vs sociale, Da bagno/relax (3°), Da priorità giri costa, Da priorità pesca a canna, Facilità (4° — esplicitamente bassa), Impatto sul piano A (bundle ≤2.000 €), Nice-to-have tecnici (non bloccanti), Piano corrente (aggiornato 2026-08-10) (+2 more)
 
 ### Community 27 - "Temi principali"
 Cohesion: 0.18
 Nodes (10): 1. Costi fissi e split (Tiziano ~12:09), 2. Dibattito gommone vs scafo rigido (12:43–12:47), 3. Costi assicurazione (12:50), 4. Ormeggio (12:50–12:52), 5. Uso invernale (12:47), 6. Barche valutate (18:40–18:54), 7. Regole danni e split (19:44–20:00), Conversazioni WhatsApp — 9 Agosto 2026 (+2 more)
 
-### Community 28 - "worker/package.json"
-Cohesion: 0.18
-Nodes (10): devDependencies, wrangler, name, private, scripts, deploy, dev, type (+2 more)
-
-### Community 29 - "Feed Subito live"
-Cohesion: 0.22
-Nodes (10): #automazione, Fattore Puglia x1.20, Fattore Sicilia x1.30, Feed annunci Subito, Geo-score distanza Lazio, #pages, #stato, #subito (+2 more)
-
-### Community 30 - "Requisiti v1 (intervista)"
-Cohesion: 0.20
-Nodes (10): #budget, Budget motore ≤1200€, Mercato usato ≤4500€, #requisiti, #shortlist-filtri, Solo usato, #subito, #usato (+2 more)
+### Community 28 - "package.json"
+Cohesion: 0.15
+Nodes (12): devDependencies, wrangler, name, private, scripts, check, deploy, dev (+4 more)
 
 ### Community 31 - "opencode.json"
 Cohesion: 0.20
@@ -282,20 +413,16 @@ Cohesion: 0.20
 Nodes (9): Architecture, Indexing and logging, LLM Wiki, Note, Operations, Optional: CLI tools, The core idea, Tips and tricks (+1 more)
 
 ### Community 34 - "Feed accessori — design approvato (2026-08-07)"
-Cohesion: 0.20
+Cohesion: 0.22
 Nodes (9): Architettura, Architettura v2, Cambi vs v1, eBay — note tecniche, Feed accessori — design approvato (2026-08-07), Formula score, REVAMP v2 (2026-08-08, in implementazione), Status (+1 more)
 
 ### Community 35 - "Feed annunci Subito — logica di scoring"
-Cohesion: 0.20
-Nodes (9): Base operativa (punto X), Fattore distanza (`geo-score.mjs`), Feed annunci Subito — logica di scoring, Fit labels, Nota, Regola −20% vs nuovo, Track gommoni, Track motori (+1 more)
+Cohesion: 0.18
+Nodes (10): Base operativa (punto X), Fattore distanza (`geo-score.mjs`), Feed annunci Subito — logica di scoring, Fit labels, Normalizzazione e gate (2026-08-10), Nota, Regola −20% vs nuovo, Track gommoni (+2 more)
 
 ### Community 36 - "Indice wiki — Progetto Barca"
-Cohesion: 0.20
-Nodes (10): Concetti, Confronti, Core, Indice wiki — Progetto Barca, Mercato, Modelli / reference, Normativa, Preferenze (+2 more)
-
-### Community 37 - "No-patente + 6 pax — cosa è realistico"
-Cohesion: 0.22
-Nodes (9): #6-pax, #bestie, #fisica, #lazio, #no-patente, No-patente + 6 pax — cosa è realistico, #prestazioni, Gruppo (+1 more)
+Cohesion: 0.18
+Nodes (11): Concetti, Confronti, Core, Indice wiki — Progetto Barca, Mercato, Modelli / reference, Normativa, Preferenze (+3 more)
 
 ### Community 38 - "graphify reference: extra exports and benchmark"
 Cohesion: 0.22
@@ -311,15 +438,11 @@ Nodes (8): Cosa si trova davvero a ≤4.500 €, Mercato usato — tetto ~4.500 
 
 ### Community 41 - "Open questions"
 Cohesion: 0.29
-Nodes (8): #todo, [2026-08-07] Accessori — decisioni revamp (chiuse), [2026-08-07] eBay API — Browse non abilitata (diagnosi CONFERMATA in locale), Barca / gommone, Gruppo e uso, Logistica, Normativa / sicurezza, Open questions
+Nodes (6): Bloccanti prima di comprare, Costi e documenti da verificare con fonti/preventivi, Gestione operativa, Manutenzione della knowledge base, Open questions, Scelta del candidato
 
 ### Community 42 - "Gruppo — Le Bestie"
-Cohesion: 0.25
+Cohesion: 0.22
 Nodes (8): Base operativa (intervista 2026-08-04), Core team, Frequenza uscite (intervista 2026-08-04), Gruppo — Le Bestie, Note, Patente nautica (2026-08-04), Timeline (intervista 2026-08-04), Uso tipico dichiarato
-
-### Community 43 - "Feed accessori — design e scoring"
-Cohesion: 0.29
-Nodes (7): #accessori, #design, #ebay, #feed, Feed accessori — design e scoring, #scoring, #subito
 
 ### Community 44 - "Frontend Design"
 Cohesion: 0.29
@@ -345,29 +468,9 @@ Nodes (6): Anzio (punto più vicino “vero porto”), Base dichiarata, Implicaz
 Cohesion: 0.29
 Nodes (6): Argo-Evo 360 AL — riferimento gommone, Fonti, Motore abbinato (track parallelo), Perché è il reference, Regola di confronto usato, Scheda
 
-### Community 50 - "Track parallelo — Gommoni pneumatici"
-Cohesion: 0.29
-Nodes (6): Feed automatico, Motore tipico, Reference prodotto, Specifiche tecniche, Tipo di mezzo (must track gommone), Track parallelo — Gommoni pneumatici
-
-### Community 51 - "Litorale laziale (base operativa)"
-Cohesion: 0.33
-Nodes (6): #anzio, #circeo, #fiumicino, #lazio, #rimessaggio, Litorale laziale (base operativa)
-
-### Community 52 - "TCO 3600€/anno totale"
-Cohesion: 0.33
-Nodes (6): Assicurazione RC 150-400€/anno, Carburante 200-500€/anno, Costi fissi 1800€/anno, Manutenzione 150-600€/anno, RC assicurazione 100-150€/anno, TCO 3600€/anno totale
-
-### Community 53 - "Pesca da barca piccola (no-patente)"
-Cohesion: 0.33
-Nodes (6): #bolentino, #canne, Ecoscandaglio, #pesca, #surfcasting, Pesca da barca piccola (no-patente)
-
-### Community 54 - "Track B - Gommoni"
-Cohesion: 0.33
-Nodes (6): Dual Track, Portata min 400 kg, Regola -20% usato vs nuovo, Smontabile trasportabile auto, Track B - Gommoni, USato gommone benchmark 776€
-
-### Community 55 - "Lunghezza min 3.30 m"
-Cohesion: 0.40
-Nodes (6): Gozzo, Lunghezza min 3.30 m, #requisiti, Must-have, Shortlist, #shortlist
+### Community 50 - "Track primario — Gommoni pneumatici"
+Cohesion: 0.22
+Nodes (8): Costi da verificare, Feed automatico, Logistica e trasporto — open questions, Motore tipico, Reference prodotto, Specifiche tecniche, Tipo di mezzo (must track gommone), Track primario — Gommoni pneumatici
 
 ### Community 56 - "graphify reference: query, path, explain"
 Cohesion: 0.33
@@ -382,24 +485,16 @@ Cohesion: 0.33
 Nodes (5): Da verificare ancora (fonti primarie), Estratto rilevante (testo pagina, sintesi fedele), Età minime (senza patente, unità conducibili nei limiti), Fonte: MIT — Conseguimento patente nautica, Implicazioni per progetto Barca (note agente)
 
 ### Community 59 - "Feed Subito live (presentazione)"
-Cohesion: 0.33
+Cohesion: 0.29
 Nodes (6): Comandi locali, Documentazione logica, Feed Subito live (presentazione), Repo, Snapshot raw, URL
 
 ### Community 60 - "Must-have (non negoziabili)"
-Cohesion: 0.33
-Nodes (6): Must-have (non negoziabili), Nota patente, Track A — Scafi rigidi (requisiti v1), Track B — Gommoni pneumatici (parallelo, 2026-08-05), Track C — Motori (parallelo), Trasversali
+Cohesion: 0.29
+Nodes (6): Must-have (non negoziabili), Nota patente, Track A — Scafi rigidi (scenario futuro condizionato), Track B — Gommoni pneumatici (PRIMARIO), Track C — Motori (parallelo), Trasversali
 
 ### Community 61 - "Track parallelo — Motori fuoribordo"
 Cohesion: 0.33
 Nodes (5): Fascia potenza, Feed, Preferenze tecniche, Prezzo (filtri feed), Track parallelo — Motori fuoribordo
-
-### Community 62 - "Mare Tirreno Laziale"
-Cohesion: 0.40
-Nodes (5): Ardea-Pomezia, Circeo, Fiumicino, Mare Tirreno Laziale, Nettuno
-
-### Community 63 - "Feed annunci e scoring"
-Cohesion: 0.40
-Nodes (5): #distanza, Feed annunci e scoring, #feed, #scoring, #subito
 
 ### Community 64 - "Note traino rimorchio — patente B (IT)"
 Cohesion: 0.40
@@ -414,20 +509,8 @@ Cohesion: 0.40
 Nodes (4): Aperto, Impatto sul progetto Bestie, Limiti navigazione senza patente (IT), Sintesi operativa (fonte primaria: MIT)
 
 ### Community 67 - "Shortlist candidati"
-Cohesion: 0.40
-Nodes (5): Criteri di ingresso shortlist “seria”, Shortlist candidati, Track A — Rigide, Track B — Gommoni, Track C — Motori (abbinamento)
-
-### Community 68 - "Tendalino / copertura sole"
-Cohesion: 0.50
-Nodes (4): #bimini, #comfort, #tendalino, Tendalino / copertura sole
-
-### Community 69 - "Nice-to-have e priorità d'uso"
-Cohesion: 0.50
-Nodes (4): #desiderata, #pesca, #priorita, Nice-to-have e priorità d'uso
-
-### Community 70 - "Track motori (parallelo)"
-Cohesion: 0.50
-Nodes (4): #dual-track, #fuoribordo, #motore, Track motori (parallelo)
+Cohesion: 0.33
+Nodes (5): Criteri di ingresso shortlist “seria”, Motori (abbinamento al piano A), Piano A — Gommoni (primario), Piano B — Rigide (condizionale), Shortlist candidati
 
 ### Community 71 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
@@ -445,25 +528,69 @@ Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphif
 Cohesion: 0.50
 Nodes (3): Dichiarazione, Interpretazione agente (da confermare se serve), Intervista — patente nautica (risposta grezza)
 
+### Community 104 - "FASE 1 — Revisione Wiki"
+Cohesion: 0.07
+Nodes (26): Allineamento Wiki + Sito + Sbarco Agentico — Piano di Implementazione, FASE 1 — Revisione Wiki, FASE 2 — Aggiornamento Sito, FASE 3 — Sbarco Agentico (Worker Refactor), File Structure, Global Constraints, Task 10: Creare scenario-rigido-5-soci.md, Task 11: Aggiornare index.md e log.md (+18 more)
+
+### Community 105 - "3. Sbarco Agentico (Worker Refactor)"
+Cohesion: 0.10
+Nodes (20): 1. Revisione Wiki, 2. Aggiornamento Sito (`presentazione/`), 3.1 System Prompt Dinamico, 3.2 Strumenti (Tools), 3.3 Tool Loop, 3.4 Modello, 3.5 Cosa rimane invariato, 3.6 Cosa viene rimosso/pulito (+12 more)
+
+### Community 106 - "lavoroDeepSeekdel10agosto.md"
+Cohesion: 0.11
+Nodes (17): Arrivo in spiaggia/scivolo, Arrivo in spiaggia/scivolo, Confronto con scafo rigido, Confronto con scafo rigido, Criticita', Criticita', METODO DI RICERCA APPROFONDITA (obbligatorio per domande su costi, normative, prezzi), METODO DI RICERCA APPROFONDITA (obbligatorio per domande su costi, normative, prezzi, modelli) (+9 more)
+
+### Community 107 - "lint-wiki.mjs"
+Cohesion: 0.14
+Nodes (11): allowedStatuses, contents, errors, filesByRelative, filesByStem, indexed, indexPath, relative() (+3 more)
+
+### Community 108 - "Costi nascosti — gommone pneumatico"
+Cohesion: 0.25
+Nodes (8): Costi nascosti — gommone pneumatico, Da verificare — Accessori per navigazione notturna, Da verificare — Assicurazione, Da verificare — Documenti e burocrazia, Da verificare — Dotazioni di sicurezza obbligatorie, Da verificare — Manutenzione periodica, Da verificare — Ricambi e usura, Prossimi passi
+
+### Community 109 - "Logistica e trasporto gommone"
+Cohesion: 0.25
+Nodes (8): Alternative da esplorare, Da verificare — Accesso al mare, Da verificare — Auto, Da verificare — Ciclo uscita tipo, Da verificare — Custodia, Impatto sulla frequenza, Logistica e trasporto gommone, Prossimi passi
+
+### Community 110 - "Audit Sbarco e wiki — 10 agosto 2026"
+Cohesion: 0.29
+Nodes (6): Audit Sbarco e wiki — 10 agosto 2026, Correzioni implementate, Esito, Gate prima del deploy, Limiti residui dichiarati, Problemi trovati
+
+### Community 111 - "Contesto operativo Sbarco"
+Cohesion: 0.29
+Nodes (7): Contesto operativo Sbarco, Decisione corrente, Percorsi di approfondimento, Priorità, Questioni ancora aperte, Regole di affidabilità, Vincoli economici e tecnici
+
+### Community 112 - "Architettura e flusso di Sbarco"
+Cohesion: 0.25
+Nodes (8): Architettura e flusso di Sbarco, Flusso chat, Garanzie di uscita, Latenza percepita e misurata, Manutenzione, Memoria e wiki, Modalità, Protezioni runtime
+
+### Community 113 - "Overview — ricerca barca"
+Cohesion: 0.33
+Nodes (6): Come usare questo repo, Direzione attuale (2026-08-10), In una frase, Overview — ricerca barca, Prossimi passi consigliati, Stato
+
+### Community 114 - "Scenario scafo rigido — con 5 soci"
+Cohesion: 0.29
+Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo rigido — con 5 soci, Svantaggi, Vantaggi dello scafo rigido
+
 ## Knowledge Gaps
-- **559 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+554 more)
+- **738 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+733 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Feed Subito live` connect `Feed Subito live` to `index.md`, `Motore fuoribordo 9.9-15 CV`, `Lunghezza min 3.30 m`, `Argo-Evo 360 AL`, `Feed Subito live (presentazione)`, `Requisiti v1 (intervista)`?**
-  _High betweenness centrality (0.045) - this node is a cross-community bridge._
-- **Why does `Argo-Evo 360 AL` connect `Argo-Evo 360 AL` to `Nice-to-have e priorità d'uso`, `Track motori (parallelo)`, `Open questions`, `Motore fuoribordo 9.9-15 CV`, `Indice wiki`, `Track B - Gommoni`, `Lunghezza min 3.30 m`, `Feed Subito live`, `Requisiti v1 (intervista)`, `Feed annunci e scoring`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Why does `Requisiti v1 (intervista)` connect `Requisiti v1 (intervista)` to `No-patente + 6 pax — cosa è realistico`, `Track A - Rigide`, `Motore fuoribordo 9.9-15 CV`, `Indice wiki`, `Progetto Barca`, `Pesca da barca piccola (no-patente)`, `Lunghezza min 3.30 m`, `Argo-Evo 360 AL`, `Feed Subito live`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+- **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _559 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `fetch-motori.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.09103840682788052 - nodes in this community are weakly interconnected._
+  _739 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
   _Cohesion score 0.11494252873563218 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
+- **Should `fetch-accessori.mjs` be split into smaller, more focused modules?**
+  _Cohesion score 0.11576354679802955 - nodes in this community are weakly interconnected._
+- **Should `What You Must Do When Invoked` be split into smaller, more focused modules?**
+  _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
+- **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
+  _Cohesion score 0.058823529411764705 - nodes in this community are weakly interconnected._

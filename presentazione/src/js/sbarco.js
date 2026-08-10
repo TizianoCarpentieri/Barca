@@ -26,14 +26,14 @@ const MAX_DAILY = 3;
   const root = document.createElement("div");
   root.className = "sbarco-root";
   root.innerHTML = `
-    <button class="sbarco-fab" aria-label="Apri Sbarco" title="Parla con Sbarco">
+    <button class="sbarco-fab" aria-label="Apri Sbarco" aria-expanded="false" aria-controls="sbarco-panel" title="Parla con Sbarco">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
     </button>
-    <div class="sbarco-panel">
+    <section class="sbarco-panel" id="sbarco-panel" role="dialog" aria-label="Chat con Sbarco" aria-modal="false">
       <div class="sbarco-header">
-        <span class="sbarco-header__title">⚓ Sbarco</span>
+        <span class="sbarco-header__brand"><span class="sbarco-header__title">⚓ Sbarco</span><small>assistente delle bestie</small></span>
         <span class="sbarco-header__counter" title="Messaggi rimanenti oggi">-/-</span>
-        <select class="sbarco-header__user">
+        <select class="sbarco-header__user" aria-label="Seleziona utente">
           <option value="" disabled>Chi sei?</option>
           <option value="tiziano">Tiziano</option>
           <option value="antonio">Antonio</option>
@@ -41,12 +41,19 @@ const MAX_DAILY = 3;
         </select>
         <button class="sbarco-header__close" aria-label="Chiudi">✕</button>
       </div>
-      <div class="sbarco-msgs"></div>
-      <div class="sbarco-input-wrap">
-        <input type="text" placeholder="Chiedi qualcosa a Sbarco..." />
-        <button>Invia</button>
+      <div class="sbarco-modebar">
+        <button type="button" class="sbarco-mode" aria-pressed="false">
+          <span class="sbarco-mode__dot"></span>
+          Ricerca profonda
+        </button>
+        <span class="sbarco-mode__hint">Fonti web incrociate</span>
       </div>
-    </div>
+      <div class="sbarco-msgs" role="log" aria-live="polite" aria-relevant="additions text"></div>
+      <form class="sbarco-input-wrap">
+        <textarea rows="1" maxlength="4000" placeholder="Chiedi qualcosa a Sbarco..." aria-label="Messaggio per Sbarco"></textarea>
+        <button type="submit">Invia</button>
+      </form>
+    </section>
   `;
   document.body.appendChild(root);
 
@@ -56,22 +63,24 @@ const MAX_DAILY = 3;
   const userSelect = root.querySelector(".sbarco-header__user");
   const counterEl = root.querySelector(".sbarco-header__counter");
   const msgsEl = root.querySelector(".sbarco-msgs");
-  const inputEl = root.querySelector(".sbarco-input-wrap input");
+  const inputEl = root.querySelector(".sbarco-input-wrap textarea");
   const sendBtn = root.querySelector(".sbarco-input-wrap button");
+  const inputForm = root.querySelector(".sbarco-input-wrap");
+  const modeBtn = root.querySelector(".sbarco-mode");
 
   let isOpen = false;
   let isSending = false;
   let currentUser = initialUser;
   let remaining = MAX_DAILY;
+  let deepMode = false;
+  let activeController = null;
 
   if (currentUser) {
     userSelect.value = currentUser;
     setUser(currentUser);
-    greet();
   } else {
-    sendBtn.disabled = true;
-    inputEl.disabled = true;
     inputEl.placeholder = "Seleziona chi sei per iniziare";
+    syncControls();
   }
 
   function getMaxDaily(user) {
@@ -79,15 +88,36 @@ const MAX_DAILY = 3;
   }
 
   function updateCounter(rem) {
-    remaining = rem;
+    remaining = Math.max(0, Number(rem) || 0);
     var max = getMaxDaily(currentUser);
-    counterEl.textContent = `${rem}/${max}`;
-    counterEl.className = `sbarco-header__counter ${rem <= 1 ? "low" : ""}`;
-    if (rem <= 0) {
-      sendBtn.disabled = true;
-      inputEl.disabled = true;
-      inputEl.placeholder = "Limite giornaliero raggiunto";
-    }
+    counterEl.textContent = `${remaining}/${max}`;
+    counterEl.className = `sbarco-header__counter ${remaining <= 1 ? "low" : ""}`;
+    syncControls();
+  }
+
+  function syncControls() {
+    const canChat = Boolean(currentUser) && remaining > 0;
+    inputEl.disabled = isSending || !canChat;
+    modeBtn.disabled = isSending || !canChat;
+    userSelect.disabled = isSending;
+    sendBtn.disabled = !currentUser || (!isSending && !canChat);
+    sendBtn.textContent = isSending ? "Ferma" : "Invia";
+    sendBtn.classList.toggle("is-stop", isSending);
+    if (!currentUser) inputEl.placeholder = "Seleziona chi sei per iniziare";
+    else if (remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
+    else if (deepMode) inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
+    else inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
+  }
+
+  async function refreshStatus() {
+    if (!currentUser) return;
+    const requestedUser = currentUser;
+    try {
+      const resp = await fetch(`${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`);
+      if (!resp.ok) return;
+      const data = await resp.json();
+      if (currentUser === requestedUser && data.remaining !== undefined) updateCounter(data.remaining);
+    } catch {}
   }
 
   // ── Open / close ────────────────────────────────────────────
@@ -95,12 +125,19 @@ const MAX_DAILY = 3;
   function openPanel() {
     isOpen = true;
     panel.classList.add("open");
+    fab.setAttribute("aria-expanded", "true");
+    document.documentElement.classList.add("sbarco-lock");
     fab.style.opacity = "0";
     fab.style.pointerEvents = "none";
+    setTimeout(() => {
+      if (!inputEl.disabled) inputEl.focus();
+    }, 180);
   }
   function closePanel() {
     isOpen = false;
     panel.classList.remove("open");
+    fab.setAttribute("aria-expanded", "false");
+    document.documentElement.classList.remove("sbarco-lock");
     fab.style.opacity = "1";
     fab.style.pointerEvents = "auto";
   }
@@ -120,11 +157,18 @@ const MAX_DAILY = 3;
     msgsEl.innerHTML = "";
     remaining = getMaxDaily(v);
     updateCounter(remaining);
-    sendBtn.disabled = false;
-    inputEl.disabled = false;
-    inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
     greet();
+    void refreshStatus();
   }
+
+  modeBtn.addEventListener("click", () => {
+    if (isSending) return;
+    deepMode = !deepMode;
+    modeBtn.setAttribute("aria-pressed", String(deepMode));
+    modeBtn.classList.toggle("is-active", deepMode);
+    syncControls();
+    inputEl.focus();
+  });
 
   function greet() {
     if (!currentUser) return;
@@ -132,66 +176,102 @@ const MAX_DAILY = 3;
   }
 
   // ── Send ────────────────────────────────────────────────────
-  sendBtn.addEventListener("click", send);
-  inputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") send();
+  inputForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (isSending) stopCurrentRequest();
+    else void send();
   });
+  inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (!isSending) void send();
+    }
+  });
+  inputEl.addEventListener("input", autoSizeInput);
+
+  function autoSizeInput() {
+    inputEl.style.height = "auto";
+    inputEl.style.height = `${Math.min(inputEl.scrollHeight, 112)}px`;
+  }
+
+  function stopCurrentRequest() {
+    if (!activeController) return;
+    activeController.abort("user-cancelled");
+  }
 
   async function send() {
     const text = inputEl.value.trim();
     if (!text || isSending || !currentUser) return;
     isSending = true;
+    activeController = new AbortController();
     inputEl.value = "";
-    sendBtn.disabled = true;
-    inputEl.disabled = true;
+    autoSizeInput();
+    syncControls();
 
     addMsg("user", text, currentUser);
+    const progress = addProgress(deepMode
+      ? "Sbarco cala le reti per la ricerca profonda…"
+      : "Sbarco consulta la wiki delle Bestie…");
+    let responseStarted = false;
+    const timeout = setTimeout(() => activeController?.abort("client-timeout"), 240_000);
 
     try {
       const resp = await fetch(`${SBARCO_WORKER}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentUser, question: text }),
+        body: JSON.stringify({ userId: currentUser, question: text, mode: deepMode ? "deep" : "auto" }),
+        signal: activeController.signal,
       });
 
       if (!resp.ok) {
         if (resp.status === 429) updateCounter(0);
         const err = await resp.json().catch(() => ({}));
-        addMsg("sbarco", err.error || "Sbarco ha un problema. Riprova.");
-        isSending = false;
-        sendBtn.disabled = false;
-        inputEl.disabled = false;
+        progress.fail(err.error || "Sbarco ha un problema. Riprova.");
         return;
       }
 
       const contentType = resp.headers.get("content-type") || "";
       if (contentType.includes("text/event-stream")) {
-        await handleStream(resp);
+        const result = await handleStream(resp, progress);
+        responseStarted = result.responseStarted;
       } else {
         const data = await resp.json();
         if (data.remaining !== undefined) updateCounter(data.remaining);
+        progress.remove();
         addMsg("sbarco", data.response);
+        responseStarted = true;
         if (data.documents && data.documents.length > 0) {
           for (const doc of data.documents) addDocumentMsg(doc);
         }
       }
     } catch (err) {
-      addMsg("sbarco", "Non riesco a contattare Sbarco. Controlla la connessione.");
+      if (err.name === "AbortError" || activeController?.signal.aborted) {
+        progress.fail(activeController?.signal.reason === "client-timeout"
+          ? "Tempo massimo raggiunto. Riprova con una domanda piu' mirata."
+          : "Ricerca fermata.");
+      } else {
+        progress.fail("Non riesco a contattare Sbarco. Controlla la connessione.");
+      }
     } finally {
+      clearTimeout(timeout);
+      if (!responseStarted && !progress.isVisible()) progress.remove();
       isSending = false;
-      sendBtn.disabled = false;
-      inputEl.disabled = false;
-      inputEl.focus();
+      activeController = null;
+      syncControls();
+      if (!inputEl.disabled) inputEl.focus();
     }
   }
 
-  async function handleStream(resp) {
+  async function handleStream(resp, progress) {
     var msgDiv = null;
     var bodyEl = null;
     var fullText = "";
     var reader = resp.body.getReader();
     var decoder = new TextDecoder();
     var buffer = "";
+
+    var receivedDone = false;
+    var receivedError = false;
 
     while (true) {
       var result = await reader.read();
@@ -207,9 +287,17 @@ const MAX_DAILY = 3;
 
         try {
           var data = JSON.parse(line.slice(6));
+          if (data.ping) {
+            progress.pulse();
+            continue;
+          }
+          if (data.status) {
+            progress.update(data.status.label, data.status.detail, data.status.round, data.status.maxRounds);
+          }
           if (data.token) {
             fullText += data.token;
             if (!msgDiv) {
+              progress.remove();
               msgDiv = document.createElement("div");
               msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
               bodyEl = document.createElement("div");
@@ -226,26 +314,92 @@ const MAX_DAILY = 3;
             }
           }
           if (data.error) {
-            if (!msgDiv) {
-              msgDiv = document.createElement("div");
-              msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
-              bodyEl = document.createElement("div");
-              bodyEl.className = "sbarco-msg__body";
-              msgDiv.appendChild(bodyEl);
-              msgsEl.appendChild(msgDiv);
-            }
-            bodyEl.innerHTML = data.error;
+            receivedError = true;
+            if (msgDiv) addMsg("sbarco", data.error);
+            else progress.fail(data.error);
           }
           if (data.done) {
-            var newRem = Math.max(0, remaining - 1);
-            updateCounter(newRem);
+            receivedDone = true;
+            if (data.remaining !== undefined) updateCounter(data.remaining);
           }
         } catch (e) {}
       }
     }
+
+    if (!fullText && !receivedError) {
+      progress.fail(receivedDone
+        ? "La ricerca e' terminata senza testo. Riprova: questo caso verra' registrato in /debug."
+        : "La connessione si e' chiusa prima della risposta.");
+    } else if (fullText) {
+      progress.remove();
+    }
+    return { responseStarted: Boolean(fullText) };
   }
 
   // ── UI helpers ──────────────────────────────────────────────
+  function addProgress(initialLabel) {
+    const waitingLines = [
+      "Sbarco sta pensando…",
+      "Sbarco consulta la wiki delle Bestie…",
+      "Sbarco incrocia prezzi, motori e possibili fregature…",
+      "Sbarco controlla che nessuno stia comprando un pedalò…",
+      "Sbarco misura due volte prima di consigliare…",
+    ];
+    const div = document.createElement("div");
+    div.className = "sbarco-progress";
+    div.setAttribute("role", "status");
+    div.setAttribute("aria-live", "polite");
+    div.setAttribute("aria-atomic", "true");
+    div.innerHTML = `
+      <span class="sbarco-progress__icon" aria-hidden="true"></span>
+      <span class="sbarco-progress__copy">
+        <strong>${escapeHtml(initialLabel)}</strong>
+        <small>Resto collegato mentre lavoro</small>
+      </span>
+      <span class="sbarco-progress__step"></span>
+    `;
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+    const labelEl = div.querySelector("strong");
+    const detailEl = div.querySelector("small");
+    const stepEl = div.querySelector(".sbarco-progress__step");
+    let waitingIndex = 0;
+    let lastServerUpdate = Date.now();
+    let failed = false;
+
+    return {
+      update(label, detail, round, maxRounds) {
+        if (!div.isConnected) return;
+        lastServerUpdate = Date.now();
+        labelEl.textContent = label || initialLabel;
+        detailEl.textContent = detail || "Resto collegato mentre lavoro";
+        stepEl.textContent = round && maxRounds ? `${round}/${maxRounds}` : "";
+        msgsEl.scrollTop = msgsEl.scrollHeight;
+      },
+      pulse() {
+        if (!div.isConnected || failed || Date.now() - lastServerUpdate < 6500) return;
+        labelEl.textContent = waitingLines[waitingIndex++ % waitingLines.length];
+        detailEl.textContent = "La ciurma e' collegata · puoi fermarmi quando vuoi";
+        div.classList.remove("is-pulsing");
+        requestAnimationFrame(() => div.classList.add("is-pulsing"));
+        lastServerUpdate = Date.now();
+      },
+      fail(message) {
+        if (!div.isConnected) {
+          addMsg("sbarco", message);
+          return;
+        }
+        failed = true;
+        div.classList.add("is-error");
+        labelEl.textContent = message;
+        detailEl.textContent = "Puoi riprovare o rendere la domanda piu' specifica.";
+        stepEl.textContent = "";
+      },
+      remove() { if (div.isConnected) div.remove(); },
+      isVisible() { return div.isConnected; },
+    };
+  }
+
   function addMsg(role, content, who) {
     const div = document.createElement("div");
     div.className = `sbarco-msg sbarco-msg--${role}`;
@@ -265,7 +419,7 @@ const MAX_DAILY = 3;
   }
 
   function renderMarkdown(text) {
-    let html = text;
+    let html = String(text || "");
     // Escape HTML first
     html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     // Bold: **text**
@@ -274,6 +428,8 @@ const MAX_DAILY = 3;
     html = html.replace(/(?<!\*)\*([^*\n]+?)\*(?!\*)/g, "<em>$1</em>");
     // Inline code: `text`
     html = html.replace(/`([^`\n]+?)`/g, "<code>$1</code>");
+    // Markdown links. Only explicit http(s) targets become clickable.
+    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     // Line breaks
     html = html.replace(/\n/g, "<br>");
     // List items: - text or * text (at start of line)
@@ -316,7 +472,7 @@ const MAX_DAILY = 3;
   }
 
   function escapeHtml(str) {
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
   function addDocumentMsg(doc) {

@@ -9,10 +9,11 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { applyDistanceScore } from './geo-score.mjs'
+import { extractPreferredBrand, extractPreferredPower, extractPreferredShaft } from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/motori.json')
-const RAW_OUT = path.join(__dirname, '../../../raw/mercato')
+const RAW_OUT = path.join(__dirname, '../../raw/mercato')
 
 const CAT = 22 // Nautica
 const HEADERS = {
@@ -105,28 +106,12 @@ function extractCv(text, subject = '') {
   return Math.max(...fromAll)
 }
 
-function extractBrand(text) {
-  const t = text.toLowerCase()
-  for (const b of GOOD_BRANDS) {
-    if (t.includes(b)) return b
-  }
-  const m = t.match(/\b(yamaha|suzuki|mercury|tohatsu|hidea|honda|selva|evinrude|johnson)\b/i)
-  return m ? m[1].toLowerCase() : null
-}
-
 function is4T(text) {
   return /4\s*tempi|4t|4 tempi|four stroke|4 stroke/i.test(text)
 }
 
 function is2T(text) {
   return /\b2\s*tempi|2t\b/i.test(text) && !is4T(text)
-}
-
-function extractShaft(text) {
-  const t = text.toLowerCase()
-  if (/gambo corto|short shaft|15["”]|381\s*mm/.test(t)) return 'corto'
-  if (/gambo lungo|long shaft|20["”]|508\s*mm/.test(t)) return 'lungo'
-  return null
 }
 
 function imgUrl(ad) {
@@ -160,16 +145,17 @@ function normalize(ad) {
   const city = ad.geo?.city?.value || ''
   const town = ad.geo?.town?.value || ''
   const place = [town, city, region].filter(Boolean).join(' · ')
-  const cv = extractCv(text, subject)
-  const brand = extractBrand(text)
+  const cv = extractPreferredPower(subject, body, MIN_CV, MAX_CV)
+  const brand = extractPreferredBrand(subject, body)
   const fourStroke = is4T(text)
   const twoStroke = is2T(text)
-  const shaft = extractShaft(text)
+  const shaft = extractPreferredShaft(subject, body)
   const url = ad.urls?.default || ad.urls?.mobile || null
   const id = (ad.urn || url || subject).toString()
 
   return {
     id,
+    source: 'subito',
     subject: subject.trim(),
     body: body.trim().slice(0, 500),
     price,

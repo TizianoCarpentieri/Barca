@@ -18,10 +18,10 @@ Trasversali a **tutti** i track, poi vincoli per track.
 | 2 | Uso **senza patente** (target forte) | ≤30 kW / 40,8 CV + regole IT; nessuno ha patente | active |
 | 3 | Adatto a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio | active |
 | 4 | Divertimento **senza performance sportive** | Con 6 pax e ≤40 CV non si pretenda planata allegra | active |
-| 5 | Capacità **3 comodi**, picco **fino a ~6** | Omologazione ≠ comfort | active |
+| 5 | **3 comodi**; omologazione ≥4 | Fino a ~6 è ideale/bonus, non hard a questo budget | active |
 | 6 | Costi sostenibili (TCO) | Non solo prezzo d’acquisto | active |
 | 7 | Preferenza **usato** sul mercato low-budget | Eccezione: gommone nuovo tipo Argo se più razionale dell’usato gonfio | active |
-| 8 | Budget acquisto **≤ 2.000 €** bundle gommone+motore usato | Gommone benchmark Argo 970 € nuovo scafo; motore usato ~500-1.000 € | active |
+| 8 | Piano A: budget acquisto **≤ 2.000 €** bundle gommone+motore | Gommone benchmark Argo 970 € nuovo scafo; motore usato da verificare | active |
 | 9 | Costi fissi **≤ 30 €/testa/mese** (90 €/mese totali) | Include assicurazione, manutenzione, carburante, imprevisti | active |
 | 10 | Base **Lazio** (Ardea/Pomezia) | Score annunci penalizza la distanza | active |
 
@@ -35,6 +35,7 @@ Trasversali a **tutti** i track, poi vincoli per track.
 | Escluso su questo track | **Gommone / RIB / semirigido** |
 | Comfort | **Tendalino** alzabile (anche aftermarket) |
 | Rimessaggio | **Posto barca o terra** — **no carrello** gestito dal gruppo |
+| Budget mezzo | **≤4.500 €** nello scenario a 5 soci |
 | Condizione | **≥5 soci** + preventivi reali ≤30 €/testa/mese |
 
 Dettaglio: [[sintesi/requisiti-v1]].

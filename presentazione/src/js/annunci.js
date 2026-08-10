@@ -248,7 +248,12 @@ if (!listEl) {
     const catLabel = it.category_label ? String(it.category_label) : ''
     const cond = it.condition ? String(it.condition) : ''
     const ratio = it.ratio != null ? `${Math.round(it.ratio * 100)}% del nuovo` : ''
-    const src = it.source === 'subito' ? 'Subito' : ''
+    const src = it.source === 'ebay'
+      ? 'eBay'
+      : it.source === 'subito' || /subito\.it/i.test(it.url || '')
+        ? 'Subito'
+        : ''
+    const bundle = it.has_engine ? 'motore incluso' : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
     const ph = FEEDS[cat].ph
     const img = it.image
@@ -285,6 +290,7 @@ if (!listEl) {
             ${brand ? `<span>${escapeHtml(brand)}</span>` : ''}
             ${ratio ? `<span>${escapeHtml(ratio)}</span>` : ''}
             ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
+            ${bundle ? `<span>${escapeHtml(bundle)}</span>` : ''}
             <span>score ${it.score ?? '—'}</span>
           </div>
           ${reasons ? `<p class="ads-card__why">${escapeHtml(reasons)}</p>` : ''}
