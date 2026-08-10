@@ -1,16 +1,16 @@
 # Graph Report - barca  (2026-08-10)
 
 ## Corpus Check
-- 103 files · ~213,563 words
+- 103 files · ~214,261 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1105 nodes · 1072 edges · 270 communities (73 shown, 197 thin omitted)
+- 1114 nodes · 1086 edges · 269 communities (72 shown, 197 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `86d435df`
+- Built from commit: `c28c2389`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -82,7 +82,6 @@
 - Note traino rimorchio — patente B (IT)
 - Note secondarie — patente nautica (non ufficiali)
 - Limiti navigazione senza patente (IT)
-- Shortlist candidati
 - #bimini
 - #desiderata
 - #dual-track
@@ -281,7 +280,7 @@
 - smoke-sbarco.mjs
 
 ## God Nodes (most connected - your core abstractions)
-1. `Log — Progetto Barca` - 35 edges
+1. `Log — Progetto Barca` - 37 edges
 2. `What You Must Do When Invoked` - 12 edges
 3. `FASE 1 — Revisione Wiki` - 12 edges
 4. `Risposte grezze` - 12 edges
@@ -307,15 +306,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (270 total, 197 thin omitted)
+## Communities (269 total, 197 thin omitted)
 
 ### Community 0 - "fetch-motori.mjs"
 Cohesion: 0.18
 Nodes (17): classify(), __dirname, extractCv(), extractLength(), feat(), HEADERS, imgUrl(), main() (+9 more)
 
 ### Community 1 - "annunci.js"
-Cohesion: 0.11
-Nodes (27): applyData(), applyFilter(), candidatesFor(), card(), catsEl, distanceFactor(), emptyEl, errEl (+19 more)
+Cohesion: 0.09
+Nodes (34): activeFilterCount(), applyData(), applyFilter(), candidatesFor(), card(), catsEl, distanceFactor(), emptyEl (+26 more)
 
 ### Community 2 - "B — Carrello a casa / box (trailer) — **ESCLUSA**"
 Cohesion: 0.07
@@ -330,8 +329,8 @@ Cohesion: 0.07
 Nodes (26): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+18 more)
 
 ### Community 5 - "Log — Progetto Barca"
-Cohesion: 0.06
-Nodes (35): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+27 more)
+Cohesion: 0.05
+Nodes (37): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+29 more)
 
 ### Community 6 - "AGENTS.md — Progetto Barca (Le Bestie)"
 Cohesion: 0.08
@@ -414,7 +413,7 @@ Cohesion: 0.20
 Nodes (9): Architecture, Indexing and logging, LLM Wiki, Note, Operations, Optional: CLI tools, The core idea, Tips and tricks (+1 more)
 
 ### Community 34 - "Feed accessori — design approvato (2026-08-07)"
-Cohesion: 0.20
+Cohesion: 0.22
 Nodes (9): Architettura, Architettura v2, Cambi vs v1, eBay — note tecniche, Feed accessori — design approvato (2026-08-07), Formula score, REVAMP v2 (2026-08-08, in implementazione), Status (+1 more)
 
 ### Community 35 - "Feed annunci Subito — logica di scoring"
@@ -466,7 +465,7 @@ Cohesion: 0.29
 Nodes (6): Anzio (punto più vicino “vero porto”), Base dichiarata, Implicazioni scelta barca, Litorale laziale — base Bestie, Opzioni rimessaggio (aggiornato), To-do mercato
 
 ### Community 49 - "Argo-Evo 360 AL — riferimento gommone"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Argo-Evo 360 AL — riferimento gommone, Fonti, Motore abbinato (track parallelo), Perché è il reference, Regola di confronto usato, Scheda
 
 ### Community 50 - "Track primario — Gommoni pneumatici"
@@ -486,7 +485,7 @@ Cohesion: 0.33
 Nodes (5): Da verificare ancora (fonti primarie), Estratto rilevante (testo pagina, sintesi fedele), Età minime (senza patente, unità conducibili nei limiti), Fonte: MIT — Conseguimento patente nautica, Implicazioni per progetto Barca (note agente)
 
 ### Community 59 - "Feed Subito live (presentazione)"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Comandi locali, Documentazione logica, Feed Subito live (presentazione), Repo, Snapshot raw, URL
 
 ### Community 60 - "Must-have (non negoziabili)"
@@ -508,10 +507,6 @@ Nodes (4): farevela.net, in3giorni.com (aggregatore FAQ), Note secondarie — pa
 ### Community 66 - "Limiti navigazione senza patente (IT)"
 Cohesion: 0.40
 Nodes (4): Aperto, Impatto sul progetto Bestie, Limiti navigazione senza patente (IT), Sintesi operativa (fonte primaria: MIT)
-
-### Community 67 - "Shortlist candidati"
-Cohesion: 0.33
-Nodes (5): Criteri di ingresso shortlist “seria”, Motori (abbinamento al piano A), Piano A — Gommoni (primario), Piano B — Rigide (condizionale), Shortlist candidati
 
 ### Community 71 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
@@ -554,8 +549,8 @@ Cohesion: 0.25
 Nodes (8): Alternative da esplorare, Da verificare — Accesso al mare, Da verificare — Auto, Da verificare — Ciclo uscita tipo, Da verificare — Custodia, Impatto sulla frequenza, Logistica e trasporto gommone, Prossimi passi
 
 ### Community 110 - "Audit Sbarco e wiki — 10 agosto 2026"
-Cohesion: 0.29
-Nodes (6): Audit Sbarco e wiki — 10 agosto 2026, Correzioni implementate, Esito, Gate prima del deploy, Limiti residui dichiarati, Problemi trovati
+Cohesion: 0.14
+Nodes (11): Audit Sbarco e wiki — 10 agosto 2026, Correzioni implementate, Esito, Gate prima del deploy, Limiti residui dichiarati, Problemi trovati, Criteri di ingresso shortlist “seria”, Motori (abbinamento al piano A) (+3 more)
 
 ### Community 111 - "Contesto operativo Sbarco"
 Cohesion: 0.29
@@ -570,7 +565,7 @@ Cohesion: 0.33
 Nodes (6): Come usare questo repo, Direzione attuale (2026-08-10), In una frase, Overview — ricerca barca, Prossimi passi consigliati, Stato
 
 ### Community 114 - "Scenario scafo rigido — con 5 soci"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo rigido — con 5 soci, Svantaggi, Vantaggi dello scafo rigido
 
 ### Community 270 - "smoke-sbarco.mjs"
@@ -578,7 +573,7 @@ Cohesion: 0.17
 Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
 
 ## Knowledge Gaps
-- **751 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+746 more)
+- **755 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+750 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -587,15 +582,15 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
+- **Why does `Budget` connect `Budget` to `index.md`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _752 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _756 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.11494252873563218 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09309309309309309 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `fetch-accessori.mjs` be split into smaller, more focused modules?**
   _Cohesion score 0.11576354679802955 - nodes in this community are weakly interconnected._
 - **Should `What You Must Do When Invoked` be split into smaller, more focused modules?**
   _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
-- **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
-  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._

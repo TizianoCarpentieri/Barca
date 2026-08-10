@@ -259,3 +259,11 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Le versioni intermedie 2.0.2-2.0.4 hanno prodotto errori di compatibilita' durante lo smoke e sono state subito sostituite; gli errori sono rimasti visibili in `/debug`.
 - Produzione finale `2.0.5`, commit `2c24600`, workflow Worker `31404793764` riuscito; health e header anti-cache verificati dopo propagazione.
 - Test locali: 8/8 Worker. Le prove in produzione hanno esaurito le quote del 10 agosto; lo smoke deep completo 2.0.5 va ripetuto dopo il reset automatico a mezzanotte UTC (02:00 Europe/Rome).
+
+## [2026-08-10] feat(ui) | Filtri annunci gerarchici
+
+- Sostituita la fila piatta di pulsanti con tre rami numerati e leggibili su mobile.
+- I filtri di affinamento sono ora cumulabili; il riepilogo mostra filtri attivi e risultati rimasti.
+- Rigide: luogo/recenza, compattezza/no-patente, budget. Gommoni: misura/bundle/pavimento, affare, logistica.
+- Motori: fascia CV, 4T/gambo corto, affare/distanza. Accessori: uso padre, tipologia figlia, occasione.
+- Ogni scelta mostra il numero di annunci compatibili; le opzioni senza risultati sono disabilitate.

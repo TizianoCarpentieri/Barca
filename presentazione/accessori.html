@@ -76,26 +76,20 @@
           <p class="ads-meta__note" id="ads-note"></p>
         </div>
 
-        <div class="ads-dests" id="ads-dests" hidden>
-          <button type="button" class="ads-chip is-on" data-dest="all">Tutte</button>
-          <button type="button" class="ads-chip" data-dest="elettronica">Elettronica</button>
-          <button type="button" class="ads-chip" data-dest="pesca">Pesca</button>
-          <button type="button" class="ads-chip" data-dest="sicurezza">Sicurezza &amp; dotazione</button>
-          <button type="button" class="ads-chip" data-dest="scafo">Scafo &amp; comfort</button>
-          <button type="button" class="ads-chip" data-dest="motore">Motore &amp; manutenzione</button>
-        </div>
-
-        <div class="ads-tips" id="ads-tips" hidden></div>
-
-        <div class="ads-filters" id="ads-filters" hidden>
-          <button type="button" class="ads-chip is-on" data-filter="all">Tutti</button>
-          <button type="button" class="ads-chip" data-filter="recent">Recenti ≤7gg</button>
-          <button type="button" class="ads-chip" data-filter="alto">Fit alto</button>
-        </div>
+        <section class="ads-filter-tree" id="ads-filters" hidden aria-label="Filtri accessori">
+          <header class="ads-filter-tree__head">
+            <div>
+              <span class="ads-filter-tree__eyebrow">Filtri guidati</span>
+              <strong id="ads-filter-summary">Nessun filtro attivo</strong>
+            </div>
+            <button type="button" class="ads-filter-reset" data-filter-reset>Azzera</button>
+          </header>
+          <div class="ads-filter-groups" id="ads-filter-groups"></div>
+        </section>
 
         <div class="ads-stats" id="ads-stats" hidden></div>
         <div class="ads-list" id="ads-list" aria-live="polite"></div>
-        <p class="ads-empty" id="ads-empty" hidden>Nessun annuncio con questi filtri. Prova "Tutte".</p>
+        <p class="ads-empty" id="ads-empty" hidden>Nessun annuncio con questa combinazione. Azzera uno o più filtri.</p>
         <p class="ads-error" id="ads-error" hidden></p>
       </section>
 

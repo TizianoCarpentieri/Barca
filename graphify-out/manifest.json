@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "presentazione/src/js/annunci.js": {
-    "mtime": 1786372340.592092,
-    "ast_hash": "6c62a4b7e18e2ca49efcc9d627a8fa0d",
+    "mtime": 1786377319.992541,
+    "ast_hash": "1c851dcdeb820da11415da4150120f92",
     "semantic_hash": ""
   },
   "presentazione/src/js/app.js": {
@@ -250,13 +250,13 @@
     "semantic_hash": ""
   },
   "presentazione/accessori.html": {
-    "mtime": 1786361307.979744,
-    "ast_hash": "e43c0b248d2d64071b6c82d85f7763b4",
+    "mtime": 1786377388.2689474,
+    "ast_hash": "eccdd54ac42958490c4b9b566caf7f35",
     "semantic_hash": ""
   },
   "presentazione/annunci.html": {
-    "mtime": 1786361308.131581,
-    "ast_hash": "c63475847881fab930dc2893d893c2e8",
+    "mtime": 1786377387.5151658,
+    "ast_hash": "28cfe612d6d671b2d0a0530bb758ddc6",
     "semantic_hash": ""
   },
   "presentazione/base.html": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786375152.1776295,
-    "ast_hash": "a65d296a1bfce9b75243065086a15fa0",
+    "mtime": 1786377448.4158883,
+    "ast_hash": "de108a5d121ed41c2764d8a38ad71d98",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786375150.9561248,
-    "ast_hash": "ec22e9f31cc9951d43123097fcf4cfd7",
+    "mtime": 1786376711.6689608,
+    "ast_hash": "72183d7ddfd73efacbb167b8fc8d908b",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {

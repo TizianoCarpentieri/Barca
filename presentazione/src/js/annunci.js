@@ -5,6 +5,8 @@ const updatedEl = document.getElementById('ads-updated')
 const noteEl = document.getElementById('ads-note')
 const statsEl = document.getElementById('ads-stats')
 const filtersEl = document.getElementById('ads-filters')
+const filterGroupsEl = document.getElementById('ads-filter-groups')
+const filterSummaryEl = document.getElementById('ads-filter-summary')
 const catsEl = document.getElementById('ads-cats')
 const stampEl = document.getElementById('ads-stamp')
 const howEl = document.getElementById('ads-how')
@@ -160,7 +162,7 @@ if (!listEl) {
 
   let cat = detectCat()
   let all = []
-  let filter = 'all'
+  const activeFilters = new Set()
   let destFilter = 'all'
   let tipFilter = 'all'
   const TIP_LABEL = {}
@@ -179,6 +181,100 @@ if (!listEl) {
     sicurezza: ['ancora', 'giubbotto', 'estintore', 'fanali', 'cime'],
     scafo: ['bimini', 'ombrellone', 'telone', 'parabordi'],
     motore: ['pompa-sentina', 'elica', 'batteria', 'tanica', 'kit-riparazione', 'cassetta-attrezzi'],
+  }
+
+  const option = (key, label, kind = 'toggle') => ({ key, label, kind })
+
+  function filterGroups() {
+    if (cat === 'rigide') return [
+      { label: 'Dove e quando', hint: 'Prima le occasioni raggiungibili', options: [option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
+      { label: 'Adatta alle Bestie', hint: 'Ingombri e patente', options: [option('alto', 'Fit alto'), option('rigida-compatta', 'Compatta ≤5 m'), option('no-patente', 'Motore ≤40,8 CV')] },
+      { label: 'Budget', hint: 'Tetto del track rigide', options: [option('hard', FEEDS[cat].hardLabel)] },
+    ]
+    if (cat === 'gommoni') return [
+      { label: 'Configurazione', hint: 'Prima forma e dotazione', options: [option('gommone-target', 'Target 3,3–3,9 m'), option('bundle', 'Motore incluso'), option('pavimento', 'Pavimento dichiarato')] },
+      { label: 'Affare', hint: 'Poi qualità e prezzo', options: [option('alto', 'Fit alto'), option('hard', FEEDS[cat].hardLabel)] },
+      { label: 'Logistica', hint: 'Infine distanza e freschezza', options: [option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
+    ]
+    if (cat === 'motori') return [
+      { label: 'Potenza', hint: 'Prima la fascia corretta', options: [option('motore-sweet', 'Sweet 9,9–15 CV'), option('motore-compatibile', 'Compatibile 6–20 CV')] },
+      { label: 'Configurazione', hint: 'Poi le caratteristiche chiave', options: [option('quattro-tempi', '4 tempi'), option('gambo-corto', 'Gambo corto')] },
+      { label: 'Affare e distanza', hint: 'Infine convenienza pratica', options: [option('alto', 'Fit alto'), option('hard', FEEDS[cat].hardLabel), option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
+    ]
+
+    const destOptions = Object.entries(DEST_LABELS).map(([key, label]) => option(key, label, 'dest'))
+    const tipIds = destFilter === 'all' ? [] : (DEST_TIPS[destFilter] || [])
+    const tipOptions = tipIds.map((key) => option(key, TIP_LABEL[key] || key, 'tip'))
+    return [
+      { label: 'Uso', hint: '1. Scegli la famiglia', options: destOptions },
+      { label: 'Tipologia', hint: destFilter === 'all' ? '2. Prima scegli un uso' : '2. Affina la famiglia scelta', options: tipOptions },
+      { label: 'Occasione', hint: '3. Restringi solo se serve', options: [option('alto', 'Fit alto'), option('recent', 'Ultimi 7 giorni')] },
+    ]
+  }
+
+  function matchesFilter(it, key) {
+    if (key === 'recent') return isRecent(it)
+    if (key === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
+    if (key === 'alto') return it.fit === 'alto'
+    if (key === 'hard') return hardMax() != null && it.price != null && it.price <= hardMax()
+    if (key === 'rigida-compatta') return it.length_m != null && it.length_m <= 5
+    if (key === 'no-patente') return it.cv != null && it.cv <= 40.8
+    if (key === 'gommone-target') return it.length_m >= 3.3 && it.length_m <= 3.9
+    if (key === 'bundle') return Boolean(it.has_engine)
+    if (key === 'pavimento') return Boolean(it.floor)
+    if (key === 'motore-sweet') return it.cv >= 9.9 && it.cv <= 15
+    if (key === 'motore-compatibile') return it.cv >= 6 && it.cv <= 20
+    if (key === 'quattro-tempi') return Boolean(it.four_stroke)
+    if (key === 'gambo-corto') return it.shaft === 'corto'
+    return true
+  }
+
+  function optionCount(item) {
+    if (item.kind === 'dest') return all.filter((it) => it.dest === item.key).length
+    if (item.kind === 'tip') {
+      return all.filter((it) => it.category === item.key && (destFilter === 'all' || it.dest === destFilter)).length
+    }
+    return all.filter((it) => matchesFilter(it, item.key)).length
+  }
+
+  function isOptionActive(item) {
+    if (item.kind === 'dest') return destFilter === item.key
+    if (item.kind === 'tip') return tipFilter === item.key
+    return activeFilters.has(item.key)
+  }
+
+  function activeFilterCount() {
+    return activeFilters.size + (destFilter === 'all' ? 0 : 1) + (tipFilter === 'all' ? 0 : 1)
+  }
+
+  function updateFilterSummary(resultCount) {
+    if (!filterSummaryEl) return
+    const count = activeFilterCount()
+    filterSummaryEl.textContent = count
+      ? `${count} filtr${count === 1 ? 'o attivo' : 'i attivi'} · ${resultCount} risultati`
+      : `Nessun filtro · ${resultCount} risultati`
+    const reset = filtersEl?.querySelector('[data-filter-reset]')
+    if (reset) reset.disabled = count === 0
+  }
+
+  function renderFilterTree() {
+    if (!filterGroupsEl) return
+    filterGroupsEl.innerHTML = filterGroups().map((group, index) => {
+      const controls = group.options.length
+        ? group.options.map((item) => {
+            const count = optionCount(item)
+            const on = isOptionActive(item)
+            return `<button type="button" class="ads-chip${on ? ' is-on' : ''}" data-filter-key="${escapeHtml(item.key)}" data-filter-kind="${item.kind}" aria-pressed="${on}"${count === 0 ? ' disabled' : ''}>
+              <span>${escapeHtml(item.label)}</span><small>${count}</small>
+            </button>`
+          }).join('')
+        : `<p class="ads-filter-branch__empty">Scegli una voce nel livello precedente.</p>`
+      return `<section class="ads-filter-branch" data-filter-level="${index + 1}">
+        <header><span>${index + 1}</span><div><strong>${escapeHtml(group.label)}</strong><small>${escapeHtml(group.hint)}</small></div></header>
+        <div class="ads-filter-branch__options">${controls}</div>
+      </section>`
+    }).join('')
+    updateFilterSummary(applyFilter(all).length)
   }
 
   const euro = (n) =>
@@ -218,15 +314,10 @@ if (!listEl) {
   }
 
   function applyFilter(items) {
-    const max = hardMax()
     return items.filter((it) => {
       if (isAccess() && destFilter !== 'all' && it.dest !== destFilter) return false
       if (isAccess() && tipFilter !== 'all' && it.category !== tipFilter) return false
-      if (filter === 'lazio') return it.region === 'Lazio' || /lazio/i.test(it.place || '')
-      if (filter === 'recent') return isRecent(it)
-      if (filter === 'alto') return it.fit === 'alto'
-      if (filter === 'hard') return max != null && it.price != null && it.price <= max
-      return true
+      return [...activeFilters].every((key) => matchesFilter(it, key))
     })
   }
 
@@ -302,6 +393,7 @@ if (!listEl) {
 
   function render() {
     const items = applyFilter(all)
+    updateFilterSummary(items.length)
     listEl.innerHTML = items.map(card).join('')
     emptyEl.hidden = items.length > 0
     listEl.querySelectorAll('[data-reveal]').forEach((el, i) => {
@@ -316,34 +408,6 @@ if (!listEl) {
     }
   }
 
-  function renderTips() {
-    const el = document.getElementById('ads-tips')
-    if (!el) return
-    const ids = destFilter === 'all' ? Object.values(DEST_TIPS).flat() : (DEST_TIPS[destFilter] || [])
-    const chips = [`<button type="button" class="ads-chip is-on" data-tip="all">Tutte</button>`]
-    for (const id of ids) {
-      chips.push(`<button type="button" class="ads-chip" data-tip="${id}">${escapeHtml(TIP_LABEL[id] || id)}</button>`)
-    }
-    el.innerHTML = chips.join('')
-    el.hidden = false
-  }
-
-  function syncHardChip() {
-    const conf = FEEDS[cat]
-    const hardBtn =
-      document.getElementById('ads-hard-chip') ||
-      filtersEl?.querySelector('[data-filter="hard"]')
-    if (hardBtn) {
-      if (conf.hardMax == null) {
-        hardBtn.hidden = true
-      } else {
-        hardBtn.hidden = false
-        hardBtn.textContent = conf.hardLabel
-        hardBtn.dataset.hardMax = String(conf.hardMax)
-      }
-    }
-  }
-
   function syncUi() {
     const conf = FEEDS[cat]
     catsEl?.querySelectorAll('[data-cat]').forEach((b) => {
@@ -352,7 +416,6 @@ if (!listEl) {
       b.setAttribute('aria-selected', on ? 'true' : 'false')
     })
     if (stampEl) stampEl.textContent = conf.stamp
-    syncHardChip()
     if (howEl) {
       howEl.innerHTML = `${conf.how}
         <strong style="color:var(--foam)"> Verifica sempre documenti e stato.</strong>`
@@ -360,17 +423,35 @@ if (!listEl) {
     document.title = `Annunci · ${conf.label} — Progetto Barca`
   }
 
-  function setFilterChip(name) {
-    filter = name
-    filtersEl?.querySelectorAll('[data-filter]').forEach((b) => {
-      b.classList.toggle('is-on', b.getAttribute('data-filter') === name)
-    })
+  function resetFilters() {
+    activeFilters.clear()
+    destFilter = 'all'
+    tipFilter = 'all'
   }
 
   filtersEl?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-filter]')
-    if (!btn || !filtersEl.contains(btn)) return
-    setFilterChip(btn.getAttribute('data-filter') || 'all')
+    const reset = e.target.closest('[data-filter-reset]')
+    if (reset) {
+      resetFilters()
+      renderFilterTree()
+      render()
+      return
+    }
+    const btn = e.target.closest('[data-filter-key]')
+    if (!btn || !filtersEl.contains(btn) || btn.disabled) return
+    const key = btn.getAttribute('data-filter-key')
+    const kind = btn.getAttribute('data-filter-kind') || 'toggle'
+    if (kind === 'dest') {
+      destFilter = destFilter === key ? 'all' : key
+      tipFilter = 'all'
+    } else if (kind === 'tip') {
+      tipFilter = tipFilter === key ? 'all' : key
+    } else if (activeFilters.has(key)) {
+      activeFilters.delete(key)
+    } else {
+      activeFilters.add(key)
+    }
+    renderFilterTree()
     render()
   })
 
@@ -382,26 +463,8 @@ if (!listEl) {
     cat = next
     const url = new URL(location.href)
     history.replaceState(null, '', `${url.pathname}?cat=${encodeURIComponent(cat)}`)
-    setFilterChip('all')
+    resetFilters()
     loadCat()
-  })
-
-  document.getElementById('ads-dests')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-dest]')
-    if (!btn) return
-    destFilter = btn.getAttribute('data-dest') || 'all'
-    document.querySelectorAll('#ads-dests .ads-chip').forEach((b) => b.classList.toggle('is-on', b === btn))
-    tipFilter = 'all'
-    renderTips()
-    render()
-  })
-
-  document.getElementById('ads-tips')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-tip]')
-    if (!btn) return
-    tipFilter = btn.getAttribute('data-tip') || 'all'
-    document.querySelectorAll('#ads-tips .ads-chip').forEach((b) => b.classList.toggle('is-on', b === btn))
-    render()
   })
 
   const base = import.meta.env.BASE_URL || './'
@@ -448,7 +511,7 @@ if (!listEl) {
     all = (data.items || []).map(withGeoScore)
     all.sort((a, b) => b.score - a.score || (a.price || 9e9) - (b.price || 9e9))
 
-    if (isAccess()) { indexTipLabels(all); renderTips() }
+    if (isAccess()) indexTipLabels(all)
 
     updatedEl.textContent = `Aggiornato ${when(data.updated_at)}`
     noteEl.textContent = data.filters?.note || conf.fallbackNote
@@ -461,7 +524,7 @@ if (!listEl) {
       <div class="ads-stats__item"><strong>${s.scanned_unique ?? '—'}</strong><span>scansionati</span></div>
     `
     if (filtersEl) filtersEl.hidden = false
-    syncHardChip()
+    renderFilterTree()
     stampEl?.classList.add('stamp--ok')
     render()
   }
@@ -469,11 +532,6 @@ if (!listEl) {
   function loadCat() {
     syncUi()
     showLoading()
-    if (isAccess()) {
-      const destsEl = document.getElementById('ads-dests')
-      if (destsEl) destsEl.hidden = false
-    }
-    syncHardChip()
     fetchFeed(FEEDS[cat].file)
       .then(applyData)
       .catch((e) => {
