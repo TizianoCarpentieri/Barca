@@ -1,5 +1,5 @@
 const MAX_HISTORY = 8;
-const WORKER_VERSION = "2.0.2";
+const WORKER_VERSION = "2.0.3";
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 1600;
 const MAX_DAILY_MESSAGES = 3;
@@ -652,7 +652,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
         const maxRounds = researchMode ? DEEP_RESEARCH_ROUNDS : QUICK_ROUNDS;
         const maxDuration = researchMode ? 150_000 : 70_000;
         const documents = [];
-        const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [] };
+        const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [], thinkingUsed: false };
         const usage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
         let history = [];
         let finalText = "";
@@ -687,17 +687,20 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             const requiredTool = researchMode
               ? (state.searches < 2 ? "search_web" : state.webReads < 2 ? "read_url" : null)
               : null;
+            // DeepSeek V4 rifiuta un tool_choice nominativo mentre il thinking
+            // e' attivo. Prima raccogliamo le evidenze in non-thinking mode,
+            // poi abilitiamo un singolo round ragionato per la sintesi.
+            const enableThinking = researchMode && requiredTool == null && !state.thinkingUsed;
+            if (enableThinking) state.thinkingUsed = true;
             const data = await withHeartbeat(
-              // Il ragionamento esteso serve nel primo round di pianificazione;
-              // ripeterlo dopo ogni tool aggiunge latenza senza nuove decisioni.
-              requestAgentStep(apiKey, model, messages, researchMode && round === 0, streamAbort.signal, requiredTool),
+              requestAgentStep(apiKey, model, messages, enableThinking, streamAbort.signal, requiredTool),
               controller,
               encoder
             );
             if (firstAgentMs == null) firstAgentMs = Date.now() - startedAt;
             addUsage(usage, data.usage || {});
             const choice = data.choices[0];
-            const message = choice.message;
+            const message = { ...choice.message, content: choice.message.content ?? "" };
             messages.push(message);
             const toolCalls = message.tool_calls || [];
 
