@@ -1,5 +1,5 @@
 const MAX_HISTORY = 8;
-const WORKER_VERSION = "2.0.1";
+const WORKER_VERSION = "2.0.2";
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 1600;
 const MAX_DAILY_MESSAGES = 3;
@@ -545,7 +545,7 @@ function toolProgressLabel(toolCall) {
   return "Sbarco sistema il carico a bordo…";
 }
 
-async function requestAgentStep(apiKey, model, messages, enableThinking, signal) {
+async function requestAgentStep(apiKey, model, messages, enableThinking, signal, requiredTool = null) {
   const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -556,7 +556,9 @@ async function requestAgentStep(apiKey, model, messages, enableThinking, signal)
       model: model || "deepseek-v4-flash",
       messages,
       tools: TOOLS,
-      tool_choice: "auto",
+      tool_choice: requiredTool
+        ? { type: "function", function: { name: requiredTool } }
+        : "auto",
       temperature: 0.35,
       max_tokens: AGENT_STEP_TOKENS,
       thinking: { type: enableThinking ? "enabled" : "disabled" },
@@ -650,7 +652,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
         const maxRounds = researchMode ? DEEP_RESEARCH_ROUNDS : QUICK_ROUNDS;
         const maxDuration = researchMode ? 150_000 : 70_000;
         const documents = [];
-        const state = { searches: 0, webReads: 0, toolCalls: 0 };
+        const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [] };
         const usage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
         let history = [];
         let finalText = "";
@@ -682,10 +684,13 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             rounds = round + 1;
             if (Date.now() - startedAt > maxDuration) break;
             status("thinking", researchMode ? "Sbarco prepara le reti da ricerca…" : "Sbarco sta pensando…", `Passaggio ${rounds} di ${maxRounds}`);
+            const requiredTool = researchMode
+              ? (state.searches < 2 ? "search_web" : state.webReads < 2 ? "read_url" : null)
+              : null;
             const data = await withHeartbeat(
               // Il ragionamento esteso serve nel primo round di pianificazione;
               // ripeterlo dopo ogni tool aggiunge latenza senza nuove decisioni.
-              requestAgentStep(apiKey, model, messages, researchMode && round === 0, streamAbort.signal),
+              requestAgentStep(apiKey, model, messages, researchMode && round === 0, streamAbort.signal, requiredTool),
               controller,
               encoder
             );
@@ -698,6 +703,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
 
             if (toolCalls.length > 0) {
               state.toolCalls += toolCalls.length;
+              state.toolSequence.push(...toolCalls.map(call => call.function?.name || "unknown"));
               status("tools", toolProgressLabel(toolCalls[0]), `${toolCalls.length} operazion${toolCalls.length === 1 ? "e" : "i"}`);
               const allowed = state.toolCalls <= MAX_TOOL_CALLS;
               const results = await mapWithConcurrency(toolCalls, MAX_PARALLEL_TOOLS, async toolCall => {
@@ -753,6 +759,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             searches: state.searches,
             sourcesRead: state.webReads,
             toolCalls: state.toolCalls,
+            toolSequence: state.toolSequence,
             contextReadyMs,
             firstAgentMs,
             firstTokenMs,
@@ -990,6 +997,7 @@ async function getDebugReport(kv) {
       searches: event.searches,
       sourcesRead: event.sourcesRead,
       toolCalls: event.toolCalls,
+      toolSequence: Array.isArray(event.toolSequence) ? event.toolSequence.slice(0, MAX_TOOL_CALLS) : undefined,
       contextReadyMs: event.contextReadyMs,
       firstAgentMs: event.firstAgentMs,
       firstTokenMs: event.firstTokenMs,

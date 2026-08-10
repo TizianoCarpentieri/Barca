@@ -1,16 +1,16 @@
 # Graph Report - barca  (2026-08-10)
 
 ## Corpus Check
-- 103 files · ~213,311 words
+- 103 files · ~213,550 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1104 nodes · 1071 edges · 271 communities (74 shown, 197 thin omitted)
+- 1105 nodes · 1072 edges · 270 communities (73 shown, 197 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6d62b395`
+- Built from commit: `5fde493d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -281,7 +281,7 @@
 - smoke-sbarco.mjs
 
 ## God Nodes (most connected - your core abstractions)
-1. `Log — Progetto Barca` - 34 edges
+1. `Log — Progetto Barca` - 35 edges
 2. `What You Must Do When Invoked` - 12 edges
 3. `FASE 1 — Revisione Wiki` - 12 edges
 4. `Risposte grezze` - 12 edges
@@ -307,7 +307,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (271 total, 197 thin omitted)
+## Communities (270 total, 197 thin omitted)
 
 ### Community 0 - "fetch-motori.mjs"
 Cohesion: 0.18
@@ -331,7 +331,7 @@ Nodes (26): For /graphify add and --watch, For /graphify query, For the commit h
 
 ### Community 5 - "Log — Progetto Barca"
 Cohesion: 0.06
-Nodes (34): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+26 more)
+Nodes (35): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+27 more)
 
 ### Community 6 - "AGENTS.md — Progetto Barca (Le Bestie)"
 Cohesion: 0.08
@@ -414,7 +414,7 @@ Cohesion: 0.20
 Nodes (9): Architecture, Indexing and logging, LLM Wiki, Note, Operations, Optional: CLI tools, The core idea, Tips and tricks (+1 more)
 
 ### Community 34 - "Feed accessori — design approvato (2026-08-07)"
-Cohesion: 0.22
+Cohesion: 0.20
 Nodes (9): Architettura, Architettura v2, Cambi vs v1, eBay — note tecniche, Feed accessori — design approvato (2026-08-07), Formula score, REVAMP v2 (2026-08-08, in implementazione), Status (+1 more)
 
 ### Community 35 - "Feed annunci Subito — logica di scoring"
@@ -578,7 +578,7 @@ Cohesion: 0.17
 Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
 
 ## Knowledge Gaps
-- **750 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+745 more)
+- **751 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+746 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -588,7 +588,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _751 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _752 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
   _Cohesion score 0.11494252873563218 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**
@@ -598,4 +598,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `What You Must Do When Invoked` be split into smaller, more focused modules?**
   _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
 - **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
-  _Cohesion score 0.058823529411764705 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._

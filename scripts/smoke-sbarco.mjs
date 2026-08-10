@@ -52,6 +52,7 @@ const done = events.findLast((event) => event.done)
 const error = events.findLast((event) => event.error)
 const answer = events.filter((event) => event.token).map((event) => event.token).join('')
 const statuses = events.filter((event) => event.status).map((event) => event.status.label)
+const meta = events.findLast((event) => event.meta)?.meta ?? null
 
 const report = {
   http: response.status,
@@ -61,6 +62,7 @@ const report = {
   firstChunkMs: firstChunkAt == null ? null : firstChunkAt - startedAt,
   totalMs: Date.now() - startedAt,
   statuses,
+  meta,
   answer,
   remaining: done?.remaining ?? null,
   error: error?.error ?? null,

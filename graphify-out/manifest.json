@@ -125,13 +125,13 @@
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786374909.441249,
-    "ast_hash": "add03f0a592524ca28f4da7f67df91cb",
+    "mtime": 1786375443.2165952,
+    "ast_hash": "3a86a2cc3cb236810a16d57cb0cc6ff6",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1786374657.3008318,
-    "ast_hash": "83a6702d8a6dbf32611e2bb47bf5d4bf",
+    "mtime": 1786375407.262468,
+    "ast_hash": "021eb38c5d04b0a67ffe6aa2a25afa16",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786373507.303544,
-    "ast_hash": "543f2038891410abbc831c3a48e8bcdc",
+    "mtime": 1786375152.1776295,
+    "ast_hash": "a65d296a1bfce9b75243065086a15fa0",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786363473.739548,
-    "ast_hash": "211abbb6223c82a2751ec2baddc471b4",
+    "mtime": 1786375150.9561248,
+    "ast_hash": "ec22e9f31cc9951d43123097fcf4cfd7",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {
@@ -885,8 +885,8 @@
     "semantic_hash": ""
   },
   "scripts/smoke-sbarco.mjs": {
-    "mtime": 1786374486.4432442,
-    "ast_hash": "f1e4ee6486adc9a7ad04565bd4ab7724",
+    "mtime": 1786375393.7625997,
+    "ast_hash": "22a601ddd86f7ac66bab0d26d3450df5",
     "semantic_hash": ""
   }
 }
