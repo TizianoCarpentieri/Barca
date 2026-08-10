@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<title>Regole — Progetto Barca</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">02 · Non negoziabili</span>
+        <h1 class="display display-lg">Le regole</h1>
+        <p class="ph__sub">Scritte col pennarello sul bancone. Se non passano qui, non salgono a bordo.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.2rem">
+          <span class="stamp stamp--lg" data-reveal="stamp">Must-have</span>
+          <span class="stamp stamp--brass stamp--lg" data-reveal="stamp" style="--d:120ms">V1</span>
+        </div>
+
+        <div class="stack">
+          <div class="card" data-reveal data-tilt>
+            <div class="card-title">01 · Motore, non vela</div>
+            <p>Barca a motore. Punto. Divertimento e pesca, non regata.</p>
+          </div>
+          <div class="card" data-reveal data-tilt>
+            <div class="card-title">02 · Senza patente (ideale)</div>
+            <p>≤ <strong style="color:var(--foam)">30 kW / 40,8 CV</strong>, cilindrate nei limiti, navigazione entro <strong style="color:var(--foam)">6 miglia</strong>. Nessuno ha la patente; l’ideale è non prenderla.</p>
+          </div>
+          <div class="card" data-reveal data-tilt>
+<div class="card-title">03 · Solo usato ≤ 2.000€</div>
+<p>Bundle gommone+motore. Stretch minimo solo se affare eccezionale.</p>
+          </div>
+          <div class="card" data-reveal data-tilt>
+<div class="card-title">04 · Gommone trasportabile</div>
+<p>Pneumatico smontabile, no RIB. In auto, si gonfia in spiaggia. <strong style="color:var(--foam)">Paiolato alluminio</strong> e chiglia gonfiabile.</p>
+          </div>
+          <div class="card" data-reveal data-tilt>
+            <div class="card-title">05 · Pesca di gruppo</div>
+            <p>Layout ok per 3 con le canne. Stabilità e stivaggio contano più del look da catalogo.</p>
+          </div>
+          <div class="card" data-reveal data-tilt>
+            <div class="card-title">06 · Gestione sostenibile</div>
+            <p>≤ <strong style="color:var(--foam)">30€ a testa / mese</strong> = max 90€ totali (assicurazione, manutenzione, carburante).</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Al bancone si dice anche no</span></div>
+        <div class="chip-row" data-reveal>
+<span class="chip chip-no">Scafo rigido (con 3 soci)</span>
+<span class="chip chip-no">Carrello & traino</span>
+<span class="chip chip-no">Nuovo di listino</span>
+<span class="chip chip-no">Posto barca fisso</span>
+<span class="chip chip-go">Gommone pneumatico</span>
+<span class="chip chip-go">Usato ≤2.000€</span>
+<span class="chip chip-go">Paiolato Al</span>
+<span class="chip chip-mid">≤40,8 CV</span>
+        </div>
+        <p class="lede" style="margin-top:1rem" data-reveal>
+          A 6 adulti e 40 cavalli non si plana da film. Lo sappiamo. Non è un bug, è il brief.
+        </p>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Filtri shortlist</span></div>
+        <div class="todo">
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Prezzo</h3>
+              <p>≤2.000€ bundle gommone+motore o stretch motivato.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Motore no-patente</h3>
+              <p>Potenza e cilindrata. Entrambe, non solo i CV del titolo.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+<h3>Non RIB, non rigido</h3>
+<p>Gommone pneumatico smontabile. Paiolato alluminio o airdeck.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Pesca + 3</h3>
+              <p>Spazio canne e corpi umani senza litigare.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+<h3>Trasporto in auto</h3>
+<p>Niente carrello. Gommone+motore nel bagagliaio.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Cap 90€/mese</h3>
+              <p>30€ a testa al mese. Assicurazione, manutenzione, carburante — tutto dentro.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Stato scafo</h3>
+              <p>Ok strutturale o ripristino entro riserva extra.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note wrap">Fonti normativa in wiki · MIT patente nautica</p>
+    </main>
+  </body>
+</html>

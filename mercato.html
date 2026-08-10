@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<title>Mercato — Progetto Barca</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">05 · Realtà dei numeri</span>
+        <h1 class="display display-lg">Mercato</h1>
+        <p class="ph__sub">Snapshot Subito agosto 2026. Non è un listino — è uno schiaffo di realismo.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div class="stat-wall">
+          <div class="stat" data-reveal>
+            <div class="stat__val mono-num"><span data-count="120">0</span></div>
+            <div class="stat__lbl">Pacchetti ~0,8–5,5k</div>
+          </div>
+          <div class="stat" data-reveal>
+            <div class="stat__val mono-num"><span data-count="100">0</span></div>
+            <div class="stat__lbl">CV≤40 o n.d.</div>
+          </div>
+          <div class="stat stat--wide" data-reveal>
+            <div class="stat__val" style="font-size:clamp(1.2rem,4.5vw,1.6rem);font-family:var(--font-cond)">6 PAX COMODI ≈ MIRAGGIO</div>
+            <div class="stat__lbl">A questo budget il sei è picco, non standard</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Cosa riempie il mercato</span></div>
+        <div class="bar-list">
+          <div class="bar-row" data-reveal>
+            <div class="bar-row__top"><span>Gommoni 3–4,5 m</span><span>Dominant</span></div>
+            <div class="bar-track"><div class="bar-fill" data-width="88%"></div></div>
+          </div>
+          <div class="bar-row" data-reveal>
+            <div class="bar-row__top"><span>Gozzi VTR/legno 4,5–6 m</span><span>Target</span></div>
+            <div class="bar-track"><div class="bar-fill" data-width="55%"></div></div>
+          </div>
+          <div class="bar-row" data-reveal>
+            <div class="bar-row__top"><span>Open/fishing 6 pax ok</span><span>Raro</span></div>
+            <div class="bar-track"><div class="bar-fill" data-width="12%"></div></div>
+          </div>
+        </div>
+        <div class="chip-row" style="margin-top:1rem" data-reveal>
+          <span class="chip chip-go">Gommoni pneumatici</span>
+          <span class="chip chip-no">Gozzi / open (solo con 5 soci)</span>
+          <span class="chip chip-mid">Verificare documenti</span>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Segnali Lazio (illustrativi)</span></div>
+        <div class="stack">
+          <div class="card" data-reveal>
+            <div class="card-title">900€ · Lazio</div>
+            <p>Gommone 3.60 m, paiolato Al, senza motore — benchmark Argo.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="card-title">1.800€ · Lazio</div>
+            <p>Bundle gommone 3.50 m + Mercury 9.9 CV 4T — nel budget.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="card-title">2.100€ · stretch</div>
+            <p>Gommone 3.80 m + Yamaha 15 CV 4T — leggermente sopra, da trattare.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="card-title">~5.000€ · stretch</div>
+            <p>Lomac / pacchetti gommone — fuori o al limite; molti tubolari = veto.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Rischi da bar</span></div>
+        <ul class="risk-list">
+          <li data-reveal>
+            <strong>Prezzo anomalo</strong>
+            Motore da rifare, scafo stanco, documenti assenti. Se sembra un regalo, è un secondo lavoro.
+          </li>
+          <li data-reveal>
+            <strong>Titolo bugiardo</strong>
+            “Senza patente” scritto a cazzo. Controllare kW e cilindrata sul libretto.
+          </li>
+          <li data-reveal>
+            <strong>Ormeggio mangia-budget</strong>
+            Mezzo a 4k e posto a 3k/anno = missione fallita sul cap gestione.
+          </li>
+        </ul>
+      </section>
+
+      <section class="sec wrap">
+        <div class="map-strip" data-reveal style="min-height:10rem">
+          <img
+            src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=1400&q=80"
+            alt="Barca da pesca"
+            loading="lazy"
+          />
+          <div class="map-strip__overlay">
+            <p class="manifesto-quote" style="margin:0;border:none;background:none;padding:0">
+              Cacciamo gommoni.<br />Non collezioniamo annunci.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note wrap">Sample non esaustivo · prezzi volatili</p>
+    </main>
+  </body>
+</html>

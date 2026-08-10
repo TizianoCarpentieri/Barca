@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<title>Priorità — Progetto Barca</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">03 · A cosa serve</span>
+        <h1 class="display display-lg">Priorità</h1>
+        <p class="ph__sub">Ordine sacro. Se un annuncio inverte la scala, è l’annuncio sbagliato.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div class="map-strip" data-reveal style="min-height:11rem;margin-bottom:1.25rem">
+          <img
+            src="https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=1400&q=80"
+            alt="Mare aperto"
+            loading="lazy"
+          />
+          <div class="map-strip__overlay">
+            <span class="stamp" data-reveal="stamp">Scala d’uso</span>
+          </div>
+        </div>
+
+        <div class="ladder">
+          <div class="ladder__step" data-reveal>
+            <div class="ladder__n">1</div>
+            <div class="ladder__body">
+              <h3>Pesca a canna</h3>
+              <p>Regina indiscussa. Surfcasting da adattare a bordo; bolentino = tecnica naturale su barca piccola. Canne, vivo, spazio di manovra.</p>
+            </div>
+          </div>
+          <div class="ladder__step" data-reveal>
+            <div class="ladder__n">2</div>
+            <div class="ladder__body">
+              <h3>Giri di costa</h3>
+              <p>Anzio → Circeo, tramonti, “dove andiamo oggi?”. Divertimento senza pretese di planata olimpica.</p>
+            </div>
+          </div>
+          <div class="ladder__step" data-reveal>
+            <div class="ladder__n">3</div>
+            <div class="ladder__body">
+              <h3>Bagno & relax</h3>
+              <p>Cala, ancora, birra tiepida. Il tendalino qui diventa religione.</p>
+            </div>
+          </div>
+          <div class="ladder__step" data-reveal>
+            <div class="ladder__n">4</div>
+            <div class="ladder__body">
+              <h3>Facilità</h3>
+              <p>Meno rotture, meno burocrazia, meno “chi porta il carrello”. La semplicità è una feature.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Comfort minimi</span></div>
+        <div class="grid-2">
+          <div class="card" data-reveal>
+            <div class="card-title">Tendalino</div>
+            <p>Copertura sole alzabile. Se manca in annuncio, si mette aftermarket — ma deve esserci un piano.</p>
+          </div>
+          <div class="card" data-reveal>
+            <div class="card-title">Layout pesca</div>
+            <p>Pozzetto utilizzabile, non un salotto da showroom. Dove metti le canne conta più del cuscino firmato.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <p class="manifesto-quote" data-reveal>
+          Prima le canne.<br />Poi la costa.<br />Poi il bagno.<br />La fatica resta a terra.
+        </p>
+      </section>
+
+      <p class="footer-note wrap">Priorità d’uso · Le Bestie</p>
+    </main>
+  </body>
+</html>

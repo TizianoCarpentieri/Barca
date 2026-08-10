@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<title>Prossime mosse — Progetto Barca</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">06 · Action plan</span>
+        <h1 class="display display-lg">Mosse</h1>
+        <p class="ph__sub">Non serve comprare domani. Serve non stare fermi a chiacchierare.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div style="margin-bottom:1rem">
+          <span class="stamp stamp--warn stamp--lg" data-reveal="stamp">Timeline: affare giusto</span>
+        </div>
+        <p class="lede" data-reveal>Orizzonte anche 6–12 mesi. Quando esce quella giusta, si muove la crew — non il calendario da PowerPoint.</p>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Checklist operativa</span></div>
+        <div class="todo">
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Verificare costi reali</h3>
+              <p>Assicurazione RC, passaggio proprietà, tagliando motore. Chiedere preventivi, niente stime a spanne.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Alert annunci</h3>
+              <p>Bundle gommone+motore ≤2.000€ Lazio. Paiolato alluminio, chiglia gonfiabile, 9.9–15 CV.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Checklist ispezione</h3>
+              <p>Scafo, motore, impianti, osmosi, ore, prova in acqua se possibile. Una griglia uguale per tutti.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Verificare auto e custodia</h3>
+              <p>Chi ha spazio in auto per gommone+motore? Chi lo tiene a casa? Serve uno scivolo vicino?</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Preventivi assicurazione</h3>
+              <p>RC gommone per principianti. Un paio di telefonate, 10 minuti.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Intestazione</h3>
+              <p>Da decidere tra bestie quando c’è il candidato — non prima, non mai.</p>
+            </div>
+          </div>
+          <div class="todo-item" data-reveal>
+            <div>
+              <h3>Patente? Solo piano B</h3>
+              <p>Se il mercato no-patente delude davvero, una bestia valuta la A. Non è il piano A.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Plus da annuncio che fanno impazzire</span></div>
+        <div class="chip-row" data-reveal>
+          <span class="chip chip-go">Paiolato alluminio</span>
+          <span class="chip chip-go">Chiglia gonfiabile</span>
+          <span class="chip chip-go">4 tempi ≤40 CV</span>
+          <span class="chip chip-go">Bundle gommone+motore</span>
+          <span class="chip chip-go">Documenti in regola</span>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="map-strip" data-reveal style="min-height:12rem">
+          <img
+            src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1400&q=80"
+            alt="Orizzonte di mare"
+            loading="lazy"
+          />
+          <div class="map-strip__overlay">
+            <p class="manifesto-quote" style="margin:0;border:none;background:none;padding:0">
+              Prossima birra:<br />preventivi assicurazione sul tavolo.
+            </p>
+            <div class="hero__cta-row" style="margin-top:1rem">
+              <a class="btn btn-primary" href="./status.html">Vedi status</a>
+              <a class="btn btn-ghost" href="./regole.html">Rileggi regole</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note wrap">Next steps · Le Bestie</p>
+    </main>
+  </body>
+</html>

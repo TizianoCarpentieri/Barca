@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<meta name="description" content="Progetto Barca — il manifesto delle Bestie. Missione: barca a motore, no patente, pesca sul Tirreno laziale." />
+    <meta property="og:title" content="Progetto Barca — Le Bestie" />
+    <meta property="og:description" content="Budget, regole, base Lazio e prossime mosse. Per Antonio, Peppe e il resto della crew." />
+    <title>Progetto Barca — Le Bestie</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="splash" aria-hidden="true">
+      <div class="splash__mark">
+        <span class="eyebrow">Missione aperta</span>
+        <div class="display">BARCA</div>
+      </div>
+    </div>
+
+    <div class="glow-orb" aria-hidden="true"></div>
+
+    <main class="page">
+      <section class="hero">
+        <div class="hero__media" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+            fetchpriority="high"
+          />
+        </div>
+        <div class="hero__shade"></div>
+        <div class="hero__content wrap">
+          <div>
+            <div class="hero__top">
+              <span class="eyebrow">Le Bestie · 2026</span>
+              <span class="stamp stamp--lg" data-reveal="stamp">In corso</span>
+            </div>
+            <h1 class="display display-xl">
+              <span class="line"><span>Progetto</span></span>
+              <span class="line"><span>Barca</span></span>
+            </h1>
+            <p class="lede">
+              Tre amici. Un Tirreno da scassare. Un gommone usato sotto i 2.000€ —
+              senza patente, con le canne a bordo.
+            </p>
+            <div class="hero__cta-row">
+              <a class="btn btn-primary" href="./status.html">Punto situazione</a>
+              <a class="btn btn-ghost" href="./regole.html">Le regole del gioco</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <p class="manifesto-quote" data-reveal>
+          Non stiamo comprando un yacht.<br />
+          Stiamo firmando un patto di salsedine.
+        </p>
+
+        <div class="stat-wall" style="margin-top: 1.25rem">
+          <div class="stat" data-reveal data-tilt>
+            <div class="stat__val mono-num"><span data-count="2000" data-prefix="≤">0</span><em>€</em></div>
+            <div class="stat__lbl">Budget mezzo</div>
+          </div>
+          <div class="stat" data-reveal data-tilt>
+            <div class="stat__val mono-num"><span data-count="40.8" data-decimals="1">0</span><em> CV</em></div>
+            <div class="stat__lbl">Max no-patente</div>
+          </div>
+          <div class="stat" data-reveal data-tilt>
+            <div class="stat__val mono-num"><span data-count="3">0</span><em>+</em></div>
+            <div class="stat__lbl">Core crew</div>
+          </div>
+          <div class="stat" data-reveal data-tilt>
+            <div class="stat__val mono-num"><span data-count="6">0</span></div>
+            <div class="stat__lbl">Pax picco</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Mappa del manifesto</span></div>
+        <div class="nav-tiles">
+          <a class="nav-tile" href="./equipaggio.html" data-reveal data-tilt>
+            <span class="nav-tile__n">01</span>
+            <div>
+              <div class="nav-tile__t">Equipaggio</div>
+              <div class="nav-tile__s">Tu, Antonio, Peppe</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./regole.html" data-reveal data-tilt>
+            <span class="nav-tile__n">02</span>
+            <div>
+              <div class="nav-tile__t">Regole</div>
+              <div class="nav-tile__s">Go, no-go, budget</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./priorita.html" data-reveal data-tilt>
+            <span class="nav-tile__n">03</span>
+            <div>
+              <div class="nav-tile__t">Priorità</div>
+              <div class="nav-tile__s">Pesca > giri > bagno</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./base.html" data-reveal data-tilt>
+            <span class="nav-tile__n">04</span>
+            <div>
+              <div class="nav-tile__t">Base</div>
+              <div class="nav-tile__s">Lazio · posto o terra</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./mercato.html" data-reveal data-tilt>
+            <span class="nav-tile__n">05</span>
+            <div>
+              <div class="nav-tile__t">Mercato</div>
+              <div class="nav-tile__s">Cosa si trova davvero</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./mosse.html" data-reveal data-tilt>
+            <span class="nav-tile__n">06</span>
+            <div>
+              <div class="nav-tile__t">Prossime mosse</div>
+              <div class="nav-tile__s">Cosa fare insieme</div>
+            </div>
+          </a>
+           <a class="nav-tile" href="./annunci.html" data-reveal data-tilt>
+             <span class="nav-tile__n">07</span>
+             <div>
+               <div class="nav-tile__t">Annunci live</div>
+               <div class="nav-tile__s">Rigide · Gommoni · Motori</div>
+             </div>
+           </a>
+         </div>
+      </section>
+
+      <p class="footer-note wrap">Aggiornato agosto 2026 · Knowledge base viva</p>
+    </main>
+
+  </body>
+</html>

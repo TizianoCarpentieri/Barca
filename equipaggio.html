@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+        <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* critical: evita layout “desktop rimpicciolito” se il CSS tarda */
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        /* Su phone forza SEMPRE device-width (anche se Chrome ha “sito desktop”) */
+        if (phone) {
+          m.setAttribute(
+            'content',
+            'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
+          );
+          /* Se il layout resta da desktop, imponi la larghezza fisica */
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute(
+                'content',
+                'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover'
+              );
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+
+<title>Equipaggio — Progetto Barca</title>
+    <script type="module" crossorigin src="./assets/app-DKncerKX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/app-DjWnXfy8.css">
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">01 · Chi siamo</span>
+        <h1 class="display display-lg">L’equipaggio</h1>
+        <p class="ph__sub">Tre bestie. Zero patente. Una fame da mare laziale.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div class="crew">
+          <article class="crew-card" data-reveal data-tilt>
+            <div class="crew-avatar">T</div>
+            <div>
+              <h3>Tu</h3>
+              <p>Cervello del dossier. Tieni la wiki, i numeri, le regole del porto.</p>
+            </div>
+          </article>
+          <article class="crew-card" data-reveal data-tilt>
+            <div class="crew-avatar" style="background: linear-gradient(145deg, rgba(224,176,74,.5), rgba(26,138,154,.3)), #2a211c">A</div>
+            <div>
+              <h3>Antonio</h3>
+              <p>Bestia di bordo. Veto e ok pesano uguale — serve il sì di tutti.</p>
+            </div>
+          </article>
+          <article class="crew-card" data-reveal data-tilt>
+            <div class="crew-avatar" style="background: linear-gradient(145deg, rgba(26,138,154,.55), rgba(255,59,10,.25)), #2a211c">P</div>
+            <div>
+              <h3>Peppe</h3>
+              <p>Terza gamba del tavolo. Se non convince Peppe, non salpa.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Formazione</span></div>
+        <div class="stat-wall">
+          <div class="stat" data-reveal>
+            <div class="stat__val">3</div>
+            <div class="stat__lbl">Comodi in pesca</div>
+          </div>
+          <div class="stat" data-reveal>
+            <div class="stat__val">~6</div>
+            <div class="stat__lbl">Picco sociale</div>
+          </div>
+          <div class="stat stat--wide" data-reveal>
+            <div class="stat__val" style="font-size:1.5rem;font-family:var(--font-cond);letter-spacing:.06em">NESSUNA PATENTE</div>
+            <div class="stat__lbl">Ideale restare così · ≤40,8 CV</div>
+          </div>
+        </div>
+        <p class="manifesto-quote" data-reveal style="margin-top:1.5rem">
+          Core team = 3.<br />Il sei è la festa, non lo standard.
+        </p>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Teatro operativo</span></div>
+        <div class="map-strip" data-reveal>
+          <img
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80"
+            alt="Costa al tramonto"
+            loading="lazy"
+          />
+          <div class="map-strip__overlay">
+            <span class="eyebrow">Mare · non lago</span>
+            <strong class="display display-md" style="font-size:1.8rem">Tirreno laziale</strong>
+            <div class="hub-pills">
+              <span class="is-base">Ardea / Pomezia</span>
+              <span>Anzio</span>
+              <span>Circeo</span>
+              <span>Fiumicino</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-reveal style="margin-top:0.85rem">
+          <div class="card-title">Base a terra</div>
+          <p>Casa delle bestie: <strong style="color:var(--foam)">Ardea / Pomezia</strong>. Hub realistici: Anzio–Nettuno. Circeo e Fiumicino come destinazione, non come garage quotidiano.</p>
+        </div>
+      </section>
+
+      <section class="sec wrap">
+        <div class="sec-label"><span class="eyebrow">Frequenza</span></div>
+        <div class="card" data-reveal>
+          <div class="card-title">Né yacht club né un’uscita l’anno</div>
+          <p>Tra <strong style="color:var(--foam)">1–2 volte al mese</strong> e quasi ogni weekend buono. Il rimessaggio deve reggere questa media senza bruciare il cap annuo.</p>
+        </div>
+      </section>
+
+      <p class="footer-note wrap">Pagina equipaggio · Progetto Barca</p>
+    </main>
+  </body>
+</html>
