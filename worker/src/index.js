@@ -242,8 +242,53 @@ const WIKI_PAGES = {
 };
 
 const EMBEDDED_WIKI = {
-  montaggio: `{montaggio-gommone.md content}`,
-  normativa: `{limiti-senza-patente.md content}`,
+  montaggio: `# Montaggio e logistica gommone
+
+## Ciclo completo di un'uscita
+
+### Preparazione (carico)
+1. Caricare gommone piegato in auto (~70 kg)
+2. Caricare motore fuoribordo separatamente
+3. Caricare accessori (pompa, tanica, attrezzatura pesca)
+
+### Arrivo in spiaggia/scivolo
+4. Scaricare tutto
+5. Gonfiare il gommone con pompa (10-15 minuti)
+6. Montare il paiolato (se in sezioni)
+7. Montare il motore sullo specchio di poppa
+8. Collegare tanica carburante
+
+### Rientro
+9. Tirare il gommone fuori dall'acqua
+10. Lavare con pompa per togliere sabbia/sale
+11. Sgonfiare completamente
+12. Smontare paiolato
+13. Ripiegare e rimettere in sacca
+14. Ricaricare tutto in auto
+
+## Criticita'
+- Peso (70 kg): movimentazione in 2 persone minima
+- Tempo per ciclo completo: 30-45 min solo montaggio/smontaggio
+- Sabbia: difficile da rimuovere completamente, abrasiva
+- Fatica: accumulo a ogni uscita, specie d'estate
+- Spazio auto: gommone + motore + attrezzatura = bagagliaio pieno
+
+## Confronto con scafo rigido
+- Gommone: 30-45 min per partenza, 30-45 min per rientro
+- Scafo rigido in porto: 5 min per partenza, 5 min per rientro
+
+Verdetto: il gommone e' economicamente vantaggioso ma operativamente pesante.`,
+
+  normativa: `# Limiti navigazione senza patente (IT)
+
+Per restare senza patente in Italia (diporto):
+- Potenza motore: <= 30 kW (40,8 CV) - fonte MIT
+- Cilindrata: sotto le soglie per tipo motore (es. 750 cc 2T)
+- Distanza (mare): entro 6 miglia dalla costa
+- Moto d'acqua: patente sempre richiesta
+
+Se nessuno ha la patente, la shortlist si restringe a natanti/imbarcazioni leggere con motorizzazione entro soglia e uscite costiere.
+Se almeno uno prende la patente A (anche solo entro 12 miglia), si apre un mercato molto piu' adatto a pesca + 6 pax + divertimento.`,
 };
 
 async function fetchWikiPage(kv, key, pageDef) {
@@ -338,6 +383,180 @@ function buildMessages(systemPrompt, question, memoryFacts, history, summary) {
   messages.push({ role: "user", content: question });
 
   return messages;
+}
+
+// ── Tool definitions ──────────────────────────────────────────────
+
+const TOOLS = [
+  {
+    type: "function",
+    function: {
+      name: "search_web",
+      description: "Cerca nel web informazioni su barche, gommoni, motori, prezzi, normative nautiche, costi di manutenzione. Usa quando la wiki non ha dati sufficienti o quando servono prezzi/normative aggiornati.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: { type: "string", description: "Query di ricerca in italiano" }
+        },
+        required: ["query"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "read_wiki",
+      description: "Legge una pagina della wiki di progetto. Usa per approfondire modelli, confronti, normative, o qualsiasi pagina non nel contesto base. Passa il percorso relativo dalla root del repo, es. 'wiki/modelli/argo-evo-360.md' o 'wiki/confronti/rimessaggio-abc.md'.",
+      parameters: {
+        type: "object",
+        properties: {
+          page: { type: "string", description: "Percorso pagina wiki, es. 'wiki/modelli/argo-evo-360.md'" }
+        },
+        required: ["page"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "save_doc",
+      description: "Salva un documento (confronto, checklist, analisi, tabella) che l'utente potra' scaricare. Usa quando l'utente chiede di salvare qualcosa o quando generi un'analisi strutturata che vale la pena conservare.",
+      parameters: {
+        type: "object",
+        properties: {
+          title: { type: "string", description: "Titolo del documento" },
+          content: { type: "string", description: "Contenuto in formato markdown" }
+        },
+        required: ["title", "content"],
+        additionalProperties: false,
+      },
+    },
+  },
+];
+
+// ── Tool execution ────────────────────────────────────────────────
+
+async function executeSearchWeb(query) {
+  const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+  try {
+    const resp = await fetch(ddgUrl, {
+      headers: { "User-Agent": "Sbarco/1.0 (boat research bot)" },
+    });
+    const html = await resp.text();
+    const results = [];
+    const regex = /<a rel="nofollow" class="result__a" href="([^"]+)">([^<]+)<\/a>[\s\S]*?<a class="result__snippet[^"]*">([^<]+)<\/a>/gi;
+    let match;
+    while ((match = regex.exec(html)) !== null) {
+      results.push({
+        title: match[2].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+        url: match[1],
+        snippet: match[3].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+      });
+      if (results.length >= 5) break;
+    }
+    return results.length > 0
+      ? results.map((r, i) => `${i + 1}. **${r.title}**\n   ${r.snippet}\n   ${r.url}`).join("\n\n")
+      : "Nessun risultato trovato.";
+  } catch (err) {
+    return `Errore nella ricerca: ${err.message}`;
+  }
+}
+
+async function executeReadWiki(page) {
+  const cleanPage = page.replace(/^\/+/, "").replace(/\.\.\//g, "");
+  const url = `${WIKI_REPO_RAW}/${cleanPage}`;
+  try {
+    const resp = await fetch(url, { headers: { "User-Agent": "Sbarco/1.0" } });
+    if (!resp.ok) return `Pagina wiki '${cleanPage}' non trovata (HTTP ${resp.status}).`;
+    const text = await resp.text();
+    return text.length > 8000 ? text.slice(0, 8000) + "\n\n[... troncato, troppo lungo]" : text;
+  } catch (err) {
+    return `Errore nel leggere la wiki: ${err.message}`;
+  }
+}
+
+async function executeTool(toolCall) {
+  const { name, arguments: argsStr } = toolCall.function;
+  let args = {};
+  try { args = JSON.parse(argsStr); } catch {}
+
+  switch (name) {
+    case "search_web":
+      return await executeSearchWeb(args.query || "");
+    case "read_wiki":
+      return await executeReadWiki(args.page || "");
+    case "save_doc":
+      return `Documento "${args.title}" salvato con successo.\n\nContenuto:\n${args.content}`;
+    default:
+      return `Tool sconosciuto: ${name}`;
+  }
+}
+
+// ── Tool loop ─────────────────────────────────────────────────────
+
+async function chatWithTools(apiKey, model, messages, maxIterations = 3) {
+  const allMessages = [...messages];
+  const documents = [];
+
+  for (let i = 0; i < maxIterations; i++) {
+    const body = {
+      model: model || "deepseek-v4-flash",
+      messages: allMessages,
+      tools: TOOLS,
+      temperature: 0.7,
+      max_tokens: 2000,
+      extra_body: { thinking: { type: "enabled" } },
+    };
+
+    const resp = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.text();
+      throw new Error(`DeepSeek HTTP ${resp.status}: ${err.slice(0, 200)}`);
+    }
+
+    const data = await resp.json();
+    const message = data.choices[0].message;
+    allMessages.push(message);
+
+    if (message.tool_calls && message.tool_calls.length > 0) {
+      for (const toolCall of message.tool_calls) {
+        const result = await executeTool(toolCall);
+        if (toolCall.function.name === "save_doc") {
+          const args = JSON.parse(toolCall.function.arguments);
+          documents.push({ title: args.title, content: args.content });
+        }
+        allMessages.push({
+          role: "tool",
+          tool_call_id: toolCall.id,
+          content: result,
+        });
+      }
+    } else {
+      return {
+        response: message.content,
+        documents,
+        usage: data.usage || {},
+        toolRounds: i,
+      };
+    }
+  }
+
+  return {
+    response: allMessages[allMessages.length - 1]?.content || "Non sono riuscito a completare la risposta.",
+    documents,
+    usage: {},
+    toolRounds: maxIterations,
+  };
 }
 
 // ── Memory extraction ────────────────────────────────────────────
@@ -554,10 +773,7 @@ export default {
           }
         }
 
-        // 1. Traverse graph
-        const subgraph = traverseGraph(question);
-
-        // 2. Load memory + history + system prompt
+        // 1. Load memory + history + system prompt
         const [memoryFacts, history, summary, systemPrompt] = await Promise.all([
           getMemory(env.SBARCO_KV),
           getChatHistory(env.SBARCO_KV, userId),
@@ -565,7 +781,7 @@ export default {
           buildSystemPrompt(env.SBARCO_KV),
         ]);
 
-        // 3. Build messages
+        // 2. Build messages
         const messages = buildMessages(
           systemPrompt,
           question,
@@ -574,51 +790,57 @@ export default {
           summary
         );
 
-        // 4. Call DeepSeek
-        const result = await callDeepSeek(apiKey, env.DEEPSEEK_MODEL, messages, env);
+        // 3. Call DeepSeek with tool loop
+        const result = await chatWithTools(apiKey, env.DEEPSEEK_MODEL, messages);
 
-        // 5. Save to history
+        // 4. Save to history
         const newHistory = [
           ...history,
           { role: "user", content: question },
-          { role: "assistant", content: result.content },
+          { role: "assistant", content: result.response },
         ];
         await setChatHistory(env.SBARCO_KV, userId, newHistory);
 
-        // 6. Summarize if too long
+        // 5. Summarize if too long
         await maybeSummarize(env.SBARCO_KV, userId, newHistory);
 
-        // 7. Extract memory (async, don't await)
+        // 6. Extract memory (async, don't await)
         env.SBARCO_KV && extractMemoryIfNeeded(
           apiKey,
           env.DEEPSEEK_MODEL,
           question,
-          result.content,
+          result.response,
           env.SBARCO_KV,
           userId
         );
 
-        // 8. Log to debug buffer
+        // 7. Log to debug buffer
         DEBUG_BUFFER.push({
           ts: new Date().toISOString(),
           user: userId,
           question: question.slice(0, 100),
-          subgraphNodes: subgraph.nodes?.length || 0,
+          toolRounds: result.toolRounds || 0,
+          documents: result.documents?.length || 0,
           promptTokens: result.usage?.prompt_tokens,
           responseTokens: result.usage?.completion_tokens,
           elapsedMs: Date.now() - startTime,
         });
         if (DEBUG_BUFFER.length > 100) DEBUG_BUFFER.shift();
 
-        // 9. Increment rate limit
+        // 8. Increment rate limit
         const newCount = env.SBARCO_KV ? await incrementRateLimit(env.SBARCO_KV, userId) : 0;
 
+        const responsePayload = {
+          response: result.response,
+          remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
+        };
+
+        if (result.documents && result.documents.length > 0) {
+          responsePayload.documents = result.documents;
+        }
+
         return new Response(
-          JSON.stringify({
-            response: result.content,
-            subgraphSize: subgraph.nodes?.length || 0,
-            remaining: Math.max(0, MAX_DAILY_MESSAGES - newCount),
-          }),
+          JSON.stringify(responsePayload),
           { headers: corsHeaders }
         );
 

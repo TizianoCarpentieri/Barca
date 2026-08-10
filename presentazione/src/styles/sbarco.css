@@ -228,6 +228,30 @@
 }
 .sbarco-input-wrap button:disabled { opacity: .5; cursor: default; }
 
+/* ── Document buttons ──────────────────────────────────────────── */
+.sbarco-doc-btn {
+  background: var(--sbarco-accent);
+  color: var(--sbarco-bg);
+  border: none;
+  padding: 3px 8px;
+  margin-top: 4px;
+  margin-right: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: opacity .15s;
+}
+.sbarco-doc-btn:hover { opacity: .85; }
+.sbarco-doc-btn--txt {
+  background: var(--sbarco-surface);
+  color: var(--sbarco-text);
+  border: 1px solid var(--sbarco-border);
+}
+
 /* ── Typing indicator ───────────────────────────────────────── */
 .sbarco-typing {
   align-self: flex-start;

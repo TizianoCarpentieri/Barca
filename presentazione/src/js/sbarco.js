@@ -154,6 +154,11 @@ const MAX_DAILY = 3;
         updateCounter(data.remaining);
       }
       addMsg("sbarco", data.response);
+      if (data.documents && data.documents.length > 0) {
+        for (const doc of data.documents) {
+          addDocumentMsg(doc);
+        }
+      }
     } catch (err) {
       typingEl.remove();
       addMsg("sbarco", "Non riesco a contattare Sbarco. Controlla la connessione.");
@@ -233,5 +238,39 @@ const MAX_DAILY = 3;
 
   function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function addDocumentMsg(doc) {
+    const div = document.createElement("div");
+    div.className = "sbarco-msg sbarco-msg--sbarco";
+    const body = document.createElement("div");
+    body.className = "sbarco-msg__body";
+    body.innerHTML = '<strong>Documento salvato: ' + escapeHtml(doc.title) + '</strong><br>'
+      + '<button class="sbarco-doc-btn">Scarica .md</button> '
+      + '<button class="sbarco-doc-btn sbarco-doc-btn--txt">Scarica .txt</button>';
+    div.appendChild(body);
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+
+    const btns = body.querySelectorAll(".sbarco-doc-btn");
+    btns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var isTxt = btn.classList.contains("sbarco-doc-btn--txt");
+        var ext = isTxt ? "txt" : "md";
+        var cleanContent = isTxt
+          ? doc.content.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\*(.+?)\*/g, "$1")
+          : doc.content;
+        var blob = new Blob([cleanContent], { type: "text/plain;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = doc.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + "." + ext;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+    });
   }
 })();
