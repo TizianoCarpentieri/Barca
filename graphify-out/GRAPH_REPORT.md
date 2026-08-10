@@ -1,16 +1,16 @@
 # Graph Report - barca  (2026-08-10)
 
 ## Corpus Check
-- 102 files · ~213,003 words
+- 103 files · ~213,303 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1091 nodes · 1059 edges · 270 communities (73 shown, 197 thin omitted)
+- 1104 nodes · 1071 edges · 271 communities (74 shown, 197 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d9bc51cb`
+- Built from commit: `d0503a04`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -278,6 +278,7 @@
 - Track motori (parallelo)
 - Requisiti v1 (intervista)
 - #shortlist
+- smoke-sbarco.mjs
 
 ## God Nodes (most connected - your core abstractions)
 1. `Log — Progetto Barca` - 34 edges
@@ -306,7 +307,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (270 total, 197 thin omitted)
+## Communities (271 total, 197 thin omitted)
 
 ### Community 0 - "fetch-motori.mjs"
 Cohesion: 0.18
@@ -346,7 +347,7 @@ Nodes (24): barIo, countIo, path, revealEls, sheet, splash, icons, mountNav() (+
 
 ### Community 9 - "index.js"
 Cohesion: 0.08
-Nodes (45): addMemory(), addUsage(), appendDebugEvent(), buildSystemPrompt(), checkRateLimit(), createChatSSEStream(), DEBUG_BUFFER, decodeHtml() (+37 more)
+Nodes (46): addMemory(), addUsage(), appendDebugEvent(), buildSystemPrompt(), checkRateLimit(), createChatSSEStream(), DEBUG_BUFFER, decodeHtml() (+38 more)
 
 ### Community 10 - "Risposte grezze"
 Cohesion: 0.12
@@ -572,8 +573,12 @@ Nodes (6): Come usare questo repo, Direzione attuale (2026-08-10), In una frase,
 Cohesion: 0.29
 Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo rigido — con 5 soci, Svantaggi, Vantaggi dello scafo rigido
 
+### Community 270 - "smoke-sbarco.mjs"
+Cohesion: 0.17
+Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
+
 ## Knowledge Gaps
-- **738 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+733 more)
+- **750 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+745 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **197 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -583,7 +588,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _739 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _751 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
   _Cohesion score 0.11494252873563218 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**

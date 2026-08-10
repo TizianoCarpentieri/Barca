@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "presentazione/package.json": {
-    "mtime": 1786372482.4335852,
-    "ast_hash": "b34f6302e02d15eefd5cb38e4754236e",
+    "mtime": 1786374141.5009122,
+    "ast_hash": "f3674c8a0571eec5539a402f08cfcb8b",
     "semantic_hash": ""
   },
   "presentazione/public/data/accessori.json": {
@@ -120,18 +120,18 @@
     "semantic_hash": ""
   },
   "worker/package.json": {
-    "mtime": 1786372637.5761526,
-    "ast_hash": "c26c634c627573c89e684bf6e3ba2f84",
+    "mtime": 1786374146.0330427,
+    "ast_hash": "5f384fa41311cb531d61abe9103906e4",
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786373487.8951278,
-    "ast_hash": "96f2eb70891c46e4edb7ecdaa0212c3e",
+    "mtime": 1786374668.422899,
+    "ast_hash": "e8ddd485fbaecb62f5a20ddf92f24963",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1786373488.8402448,
-    "ast_hash": "fb81e88be69563aff32e33f74603b881",
+    "mtime": 1786374657.3008318,
+    "ast_hash": "83a6702d8a6dbf32611e2bb47bf5d4bf",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -882,6 +882,11 @@
   "raw/mercato/subito-motori-2026-08-10.json": {
     "mtime": 1786373139.1953819,
     "ast_hash": "67838477e5939590ac107697cea5c1e0",
+    "semantic_hash": ""
+  },
+  "scripts/smoke-sbarco.mjs": {
+    "mtime": 1786374486.4432442,
+    "ast_hash": "f1e4ee6486adc9a7ad04565bd4ab7724",
     "semantic_hash": ""
   }
 }

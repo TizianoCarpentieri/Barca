@@ -86,6 +86,7 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
       if (body.response_format) {
         return Response.json({ choices: [{ message: { content: '{"facts":[]}' } }] });
       }
+      assert.match(body.messages[0].content, /UTENTE ATTIVO: Peppe/);
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Risposta rapida verificata." } }],
         usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 },
@@ -102,7 +103,7 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
     const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ userId: "tiziano", question: "Riassumi il piano", mode: "auto" }),
+      body: JSON.stringify({ userId: "peppe", question: "Riassumi il piano", mode: "auto" }),
     }), {
       SBARCO_KV: kv,
       DEEPSEEK_API_KEY: "test-key",
