@@ -1,15 +1,15 @@
 ---
-title: Requisiti v1 (intervista)
+title: Requisiti v2
 type: sintesi
-updated: 2026-08-05
+updated: 2026-08-10
 status: active
 tags: [requisiti, shortlist-filtri]
 ---
 
-# Requisiti v1 — Le Bestie
+# Requisiti v2 — Le Bestie
 
-Sintesi compilata dall’intervista 2026-08-04 + ricerche web/API.  
-**Aggiornamento 2026-08-05:** dual track **gommoni + motori** in parallelo al track rigidi (non sostituisce v1).
+Sintesi aggiornata 2026-08-10 dopo conversazioni 9 agosto.  
+**Gommone = piano A. Scafo rigido = piano B (condizionato a ≥5 soci).**
 
 Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[modelli/argo-evo-360]] · [[concetti/feed-annunci-scoring]].
 
@@ -27,12 +27,11 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 | | |
 |--|--|
 | Condizione | **Solo usato** |
-| Prezzo max | **4.500 €** (stretch minimo solo se “sogno”) |
 | Patente | **Nessuno** ce l’ha; **ideale non prenderla** → ≤**30 kW / 40,8 CV** + cilindrate + **≤6 miglia** |
 | Performance | **Non attese** (consapevoli) |
-| Scafo | **Rigido** comodo/robusto: **gozzo / open / lancia** |
-| Escluso | **Gommone/RIB**, carrello/traino gestito dal gruppo |
-| Comfort | **Tendalino/copertura sole** alzabile (anche aftermarket) |
+| Scafo | **Gommone pneumatico smontabile**, no RIB, trasportabile auto |
+| Escluso | Scafo rigido (se non con ≥5 soci e preventivi verificati) |
+| Comfort | **Tendalino/copertura sole** aftermarket (opzionale su gommone) |
 | Uso #1 | **Pesca a canna** (surfcasting da adattare → bolentino naturale) |
 | Uso #2–4 | Giri costa → bagno/relax → facilità |
 
@@ -40,38 +39,31 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 | | |
 |--|--|
-| Rimessaggio | **Posto barca** **o** **cantiere a terra** (no carrello) |
+| Prezzo max | **≤2.000 €** bundle gommone+motore usato |
+| Gestione annua | **≤30 €/testa/mese** = **≤360 €/testa/anno** |
+| Rimessaggio | **Nessuno** (gommone a casa, in auto) |
 | Hub | Fisso (es. Anzio/Nettuno/cantiere zona); Circeo/Fiumicino in navigazione |
-| Gestione annua | **≤ 1.200 €/testa** = **≤ 3.600 €/anno** **tutte** le spese |
 | Timeline | **Affare giusto** (anche 6–12 mesi) |
 | Intestazione | **Da decidere** tra le bestie |
 
-## Filtri shortlist — track rigidi (go / no-go)
+## Filtri shortlist — track gommoni (PRIMARIO)
 
-1. Usato, prezzo ≤ 4.500 € (o stretch motivato)  
-2. Motore nei limiti no-patente (verificare potenza **e** cilindrata)  
-3. **Non gommone** (su questo track)  
-4. Layout ok pesca a canna + spazio 3  
-5. Compatibile posto **o** terra (no dipendenza carrello)  
-6. Canone/gestione stimate entro 3.600 €/anno all-in  
-7. Stato strutturale accettabile o ripristino entro riserva extra  
+1. Pneumatico **non RIB**, smontabile / trasportabile auto
+2. Lunghezza ≥3,30 m (ideale 3,50–3,80)
+3. ≥4 pax / portata ~≥400 kg
+4. Pavimento: paiolato **alluminio** (prio1) o airdeck (prio2)
+5. Bundle gommone+motore **≤2.000 €**
+6. Motore abbinato: **9.9–15 CV** 4T gambo corto (vedi track motori)
+7. Distanza da Lazio nello score
 
-## Filtri shortlist — track gommoni (parallelo)
+## Filtri shortlist — track rigidi (CONDIZIONALE, ≥5 soci)
 
-1. Pneumatico **non RIB**, smontabile / trasportabile auto  
-2. Lunghezza ≥3,30 m (ideale 3,50–3,80)  
-3. ≥4 pax / portata ~≥400 kg  
-4. Pavimento: paiolato **alluminio** (prio1) o airdeck (prio2)  
-5. Confronto vs [[modelli/argo-evo-360]] (970 €): usato ≈ uguale senza motore → almeno **−20%**  
-6. Motore abbinato: preferibilmente **9.9–15–20 CV** 4T (vedi track motori)  
-7. Distanza da Lazio nello score (Puglia ≈ ×1,2 sul prezzo)
-
-## Filtri shortlist — track motori
-
-1. CV **≥ 6** (scarta 2.5/3.5/4)  
-2. Sweet **9.9–15**, ideale **8–20**, max **40,8**  
-3. 4 tempi e gambo corto preferiti  
-4. Hard prezzo feed ~**≤1.200 €**
+1. Usato, prezzo ≤4.500 € (con 5 soci ≈900 €/testa)
+2. Motore nei limiti no-patente
+3. Gozzo/open/lancia, non gommone
+4. Layout ok pesca + spazio 3-5
+5. Posto barca o terra con canone ≤1.500 €/anno
+6. Stato strutturale accettabile
 
 ## Plus forti in annuncio
 
@@ -104,4 +96,4 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 - [[preferenze/budget]] · [[preferenze/gruppo]] · [[preferenze/nice-to-have]]  
 - [[modelli/argo-evo-360]] · [[concetti/feed-annunci-scoring]] · [[mercato/feed-subito-live]]  
 - [[mercato/usato-under-4500]] · [[mercato/litorale-laziale]] · [[confronti/rimessaggio-abc]]  
-- [[normativa/limiti-senza-patente]] · [[concetti/no-patente-6-pax-realta]] · [[concetti/pesca-da-barca-piccola]]  
+- [[normativa/limiti-senza-patente]] · [[concetti/no-patente-6-pax-realta]] · [[concetti/pesca-da-barca-piccola]]
