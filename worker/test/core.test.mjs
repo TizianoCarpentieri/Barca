@@ -157,6 +157,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
       if (agentCalls === 1) {
         assert.equal(body.tool_choice.function.name, "search_web");
         assert.equal(body.thinking.type, "disabled");
+        assert.equal("reasoning_effort" in body, false);
         return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
           role: "assistant", content: null, tool_calls: [
             { id: "search-1", type: "function", function: { name: "search_web", arguments: '{"query":"prezzo uno"}' } },
@@ -167,6 +168,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
       if (agentCalls === 2) {
         assert.equal(body.tool_choice.function.name, "read_url");
         assert.equal(body.thinking.type, "disabled");
+        assert.equal("reasoning_effort" in body, false);
         return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
           role: "assistant", content: null, tool_calls: [
             { id: "read-1", type: "function", function: { name: "read_url", arguments: '{"url":"https://example.com/fonte-a"}' } },
@@ -176,6 +178,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
       }
       assert.equal(body.tool_choice, "auto");
       assert.equal(body.thinking.type, "disabled");
+      assert.equal("reasoning_effort" in body, false);
       assert.ok(body.messages.filter(message => message.role === "assistant").every(message => message.content != null));
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Sintesi finale con due fonti verificate." } }],

@@ -1,5 +1,5 @@
 const MAX_HISTORY = 8;
-const WORKER_VERSION = "2.0.4";
+const WORKER_VERSION = "2.0.5";
 const MAX_MEMORY_FACTS = 15;
 const MAX_SUMMARY_LENGTH = 1600;
 const MAX_DAILY_MESSAGES = 3;
@@ -545,7 +545,7 @@ function toolProgressLabel(toolCall) {
   return "Sbarco sistema il carico a bordo…";
 }
 
-async function requestAgentStep(apiKey, model, messages, enableThinking, signal, requiredTool = null) {
+async function requestAgentStep(apiKey, model, messages, signal, requiredTool = null) {
   const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -561,8 +561,7 @@ async function requestAgentStep(apiKey, model, messages, enableThinking, signal,
         : "auto",
       temperature: 0.35,
       max_tokens: AGENT_STEP_TOKENS,
-      thinking: { type: enableThinking ? "enabled" : "disabled" },
-      reasoning_effort: enableThinking ? "high" : "low",
+      thinking: { type: "disabled" },
       stream: false,
     }),
   }, DEEPSEEK_TIMEOUT_MS, signal);
@@ -687,13 +686,10 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             const requiredTool = researchMode
               ? (state.searches < 2 ? "search_web" : state.webReads < 2 ? "read_url" : null)
               : null;
-            // DeepSeek V4 non permette di alternare tool_choice nominativo e
-            // thinking nello stesso agent loop senza reasoning_content su ogni
-            // turno precedente. La profondita' e' garantita dalle fasi di
-            // ricerca/lettura; il loop e la sintesi restano non-thinking.
-            const enableThinking = false;
             const data = await withHeartbeat(
-              requestAgentStep(apiKey, model, messages, enableThinking, streamAbort.signal, requiredTool),
+              // La profondita' viene dalle evidenze: il thinking e'
+              // intenzionalmente disattivato in ogni chiamata DeepSeek.
+              requestAgentStep(apiKey, model, messages, streamAbort.signal, requiredTool),
               controller,
               encoder
             );
