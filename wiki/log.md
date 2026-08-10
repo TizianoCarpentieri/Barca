@@ -172,6 +172,17 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 - Aggiornate: `preferenze/budget` (stime da audio), `preferenze/open-questions` (chiuse split, scelta rigido, frequenza inverno), `index.md`.
 - Consenso emerso: scafo rigido > gommone per praticità; accordo scritto obbligatorio su danni/split.
 
+## [2026-08-10] decisione | Gommone primario, budget 2000€, 30€/mese
+
+Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
+- **Gommone pneumatico** = unica via fattibile con il budget mensile attuale (≤30 €/testa/mese)
+- **Scafo rigido** = scenario futuro condizionato a ≥5 soci con preventivi reali
+- **Budget acquisto**: ≤2.000 € bundle gommone+motore usato
+- **Costi fissi**: ≤30 €/testa/mese (90 €/mese totali) — ampiamente raggiungibile col gommone (~10 €/testa/mese)
+- Nuove pagine wiki: `costi-nascosti-gommone`, `logistica-trasporto`, `scenario-rigido-5-soci`
+- Pagine aggiornate: overview, must-have, budget, open-questions, track-gommoni, split-costi, requisiti (v2), index
+- Restano da verificare: costi reali (passaggio, documenti, dotazioni), logistica (auto, custodia), accordo scritto
+
 ## [2026-08-08] feat(access) | Revamp v2 completato
 
 - Rinazione completa eBay (fetch+UI+workflow+.env.ebay)

@@ -53,6 +53,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
 | [[concetti/montaggio-gommone]] | Fatica operativa gommone vs rigido: ciclo completo, criticità |
 | [[concetti/costi-nascosti-gommone]] | Costi oltre scafo+motore: burocrazia, dotazioni, manutenzione, assicurazione |
+| [[concetti/logistica-trasporto]] | Auto, custodia, ciclo uscita — da verificare |
 
 ## Normativa
 
@@ -80,3 +81,4 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 |--------|----------|
 | [[sintesi/requisiti-v1]] | Profilo requisiti + filtri dual track |
 | [[sintesi/conversazioni-audio-20260809]] | Trascrizioni 45 vocali WhatsApp del 9 ago |
+| [[sintesi/scenario-rigido-5-soci]] | Cosa servirebbe per attivare il track scafo rigido |
