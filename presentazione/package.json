@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test --test-isolation=none test/*.test.mjs",
+    "test": "node --test test/*.test.mjs",
     "fetch-annunci": "node scripts/fetch-annunci.mjs",
     "fetch-gommoni": "node scripts/fetch-gommoni.mjs",
     "fetch-motori": "node scripts/fetch-motori.mjs",
