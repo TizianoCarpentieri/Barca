@@ -17,8 +17,9 @@ history limitata per numero ma non per dimensione, falso streaming delle
 risposte rapide e rendering Markdown completo a ogni token. La revisione 2.2.0
 corregge questi punti e sostituisce MD/TXT come output principale con PDF A4.
 
-La revisione è verificata localmente. **Produzione e smoke live non sono stati
-modificati in questa sessione.**
+La revisione è verificata localmente e distribuita in produzione con commit
+`c29830b`. I workflow Worker `31485142103` e Pages `31485142102` sono riusciti;
+gli smoke live rapido, deep e caricamento PDF sono completati.
 
 ## Audit per area funzionale
 
@@ -89,7 +90,13 @@ Poppler e ispezionato visivamente su due pagine senza clipping o sovrapposizioni
 - UI QA: screenshot Edge headless a 500 x 844; header, tabelle, azioni PDF,
   documento e composer risultano leggibili e senza overflow.
 
-## Gate mancanti
+## Verifica produzione
 
-- Deploy GitHub Pages e Cloudflare Worker.
-- Smoke live rapido, deep, annullamento, quota zero e `/debug` dopo deploy.
+- Worker health: `version: 2.2.0`, deep research attiva, contesto `wiki-runtime`.
+- Rapida: HTTP 200, 392 caratteri in 5 frame, `done`, nessun errore, 2,45 s.
+- Deep: HTTP 200, 1.077 caratteri in 12 frame, 3 round, 2 ricerche e
+  2 fonti lette, `done`, nessun errore, 9,68 s.
+- Pages: nuovo bundle Sbarco servito correttamente; azione `Esporta PDF`
+  presente e chunk jsPDF lazy da 395.010 byte raggiungibile con HTTP 200.
+- Restano da provare manualmente annullamento da browser, stato quota esaurita
+  e `/debug` autenticato con la passkey di Tiziano.

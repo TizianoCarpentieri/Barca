@@ -298,3 +298,16 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   sintesi finale. Le ottimizzazioni restano sul prompt, sulla memoria e sulle
   chiamate LLM superflue, per non rischiare Markdown o tabelle troncati.
 - Aggiunto un test di regressione sui due limiti prima del deploy 2.2.0.
+
+## [2026-08-11] deploy | Sbarco 2.2.0 e PDF online
+
+- Commit `c29830b` inviato su `main`.
+- Workflow Cloudflare Worker `31485142103` e GitHub Pages `31485142102`
+  completati con successo.
+- Health live: `2.2.0`, deep research attiva e contesto `wiki-runtime`.
+- Smoke rapido: 5 frame, 392 caratteri, 2,45 s, risposta completa.
+- Smoke deep: 3 round, 2 ricerche, 2 fonti lette, 12 frame, 9,68 s,
+  risposta completa; quota Peppe residua 1/3.
+- Frontend live aggiornato; azione PDF presente e chunk jsPDF verificato con
+  HTTP 200. Restano i test manuali di annullamento, quota zero e `/debug`
+  autenticato tramite passkey di Tiziano.

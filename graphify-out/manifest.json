@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786446082.3529282,
-    "ast_hash": "d00f8aaf320577e96829d120b5309aa7",
+    "mtime": 1786446698.6053207,
+    "ast_hash": "0cc6529dad5dd99ea172a1f919f4ca1b",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786444804.2713685,
-    "ast_hash": "303f53056aac5935ae193aa6ee80e0df",
+    "mtime": 1786446693.451066,
+    "ast_hash": "ddf598429f02eb27e0adb995ed4b9aaf",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {
@@ -920,8 +920,8 @@
     "semantic_hash": ""
   },
   "wiki/sintesi/audit-sbarco-20260811.md": {
-    "mtime": 1786446078.7999282,
-    "ast_hash": "d807230352d9edee0595cfb98c75ad23",
+    "mtime": 1786446694.4224644,
+    "ast_hash": "4638be9eef6335c01bd54cfdc0cc02fe",
     "semantic_hash": ""
   },
   ".opencode/package.json": {

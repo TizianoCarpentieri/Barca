@@ -2490,7 +2490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "presentazione_test_sbarco_ui_test",
-      "community": 11,
+      "community": 8,
       "norm_label": "sbarco-ui.test.mjs"
     },
     {
@@ -6410,7 +6410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_concetti_costi_nascosti_gommone",
-      "community": 75,
+      "community": 274,
       "norm_label": "costi-nascosti-gommone.md"
     },
     {
@@ -6500,7 +6500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_concetti_feed_accessori_scoring",
-      "community": 34,
+      "community": 274,
       "norm_label": "feed-accessori-scoring.md"
     },
     {
@@ -6710,7 +6710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_concetti_logistica_trasporto",
-      "community": 75,
+      "community": 274,
       "norm_label": "logistica-trasporto.md"
     },
     {
@@ -7954,13 +7954,23 @@
       "norm_label": "[2026-08-11] preferenze(sbarco) | output completo prima del risparmio token"
     },
     {
+      "label": "[2026-08-11] deploy | Sbarco 2.2.0 e PDF online",
+      "file_type": "document",
+      "source_file": "wiki/log.md",
+      "source_location": "L302",
+      "_origin": "ast",
+      "id": "wiki_log_2026_08_11_deploy_sbarco_2_2_0_e_pdf_online",
+      "community": 5,
+      "norm_label": "[2026-08-11] deploy | sbarco 2.2.0 e pdf online"
+    },
+    {
       "label": "feed-subito-live.md",
       "file_type": "document",
       "source_file": "wiki/mercato/feed-subito-live.md",
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_mercato_feed_subito_live",
-      "community": 75,
+      "community": 59,
       "norm_label": "feed-subito-live.md"
     },
     {
@@ -8190,7 +8200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_modelli_argo_evo_360",
-      "community": 75,
+      "community": 49,
       "norm_label": "argo-evo-360.md"
     },
     {
@@ -8310,7 +8320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_overview",
-      "community": 75,
+      "community": 274,
       "norm_label": "overview.md"
     },
     {
@@ -9297,7 +9307,7 @@
       "label": "Audit per area funzionale",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "wiki_sintesi_audit_sbarco_20260811_audit_per_area_funzionale",
       "community": 31,
@@ -9307,7 +9317,7 @@
       "label": "Rapporto qualit\u00e0 / consumo token",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L42",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "wiki_sintesi_audit_sbarco_20260811_rapporto_qualit\u00e0_consumo_token",
       "community": 31,
@@ -9317,7 +9327,7 @@
       "label": "PDF e peso frontend",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L56",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "wiki_sintesi_audit_sbarco_20260811_pdf_e_peso_frontend",
       "community": 31,
@@ -9327,7 +9337,7 @@
       "label": "Colli di bottiglia residui",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L67",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "wiki_sintesi_audit_sbarco_20260811_colli_di_bottiglia_residui",
       "community": 31,
@@ -9337,21 +9347,21 @@
       "label": "Verifica locale",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L82",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "wiki_sintesi_audit_sbarco_20260811_verifica_locale",
       "community": 31,
       "norm_label": "verifica locale"
     },
     {
-      "label": "Gate mancanti",
+      "label": "Verifica produzione",
       "file_type": "document",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L92",
+      "source_location": "L93",
       "_origin": "ast",
-      "id": "wiki_sintesi_audit_sbarco_20260811_gate_mancanti",
+      "id": "wiki_sintesi_audit_sbarco_20260811_verifica_produzione",
       "community": 31,
-      "norm_label": "gate mancanti"
+      "norm_label": "verifica produzione"
     },
     {
       "label": "audit-sbarco-wiki-20260810.md",
@@ -9730,7 +9740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "wiki_sintesi_scenario_rigido_5_soci",
-      "community": 75,
+      "community": 114,
       "norm_label": "scenario-rigido-5-soci.md"
     },
     {
@@ -22942,6 +22952,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/log.md",
+      "source_location": "L302",
+      "weight": 1.0,
+      "source": "wiki_log_log_progetto_barca",
+      "target": "wiki_log_2026_08_11_deploy_sbarco_2_2_0_e_pdf_online",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
       "source_location": "L278",
       "weight": 1.0,
       "source": "wiki_log_log_progetto_barca",
@@ -24172,7 +24192,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
       "target": "wiki_sintesi_audit_sbarco_20260811_audit_per_area_funzionale",
@@ -24182,7 +24202,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L67",
+      "source_location": "L68",
       "weight": 1.0,
       "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
       "target": "wiki_sintesi_audit_sbarco_20260811_colli_di_bottiglia_residui",
@@ -24202,17 +24222,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L92",
-      "weight": 1.0,
-      "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
-      "target": "wiki_sintesi_audit_sbarco_20260811_gate_mancanti",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0,
       "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
       "target": "wiki_sintesi_audit_sbarco_20260811_pdf_e_peso_frontend",
@@ -24222,7 +24232,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L42",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
       "target": "wiki_sintesi_audit_sbarco_20260811_rapporto_qualit\u00e0_consumo_token",
@@ -24232,10 +24242,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
-      "source_location": "L82",
+      "source_location": "L83",
       "weight": 1.0,
       "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
       "target": "wiki_sintesi_audit_sbarco_20260811_verifica_locale",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "wiki_sintesi_audit_sbarco_20260811_audit_sbarco_11_agosto_2026",
+      "target": "wiki_sintesi_audit_sbarco_20260811_verifica_produzione",
       "confidence_score": 1.0
     },
     {
@@ -24820,5 +24840,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "15b028c808e6207e4183c80e61d781670d5d7ae1"
+  "built_at_commit": "c29830b71003a13d673228cb91fe4700fb68441e"
 }
