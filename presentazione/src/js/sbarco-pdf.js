@@ -10,22 +10,55 @@ const COLORS = {
   paper: [253, 251, 247],
 };
 
-function normalizePdfText(value = "") {
-  return String(value)
+const PDF_SYMBOL_REPLACEMENTS = [
+  [/[✅☑✔]/gu, "OK"],
+  [/[❌✖]/gu, "NO"],
+  [/⚠/gu, "ATTENZIONE"],
+  [/🟢/gu, "OK"],
+  [/🟡/gu, "ATTENZIONE"],
+  [/🔴/gu, "RISCHIO"],
+  [/🎯/gu, "OBIETTIVO"],
+  [/[💡📌]/gu, "NOTA"],
+  [/[🔎🔍]/gu, "VERIFICA"],
+  [/[⚓⛵🚤🛥]/gu, ""],
+  [/[⬜◻]/gu, "DA VERIFICARE"],
+];
+
+export function normalizePdfText(value = "") {
+  let text = String(value).normalize("NFKC");
+  for (const [symbol, replacement] of PDF_SYMBOL_REPLACEMENTS) {
+    text = text.replace(symbol, replacement);
+  }
+  return text
     .replace(/[\u2010-\u2015\u2212]/g, "-")
-    .replace(/→/g, "->")
-    .replace(/←/g, "<-")
+    .replace(/[→⇒]/g, "->")
+    .replace(/[←⇐]/g, "<-")
     .replace(/≤/g, "<=")
     .replace(/≥/g, ">=")
+    .replace(/≈/g, "~")
+    .replace(/≠/g, "!=")
     .replace(/€/g, "euro")
     .replace(/×/g, "x")
+    .replace(/÷/g, "/")
+    .replace(/[“”„«»]/g, '"')
+    .replace(/[‘’‚]/g, "'")
+    .replace(/…/g, "...")
+    .replace(/[•◦▪]/g, "-")
     .replace(/\u00a0/g, " ")
-    .replace(/[⚓✅❌🟡⬜]/g, "")
+    .replace(/[\u200b-\u200f\u202a-\u202e\u2060\ufeff]/g, "")
+    .replace(/[\u200d\ufe0e\ufe0f\u20e3\u{1f3fb}-\u{1f3ff}\u{1f1e6}-\u{1f1ff}]/gu, "")
+    .replace(/\p{Extended_Pictographic}/gu, "")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, "$1 ($2)")
     .replace(/\[\[([^\]]+)\]\]/g, "$1")
     .replace(/\*\*|__|~~/g, "")
     .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "$1")
     .replace(/`([^`]+)`/g, "$1")
+    .replace(/\b(OK|ATTENZIONE|RISCHIO|NOTA|VERIFICA|OBIETTIVO)\s+\1\b/gi, "$1")
+    // I font standard di jsPDF sono WinAnsi: dopo le sostituzioni manteniamo
+    // ASCII + Latin-1 (quindi gli accenti italiani) ed escludiamo glifi che
+    // altrimenti diventerebbero sequenze illeggibili nel PDF.
+    .replace(/[^\x09\x0a\x0d\x20-\x7e\u00a0-\u00ff]/g, "")
+    .replace(/[ \t]{2,}/g, " ")
     .trim();
 }
 
@@ -159,7 +192,7 @@ export function createSbarcoPdf({ title, content, author = "Le Bestie", generate
       index += 1;
       while (index < lines.length && !/^```/.test(lines[index].trim())) code.push(lines[index++]);
       if (index < lines.length) index += 1;
-      const wrapped = doc.splitTextToSize(code.join("\n"), contentWidth - 8);
+      const wrapped = doc.splitTextToSize(normalizePdfText(code.join("\n")), contentWidth - 8);
       const height = Math.max(12, wrapped.length * 3.7 + 6);
       ensureSpace(height + 3);
       doc.setFillColor(239, 237, 232);

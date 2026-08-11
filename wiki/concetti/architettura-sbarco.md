@@ -94,11 +94,14 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 ## Output e interfaccia
 
-- Ogni risposta ha azioni **Esporta PDF** e **Copia**.
-- `save_doc` produce una scheda dedicata con download PDF; MD e TXT non sono più
-  l'output primario.
+- Ogni risposta ordinaria ha l'azione **Copia**. Il PDF non viene proposto sul
+  testo libero della chat: evita documenti poco strutturati e un doppio export.
+- `save_doc` produce una scheda dedicata con **Scarica PDF**; questa è l'unica
+  via di export e MD/TXT non sono più l'output primario.
 - Il PDF è A4, multipagina, con titoli, callout, elenchi, tabelle, fonti,
   intestazione e numerazione. jsPDF viene caricato solo al click (chunk lazy).
+- Emoji e simboli da chat vengono convertiti in etichette testuali; gli altri
+  glifi non supportati da Helvetica sono rimossi preservando gli accenti italiani.
 - Il Markdown è parsato a blocchi e sanificato; tabelle larghe scorrono
   orizzontalmente. Durante lo stream il DOM viene aggiornato una volta per frame,
   riducendo lavoro e salti di scroll su telefono.

@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { drainSseBuffer, renderMarkdown } from "../src/js/sbarco-format.js";
-import { createSbarcoPdf } from "../src/js/sbarco-pdf.js";
+import { createSbarcoPdf, normalizePdfText } from "../src/js/sbarco-pdf.js";
 
 test("render Markdown strutturato e sicuro per la chat mobile", () => {
   const html = renderMarkdown(`# Titolo
@@ -32,17 +33,32 @@ test("parser SSE conserva frame spezzati e finali", () => {
   assert.deepEqual(second.payloads, ['{"token":"B"}', '{"done":true}']);
 });
 
+test("normalizza i simboli da chat senza perdere gli accenti italiani", () => {
+  const clean = normalizePdfText("🎯 Qualità ≤ 2.000 € — ✅ ok; ⚠️ verifica; 🚤 prova → 🟢/🔴");
+  assert.equal(clean, "OBIETTIVO Qualità <= 2.000 euro - OK; ATTENZIONE verifica; prova -> OK/RISCHIO");
+  assert.doesNotMatch(clean, /\p{Extended_Pictographic}/u);
+  assert.doesNotMatch(clean, /[^\x09\x0a\x0d\x20-\x7e\u00a0-\u00ff]/);
+});
+
+test("offre il PDF solo per i documenti preparati da Sbarco", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  const answerActions = source.slice(source.indexOf("function addAnswerChrome"), source.indexOf("function addProgress"));
+  assert.match(answerActions, /Copia/);
+  assert.doesNotMatch(answerActions, /Esporta PDF/);
+  assert.match(source, /Scarica PDF/);
+});
+
 test("genera un PDF multipagina valido con tabella e fonti", () => {
-  const content = `# Analisi bundle
+  const content = `# 🎯 Analisi bundle
 
 ## Conclusione
 
-Il bundle e' coerente con il budget delle Bestie.
+Il bundle è coerente con il budget delle Bestie: **≤ 2.000 €**.
 
 | Voce | Valore | Esito |
 |---|---:|---|
-| Gommone | 900 euro | OK |
-| Motore | 750 euro | Da provare |
+| Gommone | 900 euro | ✅ OK |
+| Motore | 750 euro | ⚠️ Da provare |
 
 ${"- Controllare documenti, compressione e manutenzione prima dell'acquisto.\n".repeat(90)}
 

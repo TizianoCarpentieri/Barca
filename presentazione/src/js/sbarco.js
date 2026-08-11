@@ -436,11 +436,6 @@ const MAX_DAILY = 3;
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
 
-  function suggestedPdfTitle(content) {
-    const heading = String(content || "").match(/^#{1,3}\s+(.+)$/m)?.[1];
-    return heading?.replace(/[*_`]/g, "").trim() || `Risposta Sbarco - ${capitalize(currentUser || "Bestie")}`;
-  }
-
   async function exportPdf(button, title, content) {
     const previous = button.textContent;
     button.disabled = true;
@@ -471,11 +466,6 @@ const MAX_DAILY = 3;
     }
     const actions = document.createElement("div");
     actions.className = "sbarco-msg__actions";
-    const pdfButton = document.createElement("button");
-    pdfButton.type = "button";
-    pdfButton.className = "sbarco-action sbarco-action--primary";
-    pdfButton.textContent = "Esporta PDF";
-    pdfButton.addEventListener("click", () => exportPdf(pdfButton, suggestedPdfTitle(content), content));
     const copyButton = document.createElement("button");
     copyButton.type = "button";
     copyButton.className = "sbarco-action";
@@ -489,7 +479,7 @@ const MAX_DAILY = 3;
         copyButton.textContent = "Non riuscito";
       }
     });
-    actions.append(pdfButton, copyButton);
+    actions.append(copyButton);
     message.appendChild(actions);
   }
 

@@ -349,3 +349,18 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Frontend live aggiornato; azione PDF presente e chunk jsPDF verificato con
   HTTP 200. Restano i test manuali di annullamento, quota zero e `/debug`
   autenticato tramite passkey di Tiziano.
+
+## [2026-08-11] fix(sbarco-pdf) | Export solo documenti e Unicode sicuro
+
+- Riprodotti i caratteri anomali causati da emoji non supportate dai font
+  standard jsPDF nelle esportazioni delle singole risposte.
+- Rimossa l'azione PDF dalle risposte ordinarie; resta Copia. Il download PDF
+  è disponibile solo nelle schede `save_doc` preparate intenzionalmente da Sbarco.
+- Il renderer converte indicatori comuni in testo (`OK`, `ATTENZIONE`,
+  `RISCHIO`, `OBIETTIVO`) e limita l'output a ASCII/Latin-1, preservando gli
+  accenti italiani.
+
+## [2026-08-11] lint | Riparato wikilink della fonte RC
+
+- Sostituito il wikilink non risolvibile con un link Markdown relativo alla
+  fonte raw dell'art. 41; il contenuto normativo non è stato modificato.

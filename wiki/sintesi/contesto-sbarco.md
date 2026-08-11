@@ -55,6 +55,8 @@ Dettaglio e checklist: [[preferenze/open-questions]].
 - Una ricerca web utile privilegia 2–5 fonti lette e confrontate, non decine di snippet.
 - Quando l'utente chiede un documento o un PDF, `save_doc` prepara contenuto
   strutturato: il widget lo esporta in PDF A4 direttamente nel browser.
+- Il PDF va offerto solo tramite la scheda `save_doc`; sulle normali risposte
+  resta l'azione Copia, evitando export poco strutturati del testo libero.
 - Non ridurre i tetti dell'output sotto 1.000 token per step e 2.600 per la
   sintesi finale senza una prova esplicita: in passato ha causato risposte o
   formattazione visualizzate in modo incompleto. Ottimizzare prima il prompt.

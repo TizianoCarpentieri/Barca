@@ -1,16 +1,16 @@
 # Graph Report - barca  (2026-08-11)
 
 ## Corpus Check
-- 110 files · ~220,658 words
+- 119 files · ~246,029 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1190 nodes · 1243 edges · 275 communities (77 shown, 198 thin omitted)
+- 1433 nodes · 1479 edges · 301 communities (103 shown, 198 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 15 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c29830b7`
+- Built from commit: `c22d353f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -283,35 +283,61 @@
 - #shortlist
 - extraction-spec.md
 - smoke-sbarco.mjs
+- Prospetto costi a norma
+- agentContratto — mandato della cartella `contratto/`
+- RC obbligatoria — gommone / natante a motore
+- fetch-motori.mjs
+- feed-normalizers.mjs
+- Art. 13 — Uscita di un socio (recesso) e formula di rimborso
+- Patto di gestione condivisa — Gommone Le Bestie
+- RC natanti — prezzi, documenti, canali (snapshot web 2026-08-11)
+- Tagliando / manutenzione fuoribordo — snapshot 2026-08-11
+- B. Dotazioni — quadro generale
+- Art. 10 — Danni e sinistri
+- Art. 16 — Casi limite, inadempimento, esclusione
+- Art. 5 — Calendario, preavviso, priorità
+- Art. 6 — Uscite (modo normale = tutti insieme)
+- Art. 11 — Manutenzione e ruoli
+- Art. 4 — Custodia e logistica
+- Art. 8 — Condotta, conducenti, legalità
+- Art. 9 — Costi
+- validate-feeds.mjs
+- bozza-patto-v1.md
+- Art. 17 — Modifiche, dispute, versioni
+- Art. 18 — Disposizioni finali e firme
+- Art. 12 — Multe, sanzioni, fermo
+- Art. 15 — Vendita totale e scioglimento
+- Art. 1 — Parti, oggetto, durata
+- Art. 2 — Quote e proprietà economica
 
 ## God Nodes (most connected - your core abstractions)
-1. `Log — Progetto Barca` - 41 edges
-2. `fetch()` - 19 edges
-3. `What You Must Do When Invoked` - 12 edges
-4. `FASE 1 — Revisione Wiki` - 12 edges
-5. `Risposte grezze` - 12 edges
-6. `scripts` - 11 edges
-7. `normalize()` - 11 edges
-8. `/graphify` - 11 edges
-9. `Indice wiki — Progetto Barca` - 11 edges
-10. `renderMarkdown()` - 10 edges
+1. `Log — Progetto Barca` - 49 edges
+2. `Patto di gestione condivisa — Gommone Le Bestie` - 21 edges
+3. `fetch()` - 19 edges
+4. `Art. 13 — Uscita di un socio (recesso) e formula di rimborso` - 14 edges
+5. `agentContratto — mandato della cartella `contratto/`` - 13 edges
+6. `What You Must Do When Invoked` - 12 edges
+7. `Prospetto costi a norma` - 12 edges
+8. `FASE 1 — Revisione Wiki` - 12 edges
+9. `Risposte grezze` - 12 edges
+10. `scripts` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `classify()` --calls--> `applyDistanceScore()`  [EXTRACTED]
-  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/geo-score.mjs
-- `classify()` --calls--> `applyDistanceScore()`  [EXTRACTED]
-  presentazione/scripts/fetch-motori.mjs → presentazione/scripts/geo-score.mjs
-- `createSbarcoPdf()` --references--> `jspdf`  [EXTRACTED]
-  presentazione/src/js/sbarco-pdf.js → presentazione/package.json
-- `downloadSbarcoPdf()` --references--> `jspdf`  [EXTRACTED]
-  presentazione/src/js/sbarco-pdf.js → presentazione/package.json
 - `extractLength()` --calls--> `normalizeBoatLength()`  [EXTRACTED]
   presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
+- `classify()` --calls--> `hasHardHull()`  [EXTRACTED]
+  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
+- `normalize()` --calls--> `detectIncludedMotor()`  [EXTRACTED]
+  presentazione/scripts/fetch-gommoni.mjs → presentazione/scripts/feed-normalizers.mjs
+- `normalize()` --calls--> `extractPreferredBrand()`  [EXTRACTED]
+  presentazione/scripts/fetch-motori.mjs → presentazione/scripts/feed-normalizers.mjs
+- `normalize()` --calls--> `extractPreferredPower()`  [EXTRACTED]
+  presentazione/scripts/fetch-motori.mjs → presentazione/scripts/feed-normalizers.mjs
 
 ## Import Cycles
 - None detected.
 
-## Communities (275 total, 198 thin omitted)
+## Communities (301 total, 198 thin omitted)
 
 ### Community 0 - "fetch-motori.mjs"
 Cohesion: 0.18
@@ -334,20 +360,20 @@ Cohesion: 0.20
 Nodes (8): barIo, countIo, path, revealEls, sheet, splash, icons, mountNav()
 
 ### Community 5 - "Log — Progetto Barca"
-Cohesion: 0.05
-Nodes (41): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+33 more)
+Cohesion: 0.04
+Nodes (49): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+41 more)
 
 ### Community 6 - "AGENTS.md — Progetto Barca (Le Bestie)"
 Cohesion: 0.08
-Nodes (23): 1. Ingest (nuova fonte), 2. Query (domanda), 3. Preferenze (update), 4. Lint (salute wiki), 5. Ricerca attiva (web), 6. Decisione / shortlist, 7. Sbarco / deep research, AGENTS.md — Progetto Barca (Le Bestie) (+15 more)
+Nodes (24): 1. Ingest (nuova fonte), 2. Query (domanda), 3. Preferenze (update), 4. Lint (salute wiki), 5. Ricerca attiva (web), 6. Decisione / shortlist, 7. Sbarco / deep research, AGENTS.md — Progetto Barca (Le Bestie) (+16 more)
 
 ### Community 7 - "fetch-gommoni.mjs"
-Cohesion: 0.06
-Nodes (54): detectIncludedMotor(), extractPreferredBrand(), extractPreferredPower(), extractPreferredShaft(), findBrand(), findShaft(), hasHardHull(), labeledPowers() (+46 more)
+Cohesion: 0.17
+Nodes (20): classify(), __dirname, extractCv(), extractFloor(), extractKeel(), extractLength(), extractPersons(), feat() (+12 more)
 
 ### Community 8 - "sbarco.js"
-Cohesion: 0.13
-Nodes (32): addAnswerChrome(), addDocumentMsg(), addMsg(), addProgress(), autoSizeInput(), base64UrlToBytes(), bytesToBase64Url(), capitalize() (+24 more)
+Cohesion: 0.08
+Nodes (45): jspdf, dependencies, jspdf, addAnswerChrome(), addDocumentMsg(), addMsg(), addProgress(), autoSizeInput() (+37 more)
 
 ### Community 9 - "index.js"
 Cohesion: 0.06
@@ -358,8 +384,8 @@ Cohesion: 0.12
 Nodes (15): 2026-08-04 — Budget, 2026-08-04 — Frequenza, 2026-08-04 — Gestione annua, 2026-08-04 — Intestazione, 2026-08-04 — Patente, 2026-08-04 — Priorità d'uso, 2026-08-04 — Rimessaggio, 2026-08-04 — Scafo (+7 more)
 
 ### Community 11 - "scripts"
-Cohesion: 0.07
-Nodes (31): jspdf, dependencies, jspdf, devDependencies, vite, name, private, scripts (+23 more)
+Cohesion: 0.11
+Nodes (18): devDependencies, vite, name, private, scripts, build, dev, fetch-accessori (+10 more)
 
 ### Community 13 - "Ricerca mercato — litorale laziale (base Ardea/Pomezia)"
 Cohesion: 0.12
@@ -563,7 +589,7 @@ Nodes (11): allowedStatuses, contents, errors, filesByRelative, filesByStem, ind
 
 ### Community 108 - "Costi nascosti — gommone pneumatico"
 Cohesion: 0.25
-Nodes (8): Costi nascosti — gommone pneumatico, Da verificare — Accessori per navigazione notturna, Da verificare — Assicurazione, Da verificare — Documenti e burocrazia, Da verificare — Dotazioni di sicurezza obbligatorie, Da verificare — Manutenzione periodica, Da verificare — Ricambi e usura, Prossimi passi
+Nodes (8): Assicurazione, Costi nascosti — gommone pneumatico, Da verificare — Accessori per navigazione notturna, Da verificare — Documenti e burocrazia, Da verificare — Dotazioni di sicurezza obbligatorie, Da verificare — Manutenzione periodica, Da verificare — Ricambi e usura, Prossimi passi
 
 ### Community 109 - "Logistica e trasporto gommone"
 Cohesion: 0.25
@@ -593,18 +619,120 @@ Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo r
 Cohesion: 0.17
 Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
 
+### Community 275 - "Prospetto costi a norma"
+Cohesion: 0.05
+Nodes (41): 0. Indice sezioni, 1.10 Open points RC, 1.1 Leggi (obbligo), 1.2 Cosa copre (e cosa no), 1.3 Confronto costi — snapshot mercato 2026-08-11, 1.4 Massimali (da verificare in polizza), 1.5 Documenti che servono, 1.6 Dove farla (canali) (+33 more)
+
+### Community 276 - "agentContratto — mandato della cartella `contratto/`"
+Cohesion: 0.07
+Nodes (27): 10. Open decisions (allineati a bozza 1.6), 11. Mappa rapida bozza (orientamento), 12. Changelog mandato, 1.1 Prospetto costi a norma — regola d’oro, 1. File in cartella, 2.1 IDE / buffer sporco (lezione sessione 2026-08-11), 2.2 Stile risposta all’utente, 2. Come modificare la bozza (OBBLIGATORIO) (+19 more)
+
+### Community 277 - "RC obbligatoria — gommone / natante a motore"
+Cohesion: 0.09
+Nodes (20): 1. D.Lgs. 18 luglio 2005, n. 171 — Codice della nautica da diporto, 2. D.Lgs. 7 settembre 2005, n. 209 — Codice delle assicurazioni private, 3. Fonti secondarie (marketing assicurativo — non primarie), 4. Contesto progetto (già in repo), Art. 123 — Natanti, Art. 40 — Responsabilità civile (collegato), Art. 41 — Assicurazione obbligatoria, assicurazione-barca.it guida gommone (+12 more)
+
+### Community 278 - "fetch-motori.mjs"
+Cohesion: 0.18
+Nodes (15): classify(), __dirname, feat(), GOOD_BRANDS, HEADERS, imgUrl(), is2T(), is4T() (+7 more)
+
+### Community 279 - "feed-normalizers.mjs"
+Cohesion: 0.27
+Nodes (14): detectIncludedMotor(), extractPreferredBrand(), extractPreferredPower(), extractPreferredShaft(), findBrand(), findShaft(), hasHardHull(), labeledPowers() (+6 more)
+
+### Community 280 - "Art. 13 — Uscita di un socio (recesso) e formula di rimborso"
+Cohesion: 0.14
+Nodes (14): 13.10 Esempio C — dopo 3 anni, poco uso, stato medio, 13.11 Chi paga il rimborso e entro quanto, 13.12 Uscita di più soci, 13.13 Recesso per giusta causa, 13.1 Diritto di recesso, 13.2 Effetti, 13.3 Formula — principi, 13.4 Parametri (Proposta v1) (+6 more)
+
+### Community 281 - "Patto di gestione condivisa — Gommone Le Bestie"
+Cohesion: 0.18
+Nodes (11): 3.1 Intestatario formale, 3.2 Assicurazione, 3.3 Documenti e luogo di custodia, 7.1 Ospiti, 7.2 Divieti, Art. 14 — Ingresso di un nuovo socio, Art. 3 — Intestazione, assicurazione, documenti, Art. 7 — Ospiti e terzi (+3 more)
+
+### Community 282 - "RC natanti — prezzi, documenti, canali (snapshot web 2026-08-11)"
+Cohesion: 0.18
+Nodes (10): A. Obbligo (rinvio norme primarie), B. Range di prezzo dichiarati (RC sola, gommone/fuoribordo), C. Massimali (claim secondari — da verificare su polizza), D. Documenti tipici per preventivo/stipula (fonti secondarie), E. Canali dove farla, F. Alternative di copertura (non sostituiscono la RC), G. Sanzioni (claim divergenti — non certi), H. Impatto multi-utilizzatore (gruppo “bestie”) (+2 more)
+
+### Community 283 - "Tagliando / manutenzione fuoribordo — snapshot 2026-08-11"
+Cohesion: 0.20
+Nodes (9): 1. Obbligo di legge?, 2. Quando si fa (prassi costruttori / guide), 3. Cosa include un tagliando ordinario, 4. Costi osservati (indicativi, non preventivo Lazio firmato), 5. Cura continua (quasi a costo zero), 6. Open, Fai-da-te materiali (piccolo 4T 9.9–15 CV), Officina / dealer (stima scala piccolo fuoribordo) (+1 more)
+
+### Community 284 - "B. Dotazioni — quadro generale"
+Cohesion: 0.20
+Nodes (9): A. Alcol — Art. 53-bis D.Lgs. 171/2005, Alcol + dotazioni obbligatorie — estratti (accesso 2026-08-11), B. Dotazioni — quadro generale, C. Costi indicativi kit (mercato shop, non preventivo), Entro 1 miglio, Entro 300 m costa, Entro 6 miglia (profilo tipico bestie / no-patente), Notturna (+1 more)
+
+### Community 285 - "Art. 10 — Danni e sinistri"
+Cohesion: 0.22
+Nodes (9): 10.1 Principio, 10.2 Tabella, 10.3 Franchigia e scoperto, 10.4 Obblighi in caso di sinistro, 10.5 Perdita totale o riparazione antieconomica, 10.6 Contestazione “colpa vs caso” (come si decide), A. Default se si era tutti insieme, Art. 10 — Danni e sinistri (+1 more)
+
+### Community 286 - "Art. 16 — Casi limite, inadempimento, esclusione"
+Cohesion: 0.29
+Nodes (7): 16.1 Decesso o inabilità grave, 16.2 Abbandono di fatto, 16.3 Esclusione per giusta causa, 16.4 Smarrimento documenti / chiavi, 16.5 Stallo decisionale, 16.6 Upgrade futuro (scafo rigido, più soci), Art. 16 — Casi limite, inadempimento, esclusione
+
+### Community 287 - "Art. 5 — Calendario, preavviso, priorità"
+Cohesion: 0.29
+Nodes (7): 5.1 Canale ufficiale, 5.2 Preavviso minimo (come funziona), 5.3 Priorità in conflitto, 5.4 Cancellazione, 5.5 Meteo e no-go, 5.6 Registro uscite, Art. 5 — Calendario, preavviso, priorità
+
+### Community 288 - "Art. 6 — Uscite (modo normale = tutti insieme)"
+Cohesion: 0.29
+Nodes (7): 6.0 Principio d’uso, 6.1 Definizioni, 6.2 Regola generale, 6.3 Uscita parziale, 6.4 Uscita solitaria, 6.5 Rientro e riconsegna, Art. 6 — Uscite (modo normale = tutti insieme)
+
+### Community 289 - "Art. 11 — Manutenzione e ruoli"
+Cohesion: 0.33
+Nodes (6): 11.1 Ruoli (compilare), 11.2 Check pre-uscita (tutti i presenti), 11.3 Check post-uscita (tutti i presenti), 11.4 Manutenzione programmata (tagliando motore), 11.5 Lavori straordinari, Art. 11 — Manutenzione e ruoli
+
+### Community 290 - "Art. 4 — Custodia e logistica"
+Cohesion: 0.33
+Nodes (6): 4.1 Custode, 4.2 Standard minimo di custodia, 4.3 Cambio custode, 4.4 Trasporto, 4.5 Accesso al mare, Art. 4 — Custodia e logistica
+
+### Community 291 - "Art. 8 — Condotta, conducenti, legalità"
+Cohesion: 0.33
+Nodes (6): 8.1 Conducenti, 8.2 No-patente e limiti, 8.3 Alcol e sostanze, 8.4 Dotazioni obbligatorie, 8.5 Modifiche tecniche, Art. 8 — Condotta, conducenti, legalità
+
+### Community 292 - "Art. 9 — Costi"
+Cohesion: 0.33
+Nodes (6): 9.1 Acquisto iniziale, 9.2 Categorie di costo, 9.3 Monitoraggio costi (gommone, non posto barca), 9.4 Come si pagano le cose (niente cassa), 9.5 Soglia spese straordinarie (cosa significa), Art. 9 — Costi
+
+### Community 293 - "validate-feeds.mjs"
+Cohesion: 0.33
+Nodes (5): DATA_DIR, __dirname, errors, RULES, summaries
+
+### Community 294 - "bozza-patto-v1.md"
+Cohesion: 0.40
+Nodes (4): Allegato A — Inventario (template), Allegato B — Custodia e accessi (template), Allegato C — Parametri formula (snapshot), Elenco rapido [DA DECIDERE] aperti in v1.1
+
+### Community 295 - "Art. 17 — Modifiche, dispute, versioni"
+Cohesion: 0.40
+Nodes (5): 17.1 Modifiche, 17.2 Gerarchia decisioni, 17.3 Dispute, 17.4 Legge e foro, Art. 17 — Modifiche, dispute, versioni
+
+### Community 296 - "Art. 18 — Disposizioni finali e firme"
+Cohesion: 0.40
+Nodes (5): 18.1 Allegati, 18.2 Copie, 18.3 Dichiarazione, 18.4 Firme, Art. 18 — Disposizioni finali e firme
+
+### Community 297 - "Art. 12 — Multe, sanzioni, fermo"
+Cohesion: 0.50
+Nodes (4): 12.1 Principio, 12.2 Tabella, 12.3 Avviso, Art. 12 — Multe, sanzioni, fermo
+
+### Community 298 - "Art. 15 — Vendita totale e scioglimento"
+Cohesion: 0.50
+Nodes (4): 15.1 Vendita del Bene, 15.2 Scioglimento del patto, 15.3 Diritto di prelazione in vendita a terzi, Art. 15 — Vendita totale e scioglimento
+
+### Community 299 - "Art. 1 — Parti, oggetto, durata"
+Cohesion: 0.50
+Nodes (4): 1.1 Parti, 1.2 Oggetto del patto, 1.3 Durata, Art. 1 — Parti, oggetto, durata
+
+### Community 300 - "Art. 2 — Quote e proprietà economica"
+Cohesion: 0.50
+Nodes (4): 2.1 Quote, 2.2 Proprietà economica, 2.3 Divieto di smembramento unilaterale, Art. 2 — Quote e proprietà economica
+
 ## Knowledge Gaps
-- **775 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+770 more)
+- **968 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+963 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **198 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _776 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _969 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
   _Cohesion score 0.09309309309309309 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**
@@ -612,6 +740,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `fetch-accessori.mjs` be split into smaller, more focused modules?**
   _Cohesion score 0.11576354679802955 - nodes in this community are weakly interconnected._
 - **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
-  _Cohesion score 0.04878048780487805 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.04081632653061224 - nodes in this community are weakly interconnected._
 - **Should `AGENTS.md — Progetto Barca (Le Bestie)` be split into smaller, more focused modules?**
-  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+- **Should `sbarco.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.08272859216255443 - nodes in this community are weakly interconnected._

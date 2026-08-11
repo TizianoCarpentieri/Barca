@@ -22,7 +22,7 @@ Il patto art. 3.2 (“RC obbligatoria prima della prima uscita”) **allinea il 
 
 | Norma | Cosa dice |
 |-------|-----------|
-| [[raw/normativa/rc-obbligatoria-natanti-2026-08-11\|Art. 41 D.Lgs. 171/2005]] (Codice nautica) — *Assicurazione obbligatoria* | Applica il Codice delle assicurazioni alle unità da diporto **escluse** solo remi e vela **senza** motore ausiliario. I **motori amovibili** sono obbligati **a qualsiasi potenza**. |
+| [Art. 41 D.Lgs. 171/2005](../../raw/normativa/rc-obbligatoria-natanti-2026-08-11.md) (Codice nautica) — *Assicurazione obbligatoria* | Applica il Codice delle assicurazioni alle unità da diporto **escluse** solo remi e vela **senza** motore ausiliario. I **motori amovibili** sono obbligati **a qualsiasi potenza**. |
 | Art. 123 D.Lgs. 209/2005 (Codice assicurazioni) — *Natanti* | Unità da diporto **con motore** non possono navigare in acque ad uso pubblico senza RC verso terzi (testo: **per danni alla persona**). Obbligo esteso ai **motori amovibili di qualsiasi potenza** (assicurato il natante su cui è montato il motore). |
 | Art. 40 D.Lgs. 171/2005 | Responsabilità civile da “circolazione” dell’unità → art. 2054 c.c. |
 
