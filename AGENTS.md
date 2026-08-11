@@ -134,8 +134,8 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi che reggano ≤30 €/testa/mese
 
 ### Piano corrente (2026-08-10)
-1. **Gommoni — piano A** — pneumatici no RIB; min 3,30 m (ideale 3,50–3,80; >4 m ok se auto/trasporto); Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
-2. **Motori abbinati** — ≥6 CV (no 2.5/4); sweet 9.9–15; max 40,8; 4T gambo corto
+1. **Gommoni — piano A** — pneumatici no RIB; **min 3,90 m**, nessun max duro se auto/trasporto; 3 comodi, 4+ preferibile, 6 bonus non rigido; Al floor / airdeck; Argo-Evo 360 resta solo riferimento storico di prezzo/dotazione
+2. **Motori abbinati** — **9–40 CV**, purché senza patente (≤30 kW/40,8 CV e cilindrata ammessa); 4T preferito; gambo compatibile con lo scafo
 3. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
 
 Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`).

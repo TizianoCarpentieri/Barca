@@ -8,7 +8,7 @@
 (o relativo al root repo: `contratto/`)
 
 **Fase corrente:** cantiere attivo in `contratto/`.  
-**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.7**).  
+**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.8**).
 Non propagare il testo del patto in `wiki/` finché non è stabile e il gruppo non lo chiede.
 
 ---
@@ -97,7 +97,7 @@ In bozza: se contrasto con norme imperative → prevale la legge.
 | Budget bundle | ≤ ~2.000 € usato | |
 | Split | **1/N** | |
 | Patente | nessuno; ≤ 40,8 CV | |
-| Lunghezza gommone | min 3,30 m; ideale 3,50–3,80; **no max duro** | anche >4 m se auto/trasporto |
+| Lunghezza gommone | **min 3,90 m**; **no max duro** | se resta trasportabile e gestibile |
 | Cap 30 €/testa/mese | **non hard** sul gommone auto | era scenario porto/rimessaggio; vedi bozza art. 9.3 |
 
 Principi di gruppo già in bozza:
@@ -128,7 +128,7 @@ Principi di gruppo già in bozza:
 
 ---
 
-## 6. Checklist scenari (stato vs bozza 1.7)
+## 6. Checklist scenari (stato vs bozza 1.8)
 
 Legenda: `[x]` coperto in bozza (anche se restano dettagli aperti) · `[ ]` ancora debole/aperto.
 
@@ -253,6 +253,7 @@ Vedi art. 13 bozza. Vincoli:
 | `contratto: formula …` | Art. 13 |
 | `contratto: gap` | Buchi/contraddizioni |
 | `contratto: prospetto` / `costi a norma` | Prospetto |
+| `contratto: pdf` / export PDF | `cd contratto && npm run pdf` (vedi `README-export.md`) — bozza + prospetto A4 |
 | Utente incolla un articolo da correggere | Sostituisci **quel** articolo in bozza |
 
 ---
@@ -269,7 +270,7 @@ Vedi art. 13 bozza. Vincoli:
 
 ---
 
-## 10. Open decisions (allineati a bozza 1.7)
+## 10. Open decisions (allineati a bozza 1.8)
 
 1. Contatti parti (nomi in bozza: Tiziano, Antonio, Peppe)  
 2. Intestatario gommone / motore / polizza  
@@ -287,7 +288,7 @@ Vedi art. 13 bozza. Vincoli:
 
 ## 11. Mappa rapida bozza (orientamento)
 
-| Art. | Tema | Note v1.7 |
+| Art. | Tema | Note v1.8 |
 |------|------|-----------|
 | 1–2 | Parti, quote | nomi: Tiziano, Antonio, Peppe |
 | 3 | Intestazione, RC, Drive | RC obbligatoria legge |

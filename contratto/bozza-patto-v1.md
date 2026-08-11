@@ -1,6 +1,6 @@
 # Patto di gestione condivisa — Gommone Le Bestie
 
-**Versione:** 1.7 (bozza di lavoro)  
+**Versione:** 1.8 (bozza di lavoro)
 **Data:** 2026-08-11  
 **Natura:** patto tra amici a precisione contrattuale. Non è un atto notarile né consulenza legale.  
 **In caso di contrasto con norme imperative italiane, prevale la legge.**
@@ -9,6 +9,7 @@
 
 | Ver. | Data | Nota |
 |------|------|------|
+| 1.8 | 2026-08-11 | Audit normativa: documenti a bordo, limiti no-patente completi, portata, ordinanze di varo, pesca ricreativa e distinzione tra responsabilità legale e riparto interno. |
 | 1.7 | 2026-08-11 | Art. 13: spiegazioni rinormalizzazione quote e Rimborso≥0 + esempio narrativo; 16.1 decesso senza eredi/subentro; 16.3 esclusione senza rimborso + più casi; nomi solo Tiziano/Antonio/Peppe; zero riferimenti a repo/file di progetto. |
 | 1.6 | 2026-08-11 | Art. 11.4: manutenzione a rotazione / chi fa meno il resto; non referente fisso obbligatorio. |
 | 1.5 | 2026-08-11 | Art. 12: default multe = soci presenti (scelte insieme); eccezione conducente che decide da solo scelte sbagliate. |
@@ -113,6 +114,8 @@ Chi detiene gli originali li esibisce entro **7 giorni** su richiesta di qualsia
 
 ---
 
+Prima di ogni uscita devono essere materialmente disponibili, anche in formato digitale quando ammesso: certificato RC valido, dichiarazione di potenza del motore o documento equipollente e documentazione necessaria a provare portata e limiti dello scafo. Prima del saldo d'acquisto i soci verificano insieme matricole, dichiarazione di potenza, targhetta/manuale CE oppure certificati di omologazione applicabili e una scrittura di vendita completa.
+
 ## Art. 4 — Custodia e logistica
 
 ### 4.1 Custode
@@ -155,6 +158,8 @@ Multe o sanzioni da accesso/uso scorretto: a carico di chi ha causato la violazi
 ---
 
 ## Art. 5 — Calendario, preavviso, priorità
+
+Prima del varo si controllano l'ordinanza annuale della Capitaneria e quella del Comune: corridoi autorizzati, distanza dalla balneazione, velocità, orari e divieti temporanei.
 
 ### 5.1 Canale ufficiale
 
@@ -253,7 +258,7 @@ Si favorisce sempre il coordinamento per uscire **insieme**.
 
 - Ospiti non-soci ammessi se:
   1. c’è almeno un **socio responsabile** a bordo;
-  2. non si supera omologazione / portata sicura;
+  2. non si supera la portata persone/peso risultante da targhetta, manuale, omologazione o norma applicabile;
   3. il socio responsabile risponde dei danni causati dall’ospite come se li avesse causati lui (salvo regresso verso l’ospite).
 
 ### 7.2 Divieti
@@ -280,7 +285,7 @@ Il **conducente dell’uscita** va indicato nel registro (art. 5.6).
 
 ### 8.2 No-patente e limiti
 
-Le Parti si impegnano a usare il Bene entro i limiti di legge applicabili (potenza, distanza, persone, dotazioni).  
+Le Parti si impegnano a usare il Bene entro i limiti di legge applicabili. Senza patente: entro 6 miglia, massimo 30 kW/40,8 CV e cilindrata ammessa per il tipo di motore; devono inoltre essere rispettate portata e potenza massima dello scafo risultanti dai documenti.
 Comportamenti che espongono a sanzione o sequestro = violazione grave; costi art. 12.
 
 ### 8.3 Alcol e sostanze
@@ -295,15 +300,23 @@ Comportamenti che espongono a sanzione o sequestro = violazione grave; costi art
 
 **Danni e problemi:** se un socio, per aver bevuto più degli altri o per alterazione, causa danni, multe, sequestro o sinistro → **paga lui** la parte non coperta (art. 10 e 12), come per ogni altra colpa. Non è “tolleranza zero sociale” sul bere: è **chi crea il casino paga**.
 
+La regola interna non attenua la responsabilità personale del conducente. Per prudenza operativa il conducente designato resta a zero alcol e zero sostanze.
+
 ### 8.4 Dotazioni obbligatorie
 
 Prima del varo, i **soci presenti all’uscita** verificano insieme le dotazioni di sicurezza richieste per il tipo di navigazione (diurna/notturna, distanza costa).
 
 Mancata verifica + sinistro o multa correlata alla mancanza di dotazioni → **colpa solidale dei soci presenti** a quell’uscita (art. 10), ripartita in parti uguali tra loro, salvo prova che uno solo ha impedito o ignorato il controllo.
 
+La verifica collettiva è solo un riparto interno e non trasferisce né riduce gli obblighi che la legge attribuisce al comandante/conducente.
+
 ### 8.5 Modifiche tecniche
 
 Vietate elaborazioni o modifiche che rendano illegale l’uso (es. potenza oltre soglia no-patente se il patto resta no-patente), salvo unanimità e adeguamento assicurativo/documentale.
+
+### 8.6 Pesca ricreativa
+
+Quando l'uscita include pesca in mare, ciascun pescatore deve avere censimento SIAN, iscrizione RecFishing se dovuta e autorizzazioni relative a specie o aree. Sono vietati vendita del pescato e superamento dei limiti; catture e rilasci soggetti a registrazione devono essere inseriti nel sistema previsto. Prima di entrare in aree marine protette si verifica la disciplina annuale.
 
 ---
 
@@ -557,6 +570,8 @@ Se c’è disaccordo su “scelta di gruppo vs scelta del solo conducente” →
 Chi riceve o viene a sapere di multa/notifica/fermo informa il gruppo sul canale ufficiale **entro 24 ore**.
 
 ---
+
+Qualunque riparto tra soci regola soltanto i rapporti economici interni: non cambia il soggetto responsabile verso autorità, terzi o assicuratore e non impedisce rivalse o conseguenze personali previste dalla legge.
 
 ## Art. 13 — Uscita di un socio (recesso) e formula di rimborso
 

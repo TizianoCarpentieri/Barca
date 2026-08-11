@@ -27,8 +27,8 @@ corrente; i dettagli e la storia restano nelle pagine collegate.
 |------|-----------------|
 | Bundle gommone + motore | **massimo 2.000 €**, preferibilmente usato |
 | Costi fissi gommone | **non hard-cap 30 €/testa/mese**; attesi RC + tagliando (pochi €/testa/mese se preventivi ok); carburante = variabile uscite |
-| Gommone | min 3,30 m; ideale 3,50–3,80; **no max duro** se auto/trasporto ok; paiolato Al o airdeck; chiglia gonfiabile preferita |
-| Motore | minimo 6 CV; sweet spot 9.9–15 CV; 4T, gambo corto; max 40,8 CV |
+| Gommone | **min 3,90 m**; nessun max duro se auto/trasporto ok; 3 comodi, 4+ preferibile, 6 bonus; paiolato Al o airdeck; chiglia gonfiabile preferita |
+| Motore | **9–40 CV**, purché senza patente; 4T preferito; gambo compatibile con lo scafo |
 | Patente | nessuno la possiede; target entro i limiti senza patente |
 | Split / uso | 1/N; uscite di **gruppo** come normale |
 | Benchmark | [[modelli/argo-evo-360]] nuovo a 970 €; usato equivalente senza motore almeno −20% |

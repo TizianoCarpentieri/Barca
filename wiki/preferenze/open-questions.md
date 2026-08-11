@@ -25,7 +25,7 @@ Solo decisioni ancora necessarie. Chiuse → [[log]] e pagine tematiche.
 - [ ] Documenti motore / adempimenti per la potenza scelta.
 - [ ] Dotazioni obbligatorie per la distanza di navigazione + costo kit.
 - [ ] Preventivo **RC** reale (gommone a motore = obbligo di legge).
-- [ ] Preventivo **tagliando** 9.9–15 CV 4T (obbligo di gruppo/manuale, non “bollo” di legge).
+- [ ] Preventivo **tagliando** sul motore 9–40 CV realmente scelto (obbligo di gruppo/manuale, non “bollo” di legge).
 - [ ] Fondo iniziale: giubbotti, ancora, kit forature, eventuali fanali.
 
 Dettaglio: [[concetti/costi-nascosti-gommone]] · [[preferenze/budget]].

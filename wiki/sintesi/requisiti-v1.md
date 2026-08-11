@@ -50,11 +50,11 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 ## Filtri shortlist — track gommoni (PRIMARIO)
 
 1. Pneumatico **non RIB**, smontabile / trasportabile auto
-2. Lunghezza ≥3,30 m (ideale 3,50–3,80)
+2. Lunghezza **≥3,90 m**, senza massimo rigido se trasportabile e gestibile
 3. ≥4 pax / portata ~≥400 kg
 4. Pavimento: paiolato **alluminio** (prio1) o airdeck (prio2)
 5. Bundle gommone+motore **≤2.000 €**
-6. Motore abbinato: **9.9–15 CV** 4T gambo corto (vedi track motori)
+6. Motore abbinato: **9–40 CV**, purché senza patente; 4T preferito e gambo compatibile (vedi track motori)
 7. Distanza da Lazio nello score
 
 ## Filtri shortlist — track rigidi (CONDIZIONALE, ≥5 soci)
@@ -76,7 +76,7 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 ## Rischi dichiarati
 
-- Nel bundle da 2.000 € i “6 pax comodi” sono rari → 6 = picco, non standard
+- Nel bundle da 2.000 € i “6 pax comodi” sono rari → 3 comodi è il requisito; 4+ preferibile; 6 = bonus, non vincolo
 - Usato cheap = alta probabilità lavori (riserva consigliata)  
 - Piano B: ormeggio Lazio può sforare la sostenibilità se non si sceglie con cura  
 

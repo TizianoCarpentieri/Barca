@@ -21,7 +21,7 @@ Le bestie (tu + Antonio + Peppe) cercano un **gommone pneumatico smontabile no-p
 | Budget acquisto | **≤2.000 €** bundle gommone+motore usato |
 | Costi fissi gommone | **Non hard-cap 30 €/testa/mese**; attesi soprattutto RC + tagliando (pochi €/testa/mese se i preventivi reggono) |
 | Uso | Preferenza **uscite di gruppo**; split 1/N |
-| Motore | ≥6 CV, sweet 9.9–15, max 40,8, 4T gambo corto |
+| Motore | **9–40 CV**, purché senza patente; 4T preferito; gambo compatibile con lo scafo |
 | Reference | [[modelli/argo-evo-360]] a 970 € nuovo (benchmark scafo) |
 
 UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · Accessori).

@@ -394,7 +394,6 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   cancellare memoria, summary o cronologia delle chat.
 - Il giorno del contatore segue `Europe/Rome`; Worker e UI espongono
   esplicitamente lo stato illimitato invece di rappresentarlo con un numero.
-
 ## [2026-08-11] deploy | Quote Sbarco 2.2.1 online
 
 - Commit pubblicato `cf1607a`; il commit separato sul patto è rimasto locale.
@@ -422,3 +421,19 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Verifica completa: Worker 17/17, UI/PDF 10/10, build Vite e lint wiki verdi.
 - Smoke non invasivo: Antonio e Peppe restano entrambi a `0/5`; Tiziano resta
   illimitato. Nessun utilizzo del gruppo è stato consumato per il controllo.
+
+## [2026-08-11] preferenze | Gommone minimo 3,90 m; 6 posti non rigidi
+
+- Il track gommone parte da 3,90 m, senza fascia ideale rigida né massimo duro se resta trasportabile.
+- Requisito persone: tre comodi; 4+ preferibile; sei solo bonus.
+
+## [2026-08-11] ricerca | Audit profondo costi e conformità
+
+- Ricostruito `contratto/prospetto-costi-a-norma.md` distinguendo obblighi, condizioni, patto e stime.
+- Verificati su fonti ufficiali: patente/cilindrate, portata, documenti, dotazioni D.M. 133/2024, RC e massimali 2026, alcol/sostanze, pesca RecFishing 2026, ordinanze locali, trasporto e garanzia.
+- Allineata la bozza patto v1.8 sui punti normativi direttamente operativi.
+
+## [2026-08-11] preferenze | Motore 9–40 CV senza patente
+
+- Sostituita la vecchia fascia 6–15 CV: target 9–40 CV, purché entro 30 kW/40,8 CV, cilindrata ammessa e potenza massima dello scafo.
+- 4T resta preferito; gambo da scegliere sullo specchio di poppa reale.

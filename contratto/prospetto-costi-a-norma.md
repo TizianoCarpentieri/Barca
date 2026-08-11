@@ -1,363 +1,311 @@
-# Prospetto costi a norma
+# Prospetto costi e adempimenti a norma
 
-Documento vivo del cantiere contratto: leggi + costi **iniziali e fissi obbligatori** per usare il bene in regola.  
-Non sostituisce il patto (`bozza-patto-v1.md`); lo alimenta (art. costi, RC, documenti).  
-Regole di aggiornamento per l’agente: solo in `agentContratto.md` §2.1.
+Fonte di verità operativa del progetto per obblighi di legge, documenti e costi necessari a usare il bene in regola. Alimenta il patto `bozza-patto-v1.md`, ma non sostituisce norme, ordinanze locali, condizioni di polizza o manuali del costruttore.
 
-**Aggiornato:** 2026-08-11  
-**Profilo:** piano A — gommone pneumatico (min **3,30 m**, ideale **3,50–3,80 m**; oltre ~4 m non escluso se resta trasportabile in auto e no-RIB) + fuoribordo **≥6 CV** sweet **9,9–15** (max 40,8), uso privato Lazio, 3 soci. Fonte criteri: `wiki/preferenze/track-gommoni.md`.
+**Audit normativo:** 11 agosto 2026
 
----
+**Profilo verificato:** uso privato nel Lazio; natante pneumatico non RIB da **3,90 m in su**, purché trasportabile e gestibile; fuoribordo preferibilmente 4T da **9–40 CV**, purché utilizzabile senza patente; tre soci; navigazione costiera entro 6 miglia; pesca ricreativa; trasporto prevalentemente sgonfio in auto.
+**Riesame obbligatorio:** prima dell'acquisto, prima di ogni stagione balneare, al rinnovo RC e quando cambiano Codice della nautica, regolamento di attuazione o ordinanze locali.
 
-## 0. Indice sezioni
+## 0. Come leggere il documento
 
-| # | Sezione | Stato |
-|---|---------|--------|
-| 1 | Assicurazione RC natanti | **attiva** |
-| 1b | Alcol in conduzione | **attiva** |
-| 2 | Dotazioni di sicurezza obbligatorie (+ luci) | **attiva (bozza da fonti 2024–2026)** |
-| 3 | Documenti scafo / motore / navigazione | *da fare* |
-| 4 | Tasse / immatricolazione / passaggi | *da fare* |
-| 5 | Rimorchio e trasporto su strada | *da fare* |
-| 6 | Manutenzione / tagliando fuoribordo | **attiva** |
-| 7 | Riepilogo TCO conformità | **attiva** |
+| Etichetta | Significato |
+|---|---|
+| **OBBLIGO** | Norma o provvedimento vigente applicabile al profilo |
+| **CONDIZIONALE** | Obbligo che scatta solo in una certa situazione |
+| **PATTO** | Regola interna scelta dal gruppo, non obbligo generale di legge |
+| **RACCOMANDATO** | Misura prudenziale o utile, non presentata come legge |
+| **STIMA** | Valore commerciale non normativo; va sostituito da preventivo o prezzo reale |
 
----
+Prevalgono sempre, nell'ordine pertinente: legge vigente; ordinanze della Capitaneria e del Comune del luogo di varo; targhetta, manuale e certificati del mezzo; condizioni di polizza.
 
-## 1. Assicurazione RC natanti
+## 1. I cinque cancelli prima dell'acquisto
 
-### 1.1 Leggi (obbligo)
+Un candidato entra nella shortlist finale solo se supera tutti questi controlli documentali.
 
-| Norma | Contenuto rilevante |
-|-------|---------------------|
-| **Art. 41 D.Lgs. 18/07/2005 n. 171** (Codice nautica) | *Assicurazione obbligatoria*: applica il CAP alle unità da diporto **escluse** remi e vela senza motore; **motori amovibili di qualsiasi potenza**. |
-| **Art. 123 D.Lgs. 07/09/2005 n. 209** (Codice assicurazioni) | Unità a motore: **no navigazione** in acque pubbliche senza RC verso terzi (testo: almeno **danni alla persona**); obbligo esteso ai **fuoribordo**. |
-| **Art. 40 D.Lgs. 171/2005** | Responsabilità civile → art. 2054 c.c. |
-| **Art. 2054 c.c.** | Circolazione di veicoli (richiamo). |
+1. **Portata persone.** Si legge da targhetta/manuale o certificati; serve a non superare il limite reale, senza trasformare i 6 posti — che sono solo un bonus — in un filtro rigido.
+2. **Potenza massima applicabile.** Il fuoribordo non deve superare il limite dichiarato dal costruttore/omologazione dello scafo.
+3. **Conduzione senza patente.** Devono risultare compatibili **sia** potenza sia cilindrata/tipo motore; la sola dicitura “40 CV” non basta.
+4. **Documenti originali o duplicati validi.** Dichiarazione di potenza del motore, documenti CE/omologazione dello scafo e prova scritta dell'acquisto devono essere disponibili prima di pagare il saldo.
+5. **Accesso legale al mare.** Occorre individuare uno scivolo/corridoio autorizzato e verificare l'ordinanza annuale applicabile; “si può portare in spiaggia” non equivale a “si può varare”.
 
-Estratti: `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md` · scheda wiki: `wiki/normativa/rc-obbligatoria-natanti.md`.
+### 1.1 Portata: controllo pratico, non vincolo a 6 posti
 
-**Per noi:** gommone + motore ≥6 CV → **RC obbligatoria prima di navigare** (e spesso anche per regolamento porto). Indipendente da no-patente / 40,8 CV.
+Per un natante non marcato CE, prototipo o non omologato, l'art. 60 del D.M. 133/2024 stabilisce:
 
-**Patto:** `bozza-patto-v1.md` §3.2 allinea il gruppo alla legge.
+| Lunghezza fuori tutto | Persone trasportabili |
+|---:|---:|
+| fino a 3,50 m | 3 |
+| oltre 3,50 e fino a 4,50 m | 4 |
+| oltre 4,50 e fino a 6,00 m | 5 |
+| oltre 6,00 e fino a 7,50 m | 6 |
 
-### 1.2 Cosa copre (e cosa no)
+**Conseguenza per noi:** cerchiamo da **3,90 m in su** e vogliamo soprattutto stare comodi in tre. Quattro o più persone sono un vantaggio; sei restano un bonus. In ogni caso non si supera la portata indicata nei documenti del singolo gommone.
 
-| Copre (RC tipica di mercato) | Non copre (serve altro) |
-|------------------------------|-------------------------|
-| Danni a **terzi** (persone/cose) in navigazione | Danni al **proprio** gommone/motore |
-| Spesso anche ormeggio / giacenza in acqua | **Furto** scafo o motore |
-| Estensione al natante su cui è montato il fuoribordo | **Infortuni** di chi è a bordo |
-| | Noleggio / uso commerciale |
-| | Trasporto su **strada** (→ RC auto / rimorchio) |
+## 2. Patente nautica, età e distanza
 
-### 1.3 Confronto costi — snapshot mercato 2026-08-11
+### 2.1 Quando non serve la patente
 
-> **Attenzione:** range da siti marketing/broker, **non** preventivi firmati sul nostro motore. Prima dell’acquisto: **≥3 preventivi reali**.
+Entro 6 miglia dalla costa, per il profilo del progetto, il conducente può operare senza patente solo se il motore non supera **30 kW / 40,8 CV** e resta entro la cilindrata della propria categoria:
 
-#### Solo RC (obbligo)
+| Tipo motore | Cilindrata massima senza patente |
+|---|---:|
+| 2T carburazione | 750 cm³ |
+| 2T iniezione diretta | 900 cm³ |
+| 4T fuoribordo, carburazione o iniezione | 1.000 cm³ |
+| 4T entrobordo, carburazione o iniezione | 1.300 cm³ |
+| Diesel aspirato | 2.000 cm³ |
+| Diesel sovralimentato | 1.300 cm³ |
 
-| Scenario | €/anno | Fonte (tipo) |
-|----------|--------|--------------|
-| Gommone piccolo ≤3,5 m, motore &lt;10 CV | **60–100** | assicurazione-barca.it (broker, apr 2026) |
-| Gommone medio 3,5–5,5 m, motore 10–40 CV | **100–200** | idem |
-| Fuoribordo generico, sola RC | **60–200** | MioAssicuratore |
-| Gommone ~40 CV, “da circa” | **~100** | Generali magazine |
-| Motore fino 100 CV, “da” | **~140** | assicurazione-barca.it product |
-| **Stima gruppo (wiki budget)** | **100–150** | `wiki/preferenze/budget.md` / audio |
+- **OBBLIGO:** oltre 6 miglia dalla costa serve la patente nautica, a prescindere dalla potenza.
+- **OBBLIGO:** per condurre un natante a motore senza patente occorrono almeno 16 anni.
+- **OBBLIGO:** restano da rispettare la potenza massima applicabile allo scafo e ogni limite riportato nei documenti del mezzo.
 
-**Fascia di lavoro piano A (fuoribordo 9,9–15 CV su gommone track): ~80–150 €/anno** (punto medio utile per TCO: **120 €**).
+Per il target **9–40 CV** vanno verificati sulla dichiarazione di potenza sia i 30 kW/40,8 CV sia la cilindrata; va inoltre rispettata la potenza massima ammessa dallo scafo.
 
-#### RC + opzionali
+## 3. Stato giuridico del mezzo e documenti a bordo
 
-| Pacchetto | €/anno tipici | Quando ha senso |
-|-----------|---------------|-----------------|
-| RC + furto motore | ~150–350 | Motore costoso e/o a rischio furto a terra |
-| RC + corpi + furto (gommone medio ~15k valore) | ~300–600 | Valore scafo+motore alto |
-| RC + corpi + furto fino 100 CV | ~350–700 | Come sopra |
-| “Media imbarcazione” 2–3k €/anno | — | **Ignorare** per piano A (claim su scafi grandi) |
+Un'unità da diporto a remi o a motore fino a 10 m è normalmente un **natante**: non è iscritta nell'Archivio telematico centrale delle unità da diporto e non ha licenza di navigazione né certificato di sicurezza. L'iscrizione volontaria è possibile, ma da quel momento l'unità segue il regime delle imbarcazioni.
 
-#### Impatto sul budget gruppo (3 soci)
+### 3.1 Dossier da acquisire all'acquisto
 
-| Voce | Totale/anno | €/testa/anno | €/testa/mese |
-|------|-------------|--------------|--------------|
-| RC sola @ 100 € | 100 | 33 | **~2,8** |
-| RC sola @ 150 € | 150 | 50 | **~4,2** |
-| RC + furto @ 250 € | 250 | 83 | **~7** |
+| Documento/dato | Stato | Nota operativa |
+|---|---|---|
+| Scrittura/quietanza di vendita con parti, prezzo, scafo, motore e matricole | **RACCOMANDATO essenziale** | Fra privati non c'è il “passaggio di proprietà” amministrativo del natante non iscritto, ma serve prova chiara della provenienza e dell'accordo |
+| Dichiarazione di potenza del fuoribordo o documento equipollente | **OBBLIGO** | Deve accompagnare il motore in navigazione |
+| Manuale del proprietario e dichiarazione CE di conformità dello scafo, se CE | **OBBLIGO documentale applicabile** | Servono anche a verificare portata e motorizzazione massima |
+| Certificato di omologazione + dichiarazione di conformità, se unità di serie non CE | **OBBLIGO applicabile** | A bordo se si usa la portata certificata diversa dai limiti prudenziali dell'art. 60 |
+| Matricole leggibili e foto della targhetta | **RACCOMANDATO** | Da confrontare con vendita, polizza e documenti |
+| Manuale motore e storico manutenzione | **RACCOMANDATO** | Determina intervalli e controlli corretti |
 
-Compatibile con cap **≤30 €/testa/mese** se gli altri fissi restano bassi.
+### 3.2 Documenti da avere durante la navigazione
 
-Estratto grezzo fonti: `raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md`.
+- dichiarazione di potenza del motore o documento equipollente;
+- certificato RC in corso di validità, anche in formato digitale quando esibibile;
+- documentazione CE/omologazione necessaria a dimostrare portata e limiti dichiarati;
+- documento personale del conducente;
+- **CONDIZIONALE:** patente nautica se si supera uno dei limiti dell'art. 39;
+- **CONDIZIONALE VHF:** licenza di esercizio dell'apparato e certificato di operatore radiotelefonista.
 
-### 1.4 Massimali (da verificare in polizza)
+Il VHF è obbligatorio oltre 6 miglia; entro 6 miglia non lo è, ma se viene installato o portato a bordo restano necessari i titoli radio. Per apparati fino a 50 W senza DSC attivato il certificato limitato RTF può essere ottenuto senza esame secondo la procedura MIMIT.
 
-Claim secondari 2026 (non unificare senza DIP):
+## 4. Assicurazione RC
 
-- 24hassistance: minimi legge citati **6,45 M€ persone** + **1,3 M€ cose**
-- Allianz Direct: fino a **6,1 M€** sul prodotto
-- Altri siti: 2,5 M€ / 5 M€ a seconda natante vs imbarcazione
+### 4.1 Obbligo e contenuto minimo
 
-**Azione:** in ogni preventivo annotare massimali persone/cose e data validità.
+- **OBBLIGO:** la RC è necessaria per il motore amovibile di qualsiasi potenza prima della navigazione; l'obbligo non dipende dalla patente.
+- Il certificato identifica, per il natante non immatricolato, marca e numero del motore; va conservato ed esibito ai controlli. Il contrassegno cartaceo non deve essere esposto.
+- I massimali minimi vigenti dal 14 gennaio 2026 sono **6.450.000 euro per danni alle persone** e **1.300.000 euro per danni alle cose** per sinistro. Un'offerta inferiore non è un confronto valido con la copertura obbligatoria vigente.
+- Il responsabile della conduzione non è coperto dalla RC obbligatoria per le proprie lesioni: l'infortuni conducente/equipaggio è una garanzia separata.
+- Navigare senza assicurazione espone alla sanzione dell'art. 193 Codice della strada, oggi **866–3.464 euro**, oltre alle conseguenze cautelari applicabili al mezzo.
 
-### 1.5 Documenti che servono
+### 4.2 Coperture da non confondere
 
-#### Per preventivo / stipula (tipici)
+| Copertura | Obbligo | Che cosa verificare |
+|---|---|---|
+| RC motore/natante | **OBBLIGO** | massimali, conducenti ammessi, zona, esclusioni, giacenza/ormeggio |
+| Furto motore | Facoltativa | valore assicurato, custodia, franchigia, mezzi antifurto |
+| Corpi | Facoltativa | danni propri, vetustà, scoperti |
+| Infortuni conducente/equipaggio | Facoltativa, consigliata | persone assicurate, invalidità e spese mediche |
+| Rimorchio/trasporto stradale | Separata | non è sostituita dalla RC nautica |
 
-| Documento / dato | Note |
-|------------------|------|
-| Anagrafica + CF **contraente** | = intestatario patto (bozza art. 3) |
-| Motore: marca, modello, anno, **matricola**, CV/kW | La RC fuoribordo “segue” il motore |
-| Scafo: marca, modello, lunghezza | Spesso richiesto anche se polizza sul motore |
-| Zona navigazione | Costiera Lazio / Mediterraneo / laghi |
-| Uso | **Privato diporto** — non noleggio |
-| Valore scafo/motore | Solo se corpi/furto |
-| Fattura acquisto | Utile per furto e valori |
+### 4.3 Costo: stato corretto
 
-#### Da tenere a bordo
+Il premio RC **non è fissato dalla legge** e dipende da motore, profilo, garanzie e compagnia. I range promozionali trovati online non diventano una voce certa del prospetto.
 
-- Certificato di assicurazione / quietanza (anche digitale se accettato)
-- Documenti motore/scafo previsti dalla navigazione (sezione 3)
+| Voce | Natura | Valore corrente |
+|---|---|---:|
+| RC obbligatoria | costo fisso annuale | **TBD: almeno 3 preventivi omogenei** |
+| Accantonamento provvisorio di budget | **STIMA**, non preventivo | 120 €/anno |
+| Furto/corpi/infortuni | opzionale | TBD dopo valore e custodia reali |
 
-### 1.6 Dove farla (canali)
+### 4.4 Tabella preventivi reali
 
-| Canale | Esempi | Come procedere |
-|--------|--------|----------------|
-| **Online compagnia** | Allianz Direct natanti; Generali preventivatore natanti | Preventivo rapido; scaricare DIP |
-| **Agenzia** | Groupama Ondamica, Unipol Navigare, Sara SaraSea, Generali | Ideale per nominare **3 utilizzatori** e uso condiviso |
-| **Broker / comparatore** | MioAssicuratore, assicurazione-barca.it, Skippermate | Multi-compagnia; verificare RUI |
-| **Dealer / cantiere Lazio** | All’acquisto del motore | Comodo; confrontare 1–2 alternative |
+| Data | Compagnia/intermediario | Motore e matricola | Premio | Massimali persone/cose | Conducenti | Navigazione/giacenza | Franchigie/esclusioni | DIP/PDF |
+|---|---|---|---:|---|---|---|---|---|
+| | | | | | | | | |
+| | | | | | | | | |
+| | | | | | | | | |
 
-**Zona Ardea/Pomezia:** almeno 1 preventivo agenzia locale + 1–2 online.
+## 5. Dotazioni di sicurezza entro 6 miglia
 
-### 1.7 Alternative e pacchetti (scelta gruppo)
+Riferimento: art. 54 e Allegato V del D.M. 17 settembre 2024, n. 133. La quantità dei mezzi individuali dipende dalle **persone effettivamente a bordo**, non soltanto dai soci.
 
-| Opzione | Obbligo | Raccomandazione piano A |
-|---------|---------|-------------------------|
-| **A — Solo RC** | Sì | **Default** finché bundle scafo+motore ≤2.000 € |
-| **B — RC + furto motore** | No | Valutare se motore ≥~800–1.000 € e custodia a rischio |
-| **C — RC + corpi + furto** | No | Solo se valore totale alto o rimessaggio esposto |
-| **D — + infortuni equipaggio** | No | Nice-to-have (3 principianti) |
-| **E — Polizza commerciale** | Se noleggio | **No** per uso bestie |
-| Estensione multi-conducente | — | **Sì chiedere**: Tiziano + Antonio + Peppe |
+| Dotazione | Profilo entro 6 miglia | Precisazione verificata |
+|---|---|---|
+| Cintura di salvataggio | una per persona, categoria almeno 100 | taglia idonea; controllare integrità e marcatura |
+| Salvagente anulare con cima | 1 | obbligatorio |
+| Boetta luminosa | 1 | obbligatoria |
+| Boette fumogene | 2 | controllare scadenza stampata |
+| Fuochi a mano a luce rossa | 2 | soltanto questi possono essere sostituiti dal dispositivo LED conforme SOLAS/MED previsto dal decreto |
+| Razzi a paracadute a luce rossa | 2 | controllare scadenza stampata |
+| Fanali regolamentari COLREG | sì | l'Allegato V vigente non prevede più la torcia bianca come sostituto generale dei fanali per la navigazione diurna |
+| Mezzo di segnalazione sonora | sì | per unità sotto 12 m è sufficiente un mezzo capace di produrre un segnale efficace; campana/fischio omologato hanno regole dimensionali specifiche |
+| Pompa o altro attrezzo di esaurimento | sì | non è limitato ai soli natanti non CE |
+| Estintore | secondo manuale/impianto; per natante non CE secondo tabella | piano A non CE: almeno 13B fino a 18,4 kW; 21B oltre 18,4 e fino a 147 kW |
+| Pallone nero di fonda | non per il tipico piano A sotto 7 m | l'obbligo dell'Allegato V scatta oltre 7 m |
 
-Non esiste alternativa legale “navigare senza RC” per unità a motore.
+Gli estintori delle unità da diporto non sono soggetti a una revisione periodica nautica autonoma, ma devono essere in buono stato, con indicatore in zona verde se presente e protetti dall'umidità.
 
-### 1.8 Checklist operativa (prima uscita)
+### 5.1 Prezzi osservati, non prezzi di legge
 
-1. [ ] Decidere **intestatario** polizza (= fiduciario patto)
-2. [ ] ≥3 preventivi (2 online + 1 agenzia) con stessi dati motore
-3. [ ] Confrontare: premio, massimali, franchigie, utilizzatori, zona, esclusioni
-4. [ ] Stipulare **prima** della prima messa in acqua
-5. [ ] Copia digitale a tutti i soci + originale dove decide il patto
-6. [ ] Annotare premio reale in §1.9
+Snapshot web dell'11 agosto 2026:
 
-### 1.9 Tabella preventivi reali (da compilare)
+- kit entro 6 miglia per 4 persone: **226,46 €**;
+- stesso kit per 6 persone: **251,25 €**;
+- fanale autonomo rosso/verde: **23,60 €**;
+- fanale bianco 360° autonomo conforme COLREG: **31,64 €**.
 
-| Data | Compagnia/canale | Motore (CV, marca) | Pacchetto | Premio €/anno | Massimali | Utilizzatori | Note | Link/PDF |
-|------|------------------|--------------------|-----------|---------------|-----------|--------------|------|----------|
-| | | | RC | | | | | |
-| | | | RC | | | | | |
-| | | | RC | | | | | |
+Il kit osservato include giubbotti, anulare+cima, segnali, boetta luminosa, mezzo sonoro, estintore e sassola, ma **non** fanali, borsa e adattamenti di montaggio. Budget prudenziale iniziale:
 
-### 1.10 Open points RC
+| Configurazione | Minimo osservato prodotti | **STIMA completa** |
+|---|---:|---:|
+| 4 persone | circa 282 € prima di borsa/montaggi | **300–350 €** |
+| 6 persone, solo se portata ammessa | circa 307 € prima di borsa/montaggi | **325–375 €** |
 
-- [ ] Preventivi reali su motore target (9.9 / 15 CV)
-- [ ] Conferma multi-utilizzatore senza sovrappremio pesante
-- [ ] Massimali minimi di legge aggiornati (testo decreto, non blog)
-- [ ] Range sanzioni ufficiale (fonti divergono: ~0,7–3k vs ~2,6–13k €)
-- [ ] Clausola rimessaggio a terra / garage vs solo navigazione
+Prima dell'acquisto del kit va rifatta la distinta sul mezzo specifico e sul numero massimo di persone che si prevede davvero di portare.
 
----
+## 6. Condotta: alcol, sostanze, responsabilità
 
-## 1b. Alcol in conduzione
+- **OBBLIGO:** è vietato condurre in stato di ebbrezza; la soglia generale è superiore a 0,5 g/l.
+- Fasce sanzionatorie di base del Codice della nautica: 2.755–11.017 € oltre 0,5 e fino a 0,8; 3.500–12.500 € oltre 0,8 e fino a 1,5; 5.000–15.000 € oltre 1,5. Sinistro e altre circostanze producono aggravamenti.
+- **OBBLIGO:** è vietata la conduzione in stato di alterazione psico-fisica dopo uso di sostanze stupefacenti; sanzione base 2.755–11.017 €.
+- Dal 2026, quando tali illeciti sono commessi su un natante, l'autorità ritira la dichiarazione di potenza o documento equivalente per **15–60 giorni**; navigare durante il ritiro comporta il sequestro del natante.
+- **PATTO/RACCOMANDAZIONE:** conducente a zero alcol e zero sostanze. La soglia legale non è un obiettivo di consumo sicuro.
 
-### Legge
+La ripartizione economica interna prevista dal patto non modifica la responsabilità personale davanti ad autorità, terzi o assicuratore.
 
-| Norma | Contenuto |
-|-------|-----------|
-| **Art. 53-bis D.Lgs. 171/2005** | Vietato condurre in stato di ebbrezza da alcol. Ebbrezza se tasso **> 0,5 g/l**. |
+## 7. Pesca ricreativa in mare
 
-Estratto: `raw/normativa/alcol-e-dotazioni-2026-08-11.md`.
+Per le battute di pesca del gruppo si applicano anche obblighi estranei alla semplice navigazione.
 
-### Sanzioni (range di legge — importi da verificare su verbale/testo aggiornato)
+- La comunicazione/censimento MASAF tramite SIAN resta il presupposto generale per la pesca sportiva e ricreativa in mare.
+- Dal **7 maggio 2026**, chi ha più di 16 anni e pesca da unità da diporto o in immersione deve iscriversi al registro **RecFishing**.
+- Per tonno rosso, pesce spada, lampuga e alalunga vanno registrate catture e rilasci secondo il nuovo sistema; restano gli ulteriori regimi autorizzativi delle singole specie.
+- Il pescato ricreativo non può essere venduto. Vale il limite generale di 5 kg complessivi al giorno per pescatore, salvo un singolo pesce di peso superiore.
+- Le sanzioni 2026 sono rilevanti: le violazioni delle regole di pesca ricreativa partono da 1.000–3.000 €, la vendita da 4.000–12.000 €, con fasce ulteriori per il superamento del limite di pescato e confisca.
+- **Area Marina Protetta Secche di Tor Paterno:** non pescare, ancorare o accedere confidando in regole generiche; prima di ogni uscita consultare disciplina annuale, zonazione e autorizzazioni dell'ente gestore RomaNatura.
 
-| Tasso | Pecuniaria | Accessorie tipiche |
-|-------|------------|-------------------|
-| 0,5–0,8 g/l | 2.755–11.017 € | sosp. patente 3–6 mesi (se c’è) |
-| 0,8–1,5 | 3.500–12.500 € | sosp. 6 mesi–1 anno |
-| >1,5 | 5.000–15.000 € | sosp. 1–2 anni; revoca se reiterazione |
-| + sinistro | sanzioni ×2 | possibile sequestro unità |
-| notte 22–07 | +1/3 … +1/2 | |
+**Checklist pesca per ciascun partecipante:** censimento SIAN valido; iscrizione RecFishing se dovuta; autorizzazione specie/area; strumenti e quantità consentiti; registrazione delle specie soggette.
 
-Rifiuto al test ≈ fascia >1,5 g/l.
+## 8. Varo, spiagge e ordinanze locali
 
-### Per il gruppo
+Le ordinanze balneari cambiano ogni anno e possono essere più restrittive. Non esiste un'autorizzazione generale a varare da qualunque spiaggia.
 
-- Bere a bordo ok per **passeggeri**.
-- Il **conducente** resta ≤0,5 g/l (meglio zero se incerto).
-- Danni/multe da ebbrezza → **chi ha condotto** (patto art. 8.3 / 10).
-- Costo obbligatorio di legge: **0 €** (è un divieto, non un bollo). Costo potenziale: multe migliaia di €.
+Per Ardea/Pomezia e l'area della Capitaneria di Roma è stato verificato, sul quadro 2025 espressamente richiamato anche nel 2026:
 
----
+- zona riservata alla balneazione: in generale 200 m dalle spiagge e 100 m dalle coste a picco;
+- entrata/uscita di unità a motore o a vela soltanto attraverso corridoi autorizzati, con rotta diretta/perpendicolare e velocità massima 3 nodi; vietato sostare o ormeggiare nel corridoio;
+- in assenza di corridoio, unità a motore o a vela non possono navigare né ancorare entro 250 m dalla battigia;
+- pesca vietata nella zona di balneazione durante l'orario previsto o quando sono presenti bagnanti;
+- mantenere almeno 100 m dal segnale di un subacqueo.
 
-## 2. Dotazioni di sicurezza obbligatorie
+Sono state reperite le ordinanze/pagine 2026 di Ardea, Pomezia, Fiumicino, Nettuno e San Felice Circeo e il servizio comunale 2026 per il porto di Anzio. Prima di scegliere una base occorre registrare nel patto: punto di varo autorizzato, parcheggio, orari, eventuale titolo/costo e ordinanze Capitaneria+Comune applicabili.
 
-### Quadro normativo
+## 9. Trasporto su strada
 
-| Fonte | Ruolo |
-|-------|--------|
-| Regolamento attuazione Codice nautica — **D.M. 17/09/2024** (in vigore 21/10/2024; parti al 21/10/2025) | Tabelle mezzi/dotazioni per distanza costa |
-| Allegato V (art. 54 reg.) | Elenco ufficiale (PDF su Assonautica) |
-| Art. 53 D.Lgs. 171/2005 | Sanzioni sicurezza navigazione / altre violazioni |
+### 9.1 Gommone sgonfio in auto
 
-Profilo d’uso atteso: **natante**, no-patente, **entro 6 miglia**, spesso **diurno**; possibile rientro/alba → prevedere **luci**.
+Il carico deve essere sistemato in modo da non cadere, disperdersi, limitare la visuale o compromettere stabilità e dispositivi del veicolo. Non può sporgere anteriormente; posteriormente, se indivisibile, può sporgere entro tre decimi della lunghezza del veicolo e deve essere segnalato con il pannello previsto. La sporgenza laterale è ammessa entro i limiti dell'art. 164 Codice della strada.
 
-### Entro 6 miglia — checklist operativa (sintesi guide 2025–2026)
+### 9.2 Se in futuro si adotta un carrello
 
-| Voce | Obbligo tipico | Costo stima una tantum € | Note |
-|------|----------------|--------------------------|------|
-| Giubbotto **100 N** × persona | Sì | 25–60 / cad | Per 4 pax ≈ 100–240 |
-| Salvagente anulare + cima | Sì | 30–70 | |
-| Boetta luminosa (per anulare) | Sì (fascia 6 mg) | 15–40 | |
-| Kit segnali (2 fumogene + 2 fuochi + 2 razzi) | Sì entro 6 mg | 40–90 | Fuochi anche LED se Solas-compatibili (guide post-2024) |
-| Segnale sonoro (fischietto/tromba) | Sì | 5–25 | |
-| Estintore nautico | Sì (natante: di regola 1) | 25–50 | Capacità legata a CV (es. ≤25 hp → 13B; 25–200 → 21B) |
-| Pompa / esaurimento | Spesso se non CE | 15–40 | Verificare su unità CE |
-| **Luci — solo giorno** | Torcia bianca + batterie rispetto | 15–40 | Fino a 12 mg se solo diurna (guide) |
-| **Luci — notte / alba** | Fanali Colreg | 50–150+ | Motore &lt;12 m: bianco 360° + laterali (semplificazioni se &lt;7 m e ≤7 kn) |
-| Pallone nero fonda | Solo se &gt;7 m | — | Fuori profilo piccolo gommone tipico |
+- verificare masse su carta di circolazione e patente B/B96/BE prima dell'acquisto;
+- verificare copertura durante il traino e rischio statico del rimorchio: non coincide automaticamente con la RC nautica;
+- revisione del rimorchio secondo il regime dei veicoli: prima dopo quattro anni, poi ogni due;
+- aggiungere al TCO carrello, gancio, pratiche, revisione, manutenzione e ricovero.
 
-**Kit base 4 pax entro 6 miglia (diurno):** ordine **~200–400 €** una tantum.  
-**+ kit luci notturne:** +**50–150 €** (o più se batteria dedicata).
+**Piano A attuale:** nessun carrello, quindi tali costi sono **0 € finché l'assetto non cambia**.
 
-### Sanzioni (ordine di grandezza)
+## 10. Tasse, registrazione e garanzia
 
-| Ipotesi | Range art. 53 | Nota |
-|---------|---------------|------|
-| Violazione regole sicurezza navigazione / demanio | 276–1.377 € (natante: **metà**) | c.4 |
-| Altre violazioni codice/regolamento | 65–665 € | c.7 |
+| Voce | Profilo piano A | Costo obbligatorio |
+|---|---|---:|
+| Iscrizione ATCN/licenza/certificato sicurezza | non richiesti per natante non iscritto | 0 € |
+| Tassa annuale sulle unità da diporto | abolita dal 2016 | 0 € |
+| “Passaggio di proprietà” amministrativo | non previsto per natante non iscritto | 0 €; resta prudente la vendita scritta |
+| Garanzia legale, acquisto da professionista | 2 anni sul nuovo; sull'usato può essere concordata una durata non inferiore a 1 anno | inclusa nel rapporto di vendita |
+| Garanzia del consumatore tra privati | non applicabile | valgono i rimedi civilistici e quanto scritto nell'accordo |
 
-### Open
+L'iscrizione volontaria del natante cambierebbe documenti, adempimenti e costi: va decisa all'unanimità e ricalcolata prima di procedere.
 
-- [ ] Confermire su testo Allegato V PDF ufficiale per natante CE smontabile
-- [ ] Preventivo kit reale 4 e 6 pax
-- [ ] Scelta: solo diurno vs preparare notturno (pesca alba)
+## 11. Manutenzione: necessaria, ma non una tassa
 
----
+Il Codice della nautica non impone al piccolo fuoribordo una revisione periodica analoga a quella automobilistica. Manutenzione e tagliando restano però necessari per sicurezza, affidabilità, manuale, eventuale garanzia e art. 11.4 del patto.
 
-## 3. Documenti scafo / motore / navigazione
+- prevalgono sempre gli intervalli del manuale del modello acquistato;
+- come sola pianificazione, un piccolo 4T può richiedere controllo/tagliando annuale o a ore, con olio motore e piede, filtri, candele, girante, anodi e ingrassaggi secondo necessità;
+- dopo uso in mare: risciacquo con acqua dolce e controlli post-uscita.
 
-*Da approfondire.* Voci attese: dichiarazione conformità / CE motore e scafo, prova acquisto, polizza RC a bordo, eventuali pratiche usato.
+| Voce | Natura | **STIMA** |
+|---|---|---:|
+| materiali manutenzione ordinaria fai-da-te | PATTO/tecnica, non tassa | 40–140 €/anno |
+| officina piccolo fuoribordo | PATTO/tecnica, non tassa | 80–280 €/intervento |
+| valore di budget provvisorio | STIMA | 120 €/anno |
 
-| Voce | Quando serve | Costo iniziale | Costo fisso | Fonte |
-|------|--------------|----------------|-------------|-------|
-| Polizza RC | sempre in navigazione | — | §1 | |
-| Conformità motore | controlli | spesso inclusa in acquisto | — | |
-| Passaggio proprietà usato | se dovuto | TBD | — | |
+Il valore va sostituito da preventivo locale su marca/modello reale. Non dichiarare automaticamente “garanzia 2 anni”: dipende da venditore professionale o privato e dalle condizioni applicabili.
 
----
+## 12. Riepilogo economico affidabile
 
-## 4. Tasse / immatricolazione / bollo
+### 12.1 Iniziale obbligatorio o necessario alla conformità
 
-*Da fare.* Per natante piccolo no-patente spesso **nessun bollo** tipo auto; verificare caso per caso.
+| Voce | Valore verificato/da acquisire | Stato |
+|---|---:|---|
+| Dotazioni entro 6 miglia, 4 persone | **300–350 €** | STIMA da prezzi prodotto osservati |
+| Dotazioni entro 6 miglia, 6 persone | **325–375 €** | STIMA; solo se portata 6 documentata |
+| Documenti natante/motore presenti | inclusi nell'acquisto | **cancello: non comprare se mancanti senza costo/iter certo** |
+| Iscrizione/passaggio/tassa natante piano A | **0 €** | quadro legale attuale |
+| Carrello piano A | **0 €** | non previsto |
 
----
+### 12.2 Ricorrente
 
-## 5. Rimorchio e trasporto su strada
+| Voce | Legge o patto | Totale annuo | €/testa/mese, 3 soci |
+|---|---|---:|---:|
+| RC | **OBBLIGO** | **TBD da preventivi** | TBD |
+| Accantonamento RC usato solo per scenario | STIMA | 120 € | 3,33 € |
+| Manutenzione programmata | PATTO/tecnica | 120 € scenario | 3,33 € |
+| Sostituzione segnali scaduti/batterie | mantenimento conformità | TBD secondo scadenze | TBD |
+| Porto/rimessaggio/carrello | non previsti piano A | 0 € | 0 € |
 
-*Da fare se si usa carrello.* RC nautica **≠** copertura traino. Trasporto in auto del gommone sgonfio: regole carico/fissaggio (patto art. 4.4).
+Il dato serio oggi non è “7 €/testa/mese”, ma: **6,66 €/testa/mese di scenario provvisorio per RC+manutenzione, più rinnovi delle dotazioni**, da sostituire con preventivi. È ampiamente sotto il limite di 30 €, ma non include acquisto, carburante, riparazioni, accesso/scivolo o custodia.
 
----
+## 13. Checklist di conformità prima di ogni uscita
 
-## 6. Manutenzione / tagliando fuoribordo
+- [ ] meteo, mare e limiti personali compatibili; conducente identificato e sobrio;
+- [ ] portata persone/peso e potenza conformi a targhetta, manuale e certificati;
+- [ ] distanza pianificata entro i titoli del conducente e le dotazioni presenti;
+- [ ] RC valida e documenti del §3.2 disponibili;
+- [ ] giubbotti per tutti; dotazioni complete, integre e non scadute; fanali funzionanti;
+- [ ] carburante, mezzo di esaurimento, estintore, ancora e dotazione tecnica controllati;
+- [ ] ordinanze Capitaneria/Comune, corridoio/scivolo e divieti temporanei verificati;
+- [ ] se si pesca: SIAN/RecFishing/autorizzazioni/limiti aggiornati;
+- [ ] piano di rientro e comunicazione a terra registrati.
 
-### 6.1 Legge vs patto
+## 14. Questioni aperte residue
 
-| Domanda | Risposta |
-|---------|----------|
-| Tagliando obbligatorio per legge IT? | **No** (Codice nautica non lo impone come revisione auto) |
-| Perché farlo comunque? | Affidabilità in mare; **garanzia** costruttore/venditore (spesso legata al piano manutenzione); evita guasti costosi |
-| Garanzia legale tipica | **2 anni** beni consumo; costruttori (es. Yamaha) possono offrire estensioni se service in rete |
-| Obbligo di gruppo | **Sì** per patto art. 11.4 — scadenze da **manuale motore** |
+- [ ] tre preventivi RC reali su motore target con DIP e massimali;
+- [ ] preventivo manutenzione Ardea/Pomezia/Anzio sul modello scelto;
+- [ ] individuazione e verifica documentale di almeno due punti di varo;
+- [ ] distinta dotazioni definitiva per numero massimo di persone ammesso;
+- [ ] decisione VHF sì/no e, se sì, pratiche MIMIT;
+- [ ] verifica SIAN/RecFishing dei tre soci prima della prima battuta.
 
-Fonte grezza: `raw/mercato/tagliando-fuoribordo-2026-08-11.md` (accesso 2026-08-11).
+## 15. Fonti ufficiali e tracciabilità
 
-### 6.2 Scadenze tipiche (ricreativo, piccolo 4T)
+Le date di accesso, gli estratti e le cautele sono conservati in:
 
-| Intervento | Quando (prassi) |
-|------------|-----------------|
-| Tagliando zero (se nuovo) | ~15–20 ore |
-| Tagliando ordinario | **1× anno** e/o ogni **50–100 ore** |
-| Olio motore + filtro | ad ogni tagliando |
-| Olio piede (gear) | ~100 ore / annuale |
-| Girante pompa acqua | controllo annuale; cambio ~100–200 ore o se pale “morte” |
-| Candele, filtri benzina, anodi | a tagliando / se consumati |
-| Dopo ogni uscita | risciacquo acqua dolce (cuffie) — cura base, quasi gratis |
+- `raw/normativa/audit-nautica-diporto-2026-08-11.md` — Codice, D.M. 133/2024, portata, documenti, RC, trasporto e garanzia;
+- `raw/normativa/alcol-e-dotazioni-2026-08-11.md` — testi e dettagli tecnici;
+- `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md` — RC e documentazione;
+- `raw/normativa/pesca-ricreativa-mare-2026-08-11.md` — MASAF, RecFishing e sanzioni 2026;
+- `raw/normativa/ordinanze-litorale-lazio-2026-08-11.md` — Ardea, Pomezia, Roma/Fiumicino, Anzio, Nettuno e Circeo;
+- `raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md` e `raw/mercato/tagliando-fuoribordo-2026-08-11.md` — fonti commerciali, mantenute separate dalla norma.
 
-Sempre prevale il **manuale del modello** acquistato.
+Fonti primarie principali: D.Lgs. 171/2005 vigente; D.M. 17 settembre 2024 n. 133 e Allegato V; D.Lgs. 209/2005 vigente e Regolamento IVASS 56/2025; D.M. MASAF 1 aprile 2026; ordinanze balneari e di sicurezza delle autorità locali; Codice della strada art. 164.
 
-### 6.3 Cosa include il tagliando “base”
-
-Risciacquo · olio+filtro motore · olio piede · candele · check girante · filtri benzina · anodi · ingrasso/spray.
-
-### 6.4 Costi reali osservati (stime mercato, non preventivo Lazio)
-
-| Scenario | € / intervento | Note |
-|----------|----------------|------|
-| **DIY** materiali 9.9–15 CV (senza girante nuova) | **40–90** | olio, filtri, candela, gear oil |
-| **DIY** + kit girante | **70–140** | |
-| **Officina** tagliando base piccolo fuoribordo | **80–180** | stima scala-down da listini su motori medi |
-| **Officina** completo + girante + anodi | **150–280** | |
-| Riferimento Magellano: solo olio in officina su **150 hp** | 150–180 | **non** tipico del nostro CV |
-
-**Target TCO gruppo:** ~**100–150 €/anno** se officina, o ~**50–80** se DIY capace → **~1,5–4 €/testa/mese** (3 soci).
-
-### 6.5 Altri ricorrenti
-
-| Voce | Obbligatorio legge? | €/anno stima | Note |
-|------|---------------------|--------------|------|
-| Rinnovo RC | Sì | 60–150 | §1 |
-| Tagliando motore | No legge / sì patto+garanzia | 50–180 | questa sezione |
-| Rinnovo razzi/segnali scaduti | Sì di fatto se scaduti | 30–80 | scadenze confezione |
-
-### 6.Open
-
-- [ ] Preventivo officina Ardea/Pomezia/Anzio su motore target
-- [ ] Decidere DIY vs officina a motore scelto
-- [ ] Annotare ore e date sul Drive documenti
-
----
-
-## 7. Riepilogo TCO conformità
-
-| Voce | Tipo | Min | Target | Max | Note |
-|------|------|-----|--------|-----|------|
-| RC annuale | fisso obbligatorio | 60 | **120** | 200 | §1 |
-| Tagliando annuale | fisso patto (non legge) | 50 | **120** | 180 | §6 DIY↔officina |
-| €/testa/mese RC+tagliando (3) | | ~3 | **~7** | ~11 | |
-| Kit dotazioni 4 pax diurno | iniziale obbligatorio | 200 | **300** | 400 | §2 |
-| Luci notturne | se si esce di notte | 50 | **100** | 150 | §2 |
-| Documenti/pratiche | iniziale | — | TBD | — | §3 |
-
-**Nessun canone porto** nel piano gommone auto-trasportato.
-
----
-
-## Changelog prospetto
+## Changelog
 
 | Data | Nota |
-|------|------|
-| 2026-08-11 | §6 tagliando: non obbligo legge; scadenze; costi DIY/officina; raw tagliando-fuoribordo. |
-| 2026-08-11 | §1b alcol (art. 53-bis); §2 dotazioni entro 6 mg + luci + sanzioni art. 53; costi kit; raw alcol-e-dotazioni. |
-| 2026-08-11 | Profilo lunghezza allineato a track-gommoni. Regole agente solo in `agentContratto.md`. |
-| 2026-08-11 | Creazione; sezione RC. |
-
----
-
-## Fonti
-
-- RC: `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md`, `raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md`
-- Alcol + dotazioni: `raw/normativa/alcol-e-dotazioni-2026-08-11.md`
-- Art. 53 e 53-bis D.Lgs. 171/2005 (Brocardi)
-- Assonautica dotazioni; MagellanoStore / HiNelson guide 6 miglia (reg. 2024)
-- Patto: `bozza-patto-v1.md`
+|---|---|
+| 2026-08-11 | Audit profondo: documento ricostruito come fonte di verità; completate sezioni prima vuote; corretti portata, cilindrate, dotazioni, fanali, pompa, estintore, massimali RC, documenti, pesca 2026, ordinanze locali, trasporto e garanzia; separati obblighi, patto e stime. |
+| 2026-08-11 | Prima bozza RC, alcol, dotazioni e manutenzione. |

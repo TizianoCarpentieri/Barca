@@ -6,8 +6,7 @@ status: active
 tags: [assicurazione, RC, gommone, normativa]
 sources:
   - raw/normativa/rc-obbligatoria-natanti-2026-08-11.md
-  - https://www.brocardi.it/codice-della-nautica-da-diporto/titolo-ii/capo-v/art41.html
-  - https://www.brocardi.it/codice-delle-assicurazioni-private/titolo-x/capo-i/art123.html
+  - raw/normativa/audit-nautica-diporto-2026-08-11.md
 ---
 
 # RC obbligatoria — gommone / natante a motore
@@ -26,7 +25,7 @@ Il patto art. 3.2 (“RC obbligatoria prima della prima uscita”) **allinea il 
 | Art. 123 D.Lgs. 209/2005 (Codice assicurazioni) — *Natanti* | Unità da diporto **con motore** non possono navigare in acque ad uso pubblico senza RC verso terzi (testo: **per danni alla persona**). Obbligo esteso ai **motori amovibili di qualsiasi potenza** (assicurato il natante su cui è montato il motore). |
 | Art. 40 D.Lgs. 171/2005 | Responsabilità civile da “circolazione” dell’unità → art. 2054 c.c. |
 
-Fonti primarie (testo): Brocardi art. 41 / art. 123; atto su Normattiva D.Lgs. 171/2005. Estratti: `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md`.
+Fonti primarie: Codice della nautica su Normattiva, CAP ufficiale IVASS e Regolamento IVASS 56/2025. Estratti e URL: `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md` e `raw/normativa/audit-nautica-diporto-2026-08-11.md`.
 
 ## Cosa cambia per noi (piano A)
 
@@ -41,17 +40,18 @@ Fonti primarie (testo): Brocardi art. 41 / art. 123; atto su Normattiva D.Lgs. 1
 ## Cosa **non** è l’obbligo di legge
 
 - Non è l’assicurazione **corpi/furto/kasko** (facoltative).
-- Il minimo di legge sull’art. 123 c.1 è formulato sui **danni alla persona**; le polizze RC di mercato di solito coprono anche cose — da leggere in polizza.
+- I massimali minimi vigenti dal 14 gennaio 2026 sono **6,45 milioni di euro per persone** e **1,3 milioni per cose** per sinistro.
+- Il responsabile della conduzione non è coperto dalla RC obbligatoria per le proprie lesioni: l'infortuni conducente/equipaggio è separata.
 - Eventuali esclusioni di “tipologie di natanti” demandate a regolamento MISE/IVASS (art. 123 c.1): **non verificate** qui; un fuoribordo da diporto non rientra nell’esclusione “senza motore”.
 
 ## Claim secondari da non prendere per oro colato
 
 - Soglia “solo sopra 3 kW / ~4 CV” (siti commerciali): **non allineata letteralmente** ad art. 41 c.2 / 123 c.3 (“qualsiasi potenza” per amovibili). Per noi irrilevante (siamo ≥6 CV).
-- Importi sanzione citati da blog: **da verificare** su testo sanzionatorio aggiornato; non archiviati come certi.
+- Navigazione senza RC: art. 193 Codice della strada, **866–3.464 euro**, oltre alle conseguenze cautelari applicabili.
 
 ## Costo (stima, non legge)
 
-- RC pura gommone piccolo: ordine **~100–150 €/anno** (stime gruppo + Generali ~100 € per ~40 CV). Vedi [[preferenze/budget]], [[concetti/costi-nascosti-gommone]].
+- Accantonamento provvisorio di scenario: **120 €/anno**, non prezzo normativo né preventivo. Vedi [[preferenze/budget]], [[concetti/costi-nascosti-gommone]].
 - Preventivo reale ancora open-question.
 
 ## Impatto sul patto

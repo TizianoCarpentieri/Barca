@@ -49,7 +49,7 @@ tags: [desiderata, pesca, priorita]
 | Pozzetto vivo | bassa a 4,5k (secchio ok) |
 | Tendalino / copertura sole alzabile | **alta** su track **rigidi** |
 | Paiolato alluminio / airdeck | **alta** su track **gommoni** |
-| Motore 9.9–15 4T gambo corto | **alta** se track gommone |
+| Motore 4T nella fascia 9–40 CV, compatibile con scafo e no-patente | **alta** se track gommone |
 | Tavolo/frigo | bassa |
 
 ## Piano corrente (aggiornato 2026-08-10)

@@ -1,7 +1,7 @@
 ---
 title: Track gommoni (PRIMARIO)
 type: preferenza
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [gommone, dual-track, pesca]
 sources:
@@ -26,11 +26,11 @@ Dal 2026-08-10 il gommone è il **track primario**. Lo scafo rigido resta come s
 
 | Voce | Valore |
 |------|--------|
-| Lunghezza min | **3,30 m** |
-| Lunghezza ideale | **3,50 – 3,80 m** |
-| Lunghezza max | **nessun tetto duro** (anche >4 m ok se resta no-RIB, trasportabile in auto e gestibile dal gruppo) |
+| Lunghezza min | **3,90 m** |
+| Lunghezza ideale | **da 3,90 m in su**, senza fascia rigida |
+| Lunghezza max | **nessun tetto duro** se resta no-RIB, trasportabile in auto e gestibile dal gruppo |
 | Portata min | **~400 kg** |
-| Capacità min | **4 persone** |
+| Capacità | **3 comodi**; 4+ preferibile; fino a 6 è un bonus, non un vincolo rigido |
 | Chiglia | **Gonfiabile preferibile** |
 | Poppa | **Specchio per fuoribordo** |
 | Pavimento prio 1 | **Paiolato rigido alluminio** |

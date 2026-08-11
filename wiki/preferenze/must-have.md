@@ -18,7 +18,7 @@ Trasversali a **tutti** i track, poi vincoli per track.
 | 2 | Uso **senza patente** (target forte) | ≤30 kW / 40,8 CV + regole IT; nessuno ha patente | active |
 | 3 | Adatto a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio | active |
 | 4 | Divertimento **senza performance sportive** | Con 6 pax e ≤40 CV non si pretenda planata allegra | active |
-| 5 | **3 comodi**; omologazione ≥4 | Fino a ~6 è ideale/bonus, non hard a questo budget | active |
+| 5 | **3 comodi** | 4+ preferibile; fino a ~6 è ideale/bonus, non un vincolo rigido | active |
 | 6 | Costi sostenibili (TCO) | Non solo prezzo d’acquisto | active |
 | 7 | Preferenza **usato** sul mercato low-budget | Eccezione: gommone nuovo tipo Argo se più razionale dell’usato gonfio | active |
 | 8 | Piano A: budget acquisto **≤ 2.000 €** bundle gommone+motore | Gommone benchmark Argo 970 € nuovo scafo; motore usato da verificare | active |
@@ -45,8 +45,8 @@ Dettaglio: [[sintesi/requisiti-v1]].
 | Voce | Valore |
 |------|--------|
 | Forma | Pneumatico **smontabile**, **non RIB** |
-| Lunghezza | min 3,30 m; ideale **3,50–3,80 m**; **no max duro** (anche >4 m se auto/trasporto ok) |
-| Pax / portata | ≥4 pax; ~≥400 kg |
+| Lunghezza | **min 3,90 m**; nessun max duro se auto/trasporto ok |
+| Pax / portata | 3 comodi; 4+ preferibile; 6 bonus; portata ~≥400 kg |
 | Pavimento | **Al alluminio** (prio1) o **airdeck** (prio2) |
 | Chiglia | Gonfiabile preferibile |
 | Trasporto | **In automobile** |
@@ -60,7 +60,7 @@ Dettaglio: [[preferenze/track-gommoni]].
 
 | Voce | Valore |
 |------|--------|
-| Potenza | **≥ 6 CV** (no 2.5/4); sweet **9.9–15**; max 40,8 |
+| Potenza | **9–40 CV**, purché senza patente (≤30 kW/40,8 CV e cilindrata ammessa) |
 | Preferenze | 4 tempi, gambo corto, marche buone |
 
 Dettaglio: [[preferenze/track-motori]].

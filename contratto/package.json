@@ -1,0 +1,16 @@
+{
+  "name": "contratto-export",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "pdf": "node export-pdf.mjs",
+    "pdf:bozza": "node export-pdf.mjs --bozza",
+    "pdf:prospetto": "node export-pdf.mjs --prospetto",
+    "pdf:qa": "node export-pdf.mjs --qa"
+  },
+  "dependencies": {
+    "marked": "^15.0.12",
+    "playwright": "^1.54.2"
+  }
+}

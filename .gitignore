@@ -27,6 +27,9 @@ node_modules/
 .tools/
 .npm-cache/
 
+# contratto PDF export (generati on-demand)
+contratto/export/
+
 # wrangler local cache
 worker/.wrangler/
 presentazione/dist/

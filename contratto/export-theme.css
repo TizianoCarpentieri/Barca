@@ -1,0 +1,382 @@
+/* Print theme — documento ufficiale Le Bestie
+   Sfondo bianco puro (stampa economica e leggibile). */
+
+@page {
+  size: A4;
+  margin: 16mm 14mm 18mm 14mm;
+}
+
+:root {
+  --ink: #152033;
+  --ink-soft: #3a4558;
+  --muted: #5c677a;
+  --rule: #c5ccd6;
+  --rule-soft: #e4e8ee;
+  --navy: #1a3358;
+  --navy-mid: #2a4a73;
+  --header-bg: #1a3358;
+  --header-fg: #ffffff;
+  --row-alt: #f7f8fa;
+  --callout-bg: #ffffff;
+  --code-bg: #f5f6f8;
+  --paper: #ffffff;
+  --link: #1a3358;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  font-family: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 9pt;
+  line-height: 1.42;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.doc {
+  max-width: 100%;
+}
+
+/* —— Masthead —— */
+.masthead {
+  border-bottom: 1.5pt solid var(--navy);
+  padding-bottom: 8pt;
+  margin-bottom: 14pt;
+  page-break-after: avoid;
+}
+
+.masthead-kicker {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-weight: 600;
+  margin: 0 0 4pt;
+}
+
+.masthead h1 {
+  font-family: "Literata", "Iowan Old Style", Palatino, Georgia, serif;
+  font-size: 15pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 6pt;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.masthead-meta {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7.5pt;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4pt 14pt;
+  margin: 0;
+}
+
+.masthead-meta span strong {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 6.5pt;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 0.6pt solid var(--navy);
+  color: var(--navy);
+  padding: 1.5pt 5pt;
+  border-radius: 0;
+}
+
+/* —— Typography —— */
+/* Intestazioni: restano un filo più grandi del corpo */
+.content h1 {
+  font-size: 12.5pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 9pt;
+  line-height: 1.25;
+  page-break-after: avoid;
+}
+
+.content h2 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 14pt 0 6pt;
+  padding-bottom: 2.5pt;
+  border-bottom: 0.6pt solid var(--rule);
+  line-height: 1.3;
+  page-break-after: avoid;
+}
+
+.content h3 {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 11pt 0 4pt;
+  page-break-after: avoid;
+}
+
+.content h4 {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 8.75pt;
+  font-weight: 600;
+  color: var(--navy-mid);
+  margin: 9pt 0 3.5pt;
+  letter-spacing: 0.02em;
+  page-break-after: avoid;
+}
+
+.content h5,
+.content h6 {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 7pt 0 3pt;
+  page-break-after: avoid;
+}
+
+.content p {
+  margin: 0 0 6pt;
+  font-size: 9pt;
+  orphans: 3;
+  widows: 3;
+}
+
+.content strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.content em {
+  font-style: italic;
+}
+
+.content a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 0.4pt solid var(--rule);
+}
+
+.content ul,
+.content ol {
+  margin: 0 0 7pt;
+  padding-left: 1.15em;
+  font-size: 9pt;
+}
+
+.content li {
+  margin: 0 0 2pt;
+  padding-left: 0.15em;
+}
+
+.content li > ul,
+.content li > ol {
+  margin-top: 2pt;
+  margin-bottom: 2pt;
+}
+
+.content hr {
+  border: 0;
+  border-top: 0.6pt solid var(--rule);
+  margin: 12pt 0;
+}
+
+/* —— Blockquote / callout —— */
+.content blockquote {
+  margin: 7pt 0 9pt;
+  padding: 4.5pt 9pt 4.5pt 10pt;
+  border-left: 2pt solid var(--navy);
+  border-top: 0.4pt solid var(--rule-soft);
+  border-right: 0.4pt solid var(--rule-soft);
+  border-bottom: 0.4pt solid var(--rule-soft);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+
+.content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* —— Code —— */
+.content code {
+  font-family: "Source Code Pro", "Consolas", "Courier New", monospace;
+  font-size: 7.5pt;
+  background: var(--code-bg);
+  padding: 0.5pt 2.5pt;
+  border: 0.4pt solid var(--rule-soft);
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.content pre {
+  font-family: "Source Code Pro", "Consolas", "Courier New", monospace;
+  font-size: 7pt;
+  line-height: 1.38;
+  background: var(--code-bg);
+  border: 0.5pt solid var(--rule);
+  padding: 6pt 7pt;
+  margin: 5pt 0 9pt;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+.content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* —— Tables —— */
+.table-wrap {
+  margin: 6pt 0 11pt;
+  page-break-inside: avoid;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7.25pt;
+  line-height: 1.32;
+  border: 0.6pt solid var(--navy);
+}
+
+.content thead {
+  display: table-header-group;
+}
+
+.content tbody {
+  display: table-row-group;
+}
+
+.content th {
+  background: var(--header-bg);
+  color: var(--header-fg);
+  font-weight: 600;
+  font-size: 7.5pt;
+  text-align: left;
+  vertical-align: top;
+  padding: 4pt 4.5pt;
+  border: 0.4pt solid var(--navy-mid);
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.content td {
+  vertical-align: top;
+  padding: 3pt 4.5pt;
+  border: 0.4pt solid var(--rule);
+  color: var(--ink);
+  font-size: 7.25pt;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.content tbody tr:nth-child(even) td {
+  background: var(--row-alt);
+}
+
+.content tbody tr:nth-child(odd) td {
+  background: var(--paper);
+}
+
+.content td strong,
+.content th strong {
+  color: inherit;
+}
+
+/* Wide tables: slightly tighter */
+.content table.cols-4,
+.content table.cols-5,
+.content table.cols-6 {
+  font-size: 6.75pt;
+}
+
+.content table.cols-4 th,
+.content table.cols-5 th,
+.content table.cols-6 th {
+  font-size: 7pt;
+}
+
+.content table.cols-4 th,
+.content table.cols-4 td,
+.content table.cols-5 th,
+.content table.cols-5 td,
+.content table.cols-6 th,
+.content table.cols-6 td {
+  padding: 2.5pt 3pt;
+}
+
+/* —— Misc —— */
+.content img {
+  max-width: 100%;
+}
+
+.footer-note {
+  margin-top: 16pt;
+  padding-top: 5pt;
+  border-top: 0.6pt solid var(--rule);
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 7pt;
+  color: var(--muted);
+}
+
+/* Print safety */
+@media print {
+  html,
+  body,
+  .doc,
+  .content,
+  .content td,
+  .content th,
+  .content blockquote,
+  .content pre,
+  .content code {
+    background: #ffffff !important;
+  }
+
+  .content th {
+    background: var(--header-bg) !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .content tbody tr:nth-child(even) td {
+    background: #f4f6f9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    color: var(--ink) !important;
+    border-bottom: none !important;
+  }
+}
