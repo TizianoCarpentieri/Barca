@@ -8,6 +8,23 @@ test("riconosce la ricerca profonda esplicita o semantica", () => {
   assert.equal(__test.detectResearchMode("Domanda normale", "deep"), true);
 });
 
+test("riconosce una richiesta esplicita di PDF senza confonderla con una domanda tecnica", () => {
+  assert.equal(__test.detectPdfRequest("Preparami un PDF della risposta precedente"), true);
+  assert.equal(__test.detectPdfRequest("Me lo fai in pdf?"), true);
+  assert.equal(__test.detectPdfRequest("Puoi darmi il pdf?"), true);
+  assert.equal(__test.detectPdfRequest("Trasformalo in PDF"), true);
+  assert.equal(__test.detectPdfRequest("PDF"), true);
+  assert.equal(__test.detectPdfRequest("Perche il PDF non funziona?"), false);
+});
+
+test("crea un documento di fallback solo se save_doc non ha prodotto nulla", () => {
+  const documents = [];
+  assert.equal(__test.ensureRequestedPdfDocument(true, documents, "# Analisi\nContenuto completo"), true);
+  assert.deepEqual(documents, [{ title: "Documento richiesto a Sbarco", content: "# Analisi\nContenuto completo" }]);
+  assert.equal(__test.ensureRequestedPdfDocument(true, documents, "Altro"), false);
+  assert.equal(documents.length, 1);
+});
+
 test("blocca URL locali e protocolli non web", () => {
   assert.equal(__test.isSafePublicUrl("https://example.com/info"), true);
   assert.equal(__test.isSafePublicUrl("http://127.0.0.1/admin"), false);
@@ -213,6 +230,71 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
     assert.equal(agentCalls, 1, "nessuna chiamata memoria per una domanda priva di preferenze");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("una richiesta PDF forza save_doc ed emette il documento per il tasto download", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let agentCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      const body = JSON.parse(init.body);
+      if (agentCalls === 1) {
+        assert.equal(body.tool_choice.function.name, "save_doc");
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [{
+            id: "save-1", type: "function", function: {
+              name: "save_doc",
+              arguments: JSON.stringify({ title: "Piano Bestie", content: "# Piano Bestie\n\nContenuto completo." }),
+            },
+          }],
+        } }] });
+      }
+      assert.equal(body.tool_choice, "auto");
+      assert.ok(body.messages.some(message => message.role === "tool" && /preparato/.test(message.content)));
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Documento pronto: usa il tasto Scarica PDF." } }],
+        usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "tiziano", question: "Preparami un PDF del piano attuale", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /"documents":\[\{"title":"Piano Bestie"/);
+    assert.match(body, /"toolSequence":\["save_doc"\]/);
+    assert.match(body, /"documentsCreated":1/);
+    assert.match(body, /"done":true/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 2);
   } finally {
     globalThis.fetch = originalFetch;
   }

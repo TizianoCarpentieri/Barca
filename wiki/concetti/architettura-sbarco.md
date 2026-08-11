@@ -109,6 +109,10 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
   testo libero della chat: evita documenti poco strutturati e un doppio export.
 - `save_doc` produce una scheda dedicata con **Scarica PDF**; questa è l'unica
   via di export e MD/TXT non sono più l'output primario.
+- Una richiesta esplicita di PDF forza `save_doc` nel tool loop. Se il provider
+  non rispetta la chiamata obbligatoria, il Worker crea comunque la scheda dal
+  testo finale: Sbarco non può più dichiarare un PDF pronto senza emettere il
+  relativo evento `documents` verso la UI.
 - Il PDF è A4, multipagina, con titoli, callout, elenchi, tabelle, fonti,
   intestazione e numerazione. jsPDF viene caricato solo al click (chunk lazy).
 - Emoji e simboli da chat vengono convertiti in etichette testuali; gli altri

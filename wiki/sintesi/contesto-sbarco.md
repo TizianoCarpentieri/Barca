@@ -59,6 +59,8 @@ Dettaglio e checklist: [[preferenze/open-questions]].
   strutturato: il widget lo esporta in PDF A4 direttamente nel browser.
 - Il PDF va offerto solo tramite la scheda `save_doc`; sulle normali risposte
   resta l'azione Copia, evitando export poco strutturati del testo libero.
+- Se l'utente chiede esplicitamente un PDF, la scheda `save_doc` con il tasto
+  **Scarica PDF** è obbligatoria; non basta dichiarare nel testo che è pronto.
 - Non ridurre i tetti dell'output sotto 1.000 token per step e 2.600 per la
   sintesi finale senza una prova esplicita: in passato ha causato risposte o
   formattazione visualizzate in modo incompleto. Ottimizzare prima il prompt.

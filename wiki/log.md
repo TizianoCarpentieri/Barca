@@ -390,3 +390,13 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   Peppe `0/5`; memoria e cronologia non sono state toccate.
 - Smoke Pages: bundle `app-C9vive0o.js` con quota base 5, indicatore `∞` e
   dicitura `Utilizzo illimitato`; rimossa la vecchia logica Tiziano=10.
+
+## [2026-08-11] fix(sbarco-pdf) | Ripristinata la creazione richiesta del PDF
+
+- Causa: dopo aver rimosso correttamente l'export dalle risposte ordinarie,
+  `save_doc` restava facoltativo e il modello poteva dichiarare il PDF pronto
+  senza emettere l'evento `documents` usato dalla UI.
+- Le richieste PDF esplicite ora forzano `save_doc`; un fallback costruisce la
+  scheda dal testo finale se il provider non rispetta la chiamata obbligatoria.
+- Aggiunto un test end-to-end Worker che verifica tool call, evento documento e
+  metrica `documentsCreated: 1` senza ridurre i budget di output.
