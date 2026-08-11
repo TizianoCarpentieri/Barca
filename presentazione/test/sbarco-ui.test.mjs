@@ -48,6 +48,14 @@ test("offre il PDF solo per i documenti preparati da Sbarco", async () => {
   assert.match(source, /Scarica PDF/);
 });
 
+test("mostra la quota illimitata di Tiziano e cinque utilizzi agli altri", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  assert.match(source, /const MAX_DAILY = 5;/);
+  assert.match(source, /counterEl\.textContent = "∞";/);
+  assert.match(source, /counterEl\.title = "Utilizzo illimitato";/);
+  assert.doesNotMatch(source, /user === "tiziano" \? 10/);
+});
+
 test("genera un PDF multipagina valido con tabella e fonti", () => {
   const content = `# 🎯 Analisi bundle
 

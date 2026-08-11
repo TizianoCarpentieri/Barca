@@ -18,6 +18,8 @@ corrente; i dettagli e la storia restano nelle pagine collegate.
 - **Piano B:** scafo rigido soltanto con almeno 5 soci e preventivi reali.
 - **Gruppo:** Tiziano, Antonio e Peppe; base Ardea/Pomezia, mare laziale.
 - **Uso:** 3 comodi per pesca; fino a circa 6 solo come picco sociale.
+- **Quote Sbarco:** Tiziano illimitato; Antonio e Peppe 5 utilizzi giornalieri
+  ciascuno, con rinnovo a mezzanotte nel fuso Europe/Rome.
 
 ## Vincoli economici e tecnici
 
@@ -60,6 +62,8 @@ Dettaglio e checklist: [[preferenze/open-questions]].
 - Non ridurre i tetti dell'output sotto 1.000 token per step e 2.600 per la
   sintesi finale senza una prova esplicita: in passato ha causato risposte o
   formattazione visualizzate in modo incompleto. Ottimizzare prima il prompt.
+- La quota di Tiziano deve restare illimitata. Eventuali reset delle quote
+  giornaliere non devono cancellare memoria o cronologia delle chat.
 
 ## Percorsi di approfondimento
 

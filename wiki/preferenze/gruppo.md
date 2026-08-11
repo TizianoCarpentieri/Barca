@@ -48,6 +48,18 @@ tags: [gruppo, bestie, lazio]
 
 Dettaglio mercato: [[mercato/litorale-laziale]].
 
+## Utilizzo di Sbarco (2026-08-11)
+
+| Profilo | Quota giornaliera |
+|---------|-------------------|
+| Tiziano | **Illimitata** |
+| Antonio | **5 utilizzi al giorno** |
+| Peppe | **5 utilizzi al giorno** |
+
+Il cambio di policy del giorno 2026-08-11 riparte da zero per Antonio e Peppe.
+Il contatore si rinnova a mezzanotte nel fuso `Europe/Rome`; memoria e
+cronologia delle chat non vengono azzerate.
+
 ## Patente nautica (2026-08-04)
 
 | Voce | Stato |

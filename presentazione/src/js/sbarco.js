@@ -11,7 +11,7 @@ const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const LS_KEY = "barca_user";
-const MAX_DAILY = 3;
+const MAX_DAILY = 5;
 
 (function () {
   if (document.querySelector(".sbarco-root")) return;
@@ -90,14 +90,22 @@ const MAX_DAILY = 3;
     syncControls();
   }
 
-  function getMaxDaily(user) {
-    return user === "tiziano" ? 10 : MAX_DAILY;
+  function isUnlimitedUser(user) {
+    return user === "tiziano";
   }
 
-  function updateCounter(rem) {
+  function updateCounter(rem, unlimited = isUnlimitedUser(currentUser)) {
+    if (unlimited) {
+      remaining = Infinity;
+      counterEl.textContent = "∞";
+      counterEl.title = "Utilizzo illimitato";
+      counterEl.className = "sbarco-header__counter";
+      syncControls();
+      return;
+    }
     remaining = Math.max(0, Number(rem) || 0);
-    var max = getMaxDaily(currentUser);
-    counterEl.textContent = `${remaining}/${max}`;
+    counterEl.textContent = `${remaining}/${MAX_DAILY}`;
+    counterEl.title = `${remaining} utilizzi rimasti oggi su ${MAX_DAILY}`;
     counterEl.className = `sbarco-header__counter ${remaining <= 1 ? "low" : ""}`;
     syncControls();
   }
@@ -125,7 +133,9 @@ const MAX_DAILY = 3;
       const resp = await fetch(`${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`, { headers });
       if (!resp.ok) return;
       const data = await resp.json();
-      if (currentUser === requestedUser && data.remaining !== undefined) updateCounter(data.remaining);
+      if (currentUser === requestedUser && (data.unlimited || data.remaining !== undefined)) {
+        updateCounter(data.remaining, data.unlimited);
+      }
     } catch {}
   }
 
@@ -233,8 +243,7 @@ const MAX_DAILY = 3;
     currentUser = v;
     localStorage.setItem(LS_KEY, v);
     msgsEl.innerHTML = "";
-    remaining = getMaxDaily(v);
-    updateCounter(remaining);
+    updateCounter(isUnlimitedUser(v) ? null : MAX_DAILY, isUnlimitedUser(v));
     greet();
     void refreshStatus();
   }

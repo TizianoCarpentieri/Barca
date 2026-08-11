@@ -372,3 +372,12 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   nella scheda documento; vecchia azione `Esporta PDF` assente.
 - Nuovo chunk PDF `sbarco-pdf-Co_8KAqI.js` raggiungibile con HTTP 200 e fallback
   Unicode leggibile incluso.
+
+## [2026-08-11] preferenze(sbarco) | Quote profili corrette
+
+- Tiziano ha utilizzo Sbarco illimitato; Antonio e Peppe hanno 5 utilizzi
+  giornalieri ciascuno.
+- La policy KV `v2-20260811` fa ripartire oggi Antonio e Peppe da zero senza
+  cancellare memoria, summary o cronologia delle chat.
+- Il giorno del contatore segue `Europe/Rome`; Worker e UI espongono
+  esplicitamente lo stato illimitato invece di rappresentarlo con un numero.

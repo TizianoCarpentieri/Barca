@@ -2,12 +2,12 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.2.0";
+const WORKER_VERSION = "2.2.1";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
-const MAX_DAILY_MESSAGES = 3;
-const MAX_DAILY_TIZIANO = 10;
+const MAX_DAILY_MESSAGES = 5;
+const RATE_LIMIT_POLICY_VERSION = "v2-20260811";
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const USER_NAMES = { tiziano: "Tiziano", antonio: "Antonio", peppe: "Peppe" };
 const DEEP_RESEARCH_ROUNDS = 6;
@@ -25,8 +25,30 @@ const WEB_TIMEOUT_MS = 12_000;
 const SYNTHETIC_STREAM_CHARS = 96;
 const SYNTHETIC_STREAM_DELAY_MS = 10;
 
-function getMaxDaily(userId) {
-  return userId === "tiziano" ? MAX_DAILY_TIZIANO : MAX_DAILY_MESSAGES;
+function getDailyQuota(userId) {
+  const unlimited = userId === "tiziano";
+  return { unlimited, max: unlimited ? null : MAX_DAILY_MESSAGES };
+}
+
+function getRomeDateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en", {
+    timeZone: "Europe/Rome",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function getRateLimitKey(userId, date = getRomeDateKey()) {
+  const dateKey = typeof date === "string" ? date : getRomeDateKey(date);
+  return `rate:${RATE_LIMIT_POLICY_VERSION}:${userId}:${dateKey}`;
+}
+
+function getRemainingToday(userId, count = 0) {
+  const quota = getDailyQuota(userId);
+  return quota.unlimited ? null : Math.max(0, quota.max - count);
 }
 
 // ── Passkey di Tiziano ───────────────────────────────────────────────────
@@ -1247,21 +1269,22 @@ async function persistConversation(kv, userId, history, question, fullText, apiK
 // ── Rate limiter ─────────────────────────────────────────────────
 
 async function checkRateLimit(kv, userId) {
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-  const key = `rate:${userId}:${today}`;
+  const quota = getDailyQuota(userId);
+  if (quota.unlimited) return { count: 0, key: null, allowed: true, unlimited: true };
+  const key = getRateLimitKey(userId);
   try {
     const raw = await kv.get(key);
     const parsed = raw ? parseInt(raw, 10) : 0;
     const count = Number.isFinite(parsed) ? parsed : 0;
-    return { count, key, allowed: count < getMaxDaily(userId) };
+    return { count, key, allowed: count < quota.max, unlimited: false };
   } catch {
-    return { count: 0, key, allowed: true };
+    return { count: 0, key, allowed: true, unlimited: false };
   }
 }
 
 async function incrementRateLimit(kv, userId, knownCount = null) {
-  const today = new Date().toISOString().slice(0, 10);
-  const key = `rate:${userId}:${today}`;
+  if (getDailyQuota(userId).unlimited) return 0;
+  const key = getRateLimitKey(userId);
   try {
     let count = knownCount;
     if (!Number.isFinite(count)) {
@@ -1270,11 +1293,8 @@ async function incrementRateLimit(kv, userId, knownCount = null) {
       count = Number.isFinite(parsed) ? parsed : 0;
     }
     const newCount = count + 1;
-    // TTL: expire tomorrow at midnight UTC
-    const tomorrow = new Date();
-    tomorrow.setUTCHours(24, 0, 0, 0);
-    const ttl = Math.max(60, Math.floor((tomorrow.getTime() - Date.now()) / 1000));
-    await kv.put(key, String(newCount), { expirationTtl: ttl });
+    // The date in the key enforces midnight in Rome; the TTL only removes stale keys.
+    await kv.put(key, String(newCount), { expirationTtl: 36 * 60 * 60 });
     return newCount;
   } catch {
     return 0; // fail-open on error
@@ -1313,7 +1333,8 @@ async function getDebugReport(kv) {
         historyLen: h.length,
         summaryHealthy: Boolean(s),
         summaryChars: s.length,
-        remainingToday: Math.max(0, getMaxDaily(uid) - rate.count),
+        remainingToday: getRemainingToday(uid, rate.count),
+        unlimited: rate.unlimited,
       };
     }
   }
@@ -1464,13 +1485,15 @@ export default {
         catch (err) { return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders }); }
       }
       const rate = await checkRateLimit(env.SBARCO_KV, userId);
-      const max = getMaxDaily(userId);
+      const quota = getDailyQuota(userId);
       return new Response(JSON.stringify({
         status: "ok",
         userId,
-        max,
+        max: quota.max,
         used: rate.count,
-        remaining: Math.max(0, max - rate.count),
+        remaining: getRemainingToday(userId, rate.count),
+        unlimited: quota.unlimited,
+        policyVersion: RATE_LIMIT_POLICY_VERSION,
       }), { headers: corsHeaders });
     }
 
@@ -1528,7 +1551,7 @@ export default {
           if (!rate.allowed) {
             return new Response(
               JSON.stringify({
-                error: `Limite giornaliero raggiunto (${getMaxDaily(userId)} msg). Torna domani!`,
+                error: `Limite giornaliero raggiunto (${getDailyQuota(userId).max} msg). Torna domani!`,
                 remaining: 0,
               }),
               { status: 429, headers: corsHeaders }
@@ -1541,7 +1564,9 @@ export default {
         const newCount = env.SBARCO_KV
           ? await incrementRateLimit(env.SBARCO_KV, userId, currentRateCount)
           : 0;
-        const remaining = env.SBARCO_KV ? Math.max(0, getMaxDaily(userId) - newCount) : getMaxDaily(userId);
+        const remaining = env.SBARCO_KV
+          ? getRemainingToday(userId, newCount)
+          : getRemainingToday(userId, 0);
         const stream = createChatSSEStream({
           env,
           ctx,
@@ -1586,6 +1611,12 @@ export default {
           version: WORKER_VERSION,
           deepResearch: true,
           knowledgeSource: "wiki-runtime",
+          quotaPolicy: {
+            version: RATE_LIMIT_POLICY_VERSION,
+            tiziano: "unlimited",
+            antonio: MAX_DAILY_MESSAGES,
+            peppe: MAX_DAILY_MESSAGES,
+          },
         }),
         { headers: corsHeaders }
       );
@@ -1618,6 +1649,11 @@ export const __test = {
   compactMemoryFacts,
   drainSSEFrames,
   shouldExtractMemory,
+  getDailyQuota,
+  getRomeDateKey,
+  getRateLimitKey,
+  getRemainingToday,
+  rateLimitPolicyVersion: RATE_LIMIT_POLICY_VERSION,
   outputTokenBudgets: {
     agentStep: AGENT_STEP_TOKENS,
     finalResponse: FINAL_RESPONSE_TOKENS,

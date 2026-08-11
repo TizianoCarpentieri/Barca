@@ -76,6 +76,17 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 - `read_url` ricontrolla ogni redirect contro reti locali; il prompt tratta le
   pagine esterne come dati non affidabili, mai come istruzioni.
 
+## Quote giornaliere
+
+- Tiziano è autenticato tramite passkey e non passa dal contatore: la sua quota
+  è illimitata sia nel Worker sia nella UI, dove viene mostrato `∞`.
+- Antonio e Peppe hanno 5 utilizzi giornalieri ciascuno.
+- Le chiavi KV includono la versione della policy e la data `Europe/Rome`:
+  `rate:v2-20260811:{userId}:YYYY-MM-DD`. Il cambio di versione ha azzerato i
+  conteggi il 2026-08-11 senza toccare chat, summary o memoria.
+- `/api/status` espone `max`, `used`, `remaining`, `unlimited` e la versione
+  della policy; `/api/health` pubblica la policy attiva per lo smoke test.
+
 ## Memoria e wiki
 
 - Contesto primario: [[sintesi/contesto-sbarco]].

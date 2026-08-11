@@ -62,7 +62,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.2.0","deepResearch":true,"knowledgeSource":"wiki-runtime"}
+# → {"status":"ok","version":"2.2.1","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -72,6 +72,15 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 | `memory:project` | Fatti condivisi: `[{key, user, date, fact, tags, source, scope}]`; upsert per `key` |
 | `chat:{userId}` | Storico chat per utente |
 | `chat:{userId}:summary` | Digest compatto dei messaggi espulsi dalla finestra recente |
+| `rate:v2-20260811:{userId}:YYYY-MM-DD` | Contatore giornaliero versionato per Antonio e Peppe |
+
+## Quote giornaliere
+
+- **Tiziano:** utilizzo illimitato; il Worker non legge né incrementa una
+  chiave quota per questo profilo.
+- **Antonio e Peppe:** 5 utilizzi al giorno ciascuno.
+- Il giorno cambia a mezzanotte nel fuso `Europe/Rome`. La versione nella
+  chiave consente un reset controllato senza cancellare cronologia o memoria.
 
 ## Comandi speciali in chat
 
@@ -96,8 +105,9 @@ che proxy e browser le accorpino. La sintesi forzata usa lo stream nativo del
 provider. `/debug` espone token effettivi, stima del prompt, modalita' di stream
 e latenze, senza contenuto delle chat.
 
-Il widget puo' esportare ogni risposta e i documenti `save_doc` in PDF A4. Il
-renderer jsPDF e' un chunk lazy: non pesa sul caricamento normale della chat.
+Il widget esporta in PDF A4 i documenti `save_doc`; le risposte ordinarie
+mantengono la sola azione Copia. Il renderer jsPDF e' un chunk lazy: non pesa
+sul caricamento normale della chat.
 
 ## Verifica prima del deploy
 
@@ -109,7 +119,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.2.0`.
+1. `/api/health` riporta `version: 2.2.1` e la policy quota attiva.
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,

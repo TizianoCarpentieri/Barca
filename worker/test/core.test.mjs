@@ -64,6 +64,57 @@ test("mantiene margini conservativi per l'output visibile", () => {
   });
 });
 
+test("applica la quota illimitata a Tiziano e cinque utilizzi agli altri", () => {
+  assert.deepEqual(__test.getDailyQuota("tiziano"), { unlimited: true, max: null });
+  assert.deepEqual(__test.getDailyQuota("antonio"), { unlimited: false, max: 5 });
+  assert.deepEqual(__test.getDailyQuota("peppe"), { unlimited: false, max: 5 });
+  assert.equal(__test.getRemainingToday("tiziano", 999), null);
+  assert.equal(__test.getRemainingToday("antonio", 2), 3);
+  assert.equal(__test.getRomeDateKey(new Date("2026-08-11T22:30:00Z")), "2026-08-12");
+  assert.equal(
+    __test.getRateLimitKey("antonio", "2026-08-11"),
+    `rate:${__test.rateLimitPolicyVersion}:antonio:2026-08-11`
+  );
+});
+
+test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async () => {
+  const today = new Date().toISOString().slice(0, 10);
+  const store = new Map([[`rate:antonio:${today}`, "4"]]);
+  const kv = {
+    async get(key) { return store.get(key) ?? null; },
+    async put(key, value) { store.set(key, value); },
+  };
+
+  const antonioResponse = await worker.fetch(new Request("https://sbarco.test/api/status?userId=antonio"), {
+    SBARCO_KV: kv,
+    ALLOWED_ORIGIN: "*",
+  }, {});
+  assert.deepEqual(await antonioResponse.json(), {
+    status: "ok",
+    userId: "antonio",
+    max: 5,
+    used: 0,
+    remaining: 5,
+    unlimited: false,
+    policyVersion: __test.rateLimitPolicyVersion,
+  });
+
+  const tizianoResponse = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano"), {
+    SBARCO_KV: kv,
+    ALLOWED_ORIGIN: "*",
+    TIZIANO_PASSKEY_TEST_BYPASS: "true",
+  }, {});
+  assert.deepEqual(await tizianoResponse.json(), {
+    status: "ok",
+    userId: "tiziano",
+    max: null,
+    used: 0,
+    remaining: null,
+    unlimited: true,
+    policyVersion: __test.rateLimitPolicyVersion,
+  });
+});
+
 test("ricompone frame SSE CRLF e ultimo frame senza newline", () => {
   const first = __test.drainSSEFrames('data: {"token":"ciao"}\r\n\r\ndata: {"done":true');
   assert.deepEqual(first.data, ['{"token":"ciao"}']);
