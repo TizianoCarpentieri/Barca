@@ -381,3 +381,12 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   cancellare memoria, summary o cronologia delle chat.
 - Il giorno del contatore segue `Europe/Rome`; Worker e UI espongono
   esplicitamente lo stato illimitato invece di rappresentarlo con un numero.
+
+## [2026-08-11] deploy | Quote Sbarco 2.2.1 online
+
+- Commit pubblicato `cf1607a`; il commit separato sul patto è rimasto locale.
+- Workflow Worker `31507037238` e Pages `31507037278` completati con successo.
+- Smoke Worker: policy `v2-20260811`, Tiziano `unlimited`, Antonio `0/5` e
+  Peppe `0/5`; memoria e cronologia non sono state toccate.
+- Smoke Pages: bundle `app-C9vive0o.js` con quota base 5, indicatore `∞` e
+  dicitura `Utilizzo illimitato`; rimossa la vecchia logica Tiziano=10.
