@@ -1,7 +1,7 @@
 ---
 title: Must-have
 type: preferenza
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [requisiti]
 ---
@@ -22,7 +22,7 @@ Trasversali a **tutti** i track, poi vincoli per track.
 | 6 | Costi sostenibili (TCO) | Non solo prezzo d’acquisto | active |
 | 7 | Preferenza **usato** sul mercato low-budget | Eccezione: gommone nuovo tipo Argo se più razionale dell’usato gonfio | active |
 | 8 | Piano A: budget acquisto **≤ 2.000 €** bundle gommone+motore | Gommone benchmark Argo 970 € nuovo scafo; motore usato da verificare | active |
-| 9 | Costi fissi **≤ 30 €/testa/mese** (90 €/mese totali) | Include assicurazione, manutenzione, carburante, imprevisti | active |
+| 9 | Costi di possesso **sostenibili** sul gommone | Piano A: **niente hard cap 30 €/testa/mese** (era scenario porto). Target: fissi tipici RC+tagliando bassi; carburante = variabile uscite. Piano B rigido: ≤30 €/testa/mese da preventivi | active |
 | 10 | Base **Lazio** (Ardea/Pomezia) | Score annunci penalizza la distanza | active |
 
 ## Track A — Scafi rigidi (scenario futuro condizionato)

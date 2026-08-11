@@ -1,14 +1,15 @@
 ---
 title: Logistica e trasporto gommone
 type: concetto
-updated: 2026-08-10
+updated: 2026-08-11
 status: draft
 tags: [gommone, logistica, trasporto, custodia, open-questions]
 ---
 
 # Logistica e trasporto gommone
 
-Domande aperte su come gestire il gommone nel quotidiano.
+Domande aperte sul quotidiano del piano A.  
+Criterio guida emerso: **comodità di carico/scarico** conta quanto lo “spazio a casa”.
 
 ## Da verificare — Auto
 
@@ -18,19 +19,21 @@ Domande aperte su come gestire il gommone nel quotidiano.
   - Attrezzatura pesca (canne, cassette, vivo)
   - Altro (tanica, pompa, accessori)
 - Serve un portapacchi/gancio? O entra tutto nel bagagliaio?
+- Nessuno è obbligato a mettere l’auto di default: si decide di volta in volta (salvo ruolo stabile se un giorno si fissa).
 
 ## Da verificare — Custodia
 
-- Chi tiene il gommone durante la settimana?
-- Opzioni: garage, cantina, terrazzo coperto, box auto?
-- Il gommone piegato è ingombrante anche da fermo
-- Va tenuto asciutto e al riparo dal sole per preservare le valvole
+- Chi tiene gommone / motore / dotazioni in settimana?
+- Luogo **asciutto**, al riparo da intemperie dirette; ammissibile anche **patio / area esterna di casa** se coperta o comunque idonea.
+- Criterio fisso nella scelta custode: **carico e scarico** ragionevoli (accesso auto, spazio montaggio senza ostacoli strutturali).
+- Il custode non è “assicuratore” del mezzo: negligenza grave sì, eventi esterni no.
 
 ## Da verificare — Accesso al mare
 
-- Scivolo o spiaggia libera vicino Ardea/Pomezia?
+- Accessi **leciti** (scivoli, rampe, spiagge consentite) vicino Ardea/Pomezia / Anzio.
+- Non serve un elenco vincolante di luoghi: si sceglie di volta in volta.
 - Accesso carrabile fino al punto di gonfiaggio?
-- Necessari permessi per varare da spiaggia libera?
+- Multe da accesso scorretto: di regola a chi ha causato / presenti a quell’uscita.
 
 ## Da verificare — Ciclo uscita tipo
 

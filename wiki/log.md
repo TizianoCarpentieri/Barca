@@ -6,6 +6,19 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-11] preferenze | Allineamento wiki ↔ direzione patto (senza ingest)
+
+- **Non** ingerito il testo del patto in wiki (resta cantiere finché revisionato insieme).
+- Corretti claim datati che lo contrastavano:
+  - cap **30 €/testa/mese** non più hard sul piano A gommone (`budget`, `must-have`, `overview`, `requisiti-v1`, `contesto-sbarco`);
+  - `split-costi`: 1/N, default danni in gruppo, tempo>uso in uscita, niente cassa, patto “in cantiere”;
+  - uso normale = uscite di gruppo (`gruppo`);
+  - tagliando = non obbligo legge (`costi-nascosti`);
+  - logistica: patio ok, carico/scarico, accessi leciti;
+  - open-questions: firma/finalizzazione patto, non “redigere da zero”;
+  - seed `AGENTS.md` budget piano A.
+- Patto: ingest solo dopo revisione collettiva.
+
 ## [2026-08-11] ricerca | Tagliando fuoribordo
 
 - Non obbligo di legge; scadenze costruttore (annuale / 50–100 h).

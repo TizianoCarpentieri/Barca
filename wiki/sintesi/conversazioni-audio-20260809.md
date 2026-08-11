@@ -1,13 +1,15 @@
 ---
 title: Conversazioni audio 2026-08-09
 type: sintesi
-updated: 2026-08-09
+updated: 2026-08-11
 status: active
-tags: [audio, whatsapp, conversazioni, bestie]
+tags: [audio, whatsapp, conversazioni, bestie, storico]
 sources: [raw/audio/]
 ---
 
 # Conversazioni WhatsApp — 9 Agosto 2026
+
+> **Storico.** Trascrizione del 9 ago. Preferenze operative correnti: `wiki/preferenze/*` e [[overview]] (es. cap 30 € **non hard** sul gommone; split/danni aggiornati 2026-08-11).
 
 45 messaggi vocali tra le bestie (Tiziano, Antonio, Peppe). Trascritti via Whisper base.
 

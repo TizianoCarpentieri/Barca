@@ -1,14 +1,14 @@
 ---
 title: Requisiti v2
 type: sintesi
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [requisiti, shortlist-filtri]
 ---
 
 # Requisiti v2 — Le Bestie
 
-Sintesi aggiornata 2026-08-10 dopo conversazioni 9 agosto.  
+Sintesi aggiornata 2026-08-11 (allineamento post-cantiere patto, senza ingest del testo).  
 **Gommone = piano A. Scafo rigido = piano B (condizionato a ≥5 soci).**
 
 Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[modelli/argo-evo-360]] · [[concetti/feed-annunci-scoring]].
@@ -40,11 +40,12 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 | | |
 |--|--|
 | Prezzo max | **≤2.000 €** bundle gommone+motore usato |
-| Gestione annua | **≤30 €/testa/mese** = **≤360 €/testa/anno** |
-| Rimessaggio | **Nessuno** (gommone a casa, in auto) |
-| Accesso al mare | Da scegliere e raggiungere **via terra** per ogni uscita; priorità Anzio/Nettuno e litorale vicino |
+| Gestione gommone | **Niente hard-cap 30 €/testa/mese** (era modello porto). Fissi attesi: RC + tagliando; carburante a chi esce |
+| Split | **1/N**; uscite di gruppo come modo normale |
+| Rimessaggio | **Nessun canone** nel modello base (custodia domestica / auto) |
+| Accesso al mare | Accessi **leciti** via terra, scelti di volta in volta; priorità litorale vicino |
 | Timeline | **Affare giusto** (anche 6–12 mesi) |
-| Intestazione | **Da decidere** tra le bestie |
+| Intestazione / patto | Intestatario **da decidere**; bozza accordo in cantiere (non in wiki finché non firmata) |
 
 ## Filtri shortlist — track gommoni (PRIMARIO)
 
@@ -77,7 +78,8 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 
 - Nel bundle da 2.000 € i “6 pax comodi” sono rari → 6 = picco, non standard
 - Usato cheap = alta probabilità lavori (riserva consigliata)  
-- Ormeggio Lazio può sforare il cap annuo se non si sceglie con cura  
+- Piano B: ormeggio Lazio può sforare la sostenibilità se non si sceglie con cura  
+
 - Surf lunghe a bordo scomode finché non si passa a kit da barca  
 - Gommone: usato “come Argo” senza sconto vs nuovo = cattivo affare  
 - Motore: costa spesso più dello scafo gommone  
@@ -88,7 +90,7 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 2. Feed live: shortlist bundle gommone+motore ≤2.000 € da tab Gommoni / Motori
 3. Chiarire logistica: auto, custodia, scivolo (vedi [[concetti/logistica-trasporto]])
 4. Checklist ispezione gommoni+motori usati
-5. Redigere accordo scritto tra bestie (split costi, danni, uscita socio)
+5. Revisionare e firmare il patto (bozza già in cantiere; poi eventuale ingest wiki)
 6. Scenario rigido: da valutare solo con ≥5 soci e preventivi reali (vedi [[sintesi/scenario-rigido-5-soci]])
 
 ## Pagine collegate

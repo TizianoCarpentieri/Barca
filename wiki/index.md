@@ -40,9 +40,9 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
 | [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
 | [[preferenze/nice-to-have]] | Priorità uso + nice per track |
-| [[preferenze/split-costi]] | Regole danni, split 1/3, uscita socio, accordo scritto |
-| [[preferenze/budget]] | Budget, split e TCO |
-| [[preferenze/open-questions]] | Domande aperte |
+| [[preferenze/split-costi]] | 1/N, danni gruppo, uscita socio; patto in cantiere (non ingerito) |
+| [[preferenze/budget]] | Acquisto ≤2k; cap 30 € **non hard** sul gommone |
+| [[preferenze/open-questions]] | Domande aperte (logistica, preventivi, firma patto) |
 | [[preferenze/intervista-requisiti]] | Diario raccolta requisiti |
 
 ## Modelli / reference

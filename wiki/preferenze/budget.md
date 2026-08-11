@@ -1,7 +1,7 @@
 ---
 title: Budget
 type: preferenza
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [budget, usato, tco]
 sources: [raw/audio/, wiki/preferenze/split-costi.md]
@@ -9,7 +9,7 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 
 # Budget
 
-## Acquisto (intervista 2026-08-04, aggiornato 2026-08-10)
+## Acquisto (intervista 2026-08-04, aggiornato 2026-08-11)
 
 | Voce | Valore |
 |------|--------|
@@ -18,16 +18,25 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 | Stretch acquisto | Poco più solo se affare eccezionale |
 | Split acquisto | 1/3 (≈670 €/testa) |
 
-## Gestione annua — scenario scafo rigido (superato per gommone)
+## Cap 30 €/testa/mese — cosa è e cosa non è
 
-> ⚠️ Questi valori valgono solo per lo scenario scafo rigido con 3 soci. Per il gommone primario vedi lo scenario sotto.
+| Contesto | Ruolo del “30 €” |
+|----------|------------------|
+| **Piano A gommone** (auto, niente posto barca) | **Non hard.** Nacque da scenari con ormeggio/rimessaggio. I fissi attesi sono soprattutto **RC + tagliando** (pochi €/testa/mese se i numeri di mercato reggono). |
+| **Piano B scafo rigido** (≥5 soci) | Resta un **tetto di sostenibilità** da dimostrare con preventivi reali. |
+
+Carburante e ticket di uscita = **variabili** di chi esce, non “fissi di possesso”.
+
+## Gestione annua — scenario scafo rigido (non è il piano A)
+
+> Valgono per scafo rigido / ormeggio. **Non** applicare come hard cap al gommone smontabile.
 
 | Voce | Valore |
 |------|--------|
-| Cap a testa | **≤ 1.200 €/anno** |
+| Cap a testa (storico audio) | **≤ 1.200 €/anno** |
 | Cap totale 3 bestie | **≤ 3.600 €/anno** |
-| Cosa include il cap | **Tutte le spese possibili** di possesso/uso (canone, assicurazione, manutenzione, carburante, varate, imprevisti…) |
-| Split | Implicito **1/3** finché non dicono altro (1.200 × 3) |
+| Cosa include | Canone, assicurazione, manutenzione, carburante, varate, imprevisti… |
+| Split | **1/N** |
 
 ## Cosa **non** è nel tetto mezzo ma **sì** nel tetto annuo
 
@@ -37,27 +46,28 @@ sources: [raw/audio/, wiki/preferenze/split-costi.md]
 - Carburante uscite  
 - Piccoli imprevisti  
 
-## Scenario gommone primario (2026-08-10)
+## Scenario gommone primario (aggiornato 2026-08-11)
 
-Il gommone smontabile **può** eliminare i costi di rimessaggio se il gruppo
-conferma una custodia domestica adatta. Le cifre seguenti sono un’ipotesi di
-lavoro emersa dalle conversazioni, **non preventivi verificati**.
+Gommone **trasportabile in auto**: niente canone porto/rimessaggio nel modello base.  
+Le cifre sotto restano **ipotesi di lavoro**, non preventivi verificati.
 
-| Voce | Stima mensile | Stima annua | Note |
-|------|---------------|-------------|------|
-| Assicurazione RC | ~10 €/mese | 100–150 € | da preventivo reale |
-| Manutenzione motore | ~8 €/mese | ~100 € | da preventivo tagliando |
-| Carburante | ~8 €/mese | ~100 € | dipende da uscite e consumi |
-| Manutenzione gommone | ~4 €/mese | ~50 € | fondo ipotetico |
-| **Totale ipotetico** | **~30 €/mese** | **~350–400 €** | da validare |
-| **Per testa (÷3)** | **~10 €/mese** | **~115–135 €** | prima dei costi una tantum |
+| Voce | Natura | Stima annua gruppo | Note |
+|------|--------|--------------------|------|
+| Assicurazione **RC** | Fisso obbligatorio (legge) | ~60–150 € (target ~120) | [[normativa/rc-obbligatoria-natanti]]; preventivo reale open |
+| Tagliando motore | Fisso di gruppo (non “bollo” di legge) | ~80–180 € officina / meno DIY | scadenze da manuale; preventivo open |
+| Carburante | **Variabile di uscita** | dipende da N uscite | paga chi esce |
+| Fondo usura / piccole toppe | Fondo leggero | ~50 € | ipotesi |
+| Dotazioni sicurezza | Una tantum iniziale | da listare | obbligatorie per distanza di navigazione |
+
+Ordine di grandezza se RC+tagliando ~200–300 €/anno totali → **~6–8 €/testa/mese** di soli fissi tipici, **prima** di carburante e imprevisti. Il vecchio “~30 €/mese totali” mescolava fissi e variabili: non usarlo come tetto.
 
 ### Note scenario gommone
 
-- **Rimessaggio zero solo se** viene confermato un luogo domestico asciutto e sicuro.
-- **Varo a costo zero solo se** esiste un accesso legale e gratuito adatto.
-- **Costi una tantum da verificare**: adempimenti del bene/motore scelto, dotazioni di sicurezza, eventuali fanali/batteria e ripristini iniziali.
-- Vedi [[concetti/costi-nascosti-gommone]] per il dettaglio.
+- **Rimessaggio zero** se custodia domestica idonea (anche patio/area coperta se asciutta e comoda da carico/scarico).
+- **Accessi mare leciti** scelti di volta in volta; non serve elenco vincolante di scivoli nel modello costi.
+- **Una tantum** da verificare: adempimenti bene/motore, kit sicurezza, ripristini iniziali.
+- Spese di gruppo rilevanti non ordinarie: allineamento in chat prima di impegnare (soglie operative nel patto in cantiere).
+- Dettaglio voci: [[concetti/costi-nascosti-gommone]].
 
 ## Scenario scafo rigido (condizionale, ≥5 soci) (da validare con preventivi)
 
@@ -107,20 +117,17 @@ Con uso moderato, target sano: **canone fisso ≤ ~1.500–2.000 €/anno** cos�
 | Alaggio/Varo | ~150 € a operazione | A parte, non incluso in posto |
 | Carburante uscite | 200–500 €/anno | Motore ~25–40 CV |
 
-## Split danni (regola)
+## Split e danni
 
-Vedi [[split-costi]]:
-- **Errore conducente → paga il conducente**
-- **Evento imprevedibile → tutti insieme (1/3)**
-- **Uscita socio → rimborso quota proporzionale**
+Vedi [[preferenze/split-costi]] (allineato 2026-08-11): 1/N, default gruppo presenti salvo colpa palese, tempo > uscite in liquidazione quota.
 
 ## Open
 
 - [ ] Preventivo RC e tagliando sul motore target.
 - [ ] Costi documentali e dotazioni per il bundle effettivo.
-- [ ] Conferma custodia e accesso al mare senza canone.
-- [ ] Redigere accordo scritto firmato
-- [ ] Quante uscite/anno per chiudere formula
+- [ ] Conferma custodia e accesso al mare senza canone fisso.
+- [ ] Finalizzare e firmare il patto (bozza già in cantiere; non ancora in wiki).
+- [ ] Quante uscite/anno realistiche (registro utile alla gestione)
 
 Per il solo piano B rigido restano da raccogliere i numeri reali di Anzio e di
 almeno due cantieri: [[sintesi/scenario-rigido-5-soci]].

@@ -1,7 +1,7 @@
 ---
 title: Gruppo
 type: preferenza
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [gruppo, bestie, lazio]
 ---
@@ -12,14 +12,16 @@ tags: [gruppo, bestie, lazio]
 
 | Persona | Ruolo |
 |---------|--------|
-| Tu (owner repo) | Coordinamento ricerca / agente |
+| Tiziano | Co-acquirente / coordinamento ricerca |
 | Antonio | Co-acquirente / bestia |
 | Peppe | Co-acquirente / bestia |
 
 ## Uso tipico dichiarato
 
-- **3 persone** comode: battute di **pesca** e uscite tra bestie
-- **Fino a ~6** ideale: uscite sociali con amici
+- **Modo normale atteso:** uscite **tutti insieme** (o tutti invitati)
+- **3** comodi: pesca e uscite tra bestie
+- **Fino a ~6** ideale: picco sociale con amici
+- Uscite parziali/solitarie = eccezione (solitarie ancora da chiudere in preferenze)
 
 ## Timeline (intervista 2026-08-04)
 
@@ -34,7 +36,8 @@ tags: [gruppo, bestie, lazio]
 |------|--------|
 | Intensità | **Tra “1–2/mese” e “quasi ogni weekend”** |
 | Lettura operativa | Uso **moderato**: ~2–6 uscite/mese in alta stagione (stima da rifinire), non flotta quotidiana |
-| Impatto logistico | Piano A smontabile: niente posto barca; vanno verificati auto, custodia e sostenibilità del montaggio |
+| Impatto logistico | Piano A: niente canone posto barca; auto + custodia + montaggio da validare sul campo |
+| Split | **1/N** su acquisto e fissi; variabili di uscita a chi partecipa |
 
 ## Base operativa (intervista 2026-08-04)
 
@@ -72,6 +75,6 @@ Dettaglio inviluppo: [[concetti/no-patente-6-pax-realta]].
 
 ## Note
 
-- Decisione d’acquisto e preferenze da allineare tra i tre.
-- Nessuno del gruppo indicato come residente Anzio → agevolazioni “residenti porto Anzio” probabilmente non applicabili.
-- Dal 2026-08-10 il gommone smontabile è il piano primario; il rimessaggio A/C riguarda soltanto lo scenario rigido futuro.
+- Preferenze da tenere allineate tra i tre; patto scritto in cantiere (non ancora firmato / non in wiki).
+- Nessuno indicato come residente Anzio → agevolazioni “residenti porto” probabilmente non applicabili.
+- Piano primario = gommone smontabile; rimessaggio A/C solo per scenario rigido futuro (≥5 soci).

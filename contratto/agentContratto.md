@@ -8,7 +8,7 @@
 (o relativo al root repo: `contratto/`)
 
 **Fase corrente:** cantiere attivo in `contratto/`.  
-**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.6**).  
+**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.7**).  
 Non propagare il testo del patto in `wiki/` finché non è stabile e il gruppo non lo chiede.
 
 ---
@@ -128,7 +128,7 @@ Principi di gruppo già in bozza:
 
 ---
 
-## 6. Checklist scenari (stato vs bozza 1.6)
+## 6. Checklist scenari (stato vs bozza 1.7)
 
 Legenda: `[x]` coperto in bozza (anche se restano dettagli aperti) · `[ ]` ancora debole/aperto.
 
@@ -269,9 +269,9 @@ Vedi art. 13 bozza. Vincoli:
 
 ---
 
-## 10. Open decisions (allineati a bozza 1.6)
+## 10. Open decisions (allineati a bozza 1.7)
 
-1. Cognomi e contatti parti  
+1. Contatti parti (nomi in bozza: Tiziano, Antonio, Peppe)  
 2. Intestatario gommone / motore / polizza  
 3. Custode e luogo (criterio carico/scarico)  
 4. Quale canale di gruppo + link Google Drive  
@@ -287,9 +287,9 @@ Vedi art. 13 bozza. Vincoli:
 
 ## 11. Mappa rapida bozza (orientamento)
 
-| Art. | Tema | Note v1.6 |
+| Art. | Tema | Note v1.7 |
 |------|------|-----------|
-| 1–2 | Parti, quote | |
+| 1–2 | Parti, quote | nomi: Tiziano, Antonio, Peppe |
 | 3 | Intestazione, RC, Drive | RC obbligatoria legge |
 | 4 | Custodia | no “furti banali”; carico/scarico |
 | 5 | Calendario | preavviso chiaro |
@@ -300,8 +300,9 @@ Vedi art. 13 bozza. Vincoli:
 | 10 | Danni | 10.6 verbale + terzo/LLM |
 | 11 | Manutenzione | 11.4 rotazione / equilibrio carichi |
 | 12 | Multe | presenti 1/P; eccezione conducente |
-| 13 | Recesso | tempo >> uso |
-| 14–18 | Ingresso, vendita, limiti, firme | |
+| 13 | Recesso | tempo >> uso; quote → 1/(N−1); Rimborso≥0 |
+| 16 | Limiti | 16.1 decesso = fine patto socio (no subentro); 16.3 esclusione = **zero rimborso** |
+| 14–18 | Ingresso, vendita, firme | bozza senza path repo |
 
 Prospetto: §1 RC · §1b alcol · §2 dotazioni/luci · §6 tagliando.
 
@@ -311,6 +312,7 @@ Prospetto: §1 RC · §1b alcol · §2 dotazioni/luci · §6 tagliando.
 
 | Data | Nota |
 |------|------|
+| 2026-08-11 | Bozza v1.7: 13 spiegato; 16.1 no eredi; 16.3 no rimborso escluso; nomi snelli; patto senza riferimenti repo. |
 | 2026-08-11 | Revisione post-sessione patto v1.6: edit-in-place obbligatorio; warning buffer IDE; seed cap/lunghezza; checklist stato reale; mappa articoli; open decisions aggiornate. |
 | 2026-08-11 | Prospetto + § regola d’oro costi/leggi; bozza iniziale e iterazioni 1.1–1.6. |
 | 2026-08-11 | Creazione cartella e mandato v1. |

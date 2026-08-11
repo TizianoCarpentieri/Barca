@@ -130,8 +130,8 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Base:** Ardea/Pomezia — mare laziale (Anzio/Circeo/Fiumicino)
 - **Capacità target:** 3 comodi per pesca; ideale fino a **6** per uscite sociali
 - **Patente:** nessuno; ideale restare no-patente (≤40,8 CV)
-- **Budget piano A:** bundle gommone+motore ≤2.000 €; costi fissi ≤30 €/testa/mese
-- **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi reali
+- **Budget piano A:** bundle gommone+motore ≤2.000 €; costi fissi gommone **senza hard-cap 30 €/testa/mese** (era scenario porto); attesi RC+tagliando
+- **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi che reggano ≤30 €/testa/mese
 
 ### Piano corrente (2026-08-10)
 1. **Gommoni — piano A** — pneumatici no RIB; min 3,30 m (ideale 3,50–3,80; >4 m ok se auto/trasporto); Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)

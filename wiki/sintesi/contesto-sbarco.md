@@ -4,7 +4,7 @@ type: sintesi
 updated: 2026-08-11
 status: active
 tags: [sbarco, contesto, source-of-truth]
-sources: [wiki/overview.md, wiki/preferenze/must-have.md, wiki/preferenze/budget.md, wiki/preferenze/open-questions.md]
+sources: [wiki/overview.md, wiki/preferenze/must-have.md, wiki/preferenze/budget.md, wiki/preferenze/split-costi.md, wiki/preferenze/open-questions.md]
 ---
 
 # Contesto operativo Sbarco
@@ -26,10 +26,11 @@ corrente; i dettagli e la storia restano nelle pagine collegate.
 | Voce | Valore corrente |
 |------|-----------------|
 | Bundle gommone + motore | **massimo 2.000 €**, preferibilmente usato |
-| Costi fissi | **massimo 30 €/testa/mese** |
-| Gommone | 3,30–3,90 m; paiolato alluminio o airdeck; chiglia gonfiabile preferita |
-| Motore | minimo 6 CV; sweet spot 9.9–15 CV; 4T, gambo corto |
+| Costi fissi gommone | **non hard-cap 30 €/testa/mese**; attesi RC + tagliando (pochi €/testa/mese se preventivi ok); carburante = variabile uscite |
+| Gommone | min 3,30 m; ideale 3,50–3,80; **no max duro** se auto/trasporto ok; paiolato Al o airdeck; chiglia gonfiabile preferita |
+| Motore | minimo 6 CV; sweet spot 9.9–15 CV; 4T, gambo corto; max 40,8 CV |
 | Patente | nessuno la possiede; target entro i limiti senza patente |
+| Split / uso | 1/N; uscite di **gruppo** come normale |
 | Benchmark | [[modelli/argo-evo-360]] nuovo a 970 €; usato equivalente senza motore almeno −20% |
 
 ## Priorità
@@ -41,11 +42,12 @@ corrente; i dettagli e la storia restano nelle pagine collegate.
 
 ## Questioni ancora aperte
 
-- Auto adatta, luogo di custodia e divisione del lavoro di montaggio.
-- Accesso/scivolo pratico vicino alla base.
-- Preventivi reali per assicurazione, manutenzione, documenti e dotazioni.
-- Accordo scritto tra soci.
-- Shortlist di bundle realmente ispezionabili entro budget.
+- Auto adatta, luogo di custodia (anche patio se idoneo) e carico/scarico pratico.
+- Accesso mare lecito vicino alla base.
+- Preventivi reali RC, tagliando, documenti e dotazioni.
+- Finalizzare/firmare patto (bozza in cantiere; **non** ancora in wiki).
+- Shortlist di bundle ispezionabili entro 2.000 €.
+- Uscite solitarie: sì/no definitivo.
 
 Dettaglio e checklist: [[preferenze/open-questions]].
 

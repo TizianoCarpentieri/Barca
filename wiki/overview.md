@@ -12,14 +12,15 @@ tags: [stato]
 
 Le bestie (tu + Antonio + Peppe) cercano un **gommone pneumatico smontabile no-patente**, usato low-budget (≤2.000 € bundle), per **pesca e costa laziale** (base Ardea/Pomezia). Scafo rigido = scenario futuro con 5 soci.
 
-## Direzione attuale (2026-08-10)
+## Direzione attuale (2026-08-11)
 
 | Asse | Direzione |
 |------|-----------|
 | Mezzo primario | **Gommone pneumatico smontabile** (no RIB), trasportabile in auto |
 | Scafo rigido | Desiderio, ma realistico solo con ≥5 soci e preventivi reali |
 | Budget acquisto | **≤2.000 €** bundle gommone+motore usato |
-| Costi fissi | **≤30 €/testa/mese** (90 €/mese totali) |
+| Costi fissi gommone | **Non hard-cap 30 €/testa/mese**; attesi soprattutto RC + tagliando (pochi €/testa/mese se i preventivi reggono) |
+| Uso | Preferenza **uscite di gruppo**; split 1/N |
 | Motore | ≥6 CV, sweet 9.9–15, max 40,8, 4T gambo corto |
 | Reference | [[modelli/argo-evo-360]] a 970 € nuovo (benchmark scafo) |
 
@@ -37,10 +38,10 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Patente | ✅ nessuno; no-patente ≤40,8 CV |
 | Normativa no-patente IT | 🟡 presente; tenere fonti aggiornate |
 | Budget acquisto | ✅ ≤2.000 € bundle gommone+motore |
-| Budget gestione | ✅ ≤30 €/testa/mese |
-| Costi reali (manutenzione, passaggio, doc) | ⬜ [[concetti/costi-nascosti-gommone]] — da verificare |
+| Budget gestione gommone | 🟢 modello chiaro: no hard-cap 30 €; fissi RC+tagliando; variabili a uscita — preventivi reali ancora open |
+| Costi reali (manutenzione, passaggio, doc) | 🟡 RC legge ok; tagliando/dotazioni in corso — [[concetti/costi-nascosti-gommone]] |
 | Logistica trasporto (auto, custodia) | ⬜ [[concetti/logistica-trasporto]] — da verificare |
-| Accordo scritto bestie | ⬜ da redigere |
+| Accordo scritto bestie | 🟡 bozza in cantiere (fuori wiki); da revisionare insieme e firmare — **non** ancora ingerita |
 | Scenario rigido 5 soci | ⬜ [[sintesi/scenario-rigido-5-soci]] |
 | Feed Subito automatico | ✅ 3 feed + geo-score + cron |
 | Sbarco deep research | 🟢 produzione `2.2.2`; richiesta PDF deterministica con `save_doc` obbligatorio e fallback, verificata online |
@@ -50,12 +51,12 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 
 ## Prossimi passi consigliati
 
-1. Verificare costi reali: passaggio proprietà, tagliando, assicurazione RC, dotazioni obbligatorie.
-2. Chiarire logistica: chi ha auto adatta, chi tiene il gommone, quante uscite/anno realistiche.
-3. Popolare shortlist gommoni+motori bundle ≤2.000 € dai feed live.
-4. Redigere accordo scritto tra bestie (split costi, danni, uscita socio).
-5. Scenario rigido: calcolare con 5 soci se i numeri tornano.
-6. Osservare le metriche `/debug` dopo l'uso reale e ampliare i test solo sui difetti ricorrenti.
+1. Preventivi reali RC e tagliando; chiudere dotazioni/documenti sul bundle scelto.
+2. Logistica: auto, custode, prova ciclo carico/montaggio, accesso mare lecito.
+3. Shortlist bundle ≤2.000 € dai feed live.
+4. Revisionare insieme e firmare il patto (bozza già in cantiere; ingest wiki solo dopo).
+5. Scenario rigido: solo con ≥5 soci e preventivi ≤30 €/testa/mese.
+6. Metriche `/debug` Sbarco dopo uso reale.
 
 ## Come usare questo repo
 

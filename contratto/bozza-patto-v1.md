@@ -1,6 +1,6 @@
 # Patto di gestione condivisa — Gommone Le Bestie
 
-**Versione:** 1.6 (bozza di lavoro)  
+**Versione:** 1.7 (bozza di lavoro)  
 **Data:** 2026-08-11  
 **Natura:** patto tra amici a precisione contrattuale. Non è un atto notarile né consulenza legale.  
 **In caso di contrasto con norme imperative italiane, prevale la legge.**
@@ -9,6 +9,7 @@
 
 | Ver. | Data | Nota |
 |------|------|------|
+| 1.7 | 2026-08-11 | Art. 13: spiegazioni rinormalizzazione quote e Rimborso≥0 + esempio narrativo; 16.1 decesso senza eredi/subentro; 16.3 esclusione senza rimborso + più casi; nomi solo Tiziano/Antonio/Peppe; zero riferimenti a repo/file di progetto. |
 | 1.6 | 2026-08-11 | Art. 11.4: manutenzione a rotazione / chi fa meno il resto; non referente fisso obbligatorio. |
 | 1.5 | 2026-08-11 | Art. 12: default multe = soci presenti (scelte insieme); eccezione conducente che decide da solo scelte sbagliate. |
 | 1.4 | 2026-08-11 | Art. 11.4 manutenzione: non obbligo legge; scadenze manuale; costi e procedura sollecito 30 gg → prospetto. |
@@ -30,9 +31,9 @@
 
 | # | Nome | Ruolo | Contatto |
 |---|------|--------|----------|
-| 1 | Tiziano Carpentieri | Socio | [DA DECIDERE] |
-| 2 | Antonio [COGNOME] | Socio | [DA DECIDERE] |
-| 3 | Peppe / Giuseppe [COGNOME] | Socio | [DA DECIDERE] |
+| 1 | Tiziano | Socio | [DA DECIDERE] |
+| 2 | Antonio | Socio | [DA DECIDERE] |
+| 3 | Peppe | Socio | [DA DECIDERE] |
 
 Le Parti sono dette anche **soci** o **Bestie**.  
 Il numero dei soci attivi è **N** (all’avvio N = 3).
@@ -287,7 +288,7 @@ Comportamenti che espongono a sanzione o sequestro = violazione grave; costi art
 **Contesto di gruppo:** si può bere in uscita; non si finge l’astinenza totale.
 
 **Chi guida (conducente):**
-- deve restare entro i limiti di legge (art. 53-bis D.Lgs. 171/2005: stato di ebbrezza se tasso **> 0,5 g/l**; dettagli e sanzioni in `prospetto-costi-a-norma.md`);
+- deve restare entro i limiti di legge (art. 53-bis D.Lgs. 171/2005: stato di ebbrezza se tasso **> 0,5 g/l**);
 - **divieto** di condurre sotto alcol oltre soglia o sotto sostanze stupefacenti.
 
 **Passeggeri:** possono bere; buon senso.
@@ -296,8 +297,7 @@ Comportamenti che espongono a sanzione o sequestro = violazione grave; costi art
 
 ### 8.4 Dotazioni obbligatorie
 
-Prima del varo, i **soci presenti all’uscita** verificano insieme le dotazioni di sicurezza richieste per il tipo di navigazione (diurna/notturna, distanza costa).  
-Elenco e costi: `prospetto-costi-a-norma.md` §2.
+Prima del varo, i **soci presenti all’uscita** verificano insieme le dotazioni di sicurezza richieste per il tipo di navigazione (diurna/notturna, distanza costa).
 
 Mancata verifica + sinistro o multa correlata alla mancanza di dotazioni → **colpa solidale dei soci presenti** a quell’uscita (art. 10), ripartita in parti uguali tra loro, salvo prova che uno solo ha impedito o ignorato il controllo.
 
@@ -326,15 +326,13 @@ Pagamento: **[DA DECIDERE — proposta: contestuale all’acquisto, prova di bon
 | **Una tantum di gruppo** | giubbotti, ancora, kit sicurezza obbligatorio, pompa, ripristino iniziale | Tutti 1/N (se supera soglia → art. 9.5) |
 | **Colpa / negligenza** | multa, danno da manovra, danno da alcol del conducente | Chi ha causato (art. 10–12) |
 
-Dettaglio obblighi di legge e stime €: `prospetto-costi-a-norma.md`.
-
 ### 9.3 Monitoraggio costi (gommone, non posto barca)
 
 Il Bene è un **gommone trasportabile in auto**: **non** c’è canone porto/rimessaggio fisso come su scafo in marina.  
 Il vecchio riferimento “≤ 30 €/testa/mese” nasceva da scenari con **ormeggio/rimessaggio** ed è **non vincolante** come hard cap per questo piano.
 
 **In pratica:**
-- i fissi attesi sono soprattutto **RC + tagliando** (ordine pochi euro a testa al mese, vedi prospetto);
+- i fissi attesi sono soprattutto **RC + tagliando** (ordine pochi euro a testa al mese);
 - prima di impegnare una spesa di gruppo **non ordinaria** e rilevante, si scrive sul canale e si allineano tutti;
 - se un giorno si scegliesse posto barca o costi fissi alti, si aggiorna questo articolo a unanimità.
 
@@ -511,8 +509,7 @@ Chi se ne va prima senza accordo lascia comunque la responsabilità condivisa su
 ### 11.4 Manutenzione programmata (tagliando motore)
 
 **Non è un obbligo di legge** (nessun “bollo tagliando” sul Codice nautica).  
-È obbligo **di gruppo** verso il Bene e la garanzia/costruttore: si segue il **manuale del motore** (tipico: **annuale** e/o ogni **50–100 ore**; primo tagliando spesso ~20 ore se nuovo).  
-Dettaglio scadenze e **costi**: `prospetto-costi-a-norma.md` §6.
+È obbligo **di gruppo** verso il Bene e la garanzia/costruttore: si segue il **manuale del motore** (tipico: **annuale** e/o ogni **50–100 ore**; primo tagliando spesso ~20 ore se nuovo).
 
 **Chi se ne occupa**
 - Non c’è un “referente manutenzione” fisso obbligatorio.
@@ -527,7 +524,7 @@ Dettaglio scadenze e **costi**: `prospetto-costi-a-norma.md` §6.
    - **qualsiasi socio** può far eseguire il tagliando e ribaltare il costo **1/N**;
    - se dal ritardo nasce un **danno** al motore dimostrabile da inerzia di gruppo → art. 10 (di regola presenti/tutti; se un socio aveva accettato l’incarico e poi sparito → rivalersi su di lui per la parte di omissione).
 
-**Open:** preventivo reale Lazio sul motore scelto (prospetto).
+**Open:** preventivo reale Lazio sul motore scelto.
 
 ### 11.5 Lavori straordinari
 
@@ -575,7 +572,7 @@ Dalla data di efficacia del recesso (fine preavviso, o data diversa concordata):
 
 1. l’uscente perde diritti di uso e voto;
 2. la sua quota economica è liquidata ai sensi di questo articolo;
-3. i rimanenti restano proprietari economici pro-quota tra loro (rinormalizzano a 1/(N−1) dopo il pagamento);
+3. i **rimanenti** restano gli unici proprietari economici del Bene. Le quote si **rinormalizzano**: se prima erano in 3 (ciascuno 1/3) e uno esce dopo il pagamento del rimborso, i due che restano passano ciascuno a **1/2** (in generale: da `1/N` a `1/(N−1)`). Non resta “un terzo fantasma” intestato a chi è uscito;
 4. l’uscente restituisce chiavi, documenti in suo possesso, materiali del gruppo.
 
 ### 13.3 Formula — principi
@@ -585,7 +582,7 @@ Dalla data di efficacia del recesso (fine preavviso, o data diversa concordata):
 3. Le **uscite** applicano un **correttivo secondario con tetto**: non possono valere quanto un anno intero di deprezzamento se sono poche decine.
 4. Si applica un **fattore stato** del Bene.
 5. Si tolgono i **debiti** dell’uscente verso il gruppo.
-6. `Rimborso = max(0, …)` sulla quota; debiti eccedenti restano esigibili dal gruppo.
+6. Il rimborso della quota **non può essere negativo**: si calcola `Rimborso = max(0, QuotaLorda − D_i)`. Se l’uscente deve al gruppo **più** di quanto gli spetterebbe di quota (es. multe non pagate, danni a suo carico), il rimborso è **0 €** e il **debito residuo** resta dovuto: il gruppo può ancora pretenderlo (compensazione, sollecito, art. 16).
 
 ### 13.4 Parametri (Proposta v1)
 
@@ -603,9 +600,11 @@ Dalla data di efficacia del recesso (fine preavviso, o data diversa concordata):
 | | Interpretazione: **40 uscite sopra media ≈ 1 anno** di deprezzamento a tasso r | |
 | `cap_u` | Tetto assoluto del correttivo uso (in frazione su ValoreBase) | **0,05** (±5%) |
 | `S` | Fattore stato | 1,00 buono / 0,85 medio / 0,70 scarso |
-| `D_i` | Debiti uscente verso cassa/gruppo | € |
+| `D_i` | Debiti uscente verso il gruppo (rimborsi non saldati, danni a suo carico, ecc.) | € |
 
 **Perché w = r/40:** se 1 anno toglie ~0,10, allora 10 uscite sopra media tolgono 10 × 0,0025 = **0,025** (2,5%), non un altro 10%.
+
+*Esempio narrativo. Gommone+motore acquistati il 1° giugno 2026 a P = 1.800 € (600 € a testa). Il 1° giugno 2028 (t = 2 anni) Peppe decide di uscire. In quei due anni il Bene ha fatto U_tot = 40 uscite registrate; Peppe c’era a U_i = 18 (media = 40/3 ≈ 13,3 → un po’ sopra media). Stato del mezzo buono (S = 1,00). Peppe non ha debiti aperti (D_i = 0). Si applica la formula: prima il tempo toglie il 20% (2 × 0,10) → ValoreBase = 1.440 €; poi il leggero extra-uso abbassa un filo la quota; Rimborso ≈ qualche centinaio di euro a carico di Tiziano e Antonio in parti uguali. Dopo il pagamento, Tiziano e Antonio restano al 50% ciascuno. Se invece Peppe dovesse ancora 200 € di una multa a suo carico e la QuotaLorda uscisse 180 €, Rimborso = 0 e i 20 € di differenza restano un credito del gruppo verso di lui.*
 
 ### 13.5 Calcolo passo-passo
 
@@ -750,8 +749,12 @@ In vendita a terzi, ogni socio può offrire di acquistare l’intero Bene alle s
 
 ### 16.1 Decesso o inabilità grave
 
-- La quota entra nella sfera degli aventi causa.
-- I soci superstiti offrono liquidazione con formula art. 13 entro **90 giorni** dalla comunicazione, salvo accordo con gli eredi di subentro (subentro solo con unanimità dei soci superstiti).
+In caso di **decesso** o di **inabilità grave** che impedisca in modo duraturo di partecipare al patto, l’accordo con quel socio si considera **concluso** a ogni effetto tra le Bestie.
+
+- **Nessun subentro** di eredi, familiari o aventi causa nel patto, nell’uso del Bene o nella qualità di socio.
+- I soci superstiti liquidano la quota dell’uscito con la **formula art. 13** (come un recesso), entro **90 giorni** dalla comunicazione dell’evento (o dalla data in cui ne hanno conoscenza certa).
+- Il rimborso va a chi di diritto per legge sul piano patrimoniale (es. eredi), ma **solo come credito di liquidazione**: non apre diritti di uso, voto o permanenza nel gruppo.
+- Debiti del socio uscito verso il gruppo restano detraibili dal rimborso (art. 13.3 punto 6).
 
 ### 16.2 Abbandono di fatto
 
@@ -764,15 +767,22 @@ Effetti: sospensione uso; il gruppo può avviare liquidazione d’ufficio della 
 
 ### 16.3 Esclusione per giusta causa
 
-A **unanimità dei soci non coinvolti** (se N=3 e uno è accusato: servono entrambi gli altri d’accordo), si può escludere chi:
+A **unanimità dei soci non coinvolti** (se N=3 e uno è accusato: servono entrambi gli altri d’accordo), si può escludere chi, in modo grave o reiterato:
 
-- usa il Bene in modo illegale consapevole;
-- cagiona danni gravi e rifiuta di pagare quanto dovuto;
-- cede o tenta di cedere il Bene contro il patto;
-- mette in pericolo serio persone in modo reiterato.
+- usa il Bene in modo **illegale consapevole** (oltre i limiti di legge, no-patente, zone vietate, ecc.);
+- cagiona **danni gravi** e rifiuta di pagare quanto dovuto;
+- **cede, impegna o tenta di cedere** il Bene (o pezzi essenziali) contro il patto;
+- mette in **pericolo serio** persone in modo reiterato;
+- guida in **ebbrezza** o sotto sostanze oltre i limiti di legge, o costringe gli altri a situazioni di rischio;
+- **presta, noleggia o fa usare** il Bene a terzi in violazione dell’art. 7;
+- **sottrae, nasconde o smembra** pezzi del Bene / inventari (Allegato A);
+- **abbandona di fatto** obblighi essenziali dopo i solleciti di cui all’art. 16.2 e il gruppo sceglie l’esclusione invece della sola liquidazione d’ufficio;
+- **viola reiteratamente** regole su costi, danni o condotta dopo avviso scritto sul canale ufficiale;
+- tiene condotte che rendono **oggettivamente intollerabile** la prosecuzione del rapporto di fiducia tra soci (furto tra soci, minacce, uso del Bene per attività illecite, ecc.).
 
-Liquidazione: formula art. 13; possibili addebiti danni restano detraibili.  
-**Proposta v1:** in esclusione per giusta causa, `CorrettivoUso` non opera a favore dell’escluso oltre lo zero (niente “bonus poco uso”).
+**Effetto patrimoniale (regola fissa):** in caso di esclusione per giusta causa all’escluso **non spetta alcun rimborso** della propria quota di proprietà economica del Bene. La quota si estingue a favore dei soci rimanenti, che rinormalizzano come in art. 13.2 punto 3 **senza pagamento** all’escluso.
+
+Restano comunque esigibili dal gruppo (e detraibili da eventuali altri rapporti di dare/avere) i **debiti** dell’escluso (danni, multe a suo carico, rimborsi non saldati). L’escluso restituisce subito chiavi, documenti e materiali del gruppo.
 
 ### 16.4 Smarrimento documenti / chiavi
 
@@ -831,7 +841,7 @@ Gli allegati fanno parte integrante del patto.
 ### 18.2 Copie
 
 Ogni socio riceve una copia del patto firmato (cartacea o PDF).  
-Il file di lavoro vive in `contratto/` del repo di progetto finché il gruppo non decide altrimenti.
+Una copia digitale aggiornata resta accessibile a tutti i soci (stesso strumento usato per i documenti condivisi, art. 3.3).
 
 ### 18.3 Dichiarazione
 
@@ -847,9 +857,9 @@ Luogo: _________________ Data: ____ / ____ / ________
 
 | Socio | Firma |
 |-------|--------|
-| Tiziano Carpentieri | ________________________ |
-| Antonio _______________ | ________________________ |
-| Peppe / Giuseppe _______________ | ________________________ |
+| Tiziano | ________________________ |
+| Antonio | ________________________ |
+| Peppe | ________________________ |
 
 ---
 
@@ -896,9 +906,9 @@ termine_pagamento_giorni = 60
 
 ---
 
-# Elenco rapido [DA DECIDERE] aperti in v1.1
+# Elenco rapido [DA DECIDERE] aperti in v1.7
 
-1. Cognomi e contatti parti  
+1. Contatti parti  
 2. Intestatari gommone/motore/polizza  
 3. Custode e luogo (con criterio carico/scarico)  
 4. Canale ufficiale (quale app/chat, senza nome fisso nel patto)  

@@ -46,12 +46,12 @@ Se si esce di notte (alba pesca, rientro tardi):
 | Batteria/pannello per fanali | |
 | Torcia potente / riflettori | |
 
-## Da verificare — Manutenzione periodica
+## Manutenzione periodica
 
-| Voce | Frequenza | Costo stimato |
-|------|-----------|---------------|
-| Tagliando motore (olio, filtro, candela) | Annuale / ogni 100 ore | Da verificare |
-| Controllo valvole gommone | Annuale | Da verificare |
+| Voce | Note | Costo stimato |
+|------|------|---------------|
+| Tagliando motore | **Non obbligo di legge** (nessun “bollo tagliando”). Obbligo di gruppo vs Bene/garanzia: scadenze **manuale** (tipico annuale e/o 50–100 h; primo spesso ~20 h se nuovo) | DIY ~40–90 €; officina piccolo 4T ~80–180 € (range 2026-08, da preventivo sul motore reale) |
+| Controllo valvole gommone | Buona prassi annuale | Da verificare |
 | Kit riparazione (toppe, colla) | Occasionale | ~30–60 € |
 | Sostituzione pompa | Ogni 2-3 anni | ~30–50 € |
 
@@ -71,9 +71,16 @@ Se si esce di notte (alba pesca, rientro tardi):
 | Tanica carburante | 2-3 anni | ~20–30 € |
 | Sacca trasporto | 2-3 anni | ~30–50 € |
 
+## Nota modello costi (piano A)
+
+- **RC** = fisso obbligatorio di legge.
+- **Tagliando** = fisso di gruppo (manuale), non tassa.
+- **Carburante / ticket** = variabili di uscita, non mescolarli in un “cap mensile fisso”.
+- Il tetto storico **30 €/testa/mese** non è hard sul gommone auto: vedi [[preferenze/budget]].
+
 ## Prossimi passi
 
-1. Chiedere a Sbarco di cercare online ogni voce
-2. Telefonare a un'agenzia nautica per passaggio proprietà
-3. Chiedere preventivo assicurazione RC gommone
-4. Verificare normativa dotazioni su fonti ufficiali (Guardia Costiera/MIT)
+1. Preventivo RC reale sul setup (tre utilizzatori se possibile)
+2. Preventivo tagliando sul motore target Lazio
+3. Agenzia nautica: passaggio / documenti del bene scelto
+4. Dotazioni obbligatorie: fonti ufficiali + listino kit
