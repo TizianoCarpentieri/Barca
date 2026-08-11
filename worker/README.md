@@ -62,7 +62,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.2.1","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# → {"status":"ok","version":"2.2.2","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV

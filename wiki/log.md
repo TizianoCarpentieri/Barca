@@ -400,3 +400,12 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   scheda dal testo finale se il provider non rispetta la chiamata obbligatoria.
 - Aggiunto un test end-to-end Worker che verifica tool call, evento documento e
   metrica `documentsCreated: 1` senza ridurre i budget di output.
+
+## [2026-08-11] deploy | Creazione PDF su richiesta online
+
+- Commit `37c5035`; workflow Worker `31509499023` completato con successo.
+- Health live `2.2.2`; il bundle Pages conserva il gestore `documents` e il
+  tasto **Scarica PDF**, quindi non era necessario un nuovo deploy frontend.
+- Verifica completa: Worker 17/17, UI/PDF 10/10, build Vite e lint wiki verdi.
+- Smoke non invasivo: Antonio e Peppe restano entrambi a `0/5`; Tiziano resta
+  illimitato. Nessun utilizzo del gruppo è stato consumato per il controllo.

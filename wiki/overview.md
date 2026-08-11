@@ -43,7 +43,7 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Accordo scritto bestie | ⬜ da redigere |
 | Scenario rigido 5 soci | ⬜ [[sintesi/scenario-rigido-5-soci]] |
 | Feed Subito automatico | ✅ 3 feed + geo-score + cron |
-| Sbarco deep research | 🟡 `2.2.2` pronta al deploy; richiesta PDF resa deterministica con `save_doc` obbligatorio e fallback |
+| Sbarco deep research | 🟢 produzione `2.2.2`; richiesta PDF deterministica con `save_doc` obbligatorio e fallback, verificata online |
 | Lint wiki automatico | ✅ `node scripts/lint-wiki.mjs` |
 | Shortlist candidati | ⬜ da popolare dai feed |
 | Visite/prove | ⬜ non iniziato |
