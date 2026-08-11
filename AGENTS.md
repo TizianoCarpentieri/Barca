@@ -65,6 +65,10 @@ Barca/
 │   ├── annunci/              # salvataggi annunci (md/html/pdf/png)
 │   ├── normativa/            # testi legge, guide ufficiali
 │   └── manuali/              # brochure, schede tecniche
+├── contratto/                # CANTIERE PATTO + costi a norma
+│   ├── agentContratto.md     # mandato agente sul patto
+│   ├── bozza-patto-v1.md     # testo patto tra amici
+│   └── prospetto-costi-a-norma.md  # leggi + costi iniziali/fissi obbligatori
 ├── wiki/                     # KNOWLEDGE BASE (agente scrive)
 │   ├── index.md              # catalogo di tutte le pagine
 │   ├── log.md                # diario append-only
@@ -84,6 +88,16 @@ Barca/
 ├── graphify-out/             # output grafo (generato)
 └── .opencode/                # skill, plugin, config
 ```
+
+### Contratto e costi a norma
+
+| File | Ruolo |
+|------|--------|
+| `contratto/bozza-patto-v1.md` | Patto tra le bestie (uso, danni, uscita, split) |
+| `contratto/agentContratto.md` | Mandato e checklist del cantiere patto |
+| `contratto/prospetto-costi-a-norma.md` | **Fonte di verità** per obblighi di legge e costi **iniziali/fissi obbligatori** (RC, dotazioni minime, documenti, tasse…) |
+
+**Regola:** se in ricerca o chat emerge un obbligo normativo o un costo obbligatorio per restare a norma → aggiornare **`contratto/prospetto-costi-a-norma.md` nella stessa sessione** (dettaglio in `agentContratto.md` §2.1). Fonti in `raw/`; schede narrative in `wiki/normativa/` ok, ma il prospetto non deve restare indietro.
 
 ### Convenzioni file wiki
 
@@ -120,7 +134,7 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi reali
 
 ### Piano corrente (2026-08-10)
-1. **Gommoni — piano A** — pneumatici no RIB; 3,3–3,9 m; Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
+1. **Gommoni — piano A** — pneumatici no RIB; min 3,30 m (ideale 3,50–3,80; >4 m ok se auto/trasporto); Al floor / airdeck; ref **Argo-Evo 360** 970 € (−20% usato senza motore)
 2. **Motori abbinati** — ≥6 CV (no 2.5/4); sweet 9.9–15; max 40,8; 4T gambo corto
 3. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
 
@@ -148,6 +162,7 @@ Trigger: "ingerisci …", file droppato in `raw/`, link da salvare, annuncio tro
    - append in `wiki/log.md`: `## [YYYY-MM-DD] ingest | <titolo>`
 4. Se emerge una preferenza del gruppo → aggiorna `wiki/preferenze/`.
 5. Opzionale: `graphify update .` o `/graphify add <url>` se la fonte è esterna e va nel grafo.
+6. Se la fonte riguarda **obblighi di legge** o **costi iniziali/fissi obbligatori** → aggiorna anche `contratto/prospetto-costi-a-norma.md`.
 
 ### 2. Query (domanda)
 
@@ -230,6 +245,8 @@ Quando si modifica `worker/` o `presentazione/src/js/sbarco.js`:
 | `status` | Riassunto da overview + preferenze + open questions |
 | `/graphify …` | Skill graphify |
 | `ricerca: …` | Web research → raw → ingest |
+| `contratto: …` | Vedi `contratto/agentContratto.md` |
+| `costi a norma` / `prospetto` | Leggi/aggiorna `contratto/prospetto-costi-a-norma.md` |
 
 ---
 
@@ -242,6 +259,7 @@ Quando si modifica `worker/` o `presentazione/src/js/sbarco.js`:
 5. **Gruppo al centro** — decisioni pensate per 3 bestie + fino a 6.
 6. **Costo totale** — non solo prezzo scafo: motore, carrello, rimessaggio, assicurazione, manutenzione, carburante.
 7. **Italiano** — wiki e risposte in italiano, salvo nomi tecnici/modelli.
+8. **Costi/leggi a norma → prospetto** — obblighi e costi iniziali/fissi obbligatori in `contratto/prospetto-costi-a-norma.md` (stessa sessione).
 
 ---
 
@@ -251,6 +269,7 @@ All'avvio di un task sul progetto:
 1. Leggi `wiki/overview.md` e `wiki/index.md` (se esistono).
 2. Scorri le ultime voci di `wiki/log.md`.
 3. Tieni a mente `wiki/preferenze/*` e open-questions.
-4. Poi opera (ingest/query/ricerca/decisione).
+4. Se il task tocca patto, costi obbligatori o normativa d’uso: leggi anche `contratto/prospetto-costi-a-norma.md` (e `agentContratto.md` se si modifica il patto).
+5. Poi opera (ingest/query/ricerca/decisione).
 
 Se la wiki è vuota o incompleta: crea/ripara le pagine seed, non chiedere all'utente di farlo a mano.

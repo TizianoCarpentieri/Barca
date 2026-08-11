@@ -6,6 +6,44 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-11] ricerca | Tagliando fuoribordo
+
+- Non obbligo di legge; scadenze costruttore (annuale / 50–100 h).
+- Costi: DIY ~40–90 €; officina piccolo 4T ~80–180 €.
+- Raw `mercato/tagliando-fuoribordo-2026-08-11.md`; prospetto §6; patto art. 11.4 v1.4.
+
+## [2026-08-11] contratto | Patto v1.1 + prospetto alcol/dotazioni
+
+- Bozza `contratto/bozza-patto-v1.md` → v1.1: Drive; custodia; accesso mare snello; preavviso/cancellazione/cassa/soglia chiari; uscite di gruppo come normale; alcol+colpa; check dotazioni = soci presenti; cap 30€ non hard gommone.
+- Prospetto: §1b alcol (art. 53-bis); §2 dotazioni 6 miglia + luci + sanzioni art. 53; raw `alcol-e-dotazioni-2026-08-11.md`.
+
+## [2026-08-11] lint | Profilo lunghezza + regole agente
+
+- Corretto profilo prospetto: non più “solo 3,3–3,9 m”; allineato a track-gommoni (min 3,30 / ideale 3,50–3,80; >4 m non escluso a priori).
+- Regole manutenzione agente solo in `agentContratto.md` §2.1, non nel prospetto costi.
+- Seed `AGENTS.md` piano A aggiornato di conseguenza.
+
+## [2026-08-11] setup | Prospetto costi a norma → contratto/
+
+- Spostata fonte di verità: `contratto/prospetto-costi-a-norma.md`.
+- Wiki `sintesi/prospetto-costi-a-norma.md` = redirect.
+- Aggiornati `AGENTS.md` e `contratto/agentContratto.md`: ogni scoperta su leggi / costi iniziali o fissi obbligatori va scritta sul prospetto nella stessa sessione.
+
+## [2026-08-11] ricerca | Prospetto costi a norma — sezione RC
+
+- Creato `wiki/sintesi/prospetto-costi-a-norma.md` (documento vivo: RC ora; dotazioni/documenti/tasse dopo).
+- Fonti mercato: `raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md` (Generali, broker, Allianz Direct, Groupama, MioAssicuratore, 24h…).
+- Range piano A sola RC: **~60–150 €/anno** (target TCO **~120**); multi-canale dove farla; documenti; alternative RC+furto/corpi.
+- Tabella preventivi reali da compilare; claim 2–3k €/anno scartato per gommone piccolo.
+
+## [2026-08-11] ricerca | RC obbligatoria per gommone a motore
+
+- Domanda: il patto art. 3.2 impone RC “per forza” — è legge o solo regola di gruppo?
+- Esito: **è obbligo di legge** per unità da diporto a motore / motori amovibili di qualsiasi potenza (non legata ai 40,8 CV).
+- Fonti: art. 41 D.Lgs. 171/2005; art. 123 D.Lgs. 209/2005. Estratti in `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md`.
+- Wiki: `wiki/normativa/rc-obbligatoria-natanti.md`; aggiornati `costi-nascosti-gommone`, index.
+- Patto §3.2 resta corretto (allinea il gruppo alla legge + tutela terzi + spesso regolamento porto).
+
 ## [2026-08-10] ingest | Nuova pagina costi-nascosti-gommone
 
 - Creata `wiki/concetti/costi-nascosti-gommone.md` (status: draft).

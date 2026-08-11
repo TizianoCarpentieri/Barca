@@ -3,6 +3,7 @@ title: Indice wiki
 type: sintesi
 updated: 2026-08-11
 status: active
+tags: [index]
 ---
 
 # Indice wiki — Progetto Barca
@@ -69,6 +70,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Pagina | Sommario |
 |--------|----------|
 | [[normativa/limiti-senza-patente]] | Soglie MIT: ≤30 kW / 40,8 CV, ≤6 miglia |
+| [[normativa/rc-obbligatoria-natanti]] | **RC obbligatoria** gommone a motore (art. 41 + art. 123 CAP) |
 
 ## Mercato
 
@@ -94,4 +96,5 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[sintesi/shortlist]] | Candidati gommone e motore da promuovere dopo verifica |
 | [[sintesi/contesto-sbarco]] | Source of truth compatta per Sbarco |
 | [[sintesi/audit-sbarco-wiki-20260810]] | Cause dei problemi del 10 agosto, correzioni e limiti residui |
+| [[sintesi/prospetto-costi-a-norma]] | Redirect → `contratto/prospetto-costi-a-norma.md` (leggi + costi obbligatori) |
 | [[sintesi/audit-sbarco-20260811]] | Audit memoria, streaming, token, PDF e UI mobile della revisione 2.2.0 |

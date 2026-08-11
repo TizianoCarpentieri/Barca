@@ -28,6 +28,7 @@ Dal 2026-08-10 il gommone è il **track primario**. Lo scafo rigido resta come s
 |------|--------|
 | Lunghezza min | **3,30 m** |
 | Lunghezza ideale | **3,50 – 3,80 m** |
+| Lunghezza max | **nessun tetto duro** (anche >4 m ok se resta no-RIB, trasportabile in auto e gestibile dal gruppo) |
 | Portata min | **~400 kg** |
 | Capacità min | **4 persone** |
 | Chiglia | **Gonfiabile preferibile** |

@@ -1,7 +1,7 @@
 ---
 title: Costi nascosti gommone
 type: concetto
-updated: 2026-08-10
+updated: 2026-08-11
 status: draft
 tags: [gommone, costi, burocrazia, manutenzione]
 ---
@@ -55,13 +55,13 @@ Se si esce di notte (alba pesca, rientro tardi):
 | Kit riparazione (toppe, colla) | Occasionale | ~30–60 € |
 | Sostituzione pompa | Ogni 2-3 anni | ~30–50 € |
 
-## Da verificare — Assicurazione
+## Assicurazione
 
-| Voce | Costo stimato/anno |
-|------|-------------------|
-| RC obbligatoria per gommone | 100–150 € (stima) |
-| Furto/incendio (opzionale) | Da verificare |
-| Infortuni (opzionale) | Da verificare |
+| Voce | Obbligo | Costo stimato/anno |
+|------|---------|-------------------|
+| **RC natanti** (gommone a motore) | **Sì, di legge** — [[normativa/rc-obbligatoria-natanti]]; prezzi/canali in `contratto/prospetto-costi-a-norma.md` | 60–150 € (mercato 2026-08; target ~120; preventivo reale open) |
+| Furto/incendio (corpi) | No — facoltativa | Da verificare |
+| Infortuni equipaggio | No — facoltativa | Da verificare |
 
 ## Da verificare — Ricambi e usura
 

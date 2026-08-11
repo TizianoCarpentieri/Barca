@@ -45,7 +45,7 @@ Dettaglio: [[sintesi/requisiti-v1]].
 | Voce | Valore |
 |------|--------|
 | Forma | Pneumatico **smontabile**, **non RIB** |
-| Lunghezza | min 3,30 m; ideale **3,50–3,80 m** |
+| Lunghezza | min 3,30 m; ideale **3,50–3,80 m**; **no max duro** (anche >4 m se auto/trasporto ok) |
 | Pax / portata | ≥4 pax; ~≥400 kg |
 | Pavimento | **Al alluminio** (prio1) o **airdeck** (prio2) |
 | Chiglia | Gonfiabile preferibile |
