@@ -364,3 +364,11 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 
 - Sostituito il wikilink non risolvibile con un link Markdown relativo alla
   fonte raw dell'art. 41; il contenuto normativo non è stato modificato.
+
+## [2026-08-11] deploy | Correzione export PDF pubblicata
+
+- Commit funzionale `662f61d`; workflow GitHub Pages `31504529473` riuscito.
+- Smoke live: risposta ordinaria con sola azione `Copia`; `Scarica PDF` presente
+  nella scheda documento; vecchia azione `Esporta PDF` assente.
+- Nuovo chunk PDF `sbarco-pdf-Co_8KAqI.js` raggiungibile con HTTP 200 e fallback
+  Unicode leggibile incluso.
