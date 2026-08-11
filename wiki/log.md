@@ -274,3 +274,27 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - La prima associazione richiede un codice di attivazione mantenuto come secret
   Cloudflare; KV non conserva chiavi private.
 - La quota giornaliera di Tiziano viene azzerata in produzione durante il deploy.
+
+## [2026-08-11] feat(sbarco) | Memoria, streaming, PDF e mobile 2.2.0
+
+- Memoria KV deduplicata per tema: 40 fatti persistiti, 12 nel prompt; history
+  limitata a 8 messaggi e 9.000 caratteri con digest su righe intere.
+- Estrazione memoria attivata solo per preferenze esplicite e limitata al testo
+  dell'utente; eliminate chiamate LLM di memoria sulle domande normali.
+- Parser SSE robusto lato Worker e client; risposte rapide cadenzate e rendering
+  DOM raggruppato per animation frame.
+- Nuovo Markdown a blocchi sanificato, UI nautica full-screen sotto 600 px,
+  supporto `visualViewport`, safe-area, metadati risposta e azione copia.
+- Export PDF A4 multipagina per ogni risposta e per `save_doc`; jsPDF caricato
+  solo al click in chunk lazy da circa 131 kB gzip.
+- Budget intermedi ridotto 1.000 → 700 token e finale 2.600 → 2.200; `/debug`
+  espone usage effettiva, stima prompt e modalità di stream.
+- Verifica locale: Worker 11/11, presentazione 7/7, build Vite e PDF/UI visual QA.
+  Deploy e smoke live restano pendenti. Dettaglio: [[sintesi/audit-sbarco-20260811]].
+
+## [2026-08-11] preferenze(sbarco) | Output completo prima del risparmio token
+
+- Ripristinati i budget collaudati: 1.000 token per round e 2.600 per la
+  sintesi finale. Le ottimizzazioni restano sul prompt, sulla memoria e sulle
+  chiamate LLM superflue, per non rischiare Markdown o tabelle troncati.
+- Aggiunto un test di regressione sui due limiti prima del deploy 2.2.0.

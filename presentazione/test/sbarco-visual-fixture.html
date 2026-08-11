@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sbarco visual QA</title>
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #0b0908; font-family: Inter, Arial, sans-serif; }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import "../src/styles/sbarco.css";
+      import "../src/js/sbarco.js";
+      import { renderMarkdown } from "../src/js/sbarco-format.js";
+
+      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+      await wait(250);
+      document.querySelector(".sbarco-fab")?.click();
+      const select = document.querySelector(".sbarco-header__user");
+      select.value = "peppe";
+      select.dispatchEvent(new Event("change"));
+      await wait(120);
+
+      const log = document.querySelector(".sbarco-msgs");
+      const answer = document.createElement("article");
+      answer.className = "sbarco-msg sbarco-msg--sbarco";
+      answer.innerHTML = `<div class="sbarco-msg__body">${renderMarkdown(`## Verdetto rapido
+
+Il bundle e' **nel budget**, ma il motore va provato a freddo.
+
+| Controllo | Esito |
+|---|---|
+| Misura | 3,60 m - OK |
+| Motore | 9.9 CV 4T |
+
+- Verifica documenti e matricola
+- Chiedi una prova in acqua
+
+[Apri la fonte](https://example.com/scheda)`)}</div>
+        <div class="sbarco-msg__meta">Ricerca profonda · 2 fonti lette · 12.4 s</div>
+        <div class="sbarco-msg__actions"><button class="sbarco-action sbarco-action--primary">Esporta PDF</button><button class="sbarco-action">Copia</button></div>`;
+      log.appendChild(answer);
+
+      const doc = document.createElement("article");
+      doc.className = "sbarco-msg sbarco-msg--sbarco sbarco-document";
+      doc.innerHTML = `<div class="sbarco-msg__body"><span class="sbarco-document__eyebrow">Documento di bordo</span><h3>Checklist visita gommone</h3><p>Controlli essenziali da fare prima di lasciare una caparra al venditore.</p><button class="sbarco-action sbarco-action--primary sbarco-document__button">Scarica PDF</button></div>`;
+      log.appendChild(doc);
+      log.scrollTop = 0;
+    </script>
+  </body>
+</html>

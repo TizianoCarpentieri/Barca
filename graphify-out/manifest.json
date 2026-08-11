@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "presentazione/package.json": {
-    "mtime": 1786374141.5009122,
-    "ast_hash": "f3674c8a0571eec5539a402f08cfcb8b",
+    "mtime": 1786442716.5883322,
+    "ast_hash": "fee19c216b9e945c4bd604d7156f4308",
     "semantic_hash": ""
   },
   "presentazione/public/data/accessori.json": {
@@ -85,13 +85,13 @@
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco.js": {
-    "mtime": 1786371934.5765455,
-    "ast_hash": "33f07377f98dd0803be5fddaf7e2788c",
+    "mtime": 1786443423.6318164,
+    "ast_hash": "626be956ae19740826a35cce828e71e8",
     "semantic_hash": ""
   },
   "presentazione/vite.config.js": {
-    "mtime": 1786361308.7786794,
-    "ast_hash": "42cb130b3dbb464cdba4f077e426c35b",
+    "mtime": 1786444267.8629405,
+    "ast_hash": "bf61e6a87393fe647d594cf0112edbb6",
     "semantic_hash": ""
   },
   "raw/mercato/subito-pacchetti-under-5500-2026-08-04.json": {
@@ -125,13 +125,13 @@
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786376296.0299113,
-    "ast_hash": "1dab3b3e292d865f0ac1d3168d302bd6",
+    "mtime": 1786446071.7911952,
+    "ast_hash": "35d836cdcd61460fffbe505a71703cd5",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1786376168.5215008,
-    "ast_hash": "6b730cf62484ec2fb1a7bd36b0e34a4b",
+    "mtime": 1786446075.3548896,
+    "ast_hash": "907d09fe07364f94e10e1b2602bae570",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "wiki/concetti/architettura-sbarco.md": {
-    "mtime": 1786373516.7884257,
-    "ast_hash": "29111276bb2b9864dc1d94da1f6fd207",
+    "mtime": 1786446077.8285787,
+    "ast_hash": "39acfa1e916b98e5939a1d0cc50eb28e",
     "semantic_hash": ""
   },
   "wiki/concetti/costi-nascosti-gommone.md": {
@@ -445,13 +445,13 @@
     "semantic_hash": ""
   },
   "wiki/index.md": {
-    "mtime": 1786364875.2049122,
-    "ast_hash": "f7523aa5d00a337e6ffc3e4fff4bbfe6",
+    "mtime": 1786444795.8081434,
+    "ast_hash": "fa1794ae06d0b28772f3561a70065d2d",
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786377448.4158883,
-    "ast_hash": "de108a5d121ed41c2764d8a38ad71d98",
+    "mtime": 1786446082.3529282,
+    "ast_hash": "d00f8aaf320577e96829d120b5309aa7",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
@@ -480,8 +480,8 @@
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786376711.6689608,
-    "ast_hash": "72183d7ddfd73efacbb167b8fc8d908b",
+    "mtime": 1786444804.2713685,
+    "ast_hash": "303f53056aac5935ae193aa6ee80e0df",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {
@@ -535,8 +535,8 @@
     "semantic_hash": ""
   },
   "wiki/sintesi/contesto-sbarco.md": {
-    "mtime": 1786363167.1792092,
-    "ast_hash": "f1ee28bc6b9d58abcd396103e58b9f25",
+    "mtime": 1786446081.4346166,
+    "ast_hash": "a4ef00d02372c5f5883548cb51899de0",
     "semantic_hash": ""
   },
   "wiki/sintesi/conversazioni-audio-20260809.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   "worker/README.md": {
-    "mtime": 1786373250.4871871,
-    "ast_hash": "8faa69a94feb5f7ebc774ef03c88c483",
+    "mtime": 1786445105.2251487,
+    "ast_hash": "15bdde0be6570288bb61e0ccaecc4cbd",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.pdf": {
@@ -887,6 +887,46 @@
   "scripts/smoke-sbarco.mjs": {
     "mtime": 1786375393.7625997,
     "ast_hash": "22a601ddd86f7ac66bab0d26d3450df5",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/pdf-optional-stub.js": {
+    "mtime": 1786444266.3173754,
+    "ast_hash": "df0ec532e4c21a9131972283e5d6a294",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/sbarco-format.js": {
+    "mtime": 1786443166.4380722,
+    "ast_hash": "31b81bf2108a51f4a545e1b3971e575d",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/sbarco-pdf.js": {
+    "mtime": 1786444264.7927985,
+    "ast_hash": "5d03bd88e0e51890c74cfbaa38477067",
+    "semantic_hash": ""
+  },
+  "presentazione/test/render-sbarco-pdf-fixture.mjs": {
+    "mtime": 1786444870.9903274,
+    "ast_hash": "e13051ffb306b89e16e46d04045ba909",
+    "semantic_hash": ""
+  },
+  "presentazione/test/sbarco-ui.test.mjs": {
+    "mtime": 1786443951.3155718,
+    "ast_hash": "db1b8ace7ffd3b7c5ed24d004252c139",
+    "semantic_hash": ""
+  },
+  "presentazione/test/sbarco-visual-fixture.html": {
+    "mtime": 1786444322.340392,
+    "ast_hash": "6b9428b97823b13b9eba336a50c40006",
+    "semantic_hash": ""
+  },
+  "wiki/sintesi/audit-sbarco-20260811.md": {
+    "mtime": 1786446078.7999282,
+    "ast_hash": "d807230352d9edee0595cfb98c75ad23",
+    "semantic_hash": ""
+  },
+  ".opencode/package.json": {
+    "mtime": 1786444568.0516496,
+    "ast_hash": "09cc53e3bd7d20833dde72d89f662e36",
     "semantic_hash": ""
   }
 }

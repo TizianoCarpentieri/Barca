@@ -1,7 +1,7 @@
 # Sbarco Worker — Cloudflare
 
-Assistente chat per Progetto Barca con contesto wiki, memoria KV, strumenti web
-e risposta SSE progressiva.
+Assistente chat per Progetto Barca con contesto wiki, memoria KV deduplicata,
+strumenti web e risposta SSE progressiva.
 
 ## Setup
 
@@ -62,16 +62,16 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.0.0","deepResearch":true,"knowledgeSource":"wiki-runtime"}
+# → {"status":"ok","version":"2.2.0","deepResearch":true,"knowledgeSource":"wiki-runtime"}
 ```
 
 ## Struttura KV
 
 | Key | Contenuto |
 |-----|-----------|
-| `memory:project` | Fatti condivisi: `[{user, date, fact, tags}]` |
+| `memory:project` | Fatti condivisi: `[{key, user, date, fact, tags, source, scope}]`; upsert per `key` |
 | `chat:{userId}` | Storico chat per utente |
-| `chat:{userId}:summary` | Riassunto messaggi vecchi |
+| `chat:{userId}:summary` | Digest compatto dei messaggi espulsi dalla finestra recente |
 
 ## Comandi speciali in chat
 
@@ -91,6 +91,14 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 della ricerca, invia fasi/heartbeat, limita fonti e round e forza la sintesi
 finale senza ulteriori tool. Dettaglio: `wiki/concetti/architettura-sbarco.md`.
 
+Le risposte rapide gia' complete vengono inviate in frame cadenzati per evitare
+che proxy e browser le accorpino. La sintesi forzata usa lo stream nativo del
+provider. `/debug` espone token effettivi, stima del prompt, modalita' di stream
+e latenze, senza contenuto delle chat.
+
+Il widget puo' esportare ogni risposta e i documenti `save_doc` in PDF A4. Il
+renderer jsPDF e' un chunk lazy: non pesa sul caricamento normale della chat.
+
 ## Verifica prima del deploy
 
 ```bash
@@ -101,7 +109,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.0.0`.
+1. `/api/health` riporta `version: 2.2.0`.
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,

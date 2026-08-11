@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources: [wiki/overview.md, wiki/preferenze/must-have.md, wiki/preferenze/budget.md, wiki/preferenze/open-questions.md]
@@ -53,6 +53,11 @@ Dettaglio e checklist: [[preferenze/open-questions]].
 - Normativa, prezzi e disponibilità correnti richiedono fonti aggiornate.
 - Le pagine storiche sullo scafo rigido non descrivono il piano attuale.
 - Una ricerca web utile privilegia 2–5 fonti lette e confrontate, non decine di snippet.
+- Quando l'utente chiede un documento o un PDF, `save_doc` prepara contenuto
+  strutturato: il widget lo esporta in PDF A4 direttamente nel browser.
+- Non ridurre i tetti dell'output sotto 1.000 token per step e 2.600 per la
+  sintesi finale senza una prova esplicita: in passato ha causato risposte o
+  formattazione visualizzate in modo incompleto. Ottimizzare prima il prompt.
 
 ## Percorsi di approfondimento
 

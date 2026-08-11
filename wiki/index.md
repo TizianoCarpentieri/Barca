@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 ---
 
@@ -94,3 +94,4 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[sintesi/shortlist]] | Candidati gommone e motore da promuovere dopo verifica |
 | [[sintesi/contesto-sbarco]] | Source of truth compatta per Sbarco |
 | [[sintesi/audit-sbarco-wiki-20260810]] | Cause dei problemi del 10 agosto, correzioni e limiti residui |
+| [[sintesi/audit-sbarco-20260811]] | Audit memoria, streaming, token, PDF e UI mobile della revisione 2.2.0 |

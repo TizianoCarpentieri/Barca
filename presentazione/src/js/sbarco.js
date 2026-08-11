@@ -5,6 +5,8 @@
  * Zero dipendenze esterne.
  */
 
+import { drainSseBuffer, escapeHtml, renderMarkdown } from "./sbarco-format.js";
+
 const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
@@ -30,9 +32,12 @@ const MAX_DAILY = 3;
     <button class="sbarco-fab" aria-label="Apri Sbarco" aria-expanded="false" aria-controls="sbarco-panel" title="Parla con Sbarco">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
     </button>
-    <section class="sbarco-panel" id="sbarco-panel" role="dialog" aria-label="Chat con Sbarco" aria-modal="false">
+    <section class="sbarco-panel" id="sbarco-panel" role="dialog" aria-label="Chat con Sbarco" aria-modal="true" aria-hidden="true">
       <div class="sbarco-header">
-        <span class="sbarco-header__brand"><span class="sbarco-header__title">⚓ Sbarco</span><small>assistente delle bestie</small></span>
+        <span class="sbarco-header__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 4v18m-6-12h12M7 18c1 6 5 9 9 9s8-3 9-9c-3 2-6 3-9 3s-6-1-9-3Z"/></svg>
+        </span>
+        <span class="sbarco-header__brand"><span class="sbarco-header__title">Sbarco</span><small>quartiermastro delle bestie</small></span>
         <span class="sbarco-header__counter" title="Messaggi rimanenti oggi">-/-</span>
         <select class="sbarco-header__user" aria-label="Seleziona utente">
           <option value="" disabled>Chi sei?</option>
@@ -40,14 +45,14 @@ const MAX_DAILY = 3;
           <option value="antonio">Antonio</option>
           <option value="peppe">Peppe</option>
         </select>
-        <button class="sbarco-header__close" aria-label="Chiudi">✕</button>
+        <button class="sbarco-header__close" aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="sbarco-modebar">
         <button type="button" class="sbarco-mode" aria-pressed="false">
           <span class="sbarco-mode__dot"></span>
-          Ricerca profonda
+          <span class="sbarco-mode__copy"><strong>Ricerca profonda</strong><small>Web e fonti incrociate</small></span>
         </button>
-        <span class="sbarco-mode__hint">Fonti web incrociate</span>
+        <span class="sbarco-mode__hint">Off = risposta rapida</span>
       </div>
       <div class="sbarco-msgs" role="log" aria-live="polite" aria-relevant="additions text"></div>
       <form class="sbarco-input-wrap">
@@ -68,6 +73,7 @@ const MAX_DAILY = 3;
   const sendBtn = root.querySelector(".sbarco-input-wrap button");
   const inputForm = root.querySelector(".sbarco-input-wrap");
   const modeBtn = root.querySelector(".sbarco-mode");
+  const modeHint = root.querySelector(".sbarco-mode__hint");
 
   let isOpen = false;
   let isSending = false;
@@ -104,6 +110,7 @@ const MAX_DAILY = 3;
     sendBtn.disabled = !currentUser || (!isSending && !canChat);
     sendBtn.textContent = isSending ? "Ferma" : "Invia";
     sendBtn.classList.toggle("is-stop", isSending);
+    modeHint.textContent = deepMode ? "On = più tempo, più verifiche" : "Off = risposta rapida";
     if (!currentUser) inputEl.placeholder = "Seleziona chi sei per iniziare";
     else if (remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
     else if (deepMode) inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
@@ -177,11 +184,18 @@ const MAX_DAILY = 3;
 
   // ── Open / close ────────────────────────────────────────────
   fab.addEventListener("click", () => openPanel());
+  const syncVisualViewport = () => {
+    const viewport = window.visualViewport;
+    root.style.setProperty("--sbarco-viewport-height", `${Math.round(viewport?.height || window.innerHeight)}px`);
+  };
   function openPanel() {
     isOpen = true;
+    syncVisualViewport();
     panel.classList.add("open");
+    panel.setAttribute("aria-hidden", "false");
     fab.setAttribute("aria-expanded", "true");
     document.documentElement.classList.add("sbarco-lock");
+    window.visualViewport?.addEventListener("resize", syncVisualViewport);
     fab.style.opacity = "0";
     fab.style.pointerEvents = "none";
     setTimeout(() => {
@@ -191,12 +205,17 @@ const MAX_DAILY = 3;
   function closePanel() {
     isOpen = false;
     panel.classList.remove("open");
+    panel.setAttribute("aria-hidden", "true");
     fab.setAttribute("aria-expanded", "false");
     document.documentElement.classList.remove("sbarco-lock");
+    window.visualViewport?.removeEventListener("resize", syncVisualViewport);
     fab.style.opacity = "1";
     fab.style.pointerEvents = "auto";
   }
   closeBtn.addEventListener("click", closePanel);
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && isOpen && !isSending) closePanel();
+  });
 
   // ── User switch ─────────────────────────────────────────────
   userSelect.addEventListener("change", () => {
@@ -298,7 +317,7 @@ const MAX_DAILY = 3;
         const data = await resp.json();
         if (data.remaining !== undefined) updateCounter(data.remaining);
         progress.remove();
-        addMsg("sbarco", data.response);
+        addMsg("sbarco", data.response, null, true);
         responseStarted = true;
         if (data.documents && data.documents.length > 0) {
           for (const doc of data.documents) addDocumentMsg(doc);
@@ -323,68 +342,79 @@ const MAX_DAILY = 3;
   }
 
   async function handleStream(resp, progress) {
-    var msgDiv = null;
-    var bodyEl = null;
-    var fullText = "";
-    var reader = resp.body.getReader();
-    var decoder = new TextDecoder();
-    var buffer = "";
+    let msgDiv = null;
+    let bodyEl = null;
+    let fullText = "";
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let receivedDone = false;
+    let receivedError = false;
+    let answerMeta = null;
+    let renderFrame = null;
 
-    var receivedDone = false;
-    var receivedError = false;
+    const ensureAnswer = () => {
+      if (msgDiv) return;
+      progress.remove();
+      msgDiv = document.createElement("article");
+      msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
+      bodyEl = document.createElement("div");
+      bodyEl.className = "sbarco-msg__body";
+      msgDiv.appendChild(bodyEl);
+      msgsEl.appendChild(msgDiv);
+    };
+
+    const renderAnswer = () => {
+      renderFrame = null;
+      if (!bodyEl) return;
+      const stickToBottom = isNearBottom();
+      bodyEl.innerHTML = renderMarkdown(fullText);
+      if (stickToBottom) scrollToBottom();
+    };
+
+    const scheduleRender = () => {
+      if (renderFrame == null) renderFrame = requestAnimationFrame(renderAnswer);
+    };
+
+    const consumePayload = payload => {
+      try {
+        const data = JSON.parse(payload);
+        if (data.ping) {
+          progress.pulse();
+          return;
+        }
+        if (data.status) progress.update(data.status.label, data.status.detail, data.status.round, data.status.maxRounds);
+        if (data.token) {
+          fullText += data.token;
+          ensureAnswer();
+          scheduleRender();
+        }
+        if (data.documents) data.documents.forEach(addDocumentMsg);
+        if (data.meta) answerMeta = data.meta;
+        if (data.error) {
+          receivedError = true;
+          if (msgDiv) addMsg("sbarco", data.error);
+          else progress.fail(data.error);
+        }
+        if (data.done) {
+          receivedDone = true;
+          if (data.remaining !== undefined) updateCounter(data.remaining);
+        }
+      } catch {}
+    };
 
     while (true) {
-      var result = await reader.read();
+      const result = await reader.read();
       if (result.done) break;
-
       buffer += decoder.decode(result.value, { stream: true });
-      var lines = buffer.split("\n");
-      buffer = lines.pop() || "";
-
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        if (!line.startsWith("data: ")) continue;
-
-        try {
-          var data = JSON.parse(line.slice(6));
-          if (data.ping) {
-            progress.pulse();
-            continue;
-          }
-          if (data.status) {
-            progress.update(data.status.label, data.status.detail, data.status.round, data.status.maxRounds);
-          }
-          if (data.token) {
-            fullText += data.token;
-            if (!msgDiv) {
-              progress.remove();
-              msgDiv = document.createElement("div");
-              msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
-              bodyEl = document.createElement("div");
-              bodyEl.className = "sbarco-msg__body";
-              msgDiv.appendChild(bodyEl);
-              msgsEl.appendChild(msgDiv);
-            }
-            bodyEl.innerHTML = renderMarkdown(fullText);
-            msgsEl.scrollTop = msgsEl.scrollHeight;
-          }
-          if (data.documents) {
-            for (var d = 0; d < data.documents.length; d++) {
-              addDocumentMsg(data.documents[d]);
-            }
-          }
-          if (data.error) {
-            receivedError = true;
-            if (msgDiv) addMsg("sbarco", data.error);
-            else progress.fail(data.error);
-          }
-          if (data.done) {
-            receivedDone = true;
-            if (data.remaining !== undefined) updateCounter(data.remaining);
-          }
-        } catch (e) {}
-      }
+      const drained = drainSseBuffer(buffer);
+      buffer = drained.rest;
+      drained.payloads.forEach(consumePayload);
     }
+    buffer += decoder.decode();
+    drainSseBuffer(buffer, true).payloads.forEach(consumePayload);
+    if (renderFrame != null) cancelAnimationFrame(renderFrame);
+    renderAnswer();
 
     if (!fullText && !receivedError) {
       progress.fail(receivedDone
@@ -392,11 +422,77 @@ const MAX_DAILY = 3;
         : "La connessione si e' chiusa prima della risposta.");
     } else if (fullText) {
       progress.remove();
+      addAnswerChrome(msgDiv, fullText, answerMeta);
     }
     return { responseStarted: Boolean(fullText) };
   }
 
   // ── UI helpers ──────────────────────────────────────────────
+  function isNearBottom() {
+    return msgsEl.scrollHeight - msgsEl.scrollTop - msgsEl.clientHeight < 120;
+  }
+
+  function scrollToBottom() {
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+
+  function suggestedPdfTitle(content) {
+    const heading = String(content || "").match(/^#{1,3}\s+(.+)$/m)?.[1];
+    return heading?.replace(/[*_`]/g, "").trim() || `Risposta Sbarco - ${capitalize(currentUser || "Bestie")}`;
+  }
+
+  async function exportPdf(button, title, content) {
+    const previous = button.textContent;
+    button.disabled = true;
+    button.textContent = "Creo PDF…";
+    try {
+      const { downloadSbarcoPdf } = await import("./sbarco-pdf.js");
+      downloadSbarcoPdf({ title, content, author: capitalize(currentUser || "Le Bestie") });
+      button.textContent = "PDF pronto";
+      setTimeout(() => { if (button.isConnected) button.textContent = previous; }, 1600);
+    } catch {
+      button.textContent = "PDF non riuscito";
+      setTimeout(() => { if (button.isConnected) button.textContent = previous; }, 2200);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  function addAnswerChrome(message, content, meta = null) {
+    if (!message || message.querySelector(".sbarco-msg__actions")) return;
+    if (meta) {
+      const info = document.createElement("div");
+      info.className = "sbarco-msg__meta";
+      const parts = [meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida"];
+      if (meta.sourcesRead) parts.push(`${meta.sourcesRead} fonti lette`);
+      if (meta.elapsedMs) parts.push(`${(meta.elapsedMs / 1000).toFixed(1)} s`);
+      info.textContent = parts.join(" · ");
+      message.appendChild(info);
+    }
+    const actions = document.createElement("div");
+    actions.className = "sbarco-msg__actions";
+    const pdfButton = document.createElement("button");
+    pdfButton.type = "button";
+    pdfButton.className = "sbarco-action sbarco-action--primary";
+    pdfButton.textContent = "Esporta PDF";
+    pdfButton.addEventListener("click", () => exportPdf(pdfButton, suggestedPdfTitle(content), content));
+    const copyButton = document.createElement("button");
+    copyButton.type = "button";
+    copyButton.className = "sbarco-action";
+    copyButton.textContent = "Copia";
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(content);
+        copyButton.textContent = "Copiato";
+        setTimeout(() => { if (copyButton.isConnected) copyButton.textContent = "Copia"; }, 1400);
+      } catch {
+        copyButton.textContent = "Non riuscito";
+      }
+    });
+    actions.append(pdfButton, copyButton);
+    message.appendChild(actions);
+  }
+
   function addProgress(initialLabel) {
     const waitingLines = [
       "Sbarco sta pensando…",
@@ -460,8 +556,8 @@ const MAX_DAILY = 3;
     };
   }
 
-  function addMsg(role, content, who) {
-    const div = document.createElement("div");
+  function addMsg(role, content, who, exportable = false) {
+    const div = document.createElement("article");
     div.className = `sbarco-msg sbarco-msg--${role}`;
     if (who) {
       const whoEl = document.createElement("div");
@@ -474,56 +570,8 @@ const MAX_DAILY = 3;
     body.innerHTML = renderMarkdown(content);
     div.appendChild(body);
     msgsEl.appendChild(div);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
-    return div;
-  }
-
-  function renderMarkdown(text) {
-    let html = String(text || "");
-    // Escape HTML first
-    html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    // Bold: **text**
-    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-    // Italic: *text* (but not **)
-    html = html.replace(/(?<!\*)\*([^*\n]+?)\*(?!\*)/g, "<em>$1</em>");
-    // Inline code: `text`
-    html = html.replace(/`([^`\n]+?)`/g, "<code>$1</code>");
-    // Markdown links. Only explicit http(s) targets become clickable.
-    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    // Line breaks
-    html = html.replace(/\n/g, "<br>");
-    // List items: - text or * text (at start of line)
-    html = html.replace(/(?:^|<br>)[*-] (.+?)(?=<br>|$)/g, "<li>$1</li>");
-    // Wrap consecutive <li> in <ul>
-    html = html.replace(/((?:<li>.*?<\/li>)+)/g, "<ul>$1</ul>");
-    // Simple tables: detect | col | col | pattern
-    if (html.includes("|")) {
-      html = html.replace(/((?:<br>\|.*\|)+)/g, function(match) {
-        const rows = match.split("<br>").filter(r => r.trim());
-        let table = "<table>";
-        let isHeader = true;
-        for (const row of rows) {
-          const cells = row.split("|").filter(c => c.trim());
-          if (cells.length < 2) continue;
-          // Skip separator rows like |---|---|
-          if (cells.every(c => /^[-:]+$/.test(c.trim()))) { isHeader = false; continue; }
-          const tag = isHeader ? "th" : "td";
-          table += "<tr>" + cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join("") + "</tr>";
-          isHeader = false;
-        }
-        table += "</table>";
-        return table;
-      });
-    }
-    return html;
-  }
-
-  function addTyping() {
-    const div = document.createElement("div");
-    div.className = "sbarco-typing";
-    div.innerHTML = "Sbarco scrive<span>.</span><span>.</span><span>.</span>";
-    msgsEl.appendChild(div);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
+    if (exportable && role === "sbarco") addAnswerChrome(div, content);
+    scrollToBottom();
     return div;
   }
 
@@ -531,37 +579,30 @@ const MAX_DAILY = 3;
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
-  function escapeHtml(str) {
-    return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
-
   function addDocumentMsg(doc) {
-    const div = document.createElement("div");
-    div.className = "sbarco-msg sbarco-msg--sbarco";
+    const div = document.createElement("article");
+    div.className = "sbarco-msg sbarco-msg--sbarco sbarco-document";
     const body = document.createElement("div");
     body.className = "sbarco-msg__body";
-    body.innerHTML = '<strong>Documento salvato: ' + escapeHtml(doc.title) + '</strong><br>'
-      + '<button class="sbarco-doc-btn">Scarica .md</button> '
-      + '<button class="sbarco-doc-btn sbarco-doc-btn--txt">Scarica .txt</button>';
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "sbarco-document__eyebrow";
+    eyebrow.textContent = "Documento di bordo";
+    const heading = document.createElement("h3");
+    heading.textContent = doc.title || "Documento Sbarco";
+    const preview = document.createElement("p");
+    preview.textContent = String(doc.content || "")
+      .replace(/[#*`>|]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 150) + (String(doc.content || "").length > 150 ? "…" : "");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "sbarco-action sbarco-action--primary sbarco-document__button";
+    button.textContent = "Scarica PDF";
+    button.addEventListener("click", () => exportPdf(button, doc.title || "Documento Sbarco", doc.content || ""));
+    body.append(eyebrow, heading, preview, button);
     div.appendChild(body);
     msgsEl.appendChild(div);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
-
-    const btns = body.querySelectorAll(".sbarco-doc-btn");
-    btns.forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        var isTxt = btn.classList.contains("sbarco-doc-btn--txt");
-        var ext = isTxt ? "txt" : "md";
-        var cleanContent = isTxt
-          ? doc.content.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\*(.+?)\*/g, "$1")
-          : doc.content;
-        var blob = new Blob([cleanContent], { type: "text/plain;charset=utf-8" });
-        var a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = doc.title.replace(/[^a-z0-9]/gi, "_").toLowerCase() + "." + ext;
-        a.click();
-        URL.revokeObjectURL(a.href);
-      });
-    });
+    scrollToBottom();
   }
 })();

@@ -32,6 +32,45 @@ test("scarta i vecchi summary privi di contenuto", () => {
   assert.match(__test.sanitizeSummary("Utente: budget massimo 2000 euro"), /budget massimo/);
 });
 
+test("compatta memoria e cronologia senza duplicare temi", () => {
+  const memory = __test.compactMemoryFacts([
+    { key: "budget-acquisto", fact: "Budget 4.500 euro" },
+    { fact: "Peschiamo soprattutto a canna" },
+    { key: "budget-acquisto", fact: "Budget 2.000 euro" },
+  ]);
+  assert.equal(memory.length, 2);
+  assert.equal(memory.at(-1).fact, "Budget 2.000 euro");
+
+  const history = Array.from({ length: 12 }, (_, index) => ({
+    role: index % 2 ? "assistant" : "user",
+    content: `messaggio-${index} ` + "x".repeat(2000),
+  }));
+  const compacted = __test.compactHistory(history);
+  assert.ok(compacted.recent.length <= 8);
+  assert.ok(compacted.evicted.length > 0);
+  assert.ok(compacted.recent.reduce((sum, item) => sum + item.content.length, 0) <= 9000);
+});
+
+test("estrae memoria solo da preferenze esplicite", () => {
+  assert.equal(__test.shouldExtractMemory("Preferiamo un motore 15 CV quattro tempi"), true);
+  assert.equal(__test.shouldExtractMemory("Quanto costa oggi un motore 15 CV?"), false);
+  assert.equal(__test.shouldExtractMemory("Riassumi il piano"), false);
+});
+
+test("mantiene margini conservativi per l'output visibile", () => {
+  assert.deepEqual(__test.outputTokenBudgets, {
+    agentStep: 1000,
+    finalResponse: 2600,
+  });
+});
+
+test("ricompone frame SSE CRLF e ultimo frame senza newline", () => {
+  const first = __test.drainSSEFrames('data: {"token":"ciao"}\r\n\r\ndata: {"done":true');
+  assert.deepEqual(first.data, ['{"token":"ciao"}']);
+  const last = __test.drainSSEFrames(first.rest + "}", true);
+  assert.deepEqual(last.data, ['{"done":true}']);
+});
+
 test("rifiuta origin estranee e ritira gli endpoint legacy", async () => {
   const env = { ALLOWED_ORIGIN: "https://tizianocarpentieri.github.io" };
   const forbidden = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano", {
@@ -88,7 +127,7 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
       }
       assert.match(body.messages[0].content, /UTENTE ATTIVO: Peppe/);
       return Response.json({
-        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Risposta rapida verificata." } }],
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Risposta rapida verificata. " + "Dettaglio utile. ".repeat(14) } }],
         usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 },
       });
     }
@@ -118,10 +157,11 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
     const body = await response.text();
     assert.match(body, /Sbarco consulta la wiki delle Bestie/);
     assert.match(body, /Risposta rapida verificata/);
+    assert.ok((body.match(/"token":/g) || []).length >= 3, "la risposta rapida viene cadenzata in piu' frame");
     assert.match(body, /"done":true/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
-    assert.equal(agentCalls, 2, "una chiamata risposta + una estrazione memoria in background");
+    assert.equal(agentCalls, 1, "nessuna chiamata memoria per una domanda priva di preferenze");
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -217,7 +257,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
     assert.match(body, /"done":true/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
-    assert.equal(agentCalls, 4, "tre round agente + estrazione memoria");
+    assert.equal(agentCalls, 3, "tre round agente senza estrazione memoria superflua");
   } finally {
     globalThis.fetch = originalFetch;
   }

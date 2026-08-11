@@ -3,6 +3,13 @@ import { resolve } from 'path'
 
 export default defineConfig({
   base: './',
+  resolve: {
+    alias: {
+      canvg: resolve(__dirname, 'src/js/pdf-optional-stub.js'),
+      dompurify: resolve(__dirname, 'src/js/pdf-optional-stub.js'),
+      html2canvas: resolve(__dirname, 'src/js/pdf-optional-stub.js'),
+    },
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {

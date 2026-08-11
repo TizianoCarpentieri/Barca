@@ -1,10 +1,10 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-10
+updated: 2026-08-11
 status: active
 tags: [sbarco, bot, deep-research, worker]
-sources: [worker/src/index.js, presentazione/src/js/sbarco.js]
+sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
 ---
 
 # Architettura e flusso di Sbarco
@@ -28,8 +28,8 @@ lunga non appare più come una chat bloccata.
 
 | Modalità | Uso | Budget |
 |----------|-----|--------|
-| Rapida/auto | domande sul progetto e wiki | fino a 3 round |
-| Ricerca profonda | prezzi, normativa, dati correnti e richiesta esplicita | fino a 6 round |
+| Rapida/auto | domande sul progetto e wiki | fino a 3 round; step da 1.000 token |
+| Ricerca profonda | prezzi, normativa, dati correnti e richiesta esplicita | fino a 6 round; step da 1.000 token |
 
 La ricerca profonda usa al massimo 3 ricerche, 5 pagine web lette, 14 chiamate
 strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
@@ -39,12 +39,16 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 - Il widget mostra subito una riga di lavoro grigio-luminosa e la aggiorna con
   fasi reali o messaggi di attesa durante gli heartbeat.
-- I round intermedi hanno massimo 1.000 token; i 2.600 token della risposta
-  completa restano riservati alla sintesi finale.
-- In modalita' deep il ragionamento esteso viene usato nel primo round di
-  pianificazione, non ripetuto dopo ogni tool.
+- I round intermedi mantengono il margine collaudato di 1.000 token; la sintesi
+  finale dispone di 2.600 token. I risparmi riguardano il prompt in ingresso,
+  non il tetto dell'output visibile, per evitare Markdown o tabelle troncati.
+- Il `thinking` DeepSeek resta disattivato in tutti i round per compatibilità
+  con `tool_choice`; la profondità deriva dalla sequenza obbligatoria di
+  ricerche e letture, non da token di ragionamento nascosti.
 - Ogni evento persistito in `/debug` separa `contextReadyMs`, `firstAgentMs`,
   `firstTokenMs` ed `elapsedMs`, così un rallentamento è localizzabile.
+- `/debug` registra anche token effettivi cumulativi, stima caratteri/token del
+  prompt e se lo stream è nativo del provider o cadenzato dal Worker.
 - Una ricerca restituisce fino a 6 risultati e ogni pagina fornisce al modello
   al massimo 6.000 caratteri, riducendo il prompt senza eliminare il confronto.
 
@@ -52,6 +56,10 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 - La risposta HTTP inizia prima dei round LLM e invia heartbeat periodici.
 - La sintesi conclusiva non riceve strumenti (`tool_choice: none`).
+- Il parser SSE ricompone frame CRLF, frame spezzati tra chunk e l'ultimo frame
+  privo di newline; il client fa lo stesso.
+- Una risposta rapida già completa viene emessa in frame cadenzati. Questo
+  evita che rete e browser accorpino tutti i token in un solo aggiornamento.
 - Se il modello chiude senza contenuto, il client mostra un errore esplicito.
 - Timeout, budget e annullamento impediscono ricerche senza fine.
 - `/debug` legge anche gli ultimi eventi persistiti in KV, non solo la memoria dell’istanza.
@@ -73,8 +81,29 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 - Contesto primario: [[sintesi/contesto-sbarco]].
 - Le altre pagine vengono aperte su richiesta tramite `read_wiki`.
 - `remember` salva davvero un fatto verificato in KV.
-- La cronologia conserva 8 messaggi recenti e un riassunto estrattivo compatto.
+- La memoria condivisa conserva al massimo 40 fatti e ne passa 12 al modello.
+  Una `key` tematica aggiorna il valore precedente, evitando duplicati e claim
+  superati ripetuti nel prompt.
+- L'estrattore automatico si attiva soltanto quando il messaggio contiene una
+  preferenza o decisione esplicita. Legge solo il testo dell'utente, non la
+  risposta di Sbarco: domande e affermazioni generate dal bot non diventano memoria.
+- La cronologia conserva fino a 8 messaggi, ma anche un massimo di 9.000
+  caratteri complessivi. I messaggi sono troncati per ruolo e quelli espulsi
+  confluiscono in un digest di 1.400 caratteri tagliato solo su righe intere.
 - La wiki resta la fonte persistente del progetto; la memoria KV non la sostituisce.
+
+## Output e interfaccia
+
+- Ogni risposta ha azioni **Esporta PDF** e **Copia**.
+- `save_doc` produce una scheda dedicata con download PDF; MD e TXT non sono più
+  l'output primario.
+- Il PDF è A4, multipagina, con titoli, callout, elenchi, tabelle, fonti,
+  intestazione e numerazione. jsPDF viene caricato solo al click (chunk lazy).
+- Il Markdown è parsato a blocchi e sanificato; tabelle larghe scorrono
+  orizzontalmente. Durante lo stream il DOM viene aggiornato una volta per frame,
+  riducendo lavoro e salti di scroll su telefono.
+- Sotto 600 px il widget usa l'altezza di `visualViewport`, safe-area e layout
+  full-screen, così resta usabile anche con tastiera mobile aperta.
 
 ## Manutenzione
 
