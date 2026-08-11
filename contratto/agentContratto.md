@@ -1,59 +1,75 @@
 # agentContratto — mandato della cartella `contratto/`
 
-> **Scopo di questa cartella:** costruire, affinare e mantenere il **patto tra amici**
-> (Le Bestie) che regola proprietà, uso, costi, danni e uscita dal gommone condiviso.
-> Precisione da contratto legale; natura = accordo tra amici, non atto notarile.
+> **Scopo:** costruire, affinare e mantenere il **patto tra amici** (Le Bestie)
+> su proprietà, uso, costi, danni e uscita del gommone condiviso.
+> Precisione da contratto; natura = accordo tra amici, non atto notarile.
 
-**Fase corrente:** creazione e iterazione **solo qui** (`contratto/`).  
-Non propagare in `wiki/` finché il patto non è stabile e il gruppo non lo chiede.
+**Path canonico (unico):** `C:\Users\…\Desktop\barca\contratto\`  
+(o relativo al root repo: `contratto/`)
 
----
-
-## 1. Perché esiste questa cartella
-
-Il gruppo (Tiziano, Antonio, Peppe) compra e gestisce insieme un **bundle
-gommone + motore** (piano A). Serve un pezzo di carta che:
-
-1. eviti litigi su soldi, uscite, danni e “chi tiene la roba”;
-2. copra **ogni scenario ragionevole** prima che succeda;
-3. dia una **formula chiara** se uno o più soci escono;
-4. resti leggibile in 20–30 minuti e firmabile a mano o in digitale.
-
-Questa cartella è il **cantiere** di quel pezzo di carta. L’agente lavora qui.
+**Fase corrente:** cantiere attivo in `contratto/`.  
+**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.6**).  
+Non propagare il testo del patto in `wiki/` finché non è stabile e il gruppo non lo chiede.
 
 ---
 
-## 2. File in cartella
+## 1. File in cartella
 
 | File | Ruolo |
 |------|--------|
-| `agentContratto.md` | **Questo file.** Mandato agente, checklist scenari, seed, DoD, workflow. |
-| `bozza-patto-v1.md` | Testo del patto (articoli, tabelle, formule, firme). Iterabile → v2, v3… |
-| `prospetto-costi-a-norma.md` | **Leggi + costi iniziali/fissi obbligatori** (RC, dotazioni, documenti, tasse…). Vivo; alimenta art. costi/RC del patto. |
+| `agentContratto.md` | **Questo mandato.** Workflow, checklist, decisioni note, DoD. |
+| `bozza-patto-v1.md` | **Unica** fonte di verità del testo del patto. Si edita **in place**. |
+| `prospetto-costi-a-norma.md` | Leggi + costi **iniziali/fissi obbligatori** (RC, dotazioni, alcol, tagliando…). |
 
-Eventuali file futuri (es. `formule.md`, esempi numerici, inventario) solo se
-la bozza diventa ingombrante. Finché si legge bene, tenere le formule **dentro**
-la bozza (art. uscita socio).
+Niente bozze parallele, niente “v1-bis” non richieste.  
+Formule di uscita: restano **dentro** la bozza (art. 13), non in file separato finché leggibile.
 
-### 2.1 Prospetto costi a norma — regola d’oro
+### 1.1 Prospetto costi a norma — regola d’oro
 
-Quando in **qualsiasi** sessione (anche fuori da “lavoro contratto”) emerge un fatto su:
+Se emerge (chat, ricerca, raw, wiki) un fatto su:
 
-1. **obbligo di legge** per possedere / assicurare / navigare / trasportare il bene;
-2. **costo iniziale obbligatorio** (una tantum per essere a norma: pratiche, dotazioni minime, passaggio proprietà se dovuto…);
-3. **costo fisso obbligatorio** ricorrente (RC, rinnovi, tasse se applicabili…);
+1. obbligo di **legge** (possesso, RC, navigazione, trasporto, alcol, dotazioni…);
+2. **costo iniziale obbligatorio** per essere a norma;
+3. **costo fisso obbligatorio** ricorrente (RC, rinnovi, scadenze segnali…);
 
-l’agente **nella stessa sessione**:
+→ **stessa sessione:**
 
-1. aggiorna `prospetto-costi-a-norma.md` (sezione esistente o nuova + riga nel riepilogo TCO);
-2. salva fonti grezze in `raw/` se nuove;
-3. se impatta clausole del patto (RC, costi fissi, documenti) → aggiorna o marca `[DA DECIDERE]` in `bozza-patto-v1.md`;
-4. **non** lasciare il fatto solo in chat o solo in wiki senza riga sul prospetto.
+1. aggiorna `prospetto-costi-a-norma.md` (sezione + riga TCO);
+2. salva fonti in `raw/` se nuove;
+3. se tocca il patto → aggiorna `bozza-patto-v1.md` (o `[DA DECIDERE]`);
+4. non lasciare il fatto solo in chat.
 
-Cosa **non** va sul prospetto (resta wiki/preferenze):
+**Non** mettere sul prospetto: preferenze scafi/motori, scoring annunci, nice-to-have.
+Regole operative dell’agente stanno **qui**, non nel prospetto.
 
-- nice-to-have, stime di mercato scafi/motori, scoring annunci;
-- costi volontari di comfort non richiesti dalla legge (salvo se il gruppo li rende “fissi di patto”: allora nota in bozza + eventuale riga “fisso di gruppo” in §6 del prospetto).
+---
+
+## 2. Come modificare la bozza (OBBLIGATORIO)
+
+Quando l’utente cita un pezzo del patto (es. «### 11.4 …» con testo vecchio):
+
+1. **Apri e leggi** `bozza-patto-v1.md` sul disco (non fidarti solo della chat o del buffer IDE).
+2. **Sostituisci in place** quell’articolo/paragrafo con `Edit`/`StrReplace` sul testo **attuale** del file.
+3. **Non** aggiungere una seconda copia dello stesso articolo altrove.
+4. **Non** lasciare il vecchio testo sotto e il nuovo sopra.
+5. Bump **Versione** (1.x → 1.x+1), **Data**, riga in **Changelog** in testa.
+6. Se la modifica chiude un open: aggiorna §10 qui e l’elenco `[DA DECIDERE]` in coda bozza.
+7. Dopo edit: **verifica** con grep che il testo vecchio non compaia più e che il nuovo ci sia **una sola volta**.
+
+### 2.1 IDE / buffer sporco (lezione sessione 2026-08-11)
+
+Cursor a volte mostra un **tab non salvato** con testo pre-modifica anche se il disco è aggiornato.
+
+- Fonte di verità = **file su disco** + `git show HEAD:contratto/bozza-patto-v1.md`.
+- Se l’utente dice «non vedo le modifiche»: fargli **chiudere il tab senza salvare** e riaprire il path.
+- **Mai** fargli “Salva” su un buffer che contiene ancora il testo vecchio (sovrascriverebbe il lavoro).
+- Path da citare sempre: `contratto/bozza-patto-v1.md`.
+
+### 2.2 Stile risposta all’utente
+
+- Breve conferma di cosa è cambiato + dove (art. X).
+- Non inventare path o versioni.
+- Se serve ricerca normativa/costi → prospetto + raw, poi allinea patto.
 
 ---
 
@@ -61,289 +77,240 @@ Cosa **non** va sul prospetto (resta wiki/preferenze):
 
 | È | Non è |
 |---|--------|
-| Patto tra amici a **precisione contrattuale** | Consulenza legale professionale |
-| Documento operativo firmabile dal gruppo | Atto notarile / scrittura privata “da avvocato” obbligatoria |
-| Specifica viva: si modifica finché è perfetto | Testo sacro: si versiona, non si cancella di soppiatto |
-| Fonte di verità **del patto** in fase di stesura | Sostituto di assicurazione, patente, o legge italiana |
+| Patto amici a precisione contrattuale | Consulenza legale professionale |
+| Documento firmabile | Atto notarile obbligatorio |
+| Specifica viva, versionata | Testo sacro immutabile |
+| Fonte del **patto** in cantiere | Sostituto di RC, patente, legge |
 
-Disclaimer fisso in bozza: in caso di contrasto con norme imperative, prevale la legge.
-
----
-
-## 4. Parti e oggetto (seed)
-
-| Voce | Valore seed | Stato |
-|------|-------------|--------|
-| Parti | Tiziano, Antonio, Peppe (“Le Bestie”) | fisso core |
-| Estensione | N soci possibili in futuro (es. 4–5) | clausole scalabili |
-| Oggetto | Gommone pneumatico + motore + dotazioni condivise | da compilare a acquisto |
-| Base | Ardea / Pomezia — mare laziale | contesto |
-| Budget acquisto | ≤ 2.000 € bundle (usato) | seed economico |
-| Split default | **1/N** (con N=3 → 1/3) | finché non deciso altro |
-| Cap costi fissi | ≤ **30 €/testa/mese** | hard preference |
-| Patente | nessuno; restare no-patente (≤ 40,8 CV) | vincolo d’uso |
-
-Dettaglio regole già discusse dal gruppo (seed concettuale, non da copiare in wiki ora):
-
-- costi fissi e acquisto a quote uguali;
-- **chi rompe per colpa paga**; evento imprevedibile → tutti;
-- usura / manutenzione programmata → tutti;
-- uscita socio → rimborso con formula (tempo dominante, uso secondario).
+In bozza: se contrasto con norme imperative → prevale la legge.
 
 ---
 
-## 5. Principi guida per l’agente
+## 4. Seed gruppo e oggetto
 
-1. **Zero buchi:** ogni scenario in checklist ha una regola, un rinvio esplicito, o `[DA DECIDERE]`.
-2. **Niente numeri inventati “da fatti”:** i parametri (preavviso ore, tassi %) possono essere **proposte v1** ma marcati come tali se non c’è consenso verbale del gruppo.
-3. **Tempo >> uscite** nella formula di uscita: un anno di possesso pesa molto di più di un pacchetto di uscite nello stesso anno.
-4. **Esempi numerici** accanto alle formule (almeno 1 caso semplice).
-5. **Linguaggio chiaro:** italiano semplice; termini tecnici spiegati una volta.
-6. **Tracciabilità:** ogni revisione rilevante aggiorna versione, data, changelog in testa alla bozza.
-7. **Non soft-delete:** se una clausola si toglie, resta nota nel changelog (“rimossa perché…”).
-8. **Cantiere vs wiki:** il testo del **patto** non si propaga in wiki finché non è stabile. Eccezione: `prospetto-costi-a-norma.md` è nel cantiere ma si aggiorna da ricerche/wiki; le pagine wiki possono **linkare** il prospetto (non duplicarne il contenuto).
-9. **Solidarietà ≠ copertura colpa:** il gruppo non paga l’errore grossolano del singolo.
-10. **Unanimità vs maggioranza:** decisioni strutturali (vendita, nuovo socio, modifica patto, esclusione) = unanimità dei soci attivi, salvo diversa decisione esplicita in bozza.
-11. **Legge e costi obbligatori → prospetto:** vedi §2.1. Prima di citare un obbligo o un prezzo “a norma” in bozza, deve esistere riga/sezione sul prospetto con fonte.
+| Voce | Valore | Note |
+|------|--------|------|
+| Parti | Tiziano, Antonio, Peppe | cognomi/contatti ancora aperti |
+| N | 3 (scalabile) | |
+| Oggetto | Gommone pneumatico + motore + dotazioni | piano A |
+| Base | Ardea/Pomezia, mare laziale | |
+| Budget bundle | ≤ ~2.000 € usato | |
+| Split | **1/N** | |
+| Patente | nessuno; ≤ 40,8 CV | |
+| Lunghezza gommone | min 3,30 m; ideale 3,50–3,80; **no max duro** | anche >4 m se auto/trasporto |
+| Cap 30 €/testa/mese | **non hard** sul gommone auto | era scenario porto/rimessaggio; vedi bozza art. 9.3 |
+
+Principi di gruppo già in bozza:
+
+- uscite **normali = tutti insieme** (art. 6.0);
+- costi fissi e acquisto 1/N;
+- in gruppo: danni di default **1/N presenti**, salvo errore palese di uno;
+- usura / tagliando programmato → 1/N;
+- uscita socio → formula tempo >> uso (art. 13).
 
 ---
 
-## 6. Checklist scenari obbligatori
+## 5. Principi guida
 
-L’agente **non** dichiara il patto “completo” finché ogni riga non è:
-- coperta da articolo in bozza, **oppure**
-- esplicitamente `[DA DECIDERE]` con domanda aperta.
+1. **Zero buchi:** regola, rinvio, o `[DA DECIDERE]`.
+2. **No numeri inventati da fatti:** proposte v1 marcate se manca consenso.
+3. **Tempo >> uscite** nella formula recesso.
+4. **Esempi numerici** sulle formule.
+5. **Italiano chiaro.**
+6. **Changelog** a ogni revisione rilevante.
+7. **No soft-delete silenzioso** di clausole (nota in changelog).
+8. **Edit in place** (§2) — mai duplicare articoli.
+9. **Cantiere vs wiki:** patto non in wiki finché instabile; prospetto linkabile.
+10. **Solidarietà ≠ scudo colpa palese.**
+11. **Unanimità** su vendita, nuovo socio, modifica patto, esclusione (con regole bozza).
+12. **Legge/costi obbligatori → prospetto** (§1.1) prima o insieme al patto.
+13. **Modo normale = gruppo insieme;** parziale/solitaria = eccezione documentata, non lo stile di vita del testo.
+
+---
+
+## 6. Checklist scenari (stato vs bozza 1.6)
+
+Legenda: `[x]` coperto in bozza (anche se restano dettagli aperti) · `[ ]` ancora debole/aperto.
 
 ### 6.1 Proprietà e documenti
 
-- [ ] Quote (uguali / disuguali)
-- [ ] Proprietà economica vs intestazione formale
-- [ ] Intestatario gommone, motore, assicurazione
-- [ ] Dove stanno i documenti; chi può mostrarli
-- [ ] Passaggio di proprietà / adempimenti
-- [ ] Vendita pezzi separati (motore vs scafo) — vietata o regolamentata
+- [x] Quote uguali 1/N
+- [x] Proprietà economica vs intestazione
+- [ ] Intestatario gommone/motore/polizza (nomi)
+- [x] Documenti: originali + **Google Drive** condiviso
+- [ ] Passaggio proprietà / adempimenti (prospetto §3 da fare)
+- [x] Divieto smembramento unilaterale
 
 ### 6.2 Custodia e logistica
 
-- [ ] Chi tiene gommone / motore / attrezzatura
-- [ ] Standard minimo di custodia (asciutto, sicuro, accessibile)
-- [ ] Cambio custode (preavviso, ispezione stato)
-- [ ] Auto e trasporto (chi, limiti, danni in auto)
-- [ ] Accesso al mare / scivolo
-- [ ] Chiavi, lucchetti, codici
+- [ ] Chi tiene cosa (nomi)
+- [x] Standard custodia (asciutto, intemperie; patio ok; **carico/scarico**)
+- [x] Cambio custode
+- [x] Trasporto / danni auto
+- [x] Accesso mare snello (leciti; niente elenco obbligatorio)
+- [ ] Chiavi/codici
 
 ### 6.3 Calendario e uscite
 
-- [ ] Preavviso minimo per prenotare un’uscita
-- [ ] Priorità se più richieste stesso giorno/slot
-- [ ] Blocco periodi (ferie, alta stagione)
-- [ ] Cancellazione tardiva
-- [ ] Meteo e criteri no-go
-- [ ] Uscite a pieno gruppo / parziali / da soli
-- [ ] Durata massima / obbligo di rientro e riconsegna
-- [ ] Registro uscite (chi, quando, ore, note danni)
+- [x] Canale ufficiale (senza nome fisso nel patto)
+- [x] Preavviso 48h / last minute / 7gg blocco lungo
+- [x] Priorità conflitto
+- [x] Cancellazione (solo spese reali documentate)
+- [x] Meteo no-go
+- [x] **Modo normale = uscita di gruppo**
+- [ ] Solitarie: sì/no definitivo
+- [x] Rientro/riconsegna
+- [x] Registro uscite (proposta obbligatorio)
 
 ### 6.4 Ospiti e terzi
 
-- [ ] Ospiti ammessi sì/no e a quali condizioni
-- [ ] Limite persone a bordo (omologazione + buon senso)
-- [ ] Responsabilità per danni causati da ospiti
-- [ ] Divieto prestito / noleggio / uso da non-soci
-- [ ] Divieto uso commerciale
+- [x] Ospiti con socio responsabile
+- [x] Divieti prestito/noleggio/commerciale
+- [ ] Conducenti non-soci
 
-### 6.5 Condotta a bordo
+### 6.5 Condotta
 
-- [ ] Chi può condurre (soci; eventuali terzi abilitati)
-- [ ] Alcol e sostanze
-- [ ] Rispetto limiti no-patente e norme di navigazione
-- [ ] Dotazioni obbligatorie a bordo prima del varo
-- [ ] Divieto elaborazioni / potenze illegali
-- [ ] Comportamento che espone il gruppo a rischio (sanzioni, sequestro)
+- [x] Conducenti = soci (+ eventuale eccezione)
+- [x] Alcol: passeggeri ok; conducente ≤0,5 g/l legge; danni da chi esagera
+- [x] No-patente / legalità
+- [x] Dotazioni: check = **soci presenti**
+- [x] No elaborazioni illegali
 
 ### 6.6 Costi
 
-- [ ] Split acquisto iniziale
-- [ ] Cassa comune vs pagamenti a rimborso
-- [ ] Costi fissi (RC, tagliandi programmati, fondo)
-- [ ] Costi variabili (carburante, eventuali varo/alaggio, parcheggi)
-- [ ] Una tantum e imprevisti
-- [ ] Superamento del cap 30 €/testa/mese — procedura
-- [ ] Chi anticipa; scadenze; morosità lieve
+- [x] Split acquisto
+- [x] Niente cassa; anticipo + rimborso 14+14 gg
+- [x] Fissi / variabili / una tantum / colpa
+- [x] Cap 30€ **non hard** gommone
+- [x] Soglie 100 / 300 € con esempi
+- [x] Morosità → art. 16
 
-### 6.7 Danni e sinistri
+### 6.7 Danni
 
-- [ ] Danno da colpa del conducente / utilizzatore
-- [ ] Danno imprevedibile / forza maggiore
-- [ ] Usura normale
-- [ ] Franchigia e parte non coperta da assicurazione
-- [ ] Danni a terzi
-- [ ] Furto, smarrimento, vandalismo
-- [ ] Perdita totale
-- [ ] Chi gestisce denuncia / sinistro / riparazione
+- [x] Principio gruppo 1/N + colpa palese
+- [x] Tabella casi
+- [x] Franchigia/assicurazione
+- [x] Sinistro: presenti; avviso assenti
+- [x] Perdita totale
+- [x] Contestazione: verbale + terzo o LLM → % colpe
 
-### 6.8 Manutenzione e ruoli
+### 6.8 Manutenzione
 
-- [ ] Ruoli assegnati (cura materiale, pratiche, check)
-- [ ] Check pre-uscita e post-uscita
-- [ ] Lavaggio / asciugatura / stoccaggio obbligatori
-- [ ] Manutenzione programmata (chi decide date, chi paga)
-- [ ] Lavori straordinari (soglia € e voto)
+- [x] Ruoli: manutenzione **di volta in volta**
+- [x] Check pre/post = **tutti i presenti**
+- [x] Tagliando: non obbligo legge; rotazione / chi fa meno il resto; sollecito 30 gg
+- [x] Straordinari → 9.5
 
-### 6.9 Multe e sanzioni
+### 6.9 Multe
 
-- [ ] Multe nautiche / accesso / sosta
-- [ ] Sequestro, fermo, sanzioni amministrative
-- [ ] Colpa individuale vs responsabilità di gruppo
-- [ ] Obbligo di informare gli altri soci subito
+- [x] Default presenti 1/P; eccezione conducente “cazzata palese”
+- [x] Avviso 24h
 
-### 6.10 Uscita di uno o più soci
+### 6.10–6.13 Uscita, ingresso, vendita, casi limite, dispute
 
-- [ ] Preavviso di recesso
-- [ ] Formula rimborso: **tempo dominante + uso secondario + stato**
-- [ ] Termini e modalità di pagamento dei rimanenti
-- [ ] Rate / dilazioni
-- [ ] Insolvenza del debitore (chi non paga il rimborso)
-- [ ] Uscita di 2 su 3 (o maggioranza)
-- [ ] Recesso “per giusta causa” vs libero
-- [ ] Compensazione debiti dell’uscente
-
-### 6.11 Ingresso, vendita, scioglimento
-
-- [ ] Nuovo socio: unanimità, prezzo quota, patto aggiornato
-- [ ] Diritto di prelazione tra soci
-- [ ] Vendita totale del bene
-- [ ] Scioglimento del patto
-- [ ] Riparto del ricavato
-
-### 6.12 Casi limite
-
-- [ ] Decesso o inabilità grave di un socio
-- [ ] Abbandono di fatto (non paga, non risponde, sparisce)
-- [ ] Esclusione per giusta causa (cosa la integra)
-- [ ] Smarrimento documenti / chiavi
-- [ ] Litigio grave e stallo decisionale
-- [ ] Upgrade futuro a scafo rigido / più soci → rinegoziazione obbligatoria
-
-### 6.13 Dispute, modifiche, formalità
-
-- [ ] Tentativo di accordo amichevole obbligatorio
-- [ ] Maggioranza vs unanimità per tipo di decisione
-- [ ] Modifica del patto (forma scritta)
-- [ ] Versioning e data di efficacia
-- [ ] Firme, luogo, copie
-- [ ] Legge applicabile / foro amichevole (se utile)
+- [x] Formula recesso tempo>>uso + esempi
+- [x] Ingresso, vendita, scioglimento
+- [x] Decesso, abbandono, esclusione, stallo
+- [x] Modifiche, quorum, firme
+- [ ] Parametri formula fissati dal gruppo
+- [ ] Cognomi, firme, allegato A compilato
 
 ---
 
-## 7. Formula di uscita — vincoli di progettazione
+## 7. Formula di uscita (vincoli)
 
-Obiettivo: calcolare quanto i **soci rimanenti** devono saldare all’uscente
-(o, se escono più persone, come si ripartisce / se scatta vendita).
+Vedi art. 13 bozza. Vincoli:
 
-### 7.1 Vincoli del gruppo
-
-1. Conta **sia il tempo** sia le **uscite**.
-2. Il **tempo ha incidenza maggiore** delle uscite.
-3. Esempio di scala mentale: se **1 anno ≈ −1 unità** di valore, allora
-   **~10 uscite in quell’anno non possono valere un altro −1**.
-4. L’uso è un **correttivo con cap**, non un secondo deprezzamento pieno.
-5. Si sottraggono debiti dell’uscente verso la cassa/gruppo.
-6. Rimborso mai negativo (minimo 0) salvo patto diverso su debiti eccedenti.
-7. Termine di pagamento dei rimanenti: definito in bozza (proposta v1 + `[DA DECIDERE]`).
-
-### 7.2 Schema adottato in bozza v1
-
-Vedi art. dedicato in `bozza-patto-v1.md`. Sintesi:
-
-```
-ValoreBase     = PrezzoAcquisto × (1 − DeprezzamentoTempo)
-DeprezzamentoTempo = min(cap_tempo, anni × tasso_anno)
-
-CorrettivoUso  = clamp( (uscite_uscente − media_attesa) × peso_uscita,
-                        −cap_uso, +cap_uso )
-// peso_uscita scelto così che molte uscite ≈ frazione di un anno, non un anno intero
-// es. 40 uscite extra ≈ 1 × tasso_anno  →  10 uscite extra ≈ 0,25 di un anno
-
-ValoreDopoUso  = ValoreBase × (1 − CorrettivoUso) × FattoreStato
-Quota          = ValoreDopoUso / N_soci_al_momento_acquisto_o_quota_%
-Rimborso       = max(0, Quota − debiti_uscente)
-```
-
-Parametri numerici in bozza sono **proposte v1** finché il gruppo non li fissa.
-
-### 7.3 Casi multipli
-
-| Caso | Comportamento atteso in bozza |
-|------|-------------------------------|
-| Esce 1 su 3 | Rimanenti pagano rimborso in solidarietà interna (riparto 50/50 o 1/2 ciascuno) |
-| Escono 2 su 3 | Stessa formula per ciascun uscente **oppure** vendita se il superstites non vuole/può tenere |
-| Escono tutti / stallo | Vendita del bene e riparto ricavato |
-| Nessuno vuole il bene | Vendita obbligatoria entro termine |
+1. Tempo e uscite contano; **tempo domina**.
+2. Uso = correttivo con **cap** (non secondo deprezzamento pieno).
+3. Scala mentale: ~40 uscite extra ≈ 1 anno a tasso r (w = r/40).
+4. Rimborso ≥ 0; debiti detraibili.
+5. Parametri in bozza = proposte finché il gruppo non li fissa.
 
 ---
 
 ## 8. Workflow agente
 
 ```
-1. Leggi questo mandato + bozza corrente + prospetto-costi-a-norma.md
-2. Se l’utente chiede modifica / nuovo scenario:
-   a. aggiorna bozza (clausola + eventuale esempio)
-   b. aggiorna checklist qui (spunta o [DA DECIDERE])
-   c. bump versione/data + riga changelog in bozza
-3. Se emerge legge / costo obbligatorio (anche da ricerca o wiki):
-   → aggiorna prospetto-costi-a-norma.md (§2.1), poi allinea bozza se serve
-4. Se manca una decisione di gruppo: NON inventare consenso;
-   scrivi proposta chiara + marca [DA DECIDERE]
-5. Dopo feedback delle bestie: integra e rinumera se serve
-6. Quando checklist ≈ completa e pochi DA DECIDERE:
-   proponi “vettura per firma” (letto insieme ~30 min)
+1. Leggi agentContratto.md + bozza (riga Versione) + prospetto
+2. Utente cita un articolo / chiede modifica:
+   a. leggi il testo ATTUALE di quell’articolo sul disco
+   b. Edit IN PLACE (sostituisci, non duplicare)
+   c. verifica grep: vecchio assente, nuovo presente 1 volta
+   d. bump versione + changelog bozza
+   e. aggiorna checklist/open qui se serve
+3. Legge/costo obbligatorio → prospetto + raw (+ bozza se impatta)
+4. Niente consenso inventato: proposta + [DA DECIDERE]
+5. Commit solo se l’utente lo chiede
 ```
 
-### Comandi conversazionali utili
+### Comandi
 
-| Frase utente | Azione agente |
-|--------------|---------------|
-| `contratto: status` | % checklist, lista `[DA DECIDERE]`, versione bozza |
-| `contratto: scenario …` | Aggiungi/raffina clausola |
-| `contratto: formula …` | Modifica parametri/esempi art. uscita |
-| `contratto: vN` | Snapshot/rename versione |
-| `contratto: gap` | Solo buchi e contraddizioni interne |
-| `contratto: prospetto` / `costi a norma` | Mostra/aggiorna `prospetto-costi-a-norma.md` |
-
----
-
-## 9. Definition of Done (patto “pronto a firmare”)
-
-- [ ] Tutte le sezioni 6.x coperte o consapevolmente rinviate con data
-- [ ] ≤ 5 `[DA DECIDERE]` residuali, tutti non bloccanti per l’uso quotidiano
-**oppure** i bloccanti risolti (custode, intestatario, parametri formula, preavviso)
-- [ ] Almeno 2 esempi numerici della formula di uscita
-- [ ] Tabella ruoli e contatti compilabile
-- [ ] Sezione firme con nomi delle parti
-- [ ] Changelog leggibile
-- [ ] Lettura di prova ad alta voce senza ambiguità su: danni, uscite da soli, chi paga se esce uno
+| Frase | Azione |
+|-------|--------|
+| `contratto: status` | Versione bozza, open decisions, % checklist |
+| `contratto: scenario …` | Clausola in place |
+| `contratto: formula …` | Art. 13 |
+| `contratto: gap` | Buchi/contraddizioni |
+| `contratto: prospetto` / `costi a norma` | Prospetto |
+| Utente incolla un articolo da correggere | Sostituisci **quel** articolo in bozza |
 
 ---
 
-## 10. Open decisions (tracker rapido)
+## 9. Definition of Done (pronto a firmare)
 
-Da chiudere col gruppo (allineato ai `[DA DECIDERE]` in bozza):
-
-1. Chi tiene materialmente gommone e motore (criterio carico/scarico)
-2. Intestatario formale e assicurato
-3. Canale ufficiale + link Google Drive documenti
-4. Parametri formula: `tasso_anno`, `cap_tempo`, `peso_uscita`, `cap_uso`, giorni pagamento
-5. Obbligo registro uscite (sì/no e dove)
-6. Soglia € straordinarie se diversa da 100/300
-7. Uscite solitarie: sì/no definitivo (restano eccezione)
-8. Conducenti non-soci
+- [ ] Checklist 6.x coperta o rinviata esplicitamente
+- [ ] ≤ 5 `[DA DECIDERE]` non bloccanti **oppure** bloccanti risolti (custode, intestatario, formula, Drive)
+- [ ] ≥ 2 esempi formula uscita (già in bozza)
+- [ ] Ruoli/contatti compilabili
+- [ ] Firme
+- [ ] Changelog ok
+- [ ] Lettura ad alta voce: danni, uscite insieme, chi paga multa/tagliando/recesso — senza ambiguità
 
 ---
 
-## 11. Changelog mandato
+## 10. Open decisions (allineati a bozza 1.6)
+
+1. Cognomi e contatti parti  
+2. Intestatario gommone / motore / polizza  
+3. Custode e luogo (criterio carico/scarico)  
+4. Quale canale di gruppo + link Google Drive  
+5. Uscite solitarie: sì/no definitivo  
+6. Conducenti non-soci  
+7. Parametri formula (r, cap_t, w, cap_u, termini pagamento) se diversi dalle proposte  
+8. Interessi di mora  
+9. Foro/mediazione formale (spesso omettere)  
+10. Allegato A a acquisto  
+11. Preventivi reali RC e tagliando (prospetto tabelle da compilare)
+
+---
+
+## 11. Mappa rapida bozza (orientamento)
+
+| Art. | Tema | Note v1.6 |
+|------|------|-----------|
+| 1–2 | Parti, quote | |
+| 3 | Intestazione, RC, Drive | RC obbligatoria legge |
+| 4 | Custodia | no “furti banali”; carico/scarico |
+| 5 | Calendario | preavviso chiaro |
+| 6 | Uscite | **6.0 gruppo = normale** |
+| 7 | Ospiti | |
+| 8 | Condotta | alcol + dotazioni presenti |
+| 9 | Costi | no cassa; cap 30 non hard |
+| 10 | Danni | 10.6 verbale + terzo/LLM |
+| 11 | Manutenzione | 11.4 rotazione / equilibrio carichi |
+| 12 | Multe | presenti 1/P; eccezione conducente |
+| 13 | Recesso | tempo >> uso |
+| 14–18 | Ingresso, vendita, limiti, firme | |
+
+Prospetto: §1 RC · §1b alcol · §2 dotazioni/luci · §6 tagliando.
+
+---
+
+## 12. Changelog mandato
 
 | Data | Nota |
 |------|------|
-| 2026-08-11 | Bozza patto v1.1 da feedback lettura; prospetto § alcol + dotazioni. Open decisions aggiornate. |
-| 2026-08-11 | Aggiunto `prospetto-costi-a-norma.md` + §2.1 regola d’oro (leggi/costi obbligatori → prospetto stessa sessione). Workflow e comandi aggiornati. |
-| 2026-08-11 | Creazione cartella `contratto/` e mandato iniziale v1. Approccio: patto amici a precisione legale; bozza separata; no wiki in fase cantiere. Formula: tempo >> uscite. |
+| 2026-08-11 | Revisione post-sessione patto v1.6: edit-in-place obbligatorio; warning buffer IDE; seed cap/lunghezza; checklist stato reale; mappa articoli; open decisions aggiornate. |
+| 2026-08-11 | Prospetto + § regola d’oro costi/leggi; bozza iniziale e iterazioni 1.1–1.6. |
+| 2026-08-11 | Creazione cartella e mandato v1. |
