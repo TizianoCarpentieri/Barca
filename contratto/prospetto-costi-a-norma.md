@@ -204,6 +204,19 @@ Per Ardea/Pomezia e l'area della Capitaneria di Roma è stato verificato, sul qu
 
 Sono state reperite le ordinanze/pagine 2026 di Ardea, Pomezia, Fiumicino, Nettuno e San Felice Circeo e il servizio comunale 2026 per il porto di Anzio. Prima di scegliere una base occorre registrare nel patto: punto di varo autorizzato, parcheggio, orari, eventuale titolo/costo e ordinanze Capitaneria+Comune applicabili.
 
+**Chiarimento operativo:** i 250 m non autorizzano a partire da una spiaggia
+libera remando con un gommone dotato di fuoribordo. Davanti alle aree destinate
+alla balneazione, partenza e atterraggio di unità a motore o a vela avvengono
+esclusivamente nei corridoi. L'uso pubblico del corridoio riguarda lo specchio
+acqueo e non rende automaticamente libero o gratuito l'accesso attraverso una
+concessione o l'uso dei suoi servizi.
+
+Per Ardea sono stati censiti quattro `PO` locali da verificare: Rimessaggio
+Cerolini, Circolo Nautico Caravallebecio, Circolo Nautico Tor San Lorenzo e La
+Torre. La presenza negli atti comunali non prova disponibilità, prezzo o varo
+giornaliero: serve conferma del gestore/Demanio. Fonte di dettaglio:
+`raw/normativa/punti-ormeggio-ardea-2025-2026-2026-08-12.md`.
+
 ## 9. Trasporto su strada
 
 ### 9.1 Gommone sgonfio in auto

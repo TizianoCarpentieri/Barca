@@ -30,6 +30,17 @@ L'Ordinanza di sicurezza balneare n. 66/2025 della Capitaneria di porto di Roma 
 
 Conseguenza: una spiaggia libera non è automaticamente uno scivolo utilizzabile. Per il piano A serve un corridoio pubblico/autorizzato o altro punto di varo lecito verificato.
 
+### Aggiornamento 2026-08-12 — corridoi vs elenco pin
+
+Dettaglio esteso in `raw/normativa/corridoi-lancio-ardea-pomezia-2026-08-12.md` (con PDF locali `cp-roma-66-2025.pdf`, `ardea-ord-2026.pdf`, `pomezia-ord-2026.pdf`).
+
+Punti chiave per Tor San Lorenzo / Ardea / Pomezia:
+
+- I **corridoi di lancio non sono elencati per nome** nelle ordinanze: li installano stabilimenti/noleggi/ecc. dopo autorizzazione comunale + parere Capitaneria; una volta attivi sono ad **uso pubblico**.
+- **Passaggio a mare ≠ corridoio** (il primo è pedonale).
+- **Pomezia – approdo n. 3 Fosso della Crocetta: NO motore** (solo vela/deriva mobile e natanti senza motore).
+- Contatto utile: **ULM Torvaianica 06 9155 395**.
+
 ## Anzio, Nettuno e Circeo
 
 - Porto di Anzio, servizio e requisiti 2026 (documento identità, polizza, libretto motore per domanda posto):  

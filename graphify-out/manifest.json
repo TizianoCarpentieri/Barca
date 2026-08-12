@@ -1,972 +1,1142 @@
 {
   ".opencode/opencode.json": {
-    "mtime": 1786463088.6852448,
+    "mtime": 1786361307.5319476,
     "ast_hash": "039b09e4175dea67183e5e706be923ea",
     "semantic_hash": ""
   },
   ".opencode/plugins/graphify.js": {
-    "mtime": 1786463088.691301,
+    "mtime": 1786361307.5349388,
     "ast_hash": "b33d000860642c6f4907a877e0387a21",
     "semantic_hash": ""
   },
   "presentazione/package.json": {
-    "mtime": 1786463088.9600167,
+    "mtime": 1786442716.5883322,
     "ast_hash": "fee19c216b9e945c4bd604d7156f4308",
     "semantic_hash": ""
   },
   "presentazione/public/data/accessori.json": {
-    "mtime": 1786463088.9728298,
-    "ast_hash": "28dc824864346b520f7c241946021def",
+    "mtime": 1786372929.6309457,
+    "ast_hash": "44b88db3ae04663a3bb2ef83c3be7a3c",
     "semantic_hash": ""
   },
   "presentazione/public/data/annunci.json": {
-    "mtime": 1786463088.977851,
-    "ast_hash": "d8b137278ee1ade8a1e1546031b0508e",
+    "mtime": 1786372904.9634001,
+    "ast_hash": "2c75d5edc7bb4e77f62149ef3b010f18",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-accessori.mjs": {
-    "mtime": 1786463088.9957163,
-    "ast_hash": "ebefbb8623339194c8eb04fdd79838b0",
+    "mtime": 1786372480.548604,
+    "ast_hash": "d8e007facc6ee6b0dc4ebb1036bb9a34",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-annunci.mjs": {
-    "mtime": 1786463089.0077667,
-    "ast_hash": "d5db46bccb8c6f2a4c60c550ae3bcef5",
+    "mtime": 1786372470.827826,
+    "ast_hash": "1e23d4ebe57bbe3b43cd41603b19e646",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-gommoni.mjs": {
-    "mtime": 1786463089.0123868,
-    "ast_hash": "9ba9ff036ab1da18f2b1397c85879288",
+    "mtime": 1786372854.524879,
+    "ast_hash": "10aa92bc3cc77b5c8554f5fca09bcb7e",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-motori.mjs": {
-    "mtime": 1786463089.0143926,
-    "ast_hash": "bce93ae0b32cbea0d4e756beaf52faf6",
+    "mtime": 1786373072.7743132,
+    "ast_hash": "d525998a1c4bfc2cb9c3a51c2f851464",
     "semantic_hash": ""
   },
   "presentazione/scripts/geo-score.mjs": {
-    "mtime": 1786463089.0185702,
+    "mtime": 1786361308.681938,
     "ast_hash": "a5e9235e0a01502bb36dcb2eb2e827a9",
     "semantic_hash": ""
   },
   "presentazione/scripts/patch-head.mjs": {
-    "mtime": 1786463089.0205753,
+    "mtime": 1786361308.705873,
     "ast_hash": "61d5ec15e74900961d9213338769856f",
     "semantic_hash": ""
   },
   "presentazione/scripts/ref-prezzi.json": {
-    "mtime": 1786463089.02258,
+    "mtime": 1786361308.7198355,
     "ast_hash": "9b0c3db800cd76715ef019433f5b5155",
     "semantic_hash": ""
   },
   "presentazione/scripts/scoring-accessori.mjs": {
-    "mtime": 1786463089.0310278,
+    "mtime": 1786361308.7318065,
     "ast_hash": "e7a3787f381f18c6a56613eab2a6a9a0",
     "semantic_hash": ""
   },
   "presentazione/scripts/update-accessori-ref.mjs": {
-    "mtime": 1786463089.0310278,
+    "mtime": 1786361308.7347965,
     "ast_hash": "60e298aab0f091b489d9bc2763ef1b96",
     "semantic_hash": ""
   },
   "presentazione/src/js/annunci.js": {
-    "mtime": 1786463089.0370545,
-    "ast_hash": "27703f30998a7e7408d1fdbc0ac44917",
+    "mtime": 1786377319.992541,
+    "ast_hash": "1c851dcdeb820da11415da4150120f92",
     "semantic_hash": ""
   },
   "presentazione/src/js/app.js": {
-    "mtime": 1786463089.041065,
+    "mtime": 1786361308.7497554,
     "ast_hash": "5a278456ab9cedba1a8b09c3547bd4e4",
     "semantic_hash": ""
   },
   "presentazione/src/js/nav.js": {
-    "mtime": 1786463089.0436943,
+    "mtime": 1786361308.7537465,
     "ast_hash": "f2c945eba626cdcaad17066bedfa8a55",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco.js": {
-    "mtime": 1786463089.0810256,
-    "ast_hash": "ff5a617053ddd36d6be32f04cf0d8d2b",
+    "mtime": 1786461463.389477,
+    "ast_hash": "55e129d317aa22eafb16770ae4cee5c3",
     "semantic_hash": ""
   },
   "presentazione/vite.config.js": {
-    "mtime": 1786463089.1140208,
-    "ast_hash": "02bc57d6ff98191a120149c1cfbc8f03",
+    "mtime": 1786444267.8629405,
+    "ast_hash": "bf61e6a87393fe647d594cf0112edbb6",
     "semantic_hash": ""
   },
   "raw/mercato/subito-pacchetti-under-5500-2026-08-04.json": {
-    "mtime": 1786463089.9537942,
+    "mtime": 1786361311.9857025,
     "ast_hash": "2bb578650c595ef45120f5bcc4159ea8",
     "semantic_hash": ""
   },
   "raw/mercato/subito-rigidi-under-5500-2026-08-04.json": {
-    "mtime": 1786463090.0410945,
+    "mtime": 1786361311.9950063,
     "ast_hash": "ba33e36a36a9a66b68afa1d6d957784e",
     "semantic_hash": ""
   },
   "raw/mercato/subito-sample-under-4500-2026-08-04.json": {
-    "mtime": 1786463090.0469995,
+    "mtime": 1786361311.997001,
     "ast_hash": "5b20d45c2fa3e336b61ea6230c482976",
     "semantic_hash": ""
   },
   "scripts/lint-wiki.mjs": {
-    "mtime": 1786463090.0897923,
-    "ast_hash": "01356219368b57b9926d3dca8ac98951",
+    "mtime": 1786364177.6930947,
+    "ast_hash": "595cf5d6563313a93f8cdf5d403b4e1e",
     "semantic_hash": ""
   },
   "worker/graph.json": {
-    "mtime": 1786463090.9289136,
+    "mtime": 1786361312.3703074,
     "ast_hash": "0eb6b74525c6e9c099085489ec853732",
     "semantic_hash": ""
   },
   "worker/package.json": {
-    "mtime": 1786463090.9347475,
-    "ast_hash": "cb6b14228760b9af3d3e20f650a2bbb9",
+    "mtime": 1786374146.0330427,
+    "ast_hash": "5f384fa41311cb531d61abe9103906e4",
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786463426.5322533,
-    "ast_hash": "07125e5be56bb0dcafecf979e7a3c2ca",
+    "mtime": 1786526261.370607,
+    "ast_hash": "d48b54b9e11f1a777415ee0bc5c0e5cd",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1786463428.2355404,
-    "ast_hash": "755e2fc2b35a54c950ce465212fdaf59",
+    "mtime": 1786526092.8138757,
+    "ast_hash": "f31350536fae3853244b10469de42077",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1786463088.6720705,
-    "ast_hash": "70d783a697b01bcca264ca061a3c5ad3",
+    "mtime": 1786372504.5746677,
+    "ast_hash": "d212ec53730112d78dd1478b977d1224",
     "semantic_hash": ""
   },
   ".github/workflows/pages.yml": {
-    "mtime": 1786463088.674009,
-    "ast_hash": "d3047374ca4f895b8a9f9729deb8bc30",
+    "mtime": 1786372505.399986,
+    "ast_hash": "26f456f0124504a167dadda942f9b602",
     "semantic_hash": ""
   },
   ".opencode/command/ingest.md": {
-    "mtime": 1786463088.6792204,
+    "mtime": 1786361307.5199742,
     "ast_hash": "b8ab256288723f48effe4452c6fcbd1b",
     "semantic_hash": ""
   },
   ".opencode/command/lint-wiki.md": {
-    "mtime": 1786463088.6832392,
+    "mtime": 1786361307.521975,
     "ast_hash": "2eb81575d977e9f88b0f68ea6d8e824e",
     "semantic_hash": ""
   },
   ".opencode/command/status.md": {
-    "mtime": 1786463088.6832392,
+    "mtime": 1786361307.5299532,
     "ast_hash": "003621d7d35152290f11397bc7f841a4",
     "semantic_hash": ""
   },
   ".opencode/skills/frontend-design/SKILL.md": {
-    "mtime": 1786463088.6939292,
+    "mtime": 1786361307.5439167,
     "ast_hash": "f5c3db69b9c6a00578301dd0cbe90253",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/SKILL.md": {
-    "mtime": 1786463088.733099,
+    "mtime": 1786361307.6139636,
     "ast_hash": "9ed2c6aeacfaed1605e952784fbaafbb",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/add-watch.md": {
-    "mtime": 1786463088.735104,
+    "mtime": 1786361307.6159692,
     "ast_hash": "58c888b5ec0689a886543dd765c1acc9",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/exports.md": {
-    "mtime": 1786463088.7371104,
+    "mtime": 1786361307.6179762,
     "ast_hash": "ecc0c36852fee4ba6280cdf2b9149039",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/extraction-spec.md": {
-    "mtime": 1786463088.7517412,
+    "mtime": 1786361307.6219907,
     "ast_hash": "024c6f2a3c146b03c72cc871dc56ed3c",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/github-and-merge.md": {
-    "mtime": 1786463088.755755,
+    "mtime": 1786361307.6308782,
     "ast_hash": "aa0e7ef186392cad062e60483ca7dbbf",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/hooks.md": {
-    "mtime": 1786463088.757762,
+    "mtime": 1786361307.6328838,
     "ast_hash": "0045c2f12c69bff3a641a8908a1ac057",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/query.md": {
-    "mtime": 1786463088.7601416,
+    "mtime": 1786361307.6368978,
     "ast_hash": "852ef14334d60a75ae666ea103d4c4f0",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/transcribe.md": {
-    "mtime": 1786463088.7623928,
+    "mtime": 1786361307.6389055,
     "ast_hash": "5c6a9af05d12b5797b2fa8b9493dcc37",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/update.md": {
-    "mtime": 1786463088.7664075,
+    "mtime": 1786361307.6497033,
     "ast_hash": "07bf4293ea21b4e00a9655dd4e7f0af5",
     "semantic_hash": ""
   },
   ".opencode/skills/llm-wiki/SKILL.md": {
-    "mtime": 1786463088.7684133,
+    "mtime": 1786361307.6517081,
     "ast_hash": "86522bcb95e3509cfa043edbb0260746",
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1786463088.772432,
-    "ast_hash": "a2ce1a3c4f350041a9e02b93f85ac580",
+    "mtime": 1786526264.4687939,
+    "ast_hash": "a598905d07b4cfa0e9538f2f3c4c6c6a",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-08-08-accessori-revamp-v2.md": {
-    "mtime": 1786463088.8124576,
+    "mtime": 1786361307.66724,
     "ast_hash": "8cfa5464f1f06ca8ab5e59801711307f",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-08-10-allineamento-wiki-sbarco.md": {
-    "mtime": 1786463088.8164802,
+    "mtime": 1786361307.6692445,
     "ast_hash": "1a3f52afaa207e8088ae10a756dd1a61",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-08-accessori-revamp-v2.md": {
-    "mtime": 1786463088.8225002,
+    "mtime": 1786361307.6732547,
     "ast_hash": "70eae119bdf6a014537e723430a6f056",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-10-allineamento-wiki-sbarco-design.md": {
-    "mtime": 1786463088.8245075,
+    "mtime": 1786361307.8490927,
     "ast_hash": "f8ce1683f53c5c603d1fff53b428e33c",
     "semantic_hash": ""
   },
   "lavoroDeepSeekdel10agosto.md": {
-    "mtime": 1786463088.9020567,
+    "mtime": 1786361307.9179082,
     "ast_hash": "215e203b9838f5efef9b195063b6d6da",
     "semantic_hash": ""
   },
   "presentazione/README.md": {
-    "mtime": 1786463088.9060698,
+    "mtime": 1786361307.962787,
     "ast_hash": "d69431e651d849a347150581a545fe26",
     "semantic_hash": ""
   },
   "presentazione/accessori.html": {
-    "mtime": 1786463088.9080758,
-    "ast_hash": "86bb5cc758f18bec7c2a99e6293f90de",
+    "mtime": 1786377388.2689474,
+    "ast_hash": "eccdd54ac42958490c4b9b566caf7f35",
     "semantic_hash": ""
   },
   "presentazione/annunci.html": {
-    "mtime": 1786463088.9123666,
-    "ast_hash": "74bd131a33e2c0dccc9c5c10631a123e",
+    "mtime": 1786377387.5151658,
+    "ast_hash": "28cfe612d6d671b2d0a0530bb758ddc6",
     "semantic_hash": ""
   },
   "presentazione/base.html": {
-    "mtime": 1786463088.9143734,
+    "mtime": 1786361308.1341474,
     "ast_hash": "622ee3b64217eb79fdd8c20c7d3cde09",
     "semantic_hash": ""
   },
   "presentazione/equipaggio.html": {
-    "mtime": 1786463088.9163804,
+    "mtime": 1786361308.1460385,
     "ast_hash": "93626b42c40c7827730cb25f3b757cba",
     "semantic_hash": ""
   },
   "presentazione/gommoni.html": {
-    "mtime": 1786463088.9183862,
+    "mtime": 1786361308.148033,
     "ast_hash": "6da16da306f372dab9782c4136e66a5c",
     "semantic_hash": ""
   },
   "presentazione/index.html": {
-    "mtime": 1786463088.9223957,
+    "mtime": 1786361308.1630864,
     "ast_hash": "68947a77b7f55e8bf72e8591e150378b",
     "semantic_hash": ""
   },
   "presentazione/mercato.html": {
-    "mtime": 1786463088.9244,
+    "mtime": 1786361308.1781237,
     "ast_hash": "97541109a6a05e34045eea225e4fc6d1",
     "semantic_hash": ""
   },
   "presentazione/mosse.html": {
-    "mtime": 1786463088.9294693,
+    "mtime": 1786361308.1821332,
     "ast_hash": "0ebe706624cf530e79c2af5c82960440",
     "semantic_hash": ""
   },
   "presentazione/motori.html": {
-    "mtime": 1786463088.9536781,
+    "mtime": 1786361308.1841385,
     "ast_hash": "4b0dca6e5d648af92ed93f17cbba0c7d",
     "semantic_hash": ""
   },
   "presentazione/priorita.html": {
-    "mtime": 1786463088.9648087,
+    "mtime": 1786361308.2042396,
     "ast_hash": "925fcd4fb7858e0489cc8c98bb25ad8f",
     "semantic_hash": ""
   },
   "presentazione/regole.html": {
-    "mtime": 1786463088.9880238,
+    "mtime": 1786361308.247525,
     "ast_hash": "c9f2ce0b82c228fc72c65efe64a186f6",
     "semantic_hash": ""
   },
   "presentazione/status.html": {
-    "mtime": 1786463089.0890481,
+    "mtime": 1786361308.7766862,
     "ast_hash": "7652285501b1761c80dcb7782fad3c3e",
     "semantic_hash": ""
   },
   "raw/README.md": {
-    "mtime": 1786463089.118036,
+    "mtime": 1786361309.2886384,
     "ast_hash": "99443bceb237e03c984e9ea7947acffe",
     "semantic_hash": ""
   },
   "raw/chat/storico_chat_al_1008.md": {
-    "mtime": 1786463089.5249972,
+    "mtime": 1786361311.2875683,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": ""
   },
   "raw/manuali/karpathy-llm-wiki.md": {
-    "mtime": 1786463089.5339732,
+    "mtime": 1786361311.3005624,
     "ast_hash": "606c4161aeefa561caf79e4f40b10232",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.txt": {
-    "mtime": 1786463089.591566,
+    "mtime": 1786361311.4907317,
     "ast_hash": "208830b18ebeb9be8a6d7926422bac71",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026.txt": {
-    "mtime": 1786463089.627661,
+    "mtime": 1786361311.5581322,
     "ast_hash": "df7bcb3f5cbf14670d581185360772e3",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026.txt": {
-    "mtime": 1786463089.70675,
+    "mtime": 1786361311.7447984,
     "ast_hash": "e856208eb3462527539aee781a290a23",
     "semantic_hash": ""
   },
   "raw/mercato/argo-evo-360-al-reference-2026-08-05.md": {
-    "mtime": 1786463089.7184439,
+    "mtime": 1786361311.7469203,
     "ast_hash": "a3a22a262053fbf2c1b634b2c9bde10b",
     "semantic_hash": ""
   },
   "raw/mercato/cantieri-anzio-nettuno-paginegialle-2026-08-04.md": {
-    "mtime": 1786463089.7204535,
+    "mtime": 1786361311.749915,
     "ast_hash": "6ebbf6fc31c605d9728e822028ffe849",
     "semantic_hash": ""
   },
   "raw/mercato/litorale-laziale-rimessaggio-2026-08-04.md": {
-    "mtime": 1786463089.7224615,
+    "mtime": 1786361311.7509098,
     "ast_hash": "ffd232dbe8ee1df4fefef76bc0dc749d",
     "semantic_hash": ""
   },
   "raw/mercato/patente-B-traino-note-2026-08-04.md": {
-    "mtime": 1786463089.724468,
+    "mtime": 1786361311.753901,
     "ast_hash": "db5446f00f842431a9278d8b71111e49",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-1.txt": {
-    "mtime": 1786463089.7914236,
+    "mtime": 1786361311.8800457,
     "ast_hash": "2c78f1c08f6004c997bdbb8372fff269",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-2.txt": {
-    "mtime": 1786463089.8212228,
+    "mtime": 1786361311.9016354,
     "ast_hash": "47e5774acc1f823314d1434ebf527bb5",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-3.txt": {
-    "mtime": 1786463089.90273,
+    "mtime": 1786361311.982711,
     "ast_hash": "9dc3aab7a495b785ccadbf528dad58f5",
     "semantic_hash": ""
   },
   "raw/mercato/subito-pacchetti-under-5500-2026-08-04.md": {
-    "mtime": 1786463089.9578097,
+    "mtime": 1786361311.9876988,
     "ast_hash": "6c515391133415a63a6c02958e2ec3b3",
     "semantic_hash": ""
   },
   "raw/normativa/mit-conseguimento-patente-nautica-2026-08-04.md": {
-    "mtime": 1786463090.0703385,
+    "mtime": 1786361312.0009897,
     "ast_hash": "238fbef17095172b0e01f7eee4ef2ba0",
     "semantic_hash": ""
   },
   "raw/normativa/note-secondarie-patente-2026-08-04.md": {
-    "mtime": 1786463090.0723474,
+    "mtime": 1786361312.0029843,
     "ast_hash": "f47dc315d90d453fd9978688fd925508",
     "semantic_hash": ""
   },
   "raw/preferenze/intervista-patente-2026-08-04.md": {
-    "mtime": 1786463090.0877855,
+    "mtime": 1786361312.0039835,
     "ast_hash": "9388d1131b00d5bd6537ac95767f65ee",
     "semantic_hash": ""
   },
   "wiki/concetti/architettura-sbarco.md": {
-    "mtime": 1786463365.7742224,
-    "ast_hash": "8b28b191266af1453b1f3d67bdbaaa23",
+    "mtime": 1786526092.4677017,
+    "ast_hash": "ed4fe4c1ed4b3492008e16ea5d1e880a",
     "semantic_hash": ""
   },
   "wiki/concetti/costi-nascosti-gommone.md": {
-    "mtime": 1786463090.1953504,
-    "ast_hash": "edcee5de91c678f5a0fecc0cb8020bd2",
+    "mtime": 1786526095.852022,
+    "ast_hash": "5269d8a866a5bbf2214c779a71651a5d",
     "semantic_hash": ""
   },
   "wiki/concetti/feed-accessori-scoring.md": {
-    "mtime": 1786463090.1973584,
+    "mtime": 1786361312.012958,
     "ast_hash": "94b51015acd144b1fcb1dda92603e1eb",
     "semantic_hash": ""
   },
   "wiki/concetti/feed-annunci-scoring.md": {
-    "mtime": 1786463090.1993663,
-    "ast_hash": "421d04cb2b9fd74a143dcd69ad3b72b3",
+    "mtime": 1786373226.6608863,
+    "ast_hash": "1b2ec551d11509eaf4aa268d670e521f",
     "semantic_hash": ""
   },
   "wiki/concetti/logistica-trasporto.md": {
-    "mtime": 1786463090.2013745,
-    "ast_hash": "0596f1569a122eec1872d261652f1df1",
+    "mtime": 1786526095.8802283,
+    "ast_hash": "cc27db730d1e0f904e0e6c5afdd50f73",
     "semantic_hash": ""
   },
   "wiki/concetti/montaggio-gommone.md": {
-    "mtime": 1786463090.2053916,
+    "mtime": 1786361312.0179443,
     "ast_hash": "d536abfcb15e173a58df1c8010562932",
     "semantic_hash": ""
   },
   "wiki/concetti/no-patente-6-pax-realta.md": {
-    "mtime": 1786463090.2073996,
+    "mtime": 1786361312.0189416,
     "ast_hash": "13dd51db060520bfb3e7b316a4c70716",
     "semantic_hash": ""
   },
   "wiki/concetti/pesca-da-barca-piccola.md": {
-    "mtime": 1786463090.2163157,
+    "mtime": 1786361312.020936,
     "ast_hash": "309e10cc9bba32994670b6fd8e8d806a",
     "semantic_hash": ""
   },
   "wiki/concetti/tendalino-copertura.md": {
-    "mtime": 1786463090.2183218,
-    "ast_hash": "b0ad55ae0f540689033848ef41424d21",
+    "mtime": 1786363385.5989056,
+    "ast_hash": "f17091947c195f93b2af96d9cc6ab886",
     "semantic_hash": ""
   },
   "wiki/confronti/rimessaggio-abc.md": {
-    "mtime": 1786463090.2243426,
-    "ast_hash": "5981ae66dd0de1df156ef239f974334f",
+    "mtime": 1786363388.416539,
+    "ast_hash": "5469e35e8c2616a8141914331a32e6e7",
     "semantic_hash": ""
   },
   "wiki/index.md": {
-    "mtime": 1786463090.2395205,
-    "ast_hash": "da7042ab1a1d016c6e42f2f140597c5a",
+    "mtime": 1786546221.9914942,
+    "ast_hash": "2889b660f508359b57fc9804b6d2687b",
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786463382.060612,
-    "ast_hash": "6137d7dd254e2db9c6edc0a6a15bcc49",
+    "mtime": 1786546223.2295551,
+    "ast_hash": "7b8a3f6b7081647f9e9b55609374fcbc",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
-    "mtime": 1786463090.2540514,
-    "ast_hash": "db937424aa5f4ea53c80882598315877",
+    "mtime": 1786373249.0035336,
+    "ast_hash": "74e193cf701de245ebdc83078bfd13c1",
     "semantic_hash": ""
   },
   "wiki/mercato/litorale-laziale.md": {
-    "mtime": 1786463090.458442,
+    "mtime": 1786361312.1122894,
     "ast_hash": "bd031192d6784d62c43350c69d0046d8",
     "semantic_hash": ""
   },
   "wiki/mercato/usato-under-4500.md": {
-    "mtime": 1786463090.4747598,
-    "ast_hash": "cef4e0250fe762aa440f505c3ec98c62",
+    "mtime": 1786363387.2892945,
+    "ast_hash": "f615a254576312a2c1253c2d018cfbf5",
     "semantic_hash": ""
   },
   "wiki/modelli/argo-evo-360.md": {
-    "mtime": 1786463090.4893525,
+    "mtime": 1786361312.116279,
     "ast_hash": "0b6637c9bec4650e33f88bae8a1ea2ed",
     "semantic_hash": ""
   },
   "wiki/normativa/limiti-senza-patente.md": {
-    "mtime": 1786463090.5246286,
-    "ast_hash": "8de190e57c4056921865a0c510ee3ad2",
+    "mtime": 1786526264.5750127,
+    "ast_hash": "9ccd4cfad761f312a37c2c419f2fce22",
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786463379.6874182,
-    "ast_hash": "cce7c92946d3fa214a2cf09845e63d04",
+    "mtime": 1786526264.639781,
+    "ast_hash": "07de208880e76b97c8dd67690dc45d17",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {
-    "mtime": 1786463090.5460932,
-    "ast_hash": "deee2e0372fb6880800b8e741d241af7",
+    "mtime": 1786526096.303335,
+    "ast_hash": "5476d2ee083ceef860d293fa4a97b6a5",
     "semantic_hash": ""
   },
   "wiki/preferenze/gruppo.md": {
-    "mtime": 1786463090.5490823,
-    "ast_hash": "ea2f19f04aeaaa06d46bfa32d8858938",
+    "mtime": 1786526096.3053298,
+    "ast_hash": "86f08aed4a2c09fdb94a2a68262b9385",
     "semantic_hash": ""
   },
   "wiki/preferenze/intervista-requisiti.md": {
-    "mtime": 1786463090.551077,
-    "ast_hash": "517f78ef918ae7ac91467c28e1e390a1",
+    "mtime": 1786363378.621886,
+    "ast_hash": "98f456552f743aebd3a3e8ed88767e11",
     "semantic_hash": ""
   },
   "wiki/preferenze/must-have.md": {
-    "mtime": 1786463090.5665903,
-    "ast_hash": "b70f4e6830bbb0d25df2ec26b68f2c18",
+    "mtime": 1786526264.6437702,
+    "ast_hash": "4b7b4e0aaf4d889b2f299dba4d3d17ba",
     "semantic_hash": ""
   },
   "wiki/preferenze/nice-to-have.md": {
-    "mtime": 1786463090.5790012,
-    "ast_hash": "b6658eba2e91721c9c8200734e86722e",
+    "mtime": 1786542138.9940963,
+    "ast_hash": "77611e7538bf22fe66d0dd85f8857941",
     "semantic_hash": ""
   },
   "wiki/preferenze/open-questions.md": {
-    "mtime": 1786463090.750387,
-    "ast_hash": "b34c2826d138db3f80a56347e7cacc04",
+    "mtime": 1786526264.654691,
+    "ast_hash": "32c8893310aa848d3d7756dccdd64367",
     "semantic_hash": ""
   },
   "wiki/preferenze/split-costi.md": {
-    "mtime": 1786463090.7533793,
-    "ast_hash": "8726671bb47eafe074372a61cdad7c37",
+    "mtime": 1786526096.3448339,
+    "ast_hash": "7c1917f14491a102ba880c9223db055d",
     "semantic_hash": ""
   },
   "wiki/preferenze/track-gommoni.md": {
-    "mtime": 1786463090.7563708,
-    "ast_hash": "c8ae81f29d3d331e1036c3ff40223b7c",
+    "mtime": 1786526264.656696,
+    "ast_hash": "8a8d846862a22921c12c63d219ca398d",
     "semantic_hash": ""
   },
   "wiki/preferenze/track-motori.md": {
-    "mtime": 1786463090.7678907,
-    "ast_hash": "feb7334e9b021ec03e8c1cd6a8c841ca",
+    "mtime": 1786526264.6607077,
+    "ast_hash": "a91d5a42e3f89b24b4420841d243cbd1",
     "semantic_hash": ""
   },
   "wiki/sintesi/audit-sbarco-wiki-20260810.md": {
-    "mtime": 1786463090.7729847,
-    "ast_hash": "0e5fc127fc62b33b52932fae4435f947",
+    "mtime": 1786365217.632365,
+    "ast_hash": "17502248206ef7624b74494743912427",
     "semantic_hash": ""
   },
   "wiki/sintesi/contesto-sbarco.md": {
-    "mtime": 1786463370.7418568,
-    "ast_hash": "a136df43fb2aeeaf4d75458490fb7063",
+    "mtime": 1786526264.7113116,
+    "ast_hash": "6b0475e7a73da4a19f5e6fd9607c9d83",
     "semantic_hash": ""
   },
   "wiki/sintesi/conversazioni-audio-20260809.md": {
-    "mtime": 1786463090.7835948,
-    "ast_hash": "acc739979b4e01de7ecce19582961615",
+    "mtime": 1786526096.4373915,
+    "ast_hash": "00aecdd539f29a665a11f259792777c0",
     "semantic_hash": ""
   },
   "wiki/sintesi/requisiti-v1.md": {
-    "mtime": 1786463090.8134823,
-    "ast_hash": "3845fdcc1554d69327edf568e0b41928",
+    "mtime": 1786526264.7170696,
+    "ast_hash": "0aabb4e33b93ebee47ce6b5f4da63159",
     "semantic_hash": ""
   },
   "wiki/sintesi/scenario-rigido-5-soci.md": {
-    "mtime": 1786463090.816474,
-    "ast_hash": "e087d96bd8339e5a836eec7bc0bf8515",
+    "mtime": 1786364144.6493776,
+    "ast_hash": "c7a4cfb6e09a1fe4b1b72dc936df96a8",
     "semantic_hash": ""
   },
   "wiki/sintesi/shortlist.md": {
-    "mtime": 1786463090.8331509,
-    "ast_hash": "79a83e65ab3c8ce606bc2202685fc134",
+    "mtime": 1786364935.3559663,
+    "ast_hash": "6fe85ff4d6c698327dcb2361b2fc7dbe",
     "semantic_hash": ""
   },
   "worker/README.md": {
-    "mtime": 1786463374.9695585,
-    "ast_hash": "b9e682f8bc5e05d54d8532cea6ceff76",
+    "mtime": 1786526261.3665962,
+    "ast_hash": "b832b9e8eadd010d28f815e3ab671ae1",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.pdf": {
-    "mtime": 1786463089.555894,
+    "mtime": 1786361311.4860375,
     "ast_hash": "98176c2e653d1a9a3d7ae7b25e2dafc2",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026.pdf": {
-    "mtime": 1786463089.6246684,
+    "mtime": 1786361311.5500433,
     "ast_hash": "396d0e4c8817519df68b5a1c95cecda9",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026.pdf": {
-    "mtime": 1786463089.7047436,
+    "mtime": 1786361311.743189,
     "ast_hash": "fa83ef2a3b49ae75ffdbc18087dd0851",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-1.pdf": {
-    "mtime": 1786463089.7894123,
+    "mtime": 1786361311.8697317,
     "ast_hash": "db747871c51bbfd37013e79ef118ff44",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-2.pdf": {
-    "mtime": 1786463089.813699,
+    "mtime": 1786361311.8989964,
     "ast_hash": "942f5c7eb178497614771a73dd25f3ba",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-3.pdf": {
-    "mtime": 1786463089.90052,
+    "mtime": 1786361311.9807181,
     "ast_hash": "3e8d71bd8c500144777f18f781203ad6",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026-img0.jpg": {
-    "mtime": 1786463089.5991652,
+    "mtime": 1786361311.4925187,
     "ast_hash": "2a799643c144506617bbe43c7c616abb",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026-render.png": {
-    "mtime": 1786463089.6073637,
+    "mtime": 1786361311.5095153,
     "ast_hash": "f76adcddb071ced8874df258d68353f6",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026-img0.jpg": {
-    "mtime": 1786463089.6344738,
+    "mtime": 1786361311.5641153,
     "ast_hash": "d1796bf096cf40981315b0deb582deab",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026-render.png": {
-    "mtime": 1786463089.64184,
+    "mtime": 1786361311.7302248,
     "ast_hash": "c7120d19d2a438ca3d7ead4cf51789c3",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Audio 2026-08-09 at 19.31.06.ogg": {
-    "mtime": 1786463089.1497028,
+    "mtime": 1786361309.3035977,
     "ast_hash": "c830901f967d062c46716b88755694ae",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Audio 2026-08-09 at 19.57.15.ogg": {
-    "mtime": 1786463089.1537127,
+    "mtime": 1786361309.3135724,
     "ast_hash": "c402cfdefb4fa041315fcf319a4896f1",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.09.35.ogg": {
-    "mtime": 1786463089.1627746,
+    "mtime": 1786361309.320552,
     "ast_hash": "00afa7b31f5e40da39207b9dae67fd88",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.43.02.ogg": {
-    "mtime": 1786463089.1728063,
+    "mtime": 1786361309.3365462,
     "ast_hash": "518cb87e3380e54423dd3e4b0c8855b1",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.44.39.ogg": {
-    "mtime": 1786463089.1828773,
+    "mtime": 1786361309.3514638,
     "ast_hash": "610ce2f2d5d591925c2c880d5fc31932",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.47.29.ogg": {
-    "mtime": 1786463089.1926384,
+    "mtime": 1786361309.6020358,
     "ast_hash": "19f74047231c473477b317237ec1a7c4",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.47.46.ogg": {
-    "mtime": 1786463089.235851,
+    "mtime": 1786361309.6050258,
     "ast_hash": "b80719a6aa5745815ef4f896a9e3b918",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.50.03.ogg": {
-    "mtime": 1786463089.248451,
+    "mtime": 1786361309.6159961,
     "ast_hash": "e85fe18c013b5f9ffe8c32a5e2746de4",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.50.53.ogg": {
-    "mtime": 1786463089.2504456,
+    "mtime": 1786361309.6189892,
     "ast_hash": "000dbad97815af43672d523061c591e9",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.52.25.ogg": {
-    "mtime": 1786463089.256501,
+    "mtime": 1786361309.6229782,
     "ast_hash": "c4e89cb84d181b92ae21600e336f5b0a",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 12.53.29.ogg": {
-    "mtime": 1786463089.2674708,
+    "mtime": 1786361309.6628716,
     "ast_hash": "7bfffafdf591fae9b55a5938f8f0431a",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 15.10.04.ogg": {
-    "mtime": 1786463089.2734954,
+    "mtime": 1786361309.6967807,
     "ast_hash": "98588a501b90e3ab9d315a567517a85b",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 15.10.26.ogg": {
-    "mtime": 1786463089.281433,
+    "mtime": 1786361309.7007706,
     "ast_hash": "71bbb44fdb624352a18f8d20efbe8ec5",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 15.22.04.ogg": {
-    "mtime": 1786463089.2854462,
+    "mtime": 1786361309.705757,
     "ast_hash": "6d554d9481e9416cc8cc828982625e77",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.40.41.ogg": {
-    "mtime": 1786463089.287451,
+    "mtime": 1786361309.836038,
     "ast_hash": "e676c61ac871688edde7eec82b3b6fa9",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.41.58.ogg": {
-    "mtime": 1786463089.2914643,
+    "mtime": 1786361309.8497107,
     "ast_hash": "5e6c66a599d4265ef86c41773ca943e5",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.01.ogg": {
-    "mtime": 1786463089.3266065,
+    "mtime": 1786361309.8659124,
     "ast_hash": "af4d0c4c994955d2d7fffbc989906965",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.25.ogg": {
-    "mtime": 1786463089.332886,
+    "mtime": 1786361309.8679209,
     "ast_hash": "db9df92f5e894b02f45508e14c5c395f",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.42.ogg": {
-    "mtime": 1786463089.332886,
+    "mtime": 1786361309.8719351,
     "ast_hash": "a3ceb08c65d5277554bff635c9a0df98",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.50.ogg": {
-    "mtime": 1786463089.3348954,
+    "mtime": 1786361309.880939,
     "ast_hash": "57f6e973b2b635b8fd8c2c8b8a1d5e2d",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.46.11.ogg": {
-    "mtime": 1786463089.3389063,
+    "mtime": 1786361309.8849497,
     "ast_hash": "2697d3efd842e82bcaa7163701f0b7f6",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.47.03.ogg": {
-    "mtime": 1786463089.3409111,
+    "mtime": 1786361309.8889596,
     "ast_hash": "5850a872bc84c90cfd3a71f2168f7590",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.47.42.ogg": {
-    "mtime": 1786463089.344664,
+    "mtime": 1786361309.9051502,
     "ast_hash": "e3a2e892a78fbce891edc168a70059fd",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.48.20.ogg": {
-    "mtime": 1786463089.350685,
+    "mtime": 1786361309.920064,
     "ast_hash": "5119eb7261c1131fe578130dbbdc2bb6",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.48.55.ogg": {
-    "mtime": 1786463089.354696,
+    "mtime": 1786361309.9327,
     "ast_hash": "a7c754498a2a4552e441699cdb895bf9",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.49.17.ogg": {
-    "mtime": 1786463089.3567014,
+    "mtime": 1786361309.9510727,
     "ast_hash": "a6978379433bc8c85cb850c020fe51a4",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.50.11.ogg": {
-    "mtime": 1786463089.3599248,
+    "mtime": 1786361310.6501598,
     "ast_hash": "a07d9b9478cf968dd4f48b3745a1d3a0",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.50.45.ogg": {
-    "mtime": 1786463089.368167,
+    "mtime": 1786361310.6651218,
     "ast_hash": "8f5bb985ba727b3004ecf1b97a4329e4",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.51.08.ogg": {
-    "mtime": 1786463089.3701725,
+    "mtime": 1786361310.6800828,
     "ast_hash": "bd5d8f1805cbf10dc870b3bee5bf20b5",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.24.ogg": {
-    "mtime": 1786463089.4001038,
+    "mtime": 1786361310.6820745,
     "ast_hash": "4b0b2ef0f4067414c61095dadeeada00",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.29.ogg": {
-    "mtime": 1786463089.4041145,
+    "mtime": 1786361310.6890552,
     "ast_hash": "db309ac3fb16f1ec8901121bf8cdbbb6",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.39.ogg": {
-    "mtime": 1786463089.4061232,
+    "mtime": 1786361310.696037,
     "ast_hash": "98fe3402e803e865c18de444484c8bb1",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.53.18.ogg": {
-    "mtime": 1786463089.410459,
+    "mtime": 1786361310.6970341,
     "ast_hash": "73fd64fa63e145eafda8f51556c1dc4d",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.53.37.ogg": {
-    "mtime": 1786463089.4124644,
+    "mtime": 1786361310.700027,
     "ast_hash": "684898031a7cc994d1281b086a9cdf66",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.04.ogg": {
-    "mtime": 1786463089.4204886,
+    "mtime": 1786361310.7040164,
     "ast_hash": "ae491e3f390bff04d2e509bec394b2b8",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.29.ogg": {
-    "mtime": 1786463089.424499,
+    "mtime": 1786361310.712108,
     "ast_hash": "5a79139a864732088f8217844c126111",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.39.ogg": {
-    "mtime": 1786463089.4288442,
+    "mtime": 1786361310.7159834,
     "ast_hash": "6ee658b23a976b8d2991c2e6e14301e3",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.47.ogg": {
-    "mtime": 1786463089.43287,
+    "mtime": 1786361310.7299461,
     "ast_hash": "866207f22b58f28c58882f65792a2ba6",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 19.31.12.ogg": {
-    "mtime": 1786463089.4348762,
+    "mtime": 1786361310.734933,
     "ast_hash": "451be283eee1a044e81ff53cadf2109d",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 19.44.38.ogg": {
-    "mtime": 1786463089.4408925,
+    "mtime": 1786361311.2352586,
     "ast_hash": "4a3c7dfcfc680067cc0d80da97e19e39",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 19.45.46.ogg": {
-    "mtime": 1786463089.4460518,
+    "mtime": 1786361311.2473361,
     "ast_hash": "852c7561fe83b9e1bf451d93262b39be",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 19.46.39.ogg": {
-    "mtime": 1786463089.5036423,
+    "mtime": 1786361311.2523303,
     "ast_hash": "f8a4a1ed5577d94f7c2775193dd54572",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 19.59.11.ogg": {
-    "mtime": 1786463089.5139558,
+    "mtime": 1786361311.2656264,
     "ast_hash": "2097a895518d83056029d24fda8e3b80",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 20.00.38.ogg": {
-    "mtime": 1786463089.5190144,
+    "mtime": 1786361311.2796009,
     "ast_hash": "f7b7d8698fe5e487c0eb6bf2b692873c",
     "semantic_hash": ""
   },
   "raw/audio/WhatsApp Ptt 2026-08-09 at 20.55.16.ogg": {
-    "mtime": 1786463089.5230026,
+    "mtime": 1786361311.2845764,
     "ast_hash": "cd9b3b696ac4bc88b783f1d58f02c61b",
     "semantic_hash": ""
   },
   "presentazione/public/data/gommoni.json": {
-    "mtime": 1786463088.9838784,
-    "ast_hash": "444fdd8192924908ccccb745d229b0ce",
+    "mtime": 1786373114.99674,
+    "ast_hash": "3791721335cf9fefa4a9fc86a4f0d6d4",
     "semantic_hash": ""
   },
   "presentazione/public/data/motori.json": {
-    "mtime": 1786463088.9860184,
-    "ast_hash": "3310d2dd8a87bdd6fdb38dd4c1e33570",
+    "mtime": 1786373139.1913648,
+    "ast_hash": "67838477e5939590ac107697cea5c1e0",
     "semantic_hash": ""
   },
   "presentazione/scripts/feed-normalizers.mjs": {
-    "mtime": 1786463088.993708,
-    "ast_hash": "bed6e83ea0f4cf8de76599403c509639",
+    "mtime": 1786373639.104671,
+    "ast_hash": "28ccbea785591b21d26b44211cd8dcc9",
     "semantic_hash": ""
   },
   "presentazione/scripts/validate-feeds.mjs": {
-    "mtime": 1786463089.0330334,
-    "ast_hash": "4cd13fe7ad4bdde1d2f8d9294bfc619c",
+    "mtime": 1786372481.335544,
+    "ast_hash": "cf6d9567cc073403c1944a1a4d06f1a6",
     "semantic_hash": ""
   },
   "presentazione/test/feed-normalizers.test.mjs": {
-    "mtime": 1786463089.0910525,
-    "ast_hash": "c50c2df90cb73f099d9d2b811ee0e614",
+    "mtime": 1786373073.8937757,
+    "ast_hash": "6d2a975b81edc9fbe384c3ef7736e480",
     "semantic_hash": ""
   },
   "raw/mercato/accessori-feed-2026-08-10.json": {
-    "mtime": 1786463089.7087557,
-    "ast_hash": "28dc824864346b520f7c241946021def",
+    "mtime": 1786372929.6351802,
+    "ast_hash": "44b88db3ae04663a3bb2ef83c3be7a3c",
     "semantic_hash": ""
   },
   "raw/mercato/subito-feed-2026-08-10.json": {
-    "mtime": 1786463089.9175045,
-    "ast_hash": "d8b137278ee1ade8a1e1546031b0508e",
+    "mtime": 1786372904.9707615,
+    "ast_hash": "2c75d5edc7bb4e77f62149ef3b010f18",
     "semantic_hash": ""
   },
   "raw/mercato/subito-gommoni-2026-08-10.json": {
-    "mtime": 1786463089.9215293,
-    "ast_hash": "444fdd8192924908ccccb745d229b0ce",
+    "mtime": 1786373115.0060115,
+    "ast_hash": "3791721335cf9fefa4a9fc86a4f0d6d4",
     "semantic_hash": ""
   },
   "raw/mercato/subito-motori-2026-08-10.json": {
-    "mtime": 1786463089.942975,
-    "ast_hash": "3310d2dd8a87bdd6fdb38dd4c1e33570",
+    "mtime": 1786373139.1953819,
+    "ast_hash": "67838477e5939590ac107697cea5c1e0",
     "semantic_hash": ""
   },
   "scripts/smoke-sbarco.mjs": {
-    "mtime": 1786463090.0929906,
-    "ast_hash": "4c459b8ca53d9512f4a03b53a22c1299",
+    "mtime": 1786375393.7625997,
+    "ast_hash": "22a601ddd86f7ac66bab0d26d3450df5",
     "semantic_hash": ""
   },
   "presentazione/src/js/pdf-optional-stub.js": {
-    "mtime": 1786463089.0458066,
-    "ast_hash": "b4fe64e63de6b1d101a322812d69049a",
+    "mtime": 1786444266.3173754,
+    "ast_hash": "df0ec532e4c21a9131972283e5d6a294",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco-format.js": {
-    "mtime": 1786463089.0498297,
-    "ast_hash": "b506e15da91b0e16fdc76b1ff12f9d5f",
+    "mtime": 1786443166.4380722,
+    "ast_hash": "31b81bf2108a51f4a545e1b3971e575d",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco-pdf.js": {
-    "mtime": 1786463089.0538442,
-    "ast_hash": "64f0d81031aecf77d993a014f3262255",
+    "mtime": 1786459787.3297718,
+    "ast_hash": "cc831f98e1acdbcdc612af3a971842a8",
     "semantic_hash": ""
   },
   "presentazione/test/render-sbarco-pdf-fixture.mjs": {
-    "mtime": 1786463089.09813,
-    "ast_hash": "8d565ed0925b90a51515f17ddbced767",
+    "mtime": 1786459713.7174416,
+    "ast_hash": "192a59183b077ffa7dd01070ea0d2318",
     "semantic_hash": ""
   },
   "presentazione/test/sbarco-ui.test.mjs": {
-    "mtime": 1786463089.1041517,
-    "ast_hash": "2670c8abf7e30564ba67d44e52e13810",
+    "mtime": 1786461464.984534,
+    "ast_hash": "7d44d7893c5e77736b3e5122173c751a",
     "semantic_hash": ""
   },
   "presentazione/test/sbarco-visual-fixture.html": {
-    "mtime": 1786463089.1081636,
-    "ast_hash": "9b369055f7aedf6942a1b0378d86a044",
+    "mtime": 1786459714.931455,
+    "ast_hash": "313869955a7633705bda736e0e47ce5a",
     "semantic_hash": ""
   },
   "wiki/sintesi/audit-sbarco-20260811.md": {
-    "mtime": 1786463090.7719865,
-    "ast_hash": "b34cc08c833f1ab723d83e39633e26e5",
+    "mtime": 1786446694.4224644,
+    "ast_hash": "4638be9eef6335c01bd54cfdc0cc02fe",
     "semantic_hash": ""
   },
   "contratto/agentContratto.md": {
-    "mtime": 1786463088.7767923,
-    "ast_hash": "f5a70f34bdd5e5f0793b01f0535d845d",
+    "mtime": 1786543362.8603592,
+    "ast_hash": "a0701d51b581b226131bf8b61d00690a",
     "semantic_hash": ""
   },
   "contratto/bozza-patto-v1.md": {
-    "mtime": 1786463088.7836077,
-    "ast_hash": "d567a2aebffb644f46d4ad345fad0679",
+    "mtime": 1786543658.927831,
+    "ast_hash": "0b1bc628936609dc8c1c2a922cc596c2",
     "semantic_hash": ""
   },
   "contratto/prospetto-costi-a-norma.md": {
-    "mtime": 1786463088.8041844,
-    "ast_hash": "dbe3fe4e9eec82e684a3e21b2e0f5769",
+    "mtime": 1786546216.314936,
+    "ast_hash": "b16568896bee1bfae4706f144b6770fe",
     "semantic_hash": ""
   },
   "raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md": {
-    "mtime": 1786463089.9087667,
-    "ast_hash": "3468e1a8949f708fbe928b269a7ce829",
+    "mtime": 1786450245.4479551,
+    "ast_hash": "4295639a4b1e3d4684395053036cb403",
     "semantic_hash": ""
   },
   "raw/mercato/tagliando-fuoribordo-2026-08-11.md": {
-    "mtime": 1786463090.0585282,
-    "ast_hash": "8abd3dc50bd0cdedd13ef31d1d865ee0",
+    "mtime": 1786457441.9739108,
+    "ast_hash": "e955ade92acd1e17a31c63cf65ba8b8f",
     "semantic_hash": ""
   },
   "raw/normativa/alcol-e-dotazioni-2026-08-11.md": {
-    "mtime": 1786463090.068332,
-    "ast_hash": "9cabd3ddda959681d28034ad6a11c62e",
+    "mtime": 1786451860.5723767,
+    "ast_hash": "8d58ab88a367e44657e5fe1277a76b16",
     "semantic_hash": ""
   },
   "raw/normativa/rc-obbligatoria-natanti-2026-08-11.md": {
-    "mtime": 1786463090.0793254,
-    "ast_hash": "070341814156ee33213a9da559400475",
+    "mtime": 1786449391.908015,
+    "ast_hash": "d7d18feb83eff72ce38a4cd1437112bb",
     "semantic_hash": ""
   },
   "wiki/normativa/rc-obbligatoria-natanti.md": {
-    "mtime": 1786463090.5356276,
-    "ast_hash": "70113818e0d86b0f8029cb643cab43b2",
+    "mtime": 1786526264.5822353,
+    "ast_hash": "6dc4b263e52cec04bbee9d64bc4a3c15",
     "semantic_hash": ""
   },
   "wiki/sintesi/prospetto-costi-a-norma.md": {
-    "mtime": 1786463090.7905097,
-    "ast_hash": "5dcdd06a8d0c4dfb2e9cf70c8dd65d9d",
+    "mtime": 1786450238.5321572,
+    "ast_hash": "eb6dee64433dce45c354b50336cc0342",
+    "semantic_hash": ""
+  },
+  ".opencode/package.json": {
+    "mtime": 1786444568.0516496,
+    "ast_hash": "09cc53e3bd7d20833dde72d89f662e36",
+    "semantic_hash": ""
+  },
+  "contratto/export-pdf.mjs": {
+    "mtime": 1786543293.8816772,
+    "ast_hash": "b1cc5868869fcf3cfeef8a0319a1f399",
+    "semantic_hash": ""
+  },
+  "contratto/package.json": {
+    "mtime": 1786543234.596268,
+    "ast_hash": "930d7d2b66d50f38e8289df9b108119a",
+    "semantic_hash": ""
+  },
+  "contratto/README-export.md": {
+    "mtime": 1786543237.3217976,
+    "ast_hash": "8b1af928df5c991ec400a974a6273d05",
+    "semantic_hash": ""
+  },
+  "raw/mercato/fasce-motore-peso-consumo-2026-08-12.md": {
+    "mtime": 1786528000.6097565,
+    "ast_hash": "3e7412de1422ca490c84a0676d3be2de",
+    "semantic_hash": ""
+  },
+  "raw/mercato/verifica-fasce-motore-e-benzina-2026-08-12.md": {
+    "mtime": 1786542023.0212681,
+    "ast_hash": "407bfd75aab2c2eda7ac80fcd308f037",
+    "semantic_hash": ""
+  },
+  "raw/normativa/audit-nautica-diporto-2026-08-11.md": {
+    "mtime": 1786526264.5019536,
+    "ast_hash": "098ecfbe2700c983667939cf2d92ab4c",
+    "semantic_hash": ""
+  },
+  "raw/normativa/ordinanze-litorale-lazio-2026-08-11.md": {
+    "mtime": 1786545110.1904807,
+    "ast_hash": "c8cd908b05e7f169c647edea3be48d8c",
+    "semantic_hash": ""
+  },
+  "raw/normativa/pesca-ricreativa-mare-2026-08-11.md": {
+    "mtime": 1786526264.5166707,
+    "ast_hash": "7fd0133edaadca1a405c73d2fbc58406",
+    "semantic_hash": ""
+  },
+  "wiki/normativa/pesca-ricreativa-mare.md": {
+    "mtime": 1786526264.5795534,
+    "ast_hash": "69819212713d419233ce5f1dc6bb10fc",
+    "semantic_hash": ""
+  },
+  "wiki/normativa/varo-litorale-lazio.md": {
+    "mtime": 1786546213.378904,
+    "ast_hash": "fc4156e73c7351a92983ebebab907b99",
+    "semantic_hash": ""
+  },
+  "contratto/build-mappa-varo.mjs": {
+    "mtime": 1786546278.5081396,
+    "ast_hash": "68eac7500bb2aa3c380ca7a0d60bd3bf",
+    "semantic_hash": ""
+  },
+  "contratto/dati/punti-varo-lazio.json": {
+    "mtime": 1786546008.1290488,
+    "ast_hash": "c8ec198896b872f198f6f1ec1dfd12d8",
+    "semantic_hash": ""
+  },
+  "raw/mercato/punti-varo-lazio-core-2026-08-12.md": {
+    "mtime": 1786542983.0707488,
+    "ast_hash": "65502810aa6670c64627b689a21c9189",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-08-12-sbarco-session-token-design.md": {
+    "mtime": 1786546184.5948467,
+    "ast_hash": "99c466bb4c7f2f1687c8cee5dc759e36",
+    "semantic_hash": ""
+  },
+  "raw/normativa/ardea-ord-2026.txt": {
+    "mtime": 1786544758.0576236,
+    "ast_hash": "86772a11db1649f79ef1eb013012f66b",
+    "semantic_hash": ""
+  },
+  "raw/normativa/corridoi-lancio-ardea-pomezia-2026-08-12.md": {
+    "mtime": 1786544871.0144892,
+    "ast_hash": "6ac5903470e474f31449536ddc01f025",
+    "semantic_hash": ""
+  },
+  "raw/normativa/cp-roma-66-2025.txt": {
+    "mtime": 1786544761.3101075,
+    "ast_hash": "53ea0fcae28236146e96c0baaad7d46b",
+    "semantic_hash": ""
+  },
+  "raw/normativa/pomezia-ord-2026.txt": {
+    "mtime": 1786544759.6705413,
+    "ast_hash": "37323884eeefc5771bfe2a1439563122",
+    "semantic_hash": ""
+  },
+  "raw/normativa/punti-ormeggio-ardea-2025-2026-2026-08-12.md": {
+    "mtime": 1786545874.688841,
+    "ast_hash": "5d35a3ee10343e654c5db68b91bfd0b0",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-after.txt": {
+    "mtime": 1786546408.7239308,
+    "ast_hash": "642dd1cd2ccd67f3181d57ffb97713cc",
+    "semantic_hash": ""
+  },
+  "raw/normativa/ardea-ord-2026.pdf": {
+    "mtime": 1786544623.4894068,
+    "ast_hash": "d582945c6fe1bbae0737bceaf62566f3",
+    "semantic_hash": ""
+  },
+  "raw/normativa/cp-roma-66-2025.pdf": {
+    "mtime": 1786544624.7531276,
+    "ast_hash": "5cc74326932e11671ca60ee7c70b6de0",
+    "semantic_hash": ""
+  },
+  "raw/normativa/pomezia-ord-2026.pdf": {
+    "mtime": 1786544618.407856,
+    "ast_hash": "3a760c3d378ab9497c286372abadc137",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-after/page-1.png": {
+    "mtime": 1786546379.8700547,
+    "ast_hash": "e58b4ade32e3891fe3653639c4941f6d",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-after/page-2.png": {
+    "mtime": 1786546381.355306,
+    "ast_hash": "dac129ca3c202c59053d5d103f77f12a",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-after/page-3.png": {
+    "mtime": 1786546382.8039975,
+    "ast_hash": "7a6a57d63e45d3e046a950fb1a942785",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-after/page-4.png": {
+    "mtime": 1786546385.3495054,
+    "ast_hash": "934e49878e1d55f5e365cc394427dee1",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-1.png": {
+    "mtime": 1786545746.8382568,
+    "ast_hash": "922183ee9e5e9d2654468a61ccfadb54",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-2.png": {
+    "mtime": 1786545749.533217,
+    "ast_hash": "25d892ed4eefaf36562450d75caf8bfc",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-3.png": {
+    "mtime": 1786545750.268687,
+    "ast_hash": "2088935b3d268da4b24e7e41174c5a05",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-4.png": {
+    "mtime": 1786545751.9978278,
+    "ast_hash": "44318733fcd0dc340ad1b3f19d393f59",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-5.png": {
+    "mtime": 1786545753.038223,
+    "ast_hash": "5e7e48bae4de894212b4fae3a3578d08",
+    "semantic_hash": ""
+  },
+  "tmp/pdfs/mappa-before/page-6.png": {
+    "mtime": 1786545754.5868318,
+    "ast_hash": "82493517e75feda8f46f6951668b1f82",
     "semantic_hash": ""
   }
 }

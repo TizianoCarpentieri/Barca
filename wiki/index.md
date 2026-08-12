@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-11
+updated: 2026-08-12
 status: active
 tags: [index]
 ---
@@ -72,7 +72,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[normativa/limiti-senza-patente]] | Soglie MIT: ≤30 kW / 40,8 CV, ≤6 miglia |
 | [[normativa/rc-obbligatoria-natanti]] | **RC obbligatoria** gommone a motore (art. 41 + art. 123 CAP) |
 | [[normativa/pesca-ricreativa-mare]] | SIAN, RecFishing e regole pesca ricreativa aggiornate al 2026 |
-| [[normativa/varo-litorale-lazio]] | Corridoi, distanze e ordinanze Ardea/Pomezia e comuni limitrofi |
+| [[normativa/varo-litorale-lazio]] | Corridoi, distanze, 4 punti di ormeggio Ardea censiti e ordinanze locali |
 
 ## Mercato
 

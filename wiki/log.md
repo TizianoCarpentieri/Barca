@@ -455,3 +455,17 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Rimossi dagli artt. 5.2, 10.1, 10.4 e 10.6 i residui che descrivevano l’uscita con tutti i soci come “caso normale” e le altre come eccezioni.
 - Gli obblighi in caso di sinistro dipendono ora dai soci effettivamente presenti, senza affermazioni sulla frequenza delle diverse uscite.
 - Corretto il riparto da “1/N tra i presenti” a **1/P**, con P uguale al numero dei soci presenti; restano distinti i casi della tabella 10.2 a carico di tutti i soci 1/N.
+
+## [2026-08-12] ricerca/pdf | Varo Ardea corretto e guida ridisegnata
+
+- Individuati negli atti ufficiali 2025-2026 quattro punti di ormeggio locali:
+  Rimessaggio Cerolini, Circolo Nautico Caravallebecio, Circolo Nautico Tor San
+  Lorenzo e La Torre; restano da confermare accesso giornaliero, corridoio,
+  tariffa, orari e parcheggio.
+- Corretto il falso percorso “spiaggia libera → remi → motore oltre 250 m”:
+  davanti alle aree balneabili partenza/atterraggio di unità a motore o vela
+  avvengono esclusivamente nei corridoi.
+- Chiarito che l'uso pubblico del corridoio in acqua non rende automaticamente
+  libero o gratuito l'accesso terrestre della concessione.
+- Ridisegnata la mappa come guida operativa in quattro pagine, con zona casa,
+  copione telefonico, sequenza di varo, livelli di certezza e piano B.

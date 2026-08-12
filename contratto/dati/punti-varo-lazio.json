@@ -1,0 +1,361 @@
+{
+  "title": "Dal bagagliaio al mare",
+  "subtitle": "Guida operativa al varo · Tor San Lorenzo e litorale laziale",
+  "updated": "2026-08-12",
+  "scope": "Fiumicino / Ostia → Circeo · focus Tor San Lorenzo / Ardea / Pomezia",
+  "base": "Ardea · Pomezia · Tor San Lorenzo",
+  "disclaimer": "Le regole sono verificate su atti ufficiali 2025–2026. L'operatività di corridoi, punti di ormeggio e scivoli cambia: prima di partire serve una conferma del Comune o del gestore. Una concessione nautica censita non equivale a varo giornaliero garantito.",
+  "decision": [
+    {
+      "q": "Parti da una spiaggia davanti a un'area balneabile?",
+      "a": "Con un'unità a motore o a vela puoi partire e rientrare solo in un CORRIDOIO DI LANCIO autorizzato e realmente allestito. Motore spento o remi non trasformano la spiaggia libera in un punto di varo."
+    },
+    {
+      "q": "Non c'è un corridoio completo e riconoscibile?",
+      "a": "Non partire da quella spiaggia. Usa un punto di ormeggio, uno scivolo, un porto o un cantiere che abbia confermato accesso e modalità. Il limite dei 250 m non crea un diritto di partenza dalla battigia."
+    },
+    {
+      "q": "Vedi un passaggio a mare o una strada che arriva vicino all'arenile?",
+      "a": "È un accesso pedonale o stradale, non un corridoio né una rampa autorizzata. Su Ardea il transito dei veicoli sull'arenile è vietato salvo eccezioni autorizzate."
+    },
+    {
+      "q": "Gommone smontabile, senza carrello: qual è il piano pratico?",
+      "a": "Prima scegli e conferma il punto. Poi auto e scarico in area consentita, trasporto a mano/carrellino concordato, montaggio fuori dai 5 m della battigia, controllo corridoio, uscita perpendicolare al minimo e comunque non oltre 3 nodi."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Corridoio di lancio",
+      "def": "Fascia d'acqua larga 15–20 m, delimitata fino a 250 m con gavitelli gialli/arancio, bandiere bianche in testa e cartello a terra. È ad uso pubblico nello specchio acqueo; l'accesso e i servizi a terra non diventano automaticamente liberi o gratuiti."
+    },
+    {
+      "term": "Passaggio a mare",
+      "def": "Varco pedonale sull’arenile (scale, varchi numerati). Non è un corridoio e non abilita il motore."
+    },
+    {
+      "term": "Scivolo / rampa",
+      "def": "Infrastruttura fissa (cemento/metallo/canale) per varo-alaggio, spesso con auto/carrello. Ha un posto fisico stabile."
+    },
+    {
+      "term": "Porto / cantiere",
+      "def": "Accesso gestito: ormeggio, gru, scivolo a tariffa, orari. Si telefona."
+    },
+    {
+      "term": "Punto di ormeggio (PO)",
+      "def": "Concessione demaniale con destinazione nautica. È un candidato concreto da chiamare, ma non garantisce da sola accesso pubblico, varo giornaliero, tariffa o corridoio operativo."
+    }
+  ],
+  "homeZone": {
+    "title": "Zona casa — Tor San Lorenzo / Ardea / Pomezia",
+    "why": "Non c'è uno scivolo comunale unico pubblicizzato come tale. Esistono però quattro concessioni nautiche locali censite e corridoi stagionali: le prime sono piste concrete da chiamare, i secondi vanno confermati e riconosciuti sul posto.",
+    "law": "Capitaneria Roma ord. 66/2025 Art. 14–16 + Ord. balneare Ardea 2026 Art. 11 + Ord. balneare Pomezia 2026 Art. 11–12.",
+    "contacts": [
+      {
+        "who": "Ufficio Locale Marittimo Torvaianica",
+        "phone": "06 9155 395",
+        "note": "lctorvajanica@mit.gov.it — litorale Pomezia/Torvaianica (ord. Pomezia 2026)"
+      },
+      {
+        "who": "Comune di Pomezia — centralino",
+        "phone": "06 9114 61",
+        "note": "Demanio marittimo / ordinanza balneare"
+      },
+      {
+        "who": "Comune di Ardea — atti balneari",
+        "phone": "06 913800 int. 154",
+        "note": "uff.demanio@comune.ardea.rm.it · chiedere corridoi autorizzati/allestiti e accesso ai PO"
+      },
+      {
+        "who": "Capitaneria di porto di Roma",
+        "phone": null,
+        "note": "Ord. 66/2025 = testo madre corridoi per Fiumicino, Ostia, Pomezia, Ardea"
+      },
+      {
+        "who": "Emergenza in mare",
+        "phone": "1530",
+        "note": "Numero nazionale gratuito"
+      }
+    ],
+    "fieldChecklist": [
+      "Cartello a terra con dicitura CORRIDOIO … MOTORE?",
+      "Boe/gavitelli gialli o arancioni in fila verso il largo?",
+      "Bandiere bianche sui gavitelli esterni?",
+      "Larghezza circa 15–20 m, perpendicolare alla costa?",
+      "Nessun bagnante dentro il corridoio; non ormeggiare dentro",
+      "Se manca un elemento essenziale o il tracciato è interrotto → non partire: conferma col gestore o usa il piano B"
+    ],
+    "knownNauticalConcessions": [
+      {
+        "name": "Circolo Nautico Tor San Lorenzo",
+        "area": "Marina di Ardea · Ambito A",
+        "type": "PO",
+        "front": "40 m",
+        "contact": "392 639 1831 · Via Avellino 1",
+        "evidence": "Elenco concessioni Ardea al 31/12/2025 + PUA 2026",
+        "certainty": "censito",
+        "ask": "Accettate varo/alaggio giornaliero di un gommone smontabile con fuoribordo? Corridoio 2026 attivo? Accesso con carrellino, costo e parcheggio?"
+      },
+      {
+        "name": "Rimessaggio imbarcazioni Cerolini",
+        "area": "Marina di Ardea · Ambito A",
+        "type": "PO",
+        "front": "35 m",
+        "contact": "Contatto da chiedere al Demanio Ardea",
+        "evidence": "Elenco concessioni Ardea al 31/12/2025 + PUA 2026",
+        "certainty": "censito",
+        "ask": "Il punto è operativo nel 2026? Offrite varo occasionale o solo rimessaggio/clienti? Corridoio, tariffa e orari?"
+      },
+      {
+        "name": "Circolo Nautico Caravallebecio",
+        "area": "Marina di Ardea · Ambito A",
+        "type": "PO",
+        "front": "24 m",
+        "contact": "Contatto da chiedere al Demanio Ardea",
+        "evidence": "Elenco concessioni Ardea al 31/12/2025 + PUA 2026",
+        "certainty": "censito",
+        "ask": "Accesso solo soci o anche giornaliero? Corridoio 2026, carrellino, costo, orari e parcheggio?"
+      },
+      {
+        "name": "La Torre · Galasso Gianfranco",
+        "area": "Lido Tor San Lorenzo · Ambito C",
+        "type": "PO",
+        "front": "51 m",
+        "contact": "Contatto e posizione esatta da chiedere al Demanio Ardea",
+        "evidence": "Ricognizione PUA Ardea 2026",
+        "certainty": "censito",
+        "ask": "Punto operativo nel 2026? Varo gommone a motore consentito? Corridoio, accesso, costo e parcheggio?"
+      }
+    ],
+    "callQuestions": [
+      "Il corridoio autorizzato è posato e completo oggi?",
+      "Il varo/alaggio di un gommone privato con fuoribordo è ammesso?",
+      "Si accede a piedi, con carrellino o con auto? Dove si scarica e si parcheggia?",
+      "Serve essere soci o prenotare? Qual è il costo totale andata/ritorno?",
+      "Quali orari e limiti valgono per rientro, mare mosso o corridoio temporaneamente chiuso?"
+    ],
+    "namedPoints": [
+      {
+        "name": "Tor San Lorenzo · corridoi stabilimenti",
+        "motor": "cond",
+        "access": "tbd",
+        "price": "Transito in acqua pubblico; accesso/servizi a terra da concordare",
+        "detail": "Nessun elenco ufficiale dei corridoi realmente posati oggi. Li installano i soggetti obbligati e autorizzati; un corridoio completo è ad uso pubblico nello specchio acqueo.",
+        "action": "Prima conferma col Demanio/gestore; poi sopralluogo e foto di cartello, boe e data"
+      },
+      {
+        "name": "Marina di Ardea / Lido dei Pini · stessa logica",
+        "motor": "cond",
+        "access": "tbd",
+        "price": "Transito in acqua pubblico; accesso/servizi a terra da concordare",
+        "detail": "Stesso regime Ardea + Capitaneria Roma. Non confondere spiaggia libera con diritto di varo a motore.",
+        "action": "Stessa checklist campo"
+      },
+      {
+        "name": "Torvaianica · passaggi a mare (es. n. 9, 28, 46…)",
+        "motor": "no",
+        "access": "free",
+        "price": "Gratis a piedi",
+        "detail": "Numerati in ord. Pomezia per salvamento/logistica. Non sono corridoi di lancio per il gommone a motore.",
+        "action": "Non usarli per il varo del gommone a motore; scegli prima un corridoio o punto nautico confermato"
+      },
+      {
+        "name": "Approdo n. 3 · Fosso della Crocetta (Pomezia)",
+        "motor": "no",
+        "access": "free",
+        "price": "Area regolamentata — no motore",
+        "detail": "Ord. Pomezia Art. 11: solo natanti a vela con deriva mobile e natanti privi di motore (+ supporto/salvataggio). Fronte mare ~60 m a ponente del fosso.",
+        "action": "Non portare qui il fuoribordo Bestie"
+      },
+      {
+        "name": "Aree kite · Fosso Pratica di Mare / Fosso Crocetta",
+        "motor": "cond",
+        "access": "free",
+        "price": "Riservate alla disciplina kite se allestite",
+        "detail": "Richiedono corridoio a norma per il kite. Non sono la base operativa del gommone a motore del gruppo.",
+        "action": "Evitare di interferire; non usarle come “scivolo” generico"
+      }
+    ]
+  },
+  "infra": [
+    {
+      "n": 1,
+      "layer": "scivolo",
+      "name": "Scivolo Fiumicino",
+      "comune": "Fiumicino",
+      "motor": "yes",
+      "access": "pay",
+      "price": "≈ 6–12 € a varo (community ~10 €)",
+      "phone": null,
+      "phoneNote": "Gestore sul posto · Capitaneria Roma",
+      "parking": "Spesso gratis (scheda community)",
+      "lat": 41.744,
+      "lng": 12.225,
+      "fit": "medio",
+      "notes": "Infrastruttura fissa. Utile hub nord se avete carrello o trasporto.",
+      "source": "gommonauti/scivolo260",
+      "status": "community"
+    },
+    {
+      "n": 2,
+      "layer": "scivolo",
+      "name": "Ostia · scivoli lido",
+      "comune": "Roma (Ostia)",
+      "motor": "cond",
+      "access": "free",
+      "price": "Gratis se agibile",
+      "phone": null,
+      "phoneNote": "Verificare stato reale (schede: non agibile / ripido)",
+      "parking": "Affollato estate",
+      "lat": 41.7215,
+      "lng": 12.304,
+      "fit": "basso",
+      "notes": "Non base primaria senza sopralluogo.",
+      "source": "gommonauti/scivolo91+300",
+      "status": "da-verificare"
+    },
+    {
+      "n": 3,
+      "layer": "scivolo",
+      "name": "Scivolo Capitaneria Anzio",
+      "comune": "Anzio",
+      "motor": "yes",
+      "access": "free",
+      "price": "Scivolo gratis · parcheggio ≈ 13–20 €",
+      "phone": "06 9844 525",
+      "phoneNote": "Circomare Anzio",
+      "parking": "Stretto; ore scariche",
+      "lat": 41.4483,
+      "lng": 12.6325,
+      "fit": "alto",
+      "notes": "Hub primario con rampa. Per gommone a mano da Ardea serve comunque il trasporto auto.",
+      "source": "gommonauti/scivolo115",
+      "status": "verificato-parziale"
+    },
+    {
+      "n": 4,
+      "layer": "porto",
+      "name": "Porto turistico di Anzio",
+      "comune": "Anzio",
+      "motor": "yes",
+      "access": "pay",
+      "price": "Ormeggio listino 2026 · varo giorno da chiedere",
+      "phone": "06 8661 5830",
+      "phoneNote": "portoturistico@comune.anzio.it · VHF 74",
+      "parking": "Parcheggi porto",
+      "lat": 41.4451,
+      "lng": 12.6337,
+      "fit": "alto",
+      "notes": "Gestione Comune. Non è scivolo free.",
+      "source": "portodianzio.eu",
+      "status": "ufficiale"
+    },
+    {
+      "n": 5,
+      "layer": "cantiere",
+      "name": "Cantieri Anzio",
+      "comune": "Anzio",
+      "motor": "yes",
+      "access": "pay",
+      "price": "Tariffa cantiere (TBD)",
+      "phone": "06 9846 157 · 06 9844 640",
+      "phoneNote": "Cantiere Navale Anzio · Innocenzo XII",
+      "parking": "In cantiere",
+      "lat": 41.447,
+      "lng": 12.628,
+      "fit": "medio",
+      "notes": "Varo/alaggio se lo scivolo pubblico è intasato.",
+      "source": "wiki/PG",
+      "status": "da-chiamare"
+    },
+    {
+      "n": 6,
+      "layer": "porto",
+      "name": "Marina / cantiere Nettuno",
+      "comune": "Nettuno",
+      "motor": "yes",
+      "access": "pay",
+      "price": "Tariffa marina (TBD)",
+      "phone": "06 9293 9519 · 06 9806 298",
+      "phoneNote": "Via Vespucci area",
+      "parking": "In struttura",
+      "lat": 41.458,
+      "lng": 12.663,
+      "fit": "alto",
+      "notes": "Secondo hub servizi del litorale sud-Roma.",
+      "source": "wiki rimessaggio",
+      "status": "da-chiamare"
+    },
+    {
+      "n": 7,
+      "layer": "scivolo",
+      "name": "Foce Verde",
+      "comune": "Latina",
+      "motor": "yes",
+      "access": "free",
+      "price": "Gratis (community)",
+      "phone": null,
+      "phoneNote": "Da acquisire",
+      "parking": "Medio · gratis segnalato",
+      "lat": 41.413,
+      "lng": 12.8125,
+      "fit": "medio",
+      "notes": "Alternativa sud ad Anzio.",
+      "source": "gommonauti/scivolo113",
+      "status": "community"
+    },
+    {
+      "n": 8,
+      "layer": "scivolo",
+      "name": "Rio Martino",
+      "comune": "Latina",
+      "motor": "yes",
+      "access": "free",
+      "price": "Gratis · max ~6,5 m",
+      "phone": null,
+      "phoneNote": "Da acquisire",
+      "parking": "Medio/scarso",
+      "lat": 41.384,
+      "lng": 12.917,
+      "fit": "medio",
+      "notes": "Ok gommone piano A.",
+      "source": "gommonauti/scivolo127",
+      "status": "community"
+    },
+    {
+      "n": 9,
+      "layer": "scivolo",
+      "name": "Canale Sisto",
+      "comune": "Sabaudia",
+      "motor": "yes",
+      "access": "pay",
+      "price": "≈ 13–20+ € (update 2025 community)",
+      "phone": null,
+      "phoneNote": "Gestore sul posto",
+      "parking": "Buono · gratis segnalato",
+      "lat": 41.2728,
+      "lng": 13.1442,
+      "fit": "medio",
+      "notes": "Verso Circeo se si accetta il ticket.",
+      "source": "gommonauti/scivolo114",
+      "status": "community"
+    },
+    {
+      "n": 10,
+      "layer": "scivolo",
+      "name": "San Felice Circeo · scivoli",
+      "comune": "San Felice Circeo",
+      "motor": "yes",
+      "access": "free",
+      "price": "Scivolo gratis · parcheggio 6–20+ €",
+      "phone": null,
+      "phoneNote": "Comune / ord. balneare 2026",
+      "parking": "Critico in estate",
+      "lat": 41.234,
+      "lng": 13.096,
+      "fit": "alto",
+      "notes": "Destinazione top; collo di bottiglia = parcheggio.",
+      "source": "gommonauti/scivolo88+157",
+      "status": "community"
+    }
+  ]
+}

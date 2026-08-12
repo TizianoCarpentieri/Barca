@@ -7,7 +7,9 @@
     "pdf": "node export-pdf.mjs",
     "pdf:bozza": "node export-pdf.mjs --bozza",
     "pdf:prospetto": "node export-pdf.mjs --prospetto",
-    "pdf:qa": "node export-pdf.mjs --qa"
+    "pdf:mappa": "node export-pdf.mjs --mappa",
+    "pdf:qa": "node export-pdf.mjs --qa",
+    "build:mappa": "node build-mappa-varo.mjs"
   },
   "dependencies": {
     "marked": "^15.0.12",

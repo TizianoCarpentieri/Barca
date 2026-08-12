@@ -17,6 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
 import { chromium } from "playwright";
+import { spawnSync } from "node:child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
@@ -37,6 +38,16 @@ const DOCS = {
     defaultTitle: "Prospetto costi a norma",
     badge: "Documento vivo",
     outfile: "prospetto-costi-a-norma.pdf",
+  },
+  mappa: {
+    id: "mappa",
+    // HTML grafico pre-buildato da build-mappa-varo.mjs
+    sourceHtml: path.join("export", "mappa-punti-varo-lazio.html"),
+    buildScript: "build-mappa-varo.mjs",
+    kicker: "Le Bestie — cantiere conformità",
+    defaultTitle: "Mappa punti di varo",
+    badge: "Documento vivo",
+    outfile: "mappa-punti-varo-lazio.pdf",
   },
 };
 
@@ -88,6 +99,7 @@ function parseArgs(argv) {
   const args = {
     bozza: false,
     prospetto: false,
+    mappa: false,
     qa: false,
     htmlOnly: false,
     out: path.join(ROOT, "export"),
@@ -96,14 +108,16 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === "--bozza") args.bozza = true;
     else if (a === "--prospetto") args.prospetto = true;
+    else if (a === "--mappa") args.mappa = true;
     else if (a === "--qa") args.qa = true;
     else if (a === "--html-only") args.htmlOnly = true;
     else if (a === "--out") args.out = path.resolve(argv[++i] || args.out);
     else if (a === "--help" || a === "-h") args.help = true;
   }
-  if (!args.bozza && !args.prospetto && !args.qa) {
+  if (!args.bozza && !args.prospetto && !args.mappa && !args.qa) {
     args.bozza = true;
     args.prospetto = true;
+    args.mappa = true;
   }
   return args;
 }
@@ -403,7 +417,7 @@ async function renderMarkdown(md, { tocLevels = [], tocVariant = "default" } = {
   return raw;
 }
 
-async function writePdf(html, pdfPath, footerLabel) {
+async function writePdf(html, pdfPath, footerLabel, { margins, headerLabel } = {}) {
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await browser.newPage();
@@ -411,30 +425,40 @@ async function writePdf(html, pdfPath, footerLabel) {
     await page.evaluate(async () => {
       if (document.fonts?.ready) await document.fonts.ready;
     });
+    // extra beat for webfonts
+    await page.waitForTimeout(400);
     const label = esc(footerLabel || "Documento di lavoro");
+    const head = esc(headerLabel || "Le Bestie · gestione condivisa");
+    const m = margins || {
+      top: "16mm",
+      bottom: "16mm",
+      left: "14mm",
+      right: "14mm",
+    };
     await page.pdf({
       path: pdfPath,
       format: "A4",
       printBackground: true,
       preferCSSPageSize: false,
       displayHeaderFooter: true,
-      headerTemplate: `<div style="font-size:6.5pt;font-family:'Source Sans 3',sans-serif;color:#5c677a;width:100%;padding:0 14mm;margin:0;box-sizing:border-box;">
-        <span style="border-bottom:0.4pt solid #c5ccd6;display:block;padding-bottom:2pt;">Le Bestie · gestione condivisa</span>
+      headerTemplate: `<div style="font-size:6.5pt;font-family:'Source Sans 3',sans-serif;color:#5c677a;width:100%;padding:0 12mm;margin:0;box-sizing:border-box;">
+        <span style="border-bottom:0.4pt solid #c5ccd6;display:block;padding-bottom:2pt;">${head}</span>
       </div>`,
-      footerTemplate: `<div style="font-size:6.5pt;font-family:'Source Sans 3',sans-serif;color:#5c677a;width:100%;padding:0 14mm;margin:0;box-sizing:border-box;display:flex;justify-content:space-between;border-top:0.4pt solid #c5ccd6;padding-top:3pt;">
+      footerTemplate: `<div style="font-size:6.5pt;font-family:'Source Sans 3',sans-serif;color:#5c677a;width:100%;padding:0 12mm;margin:0;box-sizing:border-box;display:flex;justify-content:space-between;border-top:0.4pt solid #c5ccd6;padding-top:3pt;">
         <span>${label}</span>
         <span>pag. <span class="pageNumber"></span> / <span class="totalPages"></span></span>
       </div>`,
-      margin: {
-        top: "16mm",
-        bottom: "16mm",
-        left: "14mm",
-        right: "14mm",
-      },
+      margin: m,
     });
   } finally {
     await browser.close();
   }
+}
+
+async function writePdfFromFile(htmlPath, pdfPath, footerLabel, opts) {
+  const html = await readFile(htmlPath, "utf8");
+  // Prefer file:// so relative assets would work; content is self-contained.
+  await writePdf(html, pdfPath, footerLabel, opts);
 }
 
 async function exportOne({ conf, md, outDir, htmlOnly }) {
@@ -466,15 +490,31 @@ async function exportOne({ conf, md, outDir, htmlOnly }) {
 }
 
 function printHelp() {
-  console.log(`export-pdf — PDF ufficiali da markdown contratto
+  console.log(`export-pdf — PDF ufficiali da markdown/HTML contratto
 
-  npm run pdf                 bozza + prospetto → contratto/export/
+  npm run pdf                 bozza + prospetto + mappa → contratto/export/
   npm run pdf -- --bozza
   npm run pdf -- --prospetto
+  npm run pdf -- --mappa      mappa punti di varo (build HTML + PDF)
   npm run pdf -- --qa         fixture layout → contratto/export/_qa/
   npm run pdf -- --out DIR
   npm run pdf -- --html-only  solo HTML (debug tipografia)
 `);
+}
+
+function ensureMappaHtml() {
+  const conf = DOCS.mappa;
+  const script = path.join(ROOT, conf.buildScript);
+  const r = spawnSync(process.execPath, [script], {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+  if (r.status !== 0) {
+    throw new Error(
+      `build mappa fallito:\n${r.stdout || ""}\n${r.stderr || ""}`
+    );
+  }
+  if (r.stdout) process.stdout.write(r.stdout);
 }
 
 async function main() {
@@ -520,10 +560,44 @@ async function main() {
     });
   }
 
+  if (args.mappa) {
+    ensureMappaHtml();
+    const htmlPath = path.join(ROOT, DOCS.mappa.sourceHtml);
+    if (!existsSync(htmlPath)) {
+      throw new Error(`Manca HTML mappa: ${DOCS.mappa.sourceHtml}`);
+    }
+    jobs.push({
+      conf: DOCS.mappa,
+      htmlPath,
+      outDir: args.out,
+      kind: "html-file",
+    });
+  }
+
   const results = [];
   for (const job of jobs) {
     process.stdout.write(`→ ${job.conf.id}… `);
-    const r = await exportOne({ ...job, htmlOnly: args.htmlOnly });
+    let r;
+    if (job.kind === "html-file") {
+      await mkdir(job.outDir, { recursive: true });
+      const pdfPath = path.join(job.outDir, job.conf.outfile);
+      if (args.htmlOnly) {
+        r = { htmlPath: job.htmlPath, pdfPath: null };
+      } else {
+        await writePdfFromFile(job.htmlPath, pdfPath, job.conf.badge, {
+          headerLabel: "Le Bestie · punti di varo litorale",
+          margins: {
+            top: "14mm",
+            bottom: "14mm",
+            left: "10mm",
+            right: "10mm",
+          },
+        });
+        r = { htmlPath: job.htmlPath, pdfPath };
+      }
+    } else {
+      r = await exportOne({ ...job, htmlOnly: args.htmlOnly });
+    }
     console.log(r.pdfPath ? path.relative(ROOT, r.pdfPath) : path.relative(ROOT, r.htmlPath));
     results.push(r);
   }

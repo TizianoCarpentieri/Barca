@@ -1,25 +1,25 @@
-# Graph Report - barca-sbarco-pdf-request-20260811  (2026-08-11)
+# Graph Report - barca  (2026-08-12)
 
 ## Corpus Check
-- 118 files · ~237,463 words
+- 135 files · ~318,984 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1441 nodes · 1494 edges · 300 communities (102 shown, 198 thin omitted)
+- 1611 nodes · 1678 edges · 315 communities (115 shown, 200 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 21 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6fc28009`
+- Built from commit: `7039ee46`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- fetch-annunci.mjs
+- fetch-motori.mjs
 - annunci.js
 - B — Carrello a casa / box (trailer) — **ESCLUSA**
 - fetch-accessori.mjs
-- app.js
+- What You Must Do When Invoked
 - Log — Progetto Barca
 - AGENTS.md — Progetto Barca (Le Bestie)
 - fetch-gommoni.mjs
@@ -46,14 +46,14 @@
 - package.json
 - #automazione
 - #budget
-- Audit Sbarco - 11 agosto 2026
-- Shortlist candidati
+- opencode.json
+- LLM Wiki — Progetto Barca
 - LLM Wiki
 - Feed accessori — design approvato (2026-08-07)
 - Feed annunci Subito — logica di scoring
 - Indice wiki — Progetto Barca
 - #6-pax
-- pdf-optional-stub.js
+- graphify reference: extra exports and benchmark
 - No-patente + fino a 6 persone — inviluppo realistico
 - Mercato usato — tetto ~4.500 € (sample Subito 2026-08-04)
 - Open questions
@@ -90,6 +90,8 @@
 - Frontend Design
 - graphify reference: query, path, explain
 - Intervista — patente nautica (risposta grezza)
+- index.md
+- dependencies
 - graphify reference: add a URL and watch a folder
 - graphify reference: commit hook and native CLAUDE.md integration
 - Sample Subito — pacchetti scafo+motore
@@ -282,6 +284,7 @@
 - #shortlist
 - extraction-spec.md
 - smoke-sbarco.mjs
+- package.json
 - Prospetto costi a norma
 - agentContratto — mandato della cartella `contratto/`
 - RC obbligatoria — gommone / natante a motore
@@ -308,18 +311,32 @@
 - Art. 15 — Vendita totale e scioglimento
 - Art. 1 — Parti, oggetto, durata
 - Art. 2 — Quote e proprietà economica
+- Snapshot fasce fuoribordo 9.9–40 CV — peso, cilindrata, consumo
+- Export PDF — cantiere contratto
+- Pesca sportiva e ricreativa in mare — audit 2026
+- Verifica fasce motore e benzina — 2026-08-12
+- Ordinanze locali litorale Lazio — verifica 2026
+- Art. 3 — Intestazione, assicurazione, documenti
+- dependencies
+- build-mappa-varo.mjs
+- Punti di varo — litorale laziale core Bestie
+- overview.md
+- Corridoi di lancio — Ardea / Pomezia / Tor San Lorenzo
+- Punti di ormeggio e corridoi - Ardea / Tor San Lorenzo
+- Art. 15 — Vendita totale e scioglimento
+- varo-litorale-lazio.md
 
 ## God Nodes (most connected - your core abstractions)
-1. `Log — Progetto Barca` - 53 edges
+1. `Log — Progetto Barca` - 62 edges
 2. `Patto di gestione condivisa — Gommone Le Bestie` - 21 edges
 3. `fetch()` - 20 edges
-4. `Art. 13 — Uscita di un socio (recesso) e formula di rimborso` - 14 edges
-5. `agentContratto — mandato della cartella `contratto/`` - 13 edges
-6. `What You Must Do When Invoked` - 12 edges
-7. `Prospetto costi a norma` - 12 edges
+4. `Prospetto costi e adempimenti a norma` - 19 edges
+5. `Art. 13 — Uscita di un socio (recesso) e formula di rimborso` - 14 edges
+6. `agentContratto — mandato della cartella `contratto/`` - 13 edges
+7. `What You Must Do When Invoked` - 12 edges
 8. `FASE 1 — Revisione Wiki` - 12 edges
-9. `Risposte grezze` - 12 edges
-10. `scripts` - 11 edges
+9. `Design: Sessione Tiziano dopo passkey (meno QR/impronta)` - 12 edges
+10. `Risposte grezze` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `extractLength()` --calls--> `normalizeBoatLength()`  [EXTRACTED]
@@ -336,9 +353,9 @@
 ## Import Cycles
 - None detected.
 
-## Communities (300 total, 198 thin omitted)
+## Communities (315 total, 200 thin omitted)
 
-### Community 0 - "fetch-annunci.mjs"
+### Community 0 - "fetch-motori.mjs"
 Cohesion: 0.18
 Nodes (17): classify(), __dirname, extractCv(), extractLength(), feat(), HEADERS, imgUrl(), main() (+9 more)
 
@@ -354,13 +371,13 @@ Nodes (29): A — Posto barca fisso in porto (acqua), B — Carrello a casa / bo
 Cohesion: 0.12
 Nodes (26): __dirname, feat(), fetchSubito(), main(), normalizeSubito(), OUT, QUERIES, RAW_OUT (+18 more)
 
-### Community 4 - "app.js"
+### Community 4 - "What You Must Do When Invoked"
 Cohesion: 0.20
 Nodes (8): barIo, countIo, path, revealEls, sheet, splash, icons, mountNav()
 
 ### Community 5 - "Log — Progetto Barca"
-Cohesion: 0.04
-Nodes (53): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+45 more)
+Cohesion: 0.03
+Nodes (62): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+54 more)
 
 ### Community 6 - "AGENTS.md — Progetto Barca (Le Bestie)"
 Cohesion: 0.08
@@ -391,16 +408,16 @@ Cohesion: 0.12
 Nodes (15): Altri hub (ricerca parziale — da approfondire), Caratteristiche operative (schede secondarie), Contesto geografico (dichiarato utente), Costa “aperta” Torvaianica / Lavinio / Lido dei Pini, Fiumicino, Fonti, Gestione, Modelli di “dove tenere la barca” (framework) (+7 more)
 
 ### Community 14 - "Split costi e danni"
-Cohesion: 0.22
-Nodes (9): Accordo scritto, Acquisto — split 1/3, Casi specifici, Costi fissi — split 1/3, Open, Principio generale, Regola danni, Split costi e danni (+1 more)
+Cohesion: 0.25
+Nodes (7): Accordo scritto, Acquisto, Danni (direzione attuale), Open, Principi fissi, Split costi e danni, Uscita di un socio
 
 ### Community 15 - "Montaggio e logistica gommone"
 Cohesion: 0.20
 Nodes (9): Arrivo in spiaggia/scivolo, Ciclo completo di un'uscita, Confronto con scafo rigido, Criticità, Fonti, Montaggio e logistica gommone, Preparazione (carico), Rientro (+1 more)
 
 ### Community 18 - "Budget"
-Cohesion: 0.15
-Nodes (13): Acquisto (intervista 2026-08-04, aggiornato 2026-08-10), Budget, Cosa **non** è nel tetto mezzo ma **sì** nel tetto annuo, Gestione annua — scenario scafo rigido (superato per gommone), Note scenario gommone, Open, Regola pratica, Scenario A — posto barca (+5 more)
+Cohesion: 0.13
+Nodes (14): Acquisto (intervista 2026-08-04, aggiornato 2026-08-11), Budget, Cap 30 €/testa/mese — cosa è e cosa non è, Cosa **non** è nel tetto mezzo ma **sì** nel tetto annuo, Gestione annua — scenario scafo rigido (non è il piano A), Note scenario gommone, Open, Regola pratica (+6 more)
 
 ### Community 20 - "Hook | Tutte le 22 esistenti: cap = ref_new × 2"
 Cohesion: 0.17
@@ -419,8 +436,8 @@ Cohesion: 0.12
 Nodes (15): 1. Crea KV namespace, 2. Imposta il secret DeepSeek, 2b. Attiva la passkey esclusiva di Tiziano, 3. Configura ALLOWED_ORIGIN, 4. Aggiorna l'URL nel frontend, 5. Deploy, 6. Test, Aggiornare il grafo (+7 more)
 
 ### Community 26 - "Priorità d'uso e nice-to-have"
-Cohesion: 0.18
-Nodes (10): Core vs sociale, Da bagno/relax (3°), Da priorità giri costa, Da priorità pesca a canna, Facilità (4° — esplicitamente bassa), Impatto sul piano A (bundle ≤2.000 €), Nice-to-have tecnici (non bloccanti), Piano corrente (aggiornato 2026-08-10) (+2 more)
+Cohesion: 0.17
+Nodes (11): Core vs sociale, Da bagno/relax (3°), Da priorità giri costa, Da priorità pesca a canna, Facilità (4° — esplicitamente bassa), Impatto sul piano A (bundle ≤2.000 €), Nice-to-have tecnici (non bloccanti), Piano corrente (aggiornato 2026-08-10) (+3 more)
 
 ### Community 27 - "Temi principali"
 Cohesion: 0.18
@@ -430,11 +447,11 @@ Nodes (10): 1. Costi fissi e split (Tiziano ~12:09), 2. Dibattito gommone vs sca
 Cohesion: 0.15
 Nodes (12): devDependencies, wrangler, name, private, scripts, check, deploy, dev (+4 more)
 
-### Community 31 - "Audit Sbarco - 11 agosto 2026"
+### Community 31 - "opencode.json"
 Cohesion: 0.25
 Nodes (8): Audit per area funzionale, Audit Sbarco - 11 agosto 2026, Colli di bottiglia residui, Esito, PDF e peso frontend, Rapporto qualità / consumo token, Verifica locale, Verifica produzione
 
-### Community 32 - "Shortlist candidati"
+### Community 32 - "LLM Wiki — Progetto Barca"
 Cohesion: 0.33
 Nodes (5): Criteri di ingresso shortlist “seria”, Motori (abbinamento al piano A), Piano A — Gommoni (primario), Piano B — Rigide (condizionale), Shortlist candidati
 
@@ -443,11 +460,11 @@ Cohesion: 0.20
 Nodes (9): Architecture, Indexing and logging, LLM Wiki, Note, Operations, Optional: CLI tools, The core idea, Tips and tricks (+1 more)
 
 ### Community 34 - "Feed accessori — design approvato (2026-08-07)"
-Cohesion: 0.20
+Cohesion: 0.22
 Nodes (9): Architettura, Architettura v2, Cambi vs v1, eBay — note tecniche, Feed accessori — design approvato (2026-08-07), Formula score, REVAMP v2 (2026-08-08, in implementazione), Status (+1 more)
 
 ### Community 35 - "Feed annunci Subito — logica di scoring"
-Cohesion: 0.18
+Cohesion: 0.20
 Nodes (10): Base operativa (punto X), Fattore distanza (`geo-score.mjs`), Feed annunci Subito — logica di scoring, Fit labels, Normalizzazione e gate (2026-08-10), Nota, Regola −20% vs nuovo, Track gommoni (+2 more)
 
 ### Community 36 - "Indice wiki — Progetto Barca"
@@ -464,7 +481,7 @@ Nodes (8): Cosa si trova davvero a ≤4.500 €, Mercato usato — tetto ~4.500 
 
 ### Community 41 - "Open questions"
 Cohesion: 0.29
-Nodes (6): Bloccanti prima di comprare, Costi e documenti da verificare con fonti/preventivi, Gestione operativa, Manutenzione della knowledge base, Open questions, Scelta del candidato
+Nodes (6): Bloccanti prima di comprare, Costi e documenti (preventivi / fonti), Gestione operativa, Manutenzione knowledge base, Open questions, Scelta del candidato
 
 ### Community 42 - "Gruppo — Le Bestie"
 Cohesion: 0.20
@@ -491,7 +508,7 @@ Cohesion: 0.29
 Nodes (6): Anzio (punto più vicino “vero porto”), Base dichiarata, Implicazioni scelta barca, Litorale laziale — base Bestie, Opzioni rimessaggio (aggiornato), To-do mercato
 
 ### Community 49 - "Argo-Evo 360 AL — riferimento gommone"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Argo-Evo 360 AL — riferimento gommone, Fonti, Motore abbinato (track parallelo), Perché è il reference, Regola di confronto usato, Scheda
 
 ### Community 50 - "Track primario — Gommoni pneumatici"
@@ -511,7 +528,7 @@ Cohesion: 0.33
 Nodes (5): Da verificare ancora (fonti primarie), Estratto rilevante (testo pagina, sintesi fedele), Età minime (senza patente, unità conducibili nei limiti), Fonte: MIT — Conseguimento patente nautica, Implicazioni per progetto Barca (note agente)
 
 ### Community 59 - "Feed Subito live (presentazione)"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Comandi locali, Documentazione logica, Feed Subito live (presentazione), Repo, Snapshot raw, URL
 
 ### Community 60 - "Must-have (non negoziabili)"
@@ -532,7 +549,7 @@ Nodes (4): farevela.net, in3giorni.com (aggregatore FAQ), Note secondarie — pa
 
 ### Community 66 - "Limiti navigazione senza patente (IT)"
 Cohesion: 0.40
-Nodes (4): Aperto, Impatto sul progetto Bestie, Limiti navigazione senza patente (IT), Sintesi operativa (fonte primaria: MIT)
+Nodes (4): Ambito locale, Impatto sul progetto Bestie, Limiti navigazione senza patente (IT), Sintesi operativa (fonte primaria: MIT)
 
 ### Community 67 - "LLM Wiki — Progetto Barca"
 Cohesion: 0.20
@@ -553,6 +570,10 @@ Nodes (5): For /graphify explain, For /graphify path, graphify reference: query,
 ### Community 74 - "Intervista — patente nautica (risposta grezza)"
 Cohesion: 0.50
 Nodes (3): Dichiarazione, Interpretazione agente (da confermare se serve), Intervista — patente nautica (risposta grezza)
+
+### Community 76 - "dependencies"
+Cohesion: 0.16
+Nodes (25): buildBarChartHtml(), buildDocumentHtml(), buildTocHtml(), cleanMeta(), decodeHtmlEntities(), __dirname, DOCS, enhanceHtml() (+17 more)
 
 ### Community 77 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
@@ -583,8 +604,8 @@ Cohesion: 0.14
 Nodes (11): allowedStatuses, contents, errors, filesByRelative, filesByStem, indexed, indexPath, relative() (+3 more)
 
 ### Community 108 - "Costi nascosti — gommone pneumatico"
-Cohesion: 0.25
-Nodes (8): Assicurazione, Costi nascosti — gommone pneumatico, Da verificare — Accessori per navigazione notturna, Da verificare — Documenti e burocrazia, Da verificare — Dotazioni di sicurezza obbligatorie, Da verificare — Manutenzione periodica, Da verificare — Ricambi e usura, Prossimi passi
+Cohesion: 0.22
+Nodes (9): Assicurazione, Costi nascosti — gommone pneumatico, Da verificare — Accessori per navigazione notturna, Da verificare — Documenti e burocrazia, Da verificare — Dotazioni di sicurezza obbligatorie, Da verificare — Ricambi e usura, Manutenzione periodica, Nota modello costi (piano A) (+1 more)
 
 ### Community 109 - "Logistica e trasporto gommone"
 Cohesion: 0.25
@@ -604,23 +625,27 @@ Nodes (10): Architettura e flusso di Sbarco, Flusso chat, Garanzie di uscita, La
 
 ### Community 113 - "Overview — ricerca barca"
 Cohesion: 0.33
-Nodes (6): Come usare questo repo, Direzione attuale (2026-08-10), In una frase, Overview — ricerca barca, Prossimi passi consigliati, Stato
+Nodes (6): Come usare questo repo, Direzione attuale (2026-08-11), In una frase, Overview — ricerca barca, Prossimi passi consigliati, Stato
 
 ### Community 114 - "Scenario scafo rigido — con 5 soci"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo rigido — con 5 soci, Svantaggi, Vantaggi dello scafo rigido
 
 ### Community 270 - "smoke-sbarco.mjs"
 Cohesion: 0.17
 Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
 
+### Community 274 - "package.json"
+Cohesion: 0.12
+Nodes (16): dependencies, marked, playwright, name, private, scripts, build:mappa, pdf (+8 more)
+
 ### Community 275 - "Prospetto costi a norma"
-Cohesion: 0.05
-Nodes (41): 0. Indice sezioni, 1.10 Open points RC, 1.1 Leggi (obbligo), 1.2 Cosa copre (e cosa no), 1.3 Confronto costi — snapshot mercato 2026-08-11, 1.4 Massimali (da verificare in polizza), 1.5 Documenti che servono, 1.6 Dove farla (canali) (+33 more)
+Cohesion: 0.04
+Nodes (46): 0. Come leggere il documento, 10. Tasse, registrazione e garanzia, 11. Manutenzione: necessaria, ma non una tassa, 12.1 Come leggere le fasce, 12.2 Tabelle di confronto — tecnica, costi e mercato, 12.3 Grafici a colpo d’occhio, 12.4 Manutenzione, documenti, norme e limiti d’uso, 12.5 Indicazione di lavoro per la scelta (non decisione) (+38 more)
 
 ### Community 276 - "agentContratto — mandato della cartella `contratto/`"
 Cohesion: 0.07
-Nodes (27): 10. Open decisions (allineati a bozza 1.6), 11. Mappa rapida bozza (orientamento), 12. Changelog mandato, 1.1 Prospetto costi a norma — regola d’oro, 1. File in cartella, 2.1 IDE / buffer sporco (lezione sessione 2026-08-11), 2.2 Stile risposta all’utente, 2. Come modificare la bozza (OBBLIGATORIO) (+19 more)
+Nodes (27): 10. Open decisions (allineati a bozza 1.10), 11. Mappa rapida bozza (orientamento), 12. Changelog mandato, 1.1 Prospetto costi a norma — regola d’oro, 1. File in cartella, 2.1 IDE / buffer sporco (lezione sessione 2026-08-11), 2.2 Stile risposta all’utente, 2. Come modificare la bozza (OBBLIGATORIO) (+19 more)
 
 ### Community 277 - "RC obbligatoria — gommone / natante a motore"
 Cohesion: 0.09
@@ -639,8 +664,8 @@ Cohesion: 0.14
 Nodes (14): 13.10 Esempio C — dopo 3 anni, poco uso, stato medio, 13.11 Chi paga il rimborso e entro quanto, 13.12 Uscita di più soci, 13.13 Recesso per giusta causa, 13.1 Diritto di recesso, 13.2 Effetti, 13.3 Formula — principi, 13.4 Parametri (Proposta v1) (+6 more)
 
 ### Community 281 - "Patto di gestione condivisa — Gommone Le Bestie"
-Cohesion: 0.18
-Nodes (11): 3.1 Intestatario formale, 3.2 Assicurazione, 3.3 Documenti e luogo di custodia, 7.1 Ospiti, 7.2 Divieti, Art. 14 — Ingresso di un nuovo socio, Art. 3 — Intestazione, assicurazione, documenti, Art. 7 — Ospiti e terzi (+3 more)
+Cohesion: 0.29
+Nodes (7): 7.1 Ospiti, 7.2 Divieti, Art. 14 — Ingresso di un nuovo socio, Art. 7 — Ospiti e terzi, Changelog bozza, Legenda, Patto di gestione condivisa — Gommone Le Bestie
 
 ### Community 282 - "RC natanti — prezzi, documenti, canali (snapshot web 2026-08-11)"
 Cohesion: 0.18
@@ -656,7 +681,7 @@ Nodes (9): A. Alcol — Art. 53-bis D.Lgs. 171/2005, Alcol + dotazioni obbligato
 
 ### Community 285 - "Art. 10 — Danni e sinistri"
 Cohesion: 0.22
-Nodes (9): 10.1 Principio, 10.2 Tabella, 10.3 Franchigia e scoperto, 10.4 Obblighi in caso di sinistro, 10.5 Perdita totale o riparazione antieconomica, 10.6 Contestazione “colpa vs caso” (come si decide), A. Default se si era tutti insieme, Art. 10 — Danni e sinistri (+1 more)
+Nodes (9): 10.1 Principio, 10.2 Tabella, 10.3 Franchigia e scoperto, 10.4 Obblighi in caso di sinistro, 10.5 Perdita totale o riparazione antieconomica, 10.6 Contestazione “colpa vs caso” (come si decide), A. Default quando non emerge una colpa specifica, Art. 10 — Danni e sinistri (+1 more)
 
 ### Community 286 - "Art. 16 — Casi limite, inadempimento, esclusione"
 Cohesion: 0.29
@@ -668,7 +693,7 @@ Nodes (7): 5.1 Canale ufficiale, 5.2 Preavviso minimo (come funziona), 5.3 Prior
 
 ### Community 288 - "Art. 6 — Uscite (modo normale = tutti insieme)"
 Cohesion: 0.29
-Nodes (7): 6.0 Principio d’uso, 6.1 Definizioni, 6.2 Regola generale, 6.3 Uscita parziale, 6.4 Uscita solitaria, 6.5 Rientro e riconsegna, Art. 6 — Uscite (modo normale = tutti insieme)
+Nodes (7): 6.0 Principio d’uso, 6.1 Definizioni, 6.2 Regola generale, 6.3 Uscita parziale, 6.4 Uscita individuale (solitaria), 6.5 Rientro e riconsegna, Art. 6 — Uscite condivise, parziali e individuali
 
 ### Community 289 - "Art. 11 — Manutenzione e ruoli"
 Cohesion: 0.33
@@ -679,8 +704,8 @@ Cohesion: 0.33
 Nodes (6): 4.1 Custode, 4.2 Standard minimo di custodia, 4.3 Cambio custode, 4.4 Trasporto, 4.5 Accesso al mare, Art. 4 — Custodia e logistica
 
 ### Community 291 - "Art. 8 — Condotta, conducenti, legalità"
-Cohesion: 0.33
-Nodes (6): 8.1 Conducenti, 8.2 No-patente e limiti, 8.3 Alcol e sostanze, 8.4 Dotazioni obbligatorie, 8.5 Modifiche tecniche, Art. 8 — Condotta, conducenti, legalità
+Cohesion: 0.29
+Nodes (7): 8.1 Conducenti, 8.2 No-patente e limiti, 8.3 Alcol e sostanze, 8.4 Dotazioni obbligatorie, 8.5 Modifiche tecniche, 8.6 Pesca ricreativa, Art. 8 — Condotta, conducenti, legalità
 
 ### Community 292 - "Art. 9 — Costi"
 Cohesion: 0.33
@@ -692,7 +717,7 @@ Nodes (5): DATA_DIR, __dirname, errors, RULES, summaries
 
 ### Community 294 - "bozza-patto-v1.md"
 Cohesion: 0.40
-Nodes (4): Allegato A — Inventario (template), Allegato B — Custodia e accessi (template), Allegato C — Parametri formula (snapshot), Elenco rapido [DA DECIDERE] aperti in v1.1
+Nodes (4): Allegato A — Inventario (template), Allegato B — Custodia e accessi (template), Allegato C — Parametri formula (snapshot), Decisioni ancora aperte — versione 1.10
 
 ### Community 295 - "Art. 17 — Modifiche, dispute, versioni"
 Cohesion: 0.40
@@ -707,8 +732,8 @@ Cohesion: 0.50
 Nodes (4): 12.1 Principio, 12.2 Tabella, 12.3 Avviso, Art. 12 — Multe, sanzioni, fermo
 
 ### Community 298 - "Art. 15 — Vendita totale e scioglimento"
-Cohesion: 0.50
-Nodes (4): 15.1 Vendita del Bene, 15.2 Scioglimento del patto, 15.3 Diritto di prelazione in vendita a terzi, Art. 15 — Vendita totale e scioglimento
+Cohesion: 0.17
+Nodes (11): 10. Garanzia sull'usato, 1. Quadro vigente, 2. Patente e requisiti anagrafici, 3. Natante, iscrizione e documenti, 4. Persone trasportabili, 5. Dotazioni entro 6 miglia, 6. RC natanti, 7. Alcol e sostanze (+3 more)
 
 ### Community 299 - "Art. 1 — Parti, oggetto, durata"
 Cohesion: 0.50
@@ -718,18 +743,70 @@ Nodes (4): 1.1 Parti, 1.2 Oggetto del patto, 1.3 Durata, Art. 1 — Parti, ogget
 Cohesion: 0.50
 Nodes (4): 2.1 Quote, 2.2 Proprietà economica, 2.3 Divieto di smembramento unilaterale, Art. 2 — Quote e proprietà economica
 
+### Community 301 - "Snapshot fasce fuoribordo 9.9–40 CV — peso, cilindrata, consumo"
+Cohesion: 0.22
+Nodes (8): 1. Ancoraggi OEM 4 tempi (schede costruttore — Tohatsu America, 2026), 2. 2 tempi — perché solo range, 3. Metodologia consumi e €/h usata nel prospetto, 4. Velocità sul profilo gommone, 5. Prezzi usato IT e nuovo orientativo, 6. Limiti normativi già nel prospetto (richiamo), 7. Cautele, Snapshot fasce fuoribordo 9.9–40 CV — peso, cilindrata, consumo
+
+### Community 302 - "Export PDF — cantiere contratto"
+Cohesion: 0.29
+Nodes (6): Comandi, Comportamento dei PDF, Design stampa, Export PDF — cantiere contratto, Note, Setup (una volta)
+
+### Community 303 - "Pesca sportiva e ricreativa in mare — audit 2026"
+Cohesion: 0.29
+Nodes (6): Area marina protetta Secche di Tor Paterno, Fonti e fatti consolidati, Obblighi personali, Pesca sportiva e ricreativa in mare — audit 2026, Regole essenziali, Sanzioni 2026 rilevanti
+
+### Community 304 - "Verifica fasce motore e benzina — 2026-08-12"
+Cohesion: 0.40
+Nodes (4): Benzina di scenario, Criterio di prudenza, Riscontro OEM 4T, Verifica fasce motore e benzina — 2026-08-12
+
+### Community 305 - "Ordinanze locali litorale Lazio — verifica 2026"
+Cohesion: 0.33
+Nodes (5): Aggiornamento 2026-08-12 — corridoi vs elenco pin, Anzio, Nettuno e Circeo, Circondario marittimo Roma-Fiumicino, Ordinanze locali litorale Lazio — verifica 2026, Regole operative estratte dall'ordinanza n. 66/2025
+
+### Community 306 - "Art. 3 — Intestazione, assicurazione, documenti"
+Cohesion: 0.50
+Nodes (4): 3.1 Intestatario formale, 3.2 Assicurazione, 3.3 Documenti e luogo di custodia, Art. 3 — Intestazione, assicurazione, documenti
+
+### Community 307 - "dependencies"
+Cohesion: 0.50
+Nodes (3): @opencode-ai/plugin, dependencies, @opencode-ai/plugin
+
+### Community 308 - "build-mappa-varo.mjs"
+Cohesion: 0.14
+Nodes (13): calls, concessions, corridorChecks, data, decisions, esc(), glossary, infraRows (+5 more)
+
+### Community 309 - "Punti di varo — litorale laziale core Bestie"
+Cohesion: 0.29
+Nodes (6): Avvertenza, Categorie usate nel documento grafico, Contatti istituzionali / commerciali (verificati web 2026-08-12), Estratti schede Gommonauti (community, non ufficiali), Fonti, Punti di varo — litorale laziale core Bestie
+
+### Community 310 - "overview.md"
+Cohesion: 0.12
+Nodes (16): Approccio scelto, Casi limite, Client (`presentazione/src/js/sbarco.js`), Componenti, Criteri di accettazione, Decisioni chiuse in brainstorming, Design: Sessione Tiziano dopo passkey (meno QR/impronta), Documentazione / wiki (+8 more)
+
+### Community 311 - "Corridoi di lancio — Ardea / Pomezia / Tor San Lorenzo"
+Cohesion: 0.22
+Nodes (8): 1. La confusione da sciogliere, 2. Regola operativa (Art. 14–16 Capitaneria Roma 66/2025 = base Ardea/Pomezia/Fiumicino/Ostia), 3. Tor San Lorenzo / litorale Ardea, 4. Pomezia / Torvaianica — punti nominati (non confondere), 5. Conseguenza per il documento mappa, Chi deve installarlo (non il Comune “di default”), Come si riconosce un corridoio (Art. 14 c.4), Corridoi di lancio — Ardea / Pomezia / Tor San Lorenzo
+
+### Community 312 - "Punti di ormeggio e corridoi - Ardea / Tor San Lorenzo"
+Cohesion: 0.25
+Nodes (7): Concessioni nautiche locali censite, Contatti verificati, Correzione operativa importante, Fonte secondaria per il solo contatto del circolo, Fonti primarie, Punti di ormeggio e corridoi - Ardea / Tor San Lorenzo, Risultato della verifica
+
+### Community 313 - "Art. 15 — Vendita totale e scioglimento"
+Cohesion: 0.50
+Nodes (4): 15.1 Vendita del Bene, 15.2 Scioglimento del patto, 15.3 Diritto di prelazione in vendita a terzi, Art. 15 — Vendita totale e scioglimento
+
 ## Knowledge Gaps
-- **974 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+969 more)
+- **1077 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+1072 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **198 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **200 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Architettura e flusso di Sbarco` connect `Architettura e flusso di Sbarco` to `index.md`?**
-  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `index.md`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _975 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1078 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `annunci.js` be split into smaller, more focused modules?**
   _Cohesion score 0.09309309309309309 - nodes in this community are weakly interconnected._
 - **Should `B — Carrello a casa / box (trailer) — **ESCLUSA**` be split into smaller, more focused modules?**
@@ -737,6 +814,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `fetch-accessori.mjs` be split into smaller, more focused modules?**
   _Cohesion score 0.11576354679802955 - nodes in this community are weakly interconnected._
 - **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
-  _Cohesion score 0.03773584905660377 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.03225806451612903 - nodes in this community are weakly interconnected._
 - **Should `AGENTS.md — Progetto Barca (Le Bestie)` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
