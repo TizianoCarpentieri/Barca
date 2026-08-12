@@ -426,7 +426,7 @@ Per dettagli usa read_wiki. Non trasformare stime o note storiche in fatti verif
 };
 
 async function fetchWikiPage(kv, key, pageDef) {
-  const cacheKey = `wiki:cache:${key}`;
+  const cacheKey = `wiki:cache:v3:${key}`;
   try {
     const cached = await kv.get(cacheKey);
     if (cached) return cached;
