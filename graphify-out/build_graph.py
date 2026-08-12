@@ -8,7 +8,9 @@ import os
 from pathlib import Path
 
 WIKI_DIR = Path("wiki")
-OUTPUT = Path("graphify-out/graph.json")
+# Domain graph for Sbarco retrieval (do NOT overwrite the code graphify-out/graph.json)
+OUTPUT = Path("graphify-out/sbarco-graph.json")
+WORKER_COPY = Path("worker/graph.json")
 
 # ── Collect all wiki .md files ──────────────────────────────────
 md_files = sorted(WIKI_DIR.rglob("*.md"))
@@ -420,5 +422,8 @@ graph = {
 }
 
 os.makedirs(OUTPUT.parent, exist_ok=True)
-OUTPUT.write_text(json.dumps(graph, indent=2, ensure_ascii=False), encoding="utf-8")
-print(f"Graph built: {len(nodes)} nodes, {len(edges)} edges")
+payload = json.dumps(graph, indent=2, ensure_ascii=False)
+OUTPUT.write_text(payload, encoding="utf-8")
+WORKER_COPY.parent.mkdir(parents=True, exist_ok=True)
+WORKER_COPY.write_text(payload, encoding="utf-8")
+print(f"Graph built: {len(nodes)} nodes, {len(edges)} edges → {OUTPUT} + {WORKER_COPY}")
