@@ -437,3 +437,21 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 
 - Sostituita la vecchia fascia 6–15 CV: target 9–40 CV, purché entro 30 kW/40,8 CV, cilindrata ammessa e potenza massima dello scafo.
 - 4T resta preferito; gambo da scegliere sullo specchio di poppa reale.
+
+## [2026-08-12] contratto/pdf | Patto v1.9 e prospetto più leggibile
+
+- Riformulato l’art. 6: le uscite con tutti i soci sono lo scopo principale e la loro maggiore frequenza è un’ipotesi organizzativa, non un obbligo.
+- Separata la tabella motori in tre confronti leggibili; mantenute le velocità in nodi come stime esplicite.
+- Benzina di scenario aggiornata a 1,97 €/L su dato MIMIT Lazio del 12 agosto 2026; precisata la soglia estintore 21B oltre 18,4 kW.
+- Export PDF aggiornato con indice navigabile su entrambi i documenti e changelog esclusi dalla resa PDF.
+
+## [2026-08-12] preferenze | Velocità indicative nei confronti motore
+
+- Il gruppo considera utili le velocità in nodi per capire le differenze tra le fasce.
+- I valori restano nei documenti solo se presentati chiaramente come stime dipendenti da scafo, carico, elica, assetto e mare.
+
+## [2026-08-12] contratto | Correzione sistematica richiami alle uscite — v1.10
+
+- Rimossi dagli artt. 5.2, 10.1, 10.4 e 10.6 i residui che descrivevano l’uscita con tutti i soci come “caso normale” e le altre come eccezioni.
+- Gli obblighi in caso di sinistro dipendono ora dai soci effettivamente presenti, senza affermazioni sulla frequenza delle diverse uscite.
+- Corretto il riparto da “1/N tra i presenti” a **1/P**, con P uguale al numero dei soci presenti; restano distinti i casi della tabella 10.2 a carico di tutti i soci 1/N.

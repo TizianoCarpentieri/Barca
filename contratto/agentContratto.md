@@ -8,7 +8,7 @@
 (o relativo al root repo: `contratto/`)
 
 **Fase corrente:** cantiere attivo in `contratto/`.  
-**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.8**).
+**Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.10**).
 Non propagare il testo del patto in `wiki/` finché non è stabile e il gruppo non lo chiede.
 
 ---
@@ -102,7 +102,7 @@ In bozza: se contrasto con norme imperative → prevale la legge.
 
 Principi di gruppo già in bozza:
 
-- uscite **normali = tutti insieme** (art. 6.0);
+- scopo principale = uscite con tutti i soci; maggiore frequenza formulata come **ipotesi organizzativa**, non obbligo (art. 6.0);
 - costi fissi e acquisto 1/N;
 - in gruppo: danni di default **1/N presenti**, salvo errore palese di uno;
 - usura / tagliando programmato → 1/N;
@@ -124,11 +124,11 @@ Principi di gruppo già in bozza:
 10. **Solidarietà ≠ scudo colpa palese.**
 11. **Unanimità** su vendita, nuovo socio, modifica patto, esclusione (con regole bozza).
 12. **Legge/costi obbligatori → prospetto** (§1.1) prima o insieme al patto.
-13. **Modo normale = gruppo insieme;** parziale/solitaria = eccezione documentata, non lo stile di vita del testo.
+13. **Scopo principale = gruppo insieme;** si ipotizza che parziali/individuali siano meno frequenti, senza trasformare l’ipotesi in obbligo o limite d’uso.
 
 ---
 
-## 6. Checklist scenari (stato vs bozza 1.8)
+## 6. Checklist scenari (stato vs bozza 1.10)
 
 Legenda: `[x]` coperto in bozza (anche se restano dettagli aperti) · `[ ]` ancora debole/aperto.
 
@@ -157,8 +157,8 @@ Legenda: `[x]` coperto in bozza (anche se restano dettagli aperti) · `[ ]` anco
 - [x] Priorità conflitto
 - [x] Cancellazione (solo spese reali documentate)
 - [x] Meteo no-go
-- [x] **Modo normale = uscita di gruppo**
-- [ ] Solitarie: sì/no definitivo
+- [x] Uscite con tutti i soci = scopo principale; maggiore frequenza solo ipotizzata
+- [ ] Uscite individuali: sì/no definitivo e condizioni
 - [x] Rientro/riconsegna
 - [x] Registro uscite (proposta obbligatorio)
 
@@ -270,13 +270,13 @@ Vedi art. 13 bozza. Vincoli:
 
 ---
 
-## 10. Open decisions (allineati a bozza 1.8)
+## 10. Open decisions (allineati a bozza 1.10)
 
 1. Contatti parti (nomi in bozza: Tiziano, Antonio, Peppe)  
 2. Intestatario gommone / motore / polizza  
 3. Custode e luogo (criterio carico/scarico)  
 4. Quale canale di gruppo + link Google Drive  
-5. Uscite solitarie: sì/no definitivo  
+5. Uscite individuali: sì/no definitivo e condizioni  
 6. Conducenti non-soci  
 7. Parametri formula (r, cap_t, w, cap_u, termini pagamento) se diversi dalle proposte  
 8. Interessi di mora  
@@ -288,13 +288,13 @@ Vedi art. 13 bozza. Vincoli:
 
 ## 11. Mappa rapida bozza (orientamento)
 
-| Art. | Tema | Note v1.8 |
+| Art. | Tema | Note v1.10 |
 |------|------|-----------|
 | 1–2 | Parti, quote | nomi: Tiziano, Antonio, Peppe |
 | 3 | Intestazione, RC, Drive | RC obbligatoria legge |
 | 4 | Custodia | no “furti banali”; carico/scarico |
 | 5 | Calendario | preavviso chiaro |
-| 6 | Uscite | **6.0 gruppo = normale** |
+| 6 | Uscite | gruppo completo = scopo principale; frequenza maggiore solo ipotizzata |
 | 7 | Ospiti | |
 | 8 | Condotta | alcol + dotazioni presenti |
 | 9 | Costi | no cassa; cap 30 non hard |
@@ -313,6 +313,8 @@ Prospetto: §1 RC · §1b alcol · §2 dotazioni/luci · §6 tagliando.
 
 | Data | Nota |
 |------|------|
+| 2026-08-12 | Bozza v1.10: rimossi dagli artt. 5 e 10 i residui “caso normale/di regola/eccezione” sulle uscite; chiarito 1/P tra presenti e rapporto con tabella 10.2. |
+| 2026-08-12 | Bozza v1.9: uscita completa/parziale/individuale senza sovrapposizioni; frequenza del gruppo completo espressa come ipotesi e non obbligo. |
 | 2026-08-11 | Bozza v1.7: 13 spiegato; 16.1 no eredi; 16.3 no rimborso escluso; nomi snelli; patto senza riferimenti repo. |
 | 2026-08-11 | Revisione post-sessione patto v1.6: edit-in-place obbligatorio; warning buffer IDE; seed cap/lunghezza; checklist stato reale; mappa articoli; open decisions aggiornate. |
 | 2026-08-11 | Prospetto + § regola d’oro costi/leggi; bozza iniziale e iterazioni 1.1–1.6. |

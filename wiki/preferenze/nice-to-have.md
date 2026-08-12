@@ -1,7 +1,7 @@
 ---
 title: Nice-to-have e priorità d'uso
 type: preferenza
-updated: 2026-08-10
+updated: 2026-08-12
 status: active
 tags: [desiderata, pesca, priorita]
 ---
@@ -51,6 +51,11 @@ tags: [desiderata, pesca, priorita]
 | Paiolato alluminio / airdeck | **alta** su track **gommoni** |
 | Motore 4T nella fascia 9–40 CV, compatibile con scafo e no-patente | **alta** se track gommone |
 | Tavolo/frigo | bassa |
+
+## Preferenze di presentazione e confronto
+
+- Nei prospetti motore, mantenere le **velocità indicative in nodi**: aiutano il gruppo a percepire le differenze tra le fasce.
+- Etichettarle sempre come **stime**, con richiamo esplicito alla dipendenza da scafo, carico, elica, assetto e condizioni del mare.
 
 ## Piano corrente (aggiornato 2026-08-10)
 

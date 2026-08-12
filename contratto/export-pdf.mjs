@@ -205,13 +205,202 @@ function stripFirstH1(md) {
   return md.replace(/^#\s+[^\n\r]+(?:\r?\n)+/, "");
 }
 
-async function renderMarkdown(md) {
+/** Remove only changelog sections from the PDF body, wherever they appear. */
+function stripChangelog(md) {
+  const lines = String(md).split(/\r?\n/);
+  const out = [];
+  let skipping = false;
+  let changelogLevel = 0;
+
+  for (const line of lines) {
+    const heading = line.match(/^(#{1,6})\s+(.+?)\s*$/);
+    const headingText = heading
+      ? heading[2].replace(/[*_`]/g, "").trim()
+      : "";
+
+    if (!skipping && heading && /^changelog(?:\s+bozza|\s+mandato)?$/i.test(headingText)) {
+      skipping = true;
+      changelogLevel = heading[1].length;
+      continue;
+    }
+
+    if (skipping) {
+      if (heading && heading[1].length <= changelogLevel) {
+        skipping = false;
+        out.push(line);
+      }
+      continue;
+    }
+
+    out.push(line);
+  }
+
+  return out.join("\n");
+}
+
+function slugify(text) {
+  return String(text)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/<[^>]+>/g, "")
+    .replace(/&[a-z]+;/gi, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80) || "sez";
+}
+
+function parseMermaidXyChart(block) {
+  const titleM = block.match(/title\s+"([^"]+)"/);
+  const xM = block.match(/x-axis\s+\[([^\]]+)\]/);
+  const yM = block.match(/y-axis\s+"([^"]+)"\s+([\d.]+)\s*-->\s*([\d.]+)/);
+  const barM = block.match(/bar\s+\[([^\]]+)\]/);
+  if (!xM || !barM) return null;
+  const labels = xM[1].split(",").map((s) => s.replace(/"/g, "").trim()).filter(Boolean);
+  const values = barM[1].split(",").map((s) => Number(String(s).trim())).filter((n) => !Number.isNaN(n));
+  if (!labels.length || labels.length !== values.length) return null;
+  return {
+    title: titleM ? titleM[1] : "",
+    yLabel: yM ? yM[1] : "",
+    yMax: yM ? Number(yM[3]) : Math.max(...values) * 1.15,
+    labels,
+    values,
+  };
+}
+
+function buildBarChartHtml(chart, { accent = "#1a3358", accentAlt = "#5b8fc7" } = {}) {
+  const max = chart.yMax > 0 ? chart.yMax : Math.max(...chart.values, 1);
+  const bars = chart.labels
+    .map((label, i) => {
+      const v = chart.values[i];
+      const pct = Math.max(2, Math.round((v / max) * 1000) / 10);
+      const color = i % 2 === 0 ? accent : accentAlt;
+      return `<div class="chart-row">
+  <div class="chart-label">${esc(label)}</div>
+  <div class="chart-track"><div class="chart-bar" style="width:${pct}%;background:${color}"></div></div>
+  <div class="chart-val">${esc(String(v).replace(".", ","))}</div>
+</div>`;
+    })
+    .join("\n");
+  return `<figure class="chart-block">
+  ${chart.title ? `<figcaption class="chart-title">${esc(chart.title)}</figcaption>` : ""}
+  ${chart.yLabel ? `<p class="chart-axis">${esc(chart.yLabel)}</p>` : ""}
+  <div class="chart-bars">${bars}</div>
+</figure>`;
+}
+
+function decodeHtmlEntities(s) {
+  return String(s)
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+function prepareMarkdownForPdf(md) {
+  return stripFirstH1(stripChangelog(md));
+}
+
+/** After marked: mermaid xychart + ASCII bar pre → HTML charts. */
+function replaceChartsInHtml(html) {
+  let out = html.replace(
+    /<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/gi,
+    (_, body) => {
+      const chart = parseMermaidXyChart(decodeHtmlEntities(body));
+      return chart ? buildBarChartHtml(chart) : "";
+    }
+  );
+
+  out = out.replace(/<pre><code(?:\s+class="language-text")?>([\s\S]*?)<\/code><\/pre>/gi, (full, body) => {
+    const text = decodeHtmlEntities(body);
+    if (!text.includes("█") && !/PESO A SECCO|COSTO CARBURANTE/i.test(text)) return full;
+    const lines = text.split(/\r?\n/).map((l) => l.trimEnd()).filter((l) => l.trim());
+    const titleHint = lines.find((l) => /PESO|COSTO|€\/h|kg/i.test(l) && !l.includes("█")) || text;
+    const data = [];
+    for (const line of lines) {
+      const m = line.match(
+        /^(\d+[.,]?\d*)\s+(2T|4T)\s+[█\s\.·]+([\d]+(?:[.,]\d+)?)\s*$/i
+      );
+      if (m) {
+        data.push({
+          label: `${m[1].replace(",", ".")} ${m[2].toUpperCase()}`,
+          value: Number(m[3].replace(",", ".")),
+        });
+      }
+    }
+    if (data.length < 3) return full;
+    const isEuro = /€|COSTO|carburante/i.test(titleHint);
+    return buildBarChartHtml({
+      title: isEuro
+        ? "€/h carburante uso misto @ 1,97 €/L (punto medio)"
+        : "Peso medio a secco (kg) per fascia",
+      yLabel: isEuro ? "€/h" : "kg",
+      yMax: isEuro ? 20 : 110,
+      labels: data.map((d) => d.label),
+      values: data.map((d) => d.value),
+    });
+  });
+
+  return out;
+}
+
+function injectHeadingIds(html) {
+  const used = new Map();
+  return html.replace(/<h([1-4])>([\s\S]*?)<\/h\1>/gi, (_, level, inner) => {
+    const text = decodeHtmlEntities(inner.replace(/<[^>]+>/g, "")).trim();
+    let id = slugify(text);
+    const n = (used.get(id) || 0) + 1;
+    used.set(id, n);
+    if (n > 1) id = `${id}-${n}`;
+    return `<h${level} id="${id}">${inner}</h${level}>`;
+  });
+}
+
+function buildTocHtml(html, { levels = [2, 3], variant = "default" } = {}) {
+  const items = [];
+  const re = /<h([1-4])\s+id="([^"]+)"[^>]*>([\s\S]*?)<\/h\1>/gi;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const level = Number(m[1]);
+    if (!levels.includes(level)) continue;
+    const id = m[2];
+    const text = decodeHtmlEntities(m[3].replace(/<[^>]+>/g, "")).trim();
+    if (!text || /^indice$/i.test(text)) continue;
+    items.push({ level, id, text });
+  }
+  if (items.length < 3) return "";
+  const lis = items
+    .map((it) => {
+      const cls = `toc-l${it.level}`;
+      return `<li class="${cls}"><a href="#${it.id}">${esc(it.text)}</a></li>`;
+    })
+    .join("\n");
+  return `<nav class="toc toc--${esc(variant)}" aria-label="Indice del documento">
+  <p class="toc-kicker">Mappa del documento</p>
+  <h2 class="toc-heading">Indice</h2>
+  <p class="toc-note">Seleziona una voce nel PDF per raggiungere la sezione.</p>
+  <ol class="toc-list">
+${lis}
+  </ol>
+</nav>`;
+}
+
+async function renderMarkdown(md, { tocLevels = [], tocVariant = "default" } = {}) {
   marked.setOptions({
     gfm: true,
     breaks: false,
   });
-  const raw = await marked.parse(stripFirstH1(md));
-  return enhanceHtml(raw);
+  const prepared = prepareMarkdownForPdf(md);
+  let raw = await marked.parse(prepared);
+  raw = enhanceHtml(raw);
+  raw = replaceChartsInHtml(raw);
+  raw = injectHeadingIds(raw);
+  if (tocLevels.length) {
+    const toc = buildTocHtml(raw, { levels: tocLevels, variant: tocVariant });
+    if (toc) raw = `${toc}\n${raw}`;
+  }
+  return raw;
 }
 
 async function writePdf(html, pdfPath, footerLabel) {
@@ -251,7 +440,13 @@ async function writePdf(html, pdfPath, footerLabel) {
 async function exportOne({ conf, md, outDir, htmlOnly }) {
   const css = await readFile(path.join(ROOT, "export-theme.css"), "utf8");
   const meta = extractMeta(md, conf);
-  const bodyHtml = await renderMarkdown(md);
+  // Entrambi i documenti hanno indice navigabile; il dettaglio cambia per
+  // evitare un indice eccessivamente lungo nel patto.
+  const tocLevels = conf.id === "bozza" ? [1, 2] : conf.id === "prospetto" ? [2, 3] : [];
+  const bodyHtml = await renderMarkdown(md, {
+    tocLevels,
+    tocVariant: conf.id,
+  });
   const html = buildDocumentHtml({ conf, meta, bodyHtml, css });
 
   await mkdir(outDir, { recursive: true });

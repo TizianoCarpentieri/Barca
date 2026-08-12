@@ -1,7 +1,7 @@
 # Patto di gestione condivisa — Gommone Le Bestie
 
-**Versione:** 1.8 (bozza di lavoro)
-**Data:** 2026-08-11  
+**Versione:** 1.10 (bozza di lavoro)
+**Data:** 2026-08-12  
 **Natura:** patto tra amici a precisione contrattuale. Non è un atto notarile né consulenza legale.  
 **In caso di contrasto con norme imperative italiane, prevale la legge.**
 
@@ -9,6 +9,8 @@
 
 | Ver. | Data | Nota |
 |------|------|------|
+| 1.10 | 2026-08-12 | Allineati artt. 5 e 10 all’ipotesi organizzativa dell’art. 6: rimossi “caso normale”, “di regola tutti insieme” ed “eccezione” riferiti alle uscite parziali/individuali; riparto dei presenti espresso correttamente come 1/P. |
+| 1.9 | 2026-08-12 | Uscite complete, parziali e individuali definite senza sovrapposizioni; la maggiore frequenza delle uscite con tutti i soci è formulata come ipotesi organizzativa coerente con lo scopo del progetto, non come obbligo. |
 | 1.8 | 2026-08-11 | Audit normativa: documenti a bordo, limiti no-patente completi, portata, ordinanze di varo, pesca ricreativa e distinzione tra responsabilità legale e riparto interno. |
 | 1.7 | 2026-08-11 | Art. 13: spiegazioni rinormalizzazione quote e Rimborso≥0 + esempio narrativo; 16.1 decesso senza eredi/subentro; 16.3 esclusione senza rimborso + più casi; nomi solo Tiziano/Antonio/Peppe; zero riferimenti a repo/file di progetto. |
 | 1.6 | 2026-08-11 | Art. 11.4: manutenzione a rotazione / chi fa meno il resto; non referente fisso obbligatorio. |
@@ -177,7 +179,7 @@ Messaggi lì = notifiche valide tra i soci.
 | **Last minute** | Ok se **nessuno ha già prenotato** quello slot e scrivi **prima di partire** | Es.: pomeriggio libero, Bene a casa, mandi “esco ora” |
 | **Blocco lungo del Bene** (>3 giorni di fila di possesso/uso esclusivo) | Avvisare **almeno 7 giorni prima** | Es.: lo porti in ferie o lo tieni fuori sede una settimana |
 
-Se l’uscita è **tutti insieme** (caso normale, art. 6), basta un messaggio condiviso: non serve “prenotarsi contro” gli altri.
+Se **tutti i soci partecipano alla stessa uscita**, basta un messaggio condiviso: non serve “prenotarsi contro” gli altri.
 
 ### 5.3 Priorità in conflitto
 
@@ -208,26 +210,26 @@ Serve alla formula di uscita (art. 13) e alle contestazioni danni.
 
 ---
 
-## Art. 6 — Uscite (modo normale = tutti insieme)
+## Art. 6 — Uscite condivise, parziali e individuali
 
 ### 6.0 Principio d’uso
 
-Il Bene si compra **per uscire insieme**.  
-Il **modo normale e atteso** è l’uscita di **gruppo** (tutti i soci presenti, o tutti invitati e chi non viene lo sa).  
-Le regole su uscite parziali o solitarie servono solo come **rete di sicurezza** se un giorno capita (malattia, impegni, eccezione): **non** descrivono lo stile di vita del patto né danno l’idea che uscire da soli sia la routine.
+Il Bene è acquistato principalmente per organizzare **uscite condivise tra tutti i soci**, che costituiscono la finalità centrale del progetto.  
+Allo stato attuale si **ipotizza** che le uscite con la presenza di tutti i soci avvengano con maggiore frequenza rispetto alle uscite parziali o individuali. È una previsione organizzativa, non un obbligo minimo di partecipazione né una limitazione dei diritti d’uso.  
+Le regole seguenti disciplinano in modo chiaro tutti i casi qualora si verifichino.
 
 ### 6.1 Definizioni
 
-| Tipo | Significato | Frequenza attesa |
-|------|-------------|------------------|
-| **Di gruppo (completa)** | Tutti i soci a bordo, o tutti invitati e chi manca lo sa | **Normale** |
-| **Parziale** | Manca almeno un socio; a bordo c’è almeno un socio responsabile | Eccezione |
-| **Solitaria** | Un solo socio a bordo (eventualmente con ospiti non-soci) | Eccezione rara |
+| Tipo | Definizione | Ruolo nel progetto |
+|------|-------------|--------------------|
+| **Condivisa completa** | Tutti i soci attivi sono a bordo | **Scopo principale** |
+| **Parziale** | Sono a bordo almeno due soci attivi, ma non tutti | Uso possibile; si ipotizza meno frequente |
+| **Individuale (solitaria)** | È a bordo un solo socio attivo, anche con eventuali ospiti non-soci | Uso possibile; si ipotizza meno frequente |
 
 ### 6.2 Regola generale
 
 Ogni socio in regola con quote e obblighi può usare il Bene nelle forme sopra, nel rispetto di questo patto e della legge.  
-Si favorisce sempre il coordinamento per uscire **insieme**.
+Prima di organizzare un’uscita parziale o individuale, si favorisce il coordinamento sul canale ufficiale per verificare se gli altri soci desiderano partecipare.
 
 ### 6.3 Uscita parziale
 
@@ -235,14 +237,14 @@ Si favorisce sempre il coordinamento per uscire **insieme**.
 - Chi è a bordo assume gli obblighi di conducente/utilizzatore (artt. 8, 10, 11).
 - I soci assenti restano obbligati ai **costi fissi**; i **costi variabili dell’uscita** (carburante, eventuali ticket) li pagano chi partecipa, in parti uguali tra i presenti, salvo diverso accordo pre-uscita.
 
-### 6.4 Uscita solitaria
+### 6.4 Uscita individuale (solitaria)
 
 | Voce | Proposta v1 |
 |------|-------------|
 | Consentita? | **[DA DECIDERE — proposta: SÌ, con condizioni]** |
 | Condizioni | preavviso art. 5; Bene in ordine; dotazioni a bordo; check meteo; messaggio “parto / rientro” |
-| Rischio | il solitario è conducente unico → colpa = paga lui (art. 10) |
-| Divieto temporaneo | il gruppo può sospendere le solitarie a unanimità dopo un incidente o uso scorretto |
+| Rischio | il socio che esce individualmente è l’unico conducente responsabile → colpa = paga lui (art. 10) |
+| Divieto temporaneo | il gruppo può sospendere le uscite individuali a unanimità dopo un incidente o uso scorretto |
 
 ### 6.5 Rientro e riconsegna
 
@@ -386,9 +388,9 @@ Sono **straordinarie** le spese **una tantum** non di routine, non il pieno o il
 
 ### 10.1 Principio
 
-> In **uscita di gruppo** (caso normale): il danno si divide **1/N tra i presenti**, salvo **errore palese** imputabile a uno o più soci specifici.  
-> Fuori dal gruppo / colpa chiara: **chi causa paga**.  
-> Usura normale o vizio senza colpa d’uso: **tutti 1/N** (anche assenti ai fissi di possesso).
+> Se un danno è collegato all’uso durante un’uscita e non emerge un **errore palese** imputabile a uno o più soci specifici, la parte non coperta si divide **1/P tra i soci presenti**, con **P = numero dei soci presenti**. Nell’uscita individuale P = 1.  
+> In caso di colpa chiara: **chi causa paga**.  
+> Restano a carico di **tutti i soci 1/N** l’usura normale, i vizi senza colpa d’uso e gli altri casi espressamente indicati nella tabella 10.2.
 
 ### 10.2 Tabella
 
@@ -412,8 +414,7 @@ L’assicurazione si usa sempre se operante; nessuno rifiuta di denunciare per �
 
 ### 10.4 Obblighi in caso di sinistro
 
-**Premessa:** di regola si esce **tutti insieme** (art. 6.0). In quel caso gli obblighi sotto valgono per **il gruppo presente** (ci si organizza tra chi c’è).  
-Se per eccezione **non** sono tutti a bordo, valgono in capo ai **soci presenti**; chi è a casa va avvisato.
+Gli obblighi urgenti e documentali sotto indicati spettano ai **soci presenti all’evento**, indipendentemente dal fatto che l’uscita sia completa, parziale o individuale. I presenti si organizzano tra loro; se è presente un solo socio, provvede lui. I soci assenti vengono avvisati appena gestita la sicurezza e comunque secondo il termine sotto indicato.
 
 Chi è presente all’evento:
 
@@ -433,12 +434,9 @@ Se il Bene è distrutto o la riparazione supera **Proposta v1: 60%** del ValoreB
 
 ### 10.6 Contestazione “colpa vs caso” (come si decide)
 
-#### A. Default se si era tutti insieme
+#### A. Default quando non emerge una colpa specifica
 
-Se il danno avviene in **uscita di gruppo** e **non** c’è un errore **palese** a carico di uno o più soci (es. manovra da show-off di uno solo, alcol del solo conducente, ospite di un socio):
-
-→ si paga **1/N tra i soci presenti** all’uscita.  
-Non serve processo: è il default.
+Se il danno è collegato all’uso durante un’uscita e non emerge un errore **palese** attribuibile a uno o più soci, la parte non coperta si paga **1/P tra i soci presenti** all’uscita, con **P = presenti**. Se l’uscita è individuale, P = 1. Restano ferme le diverse ripartizioni previste dalla tabella 10.2. È il default: non serve aprire una contestazione.
 
 #### B. Se qualcuno contesta il default (o c’è sospetto di colpa specifica)
 
@@ -458,7 +456,7 @@ Il verbale **non** assegna colpe: descrive i fatti condivisi.
 Chi dissente su un fatto lo marca come “non condiviso” e non entra nel blocco “fatti concordati”.
 
 **Passo 3 — Riparazione non bloccata**  
-Se serve riparare subito: si anticipa in **1/N tra i presenti** (o tra tutti se così si decide per urgenza). Poi si conguaglia col Passo 4.
+Se serve riparare subito: si anticipa in **1/P tra i presenti**, con P = presenti (o tra tutti se così si decide per urgenza). Poi si conguaglia col Passo 4.
 
 **Passo 4 — Valutazione esterna delle colpe**  
 Il verbale (fatti concordati + materiali) si fa valutare a **una sola** di queste opzioni, scelta di volta in volta a maggioranza dei soci coinvolti:
@@ -466,12 +464,12 @@ Il verbale (fatti concordati + materiali) si fa valutare a **una sola** di quest
 1. **persona estranea al progetto** di fiducia comune (amico esperto, tecnico nautico, mediatori informali…); oppure  
 2. **un LLM** con system prompt dedicato (neutrale, solo sui fatti del verbale, output = % di responsabilità tra i soci presenti che sommano 100%).
 
-L’esito indica le **percentuali di colpa** tra i soci presenti (es. 70% Tiziano / 20% Antonio / 10% Peppe, oppure 0% colpa individuale → 1/N).  
+L’esito indica le **percentuali di colpa** tra i soci presenti (es. 70% Tiziano / 20% Antonio / 10% Peppe, oppure nessuna colpa individuale → riparto paritario **1/P tra i presenti**).  
 Su quello si calcola chi paga la riparazione (e il conguaglio sugli anticipi del Passo 3).
 
 **Passo 5 — Costo della valutazione**  
 - Se l’esito dà colpe chiare (≥ una quota individuale ≥ 50% o errore palese riconosciuto): costo eventuale del terzo/tecnico a carico di chi risulta principale responsabile in proporzione alle %.  
-- Se l’esito è sostanzialmente “nessuna colpa individuale” o riparto vicino a 1/N: costo della valutazione in **1/N tra i presenti**.  
+- Se l’esito è sostanzialmente “nessuna colpa individuale” o riparto paritario tra i presenti: costo della valutazione in **1/P tra i presenti**, con P = presenti.  
 - LLM a costo trascurabile: si ignora.
 
 **Passo 6 — Vincolo**  
@@ -535,7 +533,7 @@ Chi se ne va prima senza accordo lascia comunque la responsabilità condivisa su
 1. Un socio manda **sollecito** sul canale (“serve tagliando entro …, chi se ne occupa?”).
 2. Se per **30 giorni** non c’è incaricato né esecuzione:
    - **qualsiasi socio** può far eseguire il tagliando e ribaltare il costo **1/N**;
-   - se dal ritardo nasce un **danno** al motore dimostrabile da inerzia di gruppo → art. 10 (di regola presenti/tutti; se un socio aveva accettato l’incarico e poi sparito → rivalersi su di lui per la parte di omissione).
+   - se dal ritardo nasce un **danno** al motore dimostrabile da inerzia di gruppo → art. 10 (riparto secondo natura e causa del danno; se un socio aveva accettato l’incarico e poi è rimasto inerte → rivalersi su di lui per la parte di omissione).
 
 **Open:** preventivo reale Lazio sul motore scelto.
 
@@ -597,7 +595,8 @@ Dalla data di efficacia del recesso (fine preavviso, o data diversa concordata):
 3. Le **uscite** applicano un **correttivo secondario con tetto**: non possono valere quanto un anno intero di deprezzamento se sono poche decine.
 4. Si applica un **fattore stato** del Bene.
 5. Si tolgono i **debiti** dell’uscente verso il gruppo.
-6. Il rimborso della quota **non può essere negativo**: si calcola `Rimborso = max(0, QuotaLorda − D_i)`. Se l’uscente deve al gruppo **più** di quanto gli spetterebbe di quota (es. multe non pagate, danni a suo carico), il rimborso è **0 €** e il **debito residuo** resta dovuto: il gruppo può ancora pretenderlo (compensazione, sollecito, art. 16).
+
+**Vincolo sul rimborso:** la quota **non può essere negativa**. Si calcola `Rimborso = max(0, QuotaLorda − D_i)`. Se l’uscente deve al gruppo **più** di quanto gli spetterebbe di quota (es. multe non pagate, danni a suo carico), il rimborso è **0 €** e il **debito residuo** resta dovuto: il gruppo può ancora pretenderlo (compensazione, sollecito, art. 16).
 
 ### 13.4 Parametri (Proposta v1)
 
@@ -862,7 +861,7 @@ Una copia digitale aggiornata resta accessibile a tutti i soci (stesso strumento
 
 Le Parti dichiarano di aver letto e compreso il patto, in particolare:
 
-- artt. 6 (uscite parziali/solitarie),
+- artt. 6 (uscite condivise, parziali e individuali),
 - 10 (danni),
 - 13 (uscita e formula).
 
@@ -921,14 +920,14 @@ termine_pagamento_giorni = 60
 
 ---
 
-# Elenco rapido [DA DECIDERE] aperti in v1.7
+# Decisioni ancora aperte — versione 1.10
 
 1. Contatti parti  
 2. Intestatari gommone/motore/polizza  
 3. Custode e luogo (con criterio carico/scarico)  
 4. Canale ufficiale (quale app/chat, senza nome fisso nel patto)  
 5. Preavviso (se diverso da 48h / 7gg / last minute)  
-6. Uscite solitarie: sì/no definitivo (restano eccezione)  
+6. Uscite individuali: sì/no definitivo e relative condizioni  
 7. Conducenti non-soci  
 8. Parametri formula se diversi dalla proposta  
 9. Interessi di mora  

@@ -38,5 +38,11 @@ La cartella `export/` è in `.gitignore`: i PDF non si committano di default.
 
 ## Note
 
+## Comportamento dei PDF
+
+- **Indice navigabile** automatico in testa: articoli e allegati nel patto, sezioni e sottosezioni nel prospetto.
+- Sezioni **Changelog** escluse da entrambi i PDF (restano nei markdown sorgente per tracciabilità).
+- Blocchi ASCII a barre (e mermaid `xychart`) convertiti in **grafici HTML** stampabili.
+
 - Non esportare PDF “finali” finché bozza/prospetto sono in modifica attiva, salvo QA.
 - Il PDF **non** è atto notarile né consulenza legale.

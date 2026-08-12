@@ -179,8 +179,12 @@ body {
 .content ul,
 .content ol {
   margin: 0 0 7pt;
-  padding-left: 1.15em;
+  padding-left: 1.7em;
   font-size: 9pt;
+}
+
+.content ol {
+  list-style-position: outside;
 }
 
 .content li {
@@ -334,6 +338,189 @@ body {
   padding: 2.5pt 3pt;
 }
 
+/* —— Indice (TOC) —— */
+.toc {
+  margin: 0 0 16pt;
+  padding: 10pt 11pt 11pt;
+  border: 0.6pt solid var(--rule);
+  border-left: 3pt solid var(--navy);
+  background: linear-gradient(90deg, var(--row-alt), var(--paper) 42%);
+  page-break-inside: avoid;
+}
+
+.toc-kicker {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 6.5pt !important;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy-mid);
+  margin: 0 0 1pt !important;
+}
+
+.content .toc-heading {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif !important;
+  font-size: 14pt !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  color: var(--navy) !important;
+  margin: 0 0 1pt !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.toc-note {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7pt !important;
+  color: var(--muted);
+  margin: 0 0 7pt !important;
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  columns: 2;
+  column-gap: 14pt;
+}
+
+.toc-list li {
+  margin: 0 0 2.5pt !important;
+  padding: 0 !important;
+  break-inside: avoid;
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7.5pt;
+  line-height: 1.3;
+}
+
+.toc-list .toc-l2 {
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 3pt !important;
+}
+
+.toc-list .toc-l1 {
+  font-weight: 600;
+  color: var(--navy);
+  margin-top: 4pt !important;
+}
+
+.toc-list .toc-l3 {
+  font-weight: 400;
+  padding-left: 8pt !important;
+  color: var(--ink-soft);
+}
+
+.toc--bozza .toc-list {
+  columns: 2;
+}
+
+.toc--bozza .toc-l2 {
+  font-weight: 500;
+}
+
+.content ul.contains-task-list {
+  break-inside: avoid-page;
+}
+
+.content h2 + *,
+.content h3 + *,
+.content h4 + * {
+  break-before: avoid-page;
+}
+
+/* Transizioni curate nei due documenti lunghi. */
+[id="13-3-formula-principi"] + ol {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+[id="13-6-fattore-stato-s"],
+[id="12-3-grafici-a-colpo-d-occhio"] {
+  break-before: page;
+  page-break-before: always;
+}
+
+.content h4 + p {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.toc-list a {
+  color: inherit !important;
+  border-bottom: none !important;
+  text-decoration: none;
+}
+
+/* —— Grafici a barre (export) —— */
+.chart-block {
+  margin: 8pt 0 12pt;
+  padding: 7pt 8pt 8pt;
+  border: 0.6pt solid var(--rule);
+  background: var(--paper);
+  page-break-inside: avoid;
+}
+
+.chart-title {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 2pt;
+}
+
+.chart-axis {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7pt;
+  color: var(--muted);
+  margin: 0 0 5pt !important;
+}
+
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5pt;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 52pt 1fr 28pt;
+  gap: 5pt;
+  align-items: center;
+}
+
+.chart-label {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 6.75pt;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.chart-track {
+  height: 9pt;
+  background: var(--row-alt);
+  border: 0.4pt solid var(--rule-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-bar {
+  height: 100%;
+  min-width: 2pt;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.chart-val {
+  font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  font-size: 7pt;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
 /* —— Misc —— */
 .content img {
   max-width: 100%;
@@ -373,6 +560,12 @@ body {
     background: #f4f6f9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  .chart-bar,
+  .chart-track {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   a {
