@@ -68,9 +68,12 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 - Il Worker accetta chat e status dall'origine Pages configurata, ritira gli
   endpoint legacy e non espone testi di chat o memoria in `/debug`.
-- L'identità `tiziano` richiede una **passkey platform**: firma WebAuthn con
-  verifica biometrica/PIN del Galaxy per status, chat e `/debug`; il selettore
-  del browser non costituisce più autenticazione.
+- L'identità `tiziano` richiede una **passkey platform** per lo sblocco iniziale
+  (WebAuthn + biometria/PIN del Galaxy). Dopo la verifica il Worker emette una
+  **session token** (header `X-Tiziano-Session`, TTL 30 minuti sliding, hash in
+  KV). Chat e status accettano la session al posto di una nuova asserzione
+  passkey; a scadenza si ripete una sola conferma biometrica. Il selettore del
+  browser non costituisce autenticazione.
 - La prima associazione richiede un codice segreto esterno al repository; KV
   conserva soltanto id credenziale, chiave pubblica e contatore di firma.
 - `read_url` ricontrolla ogni redirect contro reti locali; il prompt tratta le

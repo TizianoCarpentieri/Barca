@@ -57,6 +57,9 @@ function getRemainingToday(userId, count = 0) {
 const TIZIANO_PASSKEY_KEY = "auth:tiziano:passkey";
 const PASSKEY_CHALLENGE_PREFIX = "auth:tiziano:challenge:";
 const PASSKEY_CHALLENGE_TTL = 300;
+const SESSION_TTL_SEC = 1800;
+const SESSION_KV_TTL_SEC = 2100;
+const SESSION_KEY_PREFIX = "auth:tiziano:session:";
 
 function bytesToBase64Url(bytes) {
   let binary = "";
@@ -182,6 +185,71 @@ async function verifyTizianoAssertion(request, env) {
   const signed = new Uint8Array(authenticatorData.length + 32); signed.set(authenticatorData); signed.set(await sha256(clientDataJSON), authenticatorData.length);
   if (!await crypto.subtle.verify({ name: "ECDSA", hash: "SHA-256" }, key, derSignatureToRaw(signature), signed)) throw new Error("Firma passkey non valida");
   if (count) await env.SBARCO_KV.put(TIZIANO_PASSKEY_KEY, JSON.stringify({ ...stored, signCount: count }));
+}
+
+async function sha256Base64Url(value) {
+  const bytes = typeof value === "string" ? new TextEncoder().encode(value) : value;
+  return bytesToBase64Url(await sha256(bytes));
+}
+
+function sessionResponseHeaders(session) {
+  if (!session?.sessionToken || !session?.expiresAt) return {};
+  return {
+    "X-Tiziano-Session-Token": session.sessionToken,
+    "X-Tiziano-Session-Expires": String(session.expiresAt),
+  };
+}
+
+async function issueTizianoSession(env) {
+  if (!env.SBARCO_KV) throw new Error("Archivio sessioni non disponibile");
+  const raw = crypto.getRandomValues(new Uint8Array(32));
+  const sessionToken = bytesToBase64Url(raw);
+  const exp = Math.floor(Date.now() / 1000) + SESSION_TTL_SEC;
+  const expiresAt = exp * 1000;
+  const hash = await sha256Base64Url(sessionToken);
+  await env.SBARCO_KV.put(
+    `${SESSION_KEY_PREFIX}${hash}`,
+    JSON.stringify({ exp, createdAt: new Date().toISOString() }),
+    { expirationTtl: SESSION_KV_TTL_SEC }
+  );
+  return { sessionToken, expiresAt };
+}
+
+async function verifyTizianoSession(token, env) {
+  if (!token || !env.SBARCO_KV) throw new Error("Sessione Tiziano assente");
+  const hash = await sha256Base64Url(token);
+  const key = `${SESSION_KEY_PREFIX}${hash}`;
+  const raw = await env.SBARCO_KV.get(key);
+  if (!raw) throw new Error("Sessione Tiziano non valida o scaduta");
+  const data = JSON.parse(raw);
+  const now = Math.floor(Date.now() / 1000);
+  if (!data.exp || data.exp <= now) {
+    await env.SBARCO_KV.delete(key);
+    throw new Error("Sessione Tiziano scaduta");
+  }
+  const exp = now + SESSION_TTL_SEC;
+  await env.SBARCO_KV.put(
+    key,
+    JSON.stringify({ ...data, exp }),
+    { expirationTtl: SESSION_KV_TTL_SEC }
+  );
+  return { sessionToken: token, expiresAt: exp * 1000 };
+}
+
+async function verifyTizianoAuth(request, env) {
+  if (env.TIZIANO_PASSKEY_TEST_BYPASS === "true") return { session: null };
+
+  const sessionHeader = request.headers.get("X-Tiziano-Session");
+  if (sessionHeader) {
+    try {
+      return { session: await verifyTizianoSession(sessionHeader, env) };
+    } catch {
+      // fallback passkey
+    }
+  }
+
+  await verifyTizianoAssertion(request, env);
+  return { session: await issueTizianoSession(env) };
 }
 
 // ── Graph traversal ─────────────────────────────────────────────
@@ -1422,10 +1490,12 @@ export default {
         return new Response(JSON.stringify({ error: "Origin non consentita." }), { status: 403 });
       }
       return new Response(null, {
+        status: 204,
         headers: {
           "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, X-Tiziano-Passkey",
+          "Access-Control-Allow-Headers": "Content-Type, X-Tiziano-Passkey, X-Tiziano-Session",
+          "Access-Control-Expose-Headers": "X-Tiziano-Session-Token, X-Tiziano-Session-Expires",
           "Cache-Control": "no-store",
           "Vary": "Origin",
         },
@@ -1434,6 +1504,8 @@ export default {
 
     const corsHeaders = {
       "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
+      "Access-Control-Allow-Headers": "Content-Type, X-Tiziano-Passkey, X-Tiziano-Session",
+      "Access-Control-Expose-Headers": "X-Tiziano-Session-Token, X-Tiziano-Session-Expires",
       "Content-Type": "application/json",
       "Cache-Control": "no-store",
       "Vary": "Origin",
@@ -1506,9 +1578,14 @@ export default {
       if (!userId || !VALID_USERS.includes(userId)) {
         return new Response(JSON.stringify({ error: "userId non valido." }), { status: 400, headers: corsHeaders });
       }
+      let tizianoSession = null;
       if (userId === "tiziano") {
-        try { await verifyTizianoAssertion(request, env); }
-        catch (err) { return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders }); }
+        try {
+          const auth = await verifyTizianoAuth(request, env);
+          tizianoSession = auth.session;
+        } catch (err) {
+          return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders });
+        }
       }
       const rate = await checkRateLimit(env.SBARCO_KV, userId);
       const quota = getDailyQuota(userId);
@@ -1520,7 +1597,7 @@ export default {
         remaining: getRemainingToday(userId, rate.count),
         unlimited: quota.unlimited,
         policyVersion: RATE_LIMIT_POLICY_VERSION,
-      }), { headers: corsHeaders });
+      }), { headers: { ...corsHeaders, ...sessionResponseHeaders(tizianoSession) } });
     }
 
     // ── Chat endpoint ──────────────────────────────────────────
@@ -1543,9 +1620,14 @@ export default {
           );
         }
 
+        let tizianoSession = null;
         if (userId === "tiziano") {
-          try { await verifyTizianoAssertion(request, env); }
-          catch (err) { return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders }); }
+          try {
+            const auth = await verifyTizianoAuth(request, env);
+            tizianoSession = auth.session;
+          } catch (err) {
+            return new Response(JSON.stringify({ error: err.message, passkeyRequired: true }), { status: 401, headers: corsHeaders });
+          }
         }
 
         if (!["auto", "deep"].includes(mode)) {
@@ -1566,7 +1648,9 @@ export default {
         // Check for /debug
         if (question.trim().toLowerCase() === "/debug" && userId === "tiziano") {
           const report = await getDebugReport(env.SBARCO_KV);
-          return new Response(JSON.stringify(report, null, 2), { headers: corsHeaders });
+          return new Response(JSON.stringify(report, null, 2), {
+            headers: { ...corsHeaders, ...sessionResponseHeaders(tizianoSession) },
+          });
         }
 
         // Rate limit check
@@ -1608,6 +1692,7 @@ export default {
         return new Response(stream, {
           headers: {
             ...corsHeaders,
+            ...sessionResponseHeaders(tizianoSession),
             "Content-Type": "text/event-stream; charset=utf-8",
             "Cache-Control": "no-cache, no-transform",
             "Connection": "keep-alive",
@@ -1686,4 +1771,10 @@ export const __test = {
     agentStep: AGENT_STEP_TOKENS,
     finalResponse: FINAL_RESPONSE_TOKENS,
   },
+  sha256Base64Url,
+  issueTizianoSession,
+  verifyTizianoSession,
+  verifyTizianoAuth,
+  sessionResponseHeaders,
+  sessionTtlSec: SESSION_TTL_SEC,
 };

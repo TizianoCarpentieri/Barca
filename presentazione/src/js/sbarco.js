@@ -11,6 +11,8 @@ const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const LS_KEY = "barca_user";
+const LS_TIZIANO_SESSION = "barca_tiziano_session";
+const SESSION_SKEW_MS = 30_000;
 const MAX_DAILY = 5;
 
 (function () {
@@ -129,8 +131,10 @@ const MAX_DAILY = 5;
     if (!currentUser) return;
     const requestedUser = currentUser;
     try {
-      const headers = requestedUser === "tiziano" ? await getTizianoPasskeyHeaders() : {};
-      const resp = await fetch(`${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`, { headers });
+      const url = `${SBARCO_WORKER}/api/status?userId=${encodeURIComponent(requestedUser)}`;
+      const resp = requestedUser === "tiziano"
+        ? await fetchTiziano(url)
+        : await fetch(url);
       if (!resp.ok) return;
       const data = await resp.json();
       if (currentUser === requestedUser && (data.unlimited || data.remaining !== undefined)) {
@@ -155,6 +159,37 @@ const MAX_DAILY = 5;
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || "Verifica Galaxy non riuscita.");
     return data;
+  }
+
+  function readTizianoSession() {
+    try {
+      const raw = localStorage.getItem(LS_TIZIANO_SESSION);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data?.token || !data?.expiresAt) return null;
+      if (Number(data.expiresAt) <= Date.now() + SESSION_SKEW_MS) return null;
+      return { token: String(data.token), expiresAt: Number(data.expiresAt) };
+    } catch {
+      return null;
+    }
+  }
+
+  function writeTizianoSession(token, expiresAt) {
+    if (!token || !expiresAt) return;
+    localStorage.setItem(LS_TIZIANO_SESSION, JSON.stringify({
+      token: String(token),
+      expiresAt: Number(expiresAt),
+    }));
+  }
+
+  function clearTizianoSession() {
+    localStorage.removeItem(LS_TIZIANO_SESSION);
+  }
+
+  function captureTizianoSessionFromResponse(resp) {
+    const token = resp.headers.get("X-Tiziano-Session-Token");
+    const expires = resp.headers.get("X-Tiziano-Session-Expires");
+    if (token && expires) writeTizianoSession(token, Number(expires));
   }
 
   async function getTizianoPasskeyHeaders() {
@@ -190,6 +225,28 @@ const MAX_DAILY = 5;
       signature: bytesToBase64Url(credential.response.signature),
     };
     return { "X-Tiziano-Passkey": bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload))) };
+  }
+
+  async function fetchTiziano(url, options = {}) {
+    const withAuth = async (forcePasskey) => {
+      const session = readTizianoSession();
+      const auth = forcePasskey || !session
+        ? await getTizianoPasskeyHeaders()
+        : { "X-Tiziano-Session": session.token };
+      return fetch(url, {
+        ...options,
+        headers: { ...(options.headers || {}), ...auth },
+      });
+    };
+
+    let resp = await withAuth(false);
+    if (resp.status === 401) {
+      const hadSession = Boolean(localStorage.getItem(LS_TIZIANO_SESSION));
+      clearTizianoSession();
+      if (hadSession) resp = await withAuth(true);
+    }
+    captureTizianoSessionFromResponse(resp);
+    return resp;
   }
 
   // ── Open / close ────────────────────────────────────────────
@@ -303,13 +360,16 @@ const MAX_DAILY = 5;
     const timeout = setTimeout(() => activeController?.abort("client-timeout"), 240_000);
 
     try {
-      const passkeyHeaders = currentUser === "tiziano" ? await getTizianoPasskeyHeaders() : {};
-      const resp = await fetch(`${SBARCO_WORKER}/api/chat`, {
+      const chatUrl = `${SBARCO_WORKER}/api/chat`;
+      const chatOpts = {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...passkeyHeaders },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: currentUser, question: text, mode: deepMode ? "deep" : "auto" }),
         signal: activeController.signal,
-      });
+      };
+      const resp = currentUser === "tiziano"
+        ? await fetchTiziano(chatUrl, chatOpts)
+        : await fetch(chatUrl, chatOpts);
 
       if (!resp.ok) {
         if (resp.status === 429) updateCounter(0);

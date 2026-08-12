@@ -395,3 +395,118 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+function mockKv(initial = []) {
+  const store = new Map(initial);
+  return {
+    store,
+    async get(key) { return store.get(key) ?? null; },
+    async put(key, value, opts = {}) {
+      store.set(key, value);
+      store.set(`${key}__meta`, JSON.stringify(opts || {}));
+    },
+    async delete(key) { store.delete(key); },
+  };
+}
+
+test("issue + verify session Tiziano con sliding TTL", async () => {
+  const kv = mockKv();
+  const env = { SBARCO_KV: kv };
+  const issued = await __test.issueTizianoSession(env);
+  assert.equal(typeof issued.sessionToken, "string");
+  assert.ok(issued.sessionToken.length >= 32);
+  assert.ok(issued.expiresAt > Date.now());
+
+  const verified = await __test.verifyTizianoSession(issued.sessionToken, env);
+  assert.equal(verified.sessionToken, issued.sessionToken);
+  assert.ok(verified.expiresAt >= issued.expiresAt);
+
+  const hash = await __test.sha256Base64Url(issued.sessionToken);
+  const raw = JSON.parse(await kv.get(`auth:tiziano:session:${hash}`));
+  assert.ok(raw.exp * 1000 <= verified.expiresAt + 1000);
+  assert.ok(raw.exp >= Math.floor(Date.now() / 1000) - 5);
+});
+
+test("session scaduta o assente viene rifiutata", async () => {
+  const kv = mockKv();
+  const env = { SBARCO_KV: kv };
+  await assert.rejects(() => __test.verifyTizianoSession("token-inesistente", env), /sessione/i);
+
+  const issued = await __test.issueTizianoSession(env);
+  const hash = await __test.sha256Base64Url(issued.sessionToken);
+  const key = `auth:tiziano:session:${hash}`;
+  await kv.put(key, JSON.stringify({ exp: Math.floor(Date.now() / 1000) - 10, createdAt: new Date().toISOString() }));
+  await assert.rejects(() => __test.verifyTizianoSession(issued.sessionToken, env), /scaduta|sessione/i);
+});
+
+test("verifyTizianoAuth: bypass, session header, mancanza credenziali", async () => {
+  const kv = mockKv();
+  const bypass = await __test.verifyTizianoAuth(
+    new Request("https://sbarco.test/api/status"),
+    { SBARCO_KV: kv, TIZIANO_PASSKEY_TEST_BYPASS: "true" }
+  );
+  assert.equal(bypass.session, null);
+
+  const issued = await __test.issueTizianoSession({ SBARCO_KV: kv });
+  const ok = await __test.verifyTizianoAuth(
+    new Request("https://sbarco.test/api/status", {
+      headers: { "X-Tiziano-Session": issued.sessionToken },
+    }),
+    { SBARCO_KV: kv }
+  );
+  assert.ok(ok.session?.sessionToken);
+  assert.equal(ok.session.sessionToken, issued.sessionToken);
+
+  await assert.rejects(
+    () => __test.verifyTizianoAuth(new Request("https://sbarco.test/api/status"), { SBARCO_KV: kv }),
+    /Galaxy|passkey|Conferma/i
+  );
+});
+
+test("sessionResponseHeaders espone token ed expires", () => {
+  const headers = __test.sessionResponseHeaders({ sessionToken: "abc", expiresAt: 1700000000000 });
+  assert.equal(headers["X-Tiziano-Session-Token"], "abc");
+  assert.equal(headers["X-Tiziano-Session-Expires"], "1700000000000");
+  assert.deepEqual(__test.sessionResponseHeaders(null), {});
+});
+
+test("GET /api/status accetta X-Tiziano-Session e rinnova header", async () => {
+  const kv = mockKv();
+  const env = { SBARCO_KV: kv, ALLOWED_ORIGIN: "https://tizianocarpentieri.github.io" };
+  const issued = await __test.issueTizianoSession(env);
+  const response = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano", {
+    headers: {
+      Origin: "https://tizianocarpentieri.github.io",
+      "X-Tiziano-Session": issued.sessionToken,
+    },
+  }), env, {});
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.unlimited, true);
+  assert.equal(response.headers.get("X-Tiziano-Session-Token"), issued.sessionToken);
+  assert.ok(Number(response.headers.get("X-Tiziano-Session-Expires")) > Date.now());
+});
+
+test("GET /api/status senza auth torna 401 passkeyRequired", async () => {
+  const kv = mockKv();
+  const response = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano", {
+    headers: { Origin: "https://tizianocarpentieri.github.io" },
+  }), { SBARCO_KV: kv, ALLOWED_ORIGIN: "https://tizianocarpentieri.github.io" }, {});
+  assert.equal(response.status, 401);
+  const body = await response.json();
+  assert.equal(body.passkeyRequired, true);
+});
+
+test("OPTIONS espone Allow-Headers session e Expose-Headers token", async () => {
+  const response = await worker.fetch(new Request("https://sbarco.test/api/status", {
+    method: "OPTIONS",
+    headers: { Origin: "https://tizianocarpentieri.github.io" },
+  }), { ALLOWED_ORIGIN: "https://tizianocarpentieri.github.io" }, {});
+  assert.equal(response.status, 204);
+  const allow = response.headers.get("Access-Control-Allow-Headers") || "";
+  assert.match(allow, /X-Tiziano-Session/i);
+  assert.match(allow, /X-Tiziano-Passkey/i);
+  const expose = response.headers.get("Access-Control-Expose-Headers") || "";
+  assert.match(expose, /X-Tiziano-Session-Token/i);
+  assert.match(expose, /X-Tiziano-Session-Expires/i);
+});

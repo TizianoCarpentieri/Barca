@@ -32,6 +32,12 @@ registrerà una passkey platform con verifica biometrica/PIN. Da quel momento
 chat, quota, status e `/debug` di Tiziano richiedono la firma della stessa
 passkey; scegliere “Tiziano” nel menu non è sufficiente.
 
+Dopo la **prima** verifica passkey riuscita, il Worker emette una **session**
+opaca (`X-Tiziano-Session`) valida **30 minuti** con rinnovo a ogni uso
+(sliding). Il browser la conserva in `localStorage` (`barca_tiziano_session`).
+Finché la session è valida non serve un nuovo QR/impronta. Scaduta o revocata
+in KV (`auth:tiziano:session:*`), si ripete una sola passkey.
+
 ```bash
 npx wrangler secret put TIZIANO_ENROLLMENT_CODE
 ```

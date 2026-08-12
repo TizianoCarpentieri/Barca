@@ -6,6 +6,12 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-12] sbarco | session token Tiziano 30m
+
+Dopo una passkey, Sbarco emette session sliding 30′ (header + localStorage)
+per evitare QR/impronta a ogni messaggio su Mac. Spec:
+`docs/superpowers/specs/2026-08-12-sbarco-session-token-design.md`.
+
 ## [2026-08-11] preferenze | Allineamento wiki ↔ direzione patto (senza ingest)
 
 - **Non** ingerito il testo del patto in wiki (resta cantiere finché revisionato insieme).
