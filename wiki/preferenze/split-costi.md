@@ -1,16 +1,22 @@
 ---
 title: Split costi e danni
 type: preferenza
-updated: 2026-08-11
+updated: 2026-08-12
 status: active
 tags: [budget, split, danni, regole, accordo]
-sources: [raw/audio/, wiki/sintesi/conversazioni-audio-20260809.md, wiki/preferenze/budget.md]
+sources:
+  - raw/audio/
+  - wiki/sintesi/conversazioni-audio-20260809.md
+  - wiki/preferenze/budget.md
+  - contratto/bozza-patto-v1.md
+  - wiki/sintesi/patto-bestie.md
 ---
 
 # Split costi e danni
 
-Preferenze di gruppo allineate al piano A gommone (2026-08-11).  
-Il **testo firmabile** del patto è in cantiere separato e **non** va copiato qui finché il gruppo non lo revisiona insieme.
+Preferenze di gruppo allineate al piano A gommone.  
+**Digest operativo del patto:** [[sintesi/patto-bestie]] (v1.10).  
+Testo integrale firmabile: `contratto/bozza-patto-v1.md` (ancora **non firmato**).
 
 ## Principi fissi
 
@@ -28,21 +34,21 @@ Il **testo firmabile** del patto è in cantiere separato e **non** va copiato qu
 - Bundle gommone+motore **≤2.000 €**, diviso **1/3**
 - Stima ~670 €/testa (con 3)
 
-## Danni (direzione attuale)
+## Danni (allineato patto v1.10)
 
-> In **uscita di gruppo** (caso normale): di default si divide tra i **presenti**, salvo **errore palese** di uno.  
-> Fuori dal gruppo / colpa chiara: **chi causa paga**.  
-> Usura / manutenzione da manuale: **tutti 1/N**.
+> Default su danno d’uso in uscita senza errore palese: **1/P tra i soci presenti** (P = presenti; uscita individuale P = 1).  
+> Colpa chiara: **chi causa paga**.  
+> Usura / vizio senza colpa d’uso: **tutti 1/N**.
 
 | Situazione | Chi paga (parte non assicurata) |
 |------------|----------------------------------|
 | Manovra sbagliata, show-off, infrazione chiara | Chi ha causato (di regola il conducente) |
 | Ospite causa danno | Socio che ha portato l’ospite |
-| Evento imprevedibile / scoglio non ragionevolmente evitabile | Presenti / tutti 1/N |
+| Evento imprevedibile senza colpa d’uso | Tabella patto (spesso 1/N) |
 | Usura normale, tagliando | Tutti 1/N |
 | Negligenza grave di custodia o conduzione | Chi ha agito con negligenza |
 
-Dettaglio operativo e casistica fine: bozza patto in cantiere (da firmare dopo revisione di gruppo).
+Dettaglio e formula recesso: [[sintesi/patto-bestie]].
 
 ## Uscita di un socio
 
@@ -55,11 +61,11 @@ Dettaglio operativo e casistica fine: bozza patto in cantiere (da firmare dopo r
 
 | Stato | Nota |
 |-------|------|
-| Esiste bozza di lavoro | Sì — cantiere patto (file fuori wiki) |
-| Ingerita in wiki | **No** finché non revisionata e stabilizzata dal gruppo |
+| Esiste bozza di lavoro | Sì — `contratto/bozza-patto-v1.md` v1.10 |
+| Ingerita in wiki | **Sì** — digest [[sintesi/patto-bestie]] (2026-08-12) |
 | Firmata | Non ancora |
 
-Open: finalizzare insieme, chiudere i `[DA DECIDERE]` (intestatario, custode, canale, solitarie, contatti), poi eventuale ingest wiki.
+Open: chiudere i `[DA DECIDERE]` (intestatario, custode, canale, solitarie, contatti) e firmare.
 
 ## Open
 

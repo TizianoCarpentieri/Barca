@@ -1,7 +1,7 @@
 ---
 title: Open questions
 type: preferenza
-updated: 2026-08-11
+updated: 2026-08-12
 status: active
 tags: [todo]
 ---
@@ -15,18 +15,17 @@ Solo decisioni ancora necessarie. Chiuse → [[log]] e pagine tematiche.
 - [ ] Auto che trasporta gommone, motore e attrezzatura.
 - [ ] Luogo di custodia settimanale (asciutto; comodo da carico/scarico — anche patio se idoneo).
 - [ ] Prova ciclo reale carico → montaggio → lavaggio → rientro.
-- [ ] Almeno un accesso/scivolo lecito pratico da Ardea/Pomezia.
+- [ ] Almeno un accesso/scivolo lecito pratico da Ardea/Pomezia (chiamare 4 PO + hub Anzio: [[normativa/varo-litorale-lazio]]).
 - [ ] Intestatario gommone, motore e polizza RC.
-- [ ] Finalizzare e firmare il patto (bozza già in cantiere; **ingest wiki solo dopo revisione di gruppo**).
+- [ ] Firmare il patto (digest già in wiki: [[sintesi/patto-bestie]]; restano `[DA DECIDERE]`).
 
 ## Costi e documenti (preventivi / fonti)
 
-- [ ] Obblighi e costo passaggio per il bene acquistato.
-- [ ] Documenti motore / adempimenti per la potenza scelta.
-- [ ] Dotazioni obbligatorie per la distanza di navigazione + costo kit.
-- [ ] Preventivo **RC** reale (gommone a motore = obbligo di legge).
-- [ ] Preventivo **tagliando** sul motore 9–40 CV realmente scelto (obbligo di gruppo/manuale, non “bollo” di legge).
-- [ ] Fondo iniziale: giubbotti, ancora, kit forature, eventuali fanali.
+- [ ] Documenti motore / adempimenti per la potenza scelta (vedi [[sintesi/prospetto-costi-a-norma]]).
+- [ ] Distinta dotazioni definitiva + acquisto kit (STIMA 300–350 € / 4 pax).
+- [ ] Preventivo **RC** reale ×3 (obbligo; massimali 2026 nel prospetto).
+- [ ] Preventivo **tagliando** sul motore scelto (obbligo di gruppo/manuale, non “bollo” di legge).
+- [ ] Fondo iniziale: giubbotti, ancora, kit forature, fanali.
 
 Dettaglio: [[concetti/costi-nascosti-gommone]] · [[preferenze/budget]].
 

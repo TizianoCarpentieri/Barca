@@ -6,6 +6,15 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-12] ingest | Prospetto, patto v1.10, mappa varo → wiki + grafo Sbarco
+
+- Digest wiki: [[sintesi/prospetto-costi-a-norma]], [[sintesi/patto-bestie]],
+  [[normativa/varo-litorale-lazio]] (da `contratto/prospetto-…`, `bozza-patto-v1`,
+  `contratto/dati/punti-varo-lazio.json` + raw).
+- Aggiornati [[sintesi/contesto-sbarco]], index, split-costi, open-questions.
+- Rebuild `graphify-out/build_graph.py` → `graphify-out/graph.json` e
+  `worker/graph.json` (retrieval Sbarco).
+
 ## [2026-08-12] sbarco | session token Tiziano 30m
 
 Dopo una passkey, Sbarco emette session sliding 30′ (header + localStorage)

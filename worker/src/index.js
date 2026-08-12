@@ -403,21 +403,24 @@ function compactHistory(history = []) {
 const WIKI_REPO_RAW = "https://raw.githubusercontent.com/tizianocarpentieri/Barca/main";
 
 const WIKI_PAGES = {
-  context: { path: "wiki/sintesi/contesto-sbarco.md", cacheTtl: 3600 },
-  index: { path: "wiki/index.md", cacheTtl: 3600 },
+  context: { path: "wiki/sintesi/contesto-sbarco.md", cacheTtl: 300 },
+  index: { path: "wiki/index.md", cacheTtl: 300 },
 };
 
 const EMBEDDED_WIKI = {
   context: `# Contesto operativo Sbarco
 
-- Gruppo: Tiziano, Antonio e Peppe; base Ardea/Pomezia, mare laziale.
-- Piano A: gommone pneumatico smontabile non RIB, 3,30-3,90 m, 3 comodi e 6 solo come picco sociale.
-- Budget: massimo 2.000 EUR per bundle gommone+motore usato; costi fissi massimo 30 EUR/testa/mese.
-- Motore: almeno 6 CV, fascia preferita 9.9-15 CV, 4 tempi e gambo corto; nessuno ha patente.
-- Benchmark scafo: Argo-Evo 360 AL nuovo a 970 EUR; un usato equivalente senza motore deve costare almeno il 20% in meno.
-- Piano B: scafo rigido solo con almeno 5 soci e preventivi reali.
+- Gruppo: Tiziano, Antonio e Peppe; base Ardea/Pomezia/Tor San Lorenzo, mare laziale.
+- Piano A: gommone pneumatico smontabile non RIB, min 3,90 m, 3 comodi e fino a ~6 solo picco sociale.
+- Budget: massimo 2.000 EUR bundle gommone+motore usato; cap 30 EUR/testa/mese NON hard sul gommone.
+- Motore: 9-40 CV no-patente (≤30 kW e cilindrata); 4T preferito; sweet 15-20 CV 4T se budget.
+- Benchmark scafo: Argo-Evo 360 AL nuovo 970 EUR; usato eq. senza motore almeno -20%.
+- Piano B: scafo rigido solo con ≥5 soci e preventivi reali.
+- Patto v1.10 (bozza): wiki/sintesi/patto-bestie.md — danni default 1/P presenti; formula recesso tempo-dominante.
+- Prospetto costi: wiki/sintesi/prospetto-costi-a-norma.md — RC obbligatoria, kit dotazioni ~300-350 EUR, massimali RC 2026.
+- Varo: wiki/normativa/varo-litorale-lazio.md — solo corridoi/scivoli; 4 PO Ardea da chiamare; hub Anzio/Nettuno.
 - Priorita': pesca, giri costa, bagno/relax, facilita'.
-- Questioni aperte: auto e custodia, scivolo, costi reali/documenti/dotazioni, accordo scritto tra soci.
+- Aperti: auto/custodia, conferma telefonica punto varo, preventivi RC, firma patto, shortlist ≤2000 EUR.
 
 Per dettagli usa read_wiki. Non trasformare stime o note storiche in fatti verificati.`,
 };

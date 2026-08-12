@@ -139,6 +139,15 @@
       "norm_label": "track c - motori"
     },
     {
+      "id": "budget_bundle_2000",
+      "label": "Budget bundle ≤2000€",
+      "file_type": "constraint",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "budget bundle ≤2000€"
+    },
+    {
       "id": "budget_acquisto_4500",
       "label": "Budget acquisto ≤4500€",
       "file_type": "constraint",
@@ -173,6 +182,15 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "solo usato"
+    },
+    {
+      "id": "cap_30_testa_mese_non_hard_gommone",
+      "label": "Cap 30€/testa/mese non hard gommone",
+      "file_type": "constraint",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "cap 30€/testa/mese non hard gommone"
     },
     {
       "id": "no_patente_nautica",
@@ -724,6 +742,96 @@
       "norm_label": "fino a 6 persone picco sociale"
     },
     {
+      "id": "architettura_e_flusso_di_sbarco",
+      "label": "Architettura e flusso di Sbarco",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "architettura e flusso di sbarco"
+    },
+    {
+      "id": "sbarco",
+      "label": "#sbarco",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#sbarco"
+    },
+    {
+      "id": "bot",
+      "label": "#bot",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#bot"
+    },
+    {
+      "id": "deep_research",
+      "label": "#deep-research",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#deep-research"
+    },
+    {
+      "id": "worker",
+      "label": "#worker",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#worker"
+    },
+    {
+      "id": "costi_nascosti_gommone",
+      "label": "Costi nascosti gommone",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "costi nascosti gommone"
+    },
+    {
+      "id": "gommone",
+      "label": "#gommone",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#gommone"
+    },
+    {
+      "id": "costi",
+      "label": "#costi",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#costi"
+    },
+    {
+      "id": "burocrazia",
+      "label": "#burocrazia",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#burocrazia"
+    },
+    {
+      "id": "manutenzione",
+      "label": "#manutenzione",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#manutenzione"
+    },
+    {
       "id": "feed_accessori_design_e_scoring",
       "label": "Feed accessori — design e scoring",
       "file_type": "concetto",
@@ -832,6 +940,60 @@
       "norm_label": "#distanza"
     },
     {
+      "id": "logistica_e_trasporto_gommone",
+      "label": "Logistica e trasporto gommone",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "logistica e trasporto gommone"
+    },
+    {
+      "id": "gommone_wiki_concetti_logistica_trasporto_md",
+      "label": "#gommone",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#gommone"
+    },
+    {
+      "id": "logistica",
+      "label": "#logistica",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#logistica"
+    },
+    {
+      "id": "trasporto",
+      "label": "#trasporto",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#trasporto"
+    },
+    {
+      "id": "custodia",
+      "label": "#custodia",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#custodia"
+    },
+    {
+      "id": "open_questions",
+      "label": "#open-questions",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#open-questions"
+    },
+    {
       "id": "montaggio_e_logistica_gommone",
       "label": "Montaggio e logistica gommone",
       "file_type": "concetto",
@@ -841,7 +1003,7 @@
       "norm_label": "montaggio e logistica gommone"
     },
     {
-      "id": "gommone",
+      "id": "gommone_wiki_concetti_montaggio_gommone_md",
       "label": "#gommone",
       "file_type": "tag",
       "source_file": "wiki/concetti/montaggio-gommone.md",
@@ -859,7 +1021,7 @@
       "norm_label": "#montaggio"
     },
     {
-      "id": "logistica",
+      "id": "logistica_wiki_concetti_montaggio_gommone_md",
       "label": "#logistica",
       "file_type": "tag",
       "source_file": "wiki/concetti/montaggio-gommone.md",
@@ -1055,6 +1217,15 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "indice wiki"
+    },
+    {
+      "id": "index",
+      "label": "#index",
+      "file_type": "tag",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#index"
     },
     {
       "id": "log",
@@ -1273,6 +1444,150 @@
       "norm_label": "#mit"
     },
     {
+      "id": "pesca_ricreativa_in_mare",
+      "label": "Pesca ricreativa in mare",
+      "file_type": "normativa",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "pesca ricreativa in mare"
+    },
+    {
+      "id": "pesca_wiki_normativa_pesca_ricreativa_mare_md",
+      "label": "#pesca",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#pesca"
+    },
+    {
+      "id": "recfishing",
+      "label": "#recfishing",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#recfishing"
+    },
+    {
+      "id": "masaf",
+      "label": "#masaf",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#masaf"
+    },
+    {
+      "id": "rc_obbligatoria_natanti",
+      "label": "RC obbligatoria natanti",
+      "file_type": "normativa",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "rc obbligatoria natanti"
+    },
+    {
+      "id": "assicurazione",
+      "label": "#assicurazione",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#assicurazione"
+    },
+    {
+      "id": "rc",
+      "label": "#RC",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#rc"
+    },
+    {
+      "id": "gommone_wiki_normativa_rc_obbligatoria_natanti_md",
+      "label": "#gommone",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#gommone"
+    },
+    {
+      "id": "normativa",
+      "label": "#normativa",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#normativa"
+    },
+    {
+      "id": "varo_e_navigazione_sul_litorale_laziale",
+      "label": "Varo e navigazione sul litorale laziale",
+      "file_type": "normativa",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "varo e navigazione sul litorale laziale"
+    },
+    {
+      "id": "ardea",
+      "label": "#ardea",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ardea"
+    },
+    {
+      "id": "pomezia",
+      "label": "#pomezia",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#pomezia"
+    },
+    {
+      "id": "varo",
+      "label": "#varo",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#varo"
+    },
+    {
+      "id": "ordinanze",
+      "label": "#ordinanze",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ordinanze"
+    },
+    {
+      "id": "scivolo",
+      "label": "#scivolo",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scivolo"
+    },
+    {
+      "id": "corridoio",
+      "label": "#corridoio",
+      "file_type": "tag",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#corridoio"
+    },
+    {
       "id": "overview",
       "label": "Overview",
       "file_type": "sintesi",
@@ -1435,7 +1750,7 @@
       "norm_label": "#priorita"
     },
     {
-      "id": "open_questions",
+      "id": "open_questions_wiki_preferenze_open_questions_md",
       "label": "Open questions",
       "file_type": "preferenza",
       "source_file": "wiki/preferenze/open-questions.md",
@@ -1507,13 +1822,13 @@
       "norm_label": "#accordo"
     },
     {
-      "id": "track_gommoni_parallelo",
-      "label": "Track gommoni (parallelo)",
+      "id": "track_gommoni_primario",
+      "label": "Track gommoni (PRIMARIO)",
       "file_type": "preferenza",
       "source_file": "wiki/preferenze/track-gommoni.md",
       "source_location": "L1",
       "_origin": "semantic",
-      "norm_label": "track gommoni (parallelo)"
+      "norm_label": "track gommoni (primario)"
     },
     {
       "id": "gommone_wiki_preferenze_track_gommoni_md",
@@ -1579,6 +1894,168 @@
       "norm_label": "#dual-track"
     },
     {
+      "id": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "label": "Audit Sbarco - memoria, streaming, PDF e mobile",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "audit sbarco - memoria, streaming, pdf e mobile"
+    },
+    {
+      "id": "sbarco_wiki_sintesi_audit_sbarco_20260811_md",
+      "label": "#sbarco",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#sbarco"
+    },
+    {
+      "id": "audit",
+      "label": "#audit",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#audit"
+    },
+    {
+      "id": "memoria",
+      "label": "#memoria",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#memoria"
+    },
+    {
+      "id": "streaming",
+      "label": "#streaming",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#streaming"
+    },
+    {
+      "id": "pdf",
+      "label": "#pdf",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#pdf"
+    },
+    {
+      "id": "mobile",
+      "label": "#mobile",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#mobile"
+    },
+    {
+      "id": "token",
+      "label": "#token",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#token"
+    },
+    {
+      "id": "audit_sbarco_e_wiki_10_agosto_2026",
+      "label": "Audit Sbarco e wiki — 10 agosto 2026",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "audit sbarco e wiki — 10 agosto 2026"
+    },
+    {
+      "id": "audit_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "label": "#audit",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#audit"
+    },
+    {
+      "id": "sbarco_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "label": "#sbarco",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#sbarco"
+    },
+    {
+      "id": "deep_research_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "label": "#deep-research",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#deep-research"
+    },
+    {
+      "id": "wiki",
+      "label": "#wiki",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#wiki"
+    },
+    {
+      "id": "mobile_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "label": "#mobile",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#mobile"
+    },
+    {
+      "id": "contesto_operativo_sbarco",
+      "label": "Contesto operativo Sbarco",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "contesto operativo sbarco"
+    },
+    {
+      "id": "sbarco_wiki_sintesi_contesto_sbarco_md",
+      "label": "#sbarco",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#sbarco"
+    },
+    {
+      "id": "contesto",
+      "label": "#contesto",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#contesto"
+    },
+    {
+      "id": "source_of_truth",
+      "label": "#source-of-truth",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#source-of-truth"
+    },
+    {
       "id": "conversazioni_audio_2026_08_09",
       "label": "Conversazioni audio 2026-08-09",
       "file_type": "sintesi",
@@ -1624,13 +2101,139 @@
       "norm_label": "#bestie"
     },
     {
-      "id": "requisiti_v1_intervista",
-      "label": "Requisiti v1 (intervista)",
+      "id": "storico",
+      "label": "#storico",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#storico"
+    },
+    {
+      "id": "patto_bestie_digest_operativo",
+      "label": "Patto Bestie — digest operativo",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "patto bestie — digest operativo"
+    },
+    {
+      "id": "patto",
+      "label": "#patto",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#patto"
+    },
+    {
+      "id": "split_wiki_sintesi_patto_bestie_md",
+      "label": "#split",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#split"
+    },
+    {
+      "id": "danni_wiki_sintesi_patto_bestie_md",
+      "label": "#danni",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#danni"
+    },
+    {
+      "id": "uscite",
+      "label": "#uscite",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#uscite"
+    },
+    {
+      "id": "soci",
+      "label": "#soci",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#soci"
+    },
+    {
+      "id": "prospetto_costi_a_norma",
+      "label": "Prospetto costi a norma",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "prospetto costi a norma"
+    },
+    {
+      "id": "costi_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "#costi",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#costi"
+    },
+    {
+      "id": "rc_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "#RC",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#rc"
+    },
+    {
+      "id": "normativa_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "#normativa",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#normativa"
+    },
+    {
+      "id": "dotazioni",
+      "label": "#dotazioni",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#dotazioni"
+    },
+    {
+      "id": "motore_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "#motore",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#motore"
+    },
+    {
+      "id": "varo_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "#varo",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#varo"
+    },
+    {
+      "id": "requisiti_v2",
+      "label": "Requisiti v2",
       "file_type": "sintesi",
       "source_file": "wiki/sintesi/requisiti-v1.md",
       "source_location": "L1",
       "_origin": "semantic",
-      "norm_label": "requisiti v1 (intervista)"
+      "norm_label": "requisiti v2"
     },
     {
       "id": "requisiti_wiki_sintesi_requisiti_v1_md",
@@ -1649,6 +2252,42 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#shortlist-filtri"
+    },
+    {
+      "id": "scenario_scafo_rigido_5_soci",
+      "label": "Scenario scafo rigido (5 soci)",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "scenario scafo rigido (5 soci)"
+    },
+    {
+      "id": "scafo_rigido",
+      "label": "#scafo-rigido",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scafo-rigido"
+    },
+    {
+      "id": "scenario",
+      "label": "#scenario",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scenario"
+    },
+    {
+      "id": "5_soci",
+      "label": "#5-soci",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#5-soci"
     },
     {
       "id": "shortlist",
@@ -1676,6 +2315,24 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "split costi 1/3"
+    },
+    {
+      "id": "danni_default_1_p_presenti",
+      "label": "Danni default 1/P presenti",
+      "file_type": "rule",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "danni default 1/p presenti"
+    },
+    {
+      "id": "patto_bestie_v1_10",
+      "label": "Patto Bestie v1.10",
+      "file_type": "document",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "patto bestie v1.10"
     },
     {
       "id": "accordo_scritto_danni_split",
@@ -1714,13 +2371,31 @@
       "norm_label": "uscita socio → rimborso quota"
     },
     {
-      "id": "rc_assicurazione_100_150_anno",
-      "label": "RC assicurazione 100-150€/anno",
-      "file_type": "estimate",
-      "source_file": "wiki/preferenze/split-costi.md",
+      "id": "formula_recesso_tempo_dominante",
+      "label": "Formula recesso tempo-dominante",
+      "file_type": "rule",
+      "source_file": "wiki/sintesi/patto-bestie.md",
       "source_location": "L1",
       "_origin": "semantic",
-      "norm_label": "rc assicurazione 100-150€/anno"
+      "norm_label": "formula recesso tempo-dominante"
+    },
+    {
+      "id": "rc_assicurazione_obbligatoria_motore",
+      "label": "RC assicurazione obbligatoria motore",
+      "file_type": "regulation",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "rc assicurazione obbligatoria motore"
+    },
+    {
+      "id": "rc_scenario_120_anno",
+      "label": "RC scenario 120€/anno",
+      "file_type": "estimate",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "rc scenario 120€/anno"
     },
     {
       "id": "costi_fissi_1800_anno",
@@ -1730,6 +2405,213 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "costi fissi 1800€/anno"
+    },
+    {
+      "id": "prospetto_costi_a_norma_wiki_sintesi_prospetto_costi_a_norma_md",
+      "label": "Prospetto costi a norma",
+      "file_type": "document",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "prospetto costi a norma"
+    },
+    {
+      "id": "cinque_cancelli_pre_acquisto",
+      "label": "Cinque cancelli pre-acquisto",
+      "file_type": "rule",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "cinque cancelli pre-acquisto"
+    },
+    {
+      "id": "dotazioni_entro_6_miglia",
+      "label": "Dotazioni entro 6 miglia",
+      "file_type": "regulation",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "dotazioni entro 6 miglia"
+    },
+    {
+      "id": "kit_dotazioni_300_350_4_pax",
+      "label": "Kit dotazioni 300-350€ 4 pax",
+      "file_type": "estimate",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "kit dotazioni 300-350€ 4 pax"
+    },
+    {
+      "id": "massimali_rc_6_45m_1_3m",
+      "label": "Massimali RC 6.45M / 1.3M",
+      "file_type": "regulation",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "massimali rc 6.45m / 1.3m"
+    },
+    {
+      "id": "fasce_motore_9_9_40_cv",
+      "label": "Fasce motore 9.9-40 CV",
+      "file_type": "spec_range",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "fasce motore 9.9-40 cv"
+    },
+    {
+      "id": "priorita_motore_15_20_cv_4t",
+      "label": "Priorita motore 15-20 CV 4T",
+      "file_type": "preference",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "priorita motore 15-20 cv 4t"
+    },
+    {
+      "id": "benzina_scenario_1_97_l",
+      "label": "Benzina scenario 1.97€/L",
+      "file_type": "estimate",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "benzina scenario 1.97€/l"
+    },
+    {
+      "id": "recfishing_2026",
+      "label": "RecFishing 2026",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "recfishing 2026"
+    },
+    {
+      "id": "varo_litorale_laziale",
+      "label": "Varo litorale laziale",
+      "file_type": "document",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "varo litorale laziale"
+    },
+    {
+      "id": "corridoio_di_lancio_obbligatorio",
+      "label": "Corridoio di lancio obbligatorio",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "corridoio di lancio obbligatorio"
+    },
+    {
+      "id": "no_varo_da_spiaggia_libera",
+      "label": "No varo da spiaggia libera",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "no varo da spiaggia libera"
+    },
+    {
+      "id": "max_3_nodi_in_corridoio",
+      "label": "Max 3 nodi in corridoio",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "max 3 nodi in corridoio"
+    },
+    {
+      "id": "po_circolo_nautico_tor_san_lorenzo",
+      "label": "PO Circolo Nautico Tor San Lorenzo",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "po circolo nautico tor san lorenzo"
+    },
+    {
+      "id": "po_rimessaggio_cerolini",
+      "label": "PO Rimessaggio Cerolini",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "po rimessaggio cerolini"
+    },
+    {
+      "id": "po_circolo_nautico_caravallebecio",
+      "label": "PO Circolo Nautico Caravallebecio",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "po circolo nautico caravallebecio"
+    },
+    {
+      "id": "po_la_torre_ardea",
+      "label": "PO La Torre Ardea",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "po la torre ardea"
+    },
+    {
+      "id": "scivolo_capitaneria_anzio",
+      "label": "Scivolo Capitaneria Anzio",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "scivolo capitaneria anzio"
+    },
+    {
+      "id": "porto_turistico_anzio",
+      "label": "Porto turistico Anzio",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "porto turistico anzio"
+    },
+    {
+      "id": "marina_cantiere_nettuno",
+      "label": "Marina cantiere Nettuno",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "marina cantiere nettuno"
+    },
+    {
+      "id": "scivolo_fiumicino",
+      "label": "Scivolo Fiumicino",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "scivolo fiumicino"
+    },
+    {
+      "id": "scivoli_san_felice_circeo",
+      "label": "Scivoli San Felice Circeo",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "scivoli san felice circeo"
+    },
+    {
+      "id": "tor_san_lorenzo",
+      "label": "Tor San Lorenzo",
+      "file_type": "location",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "tor san lorenzo"
     },
     {
       "id": "montaggio_gommone_faticoso",
@@ -1842,6 +2724,15 @@
       "weight": 1.0
     },
     {
+      "source": "budget_bundle_2000",
+      "target": "progetto_barca",
+      "relation": "constrains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "budget_acquisto_4500",
       "target": "progetto_barca",
       "relation": "constrains",
@@ -1861,7 +2752,16 @@
     },
     {
       "source": "solo_usato",
-      "target": "budget_acquisto_4500",
+      "target": "budget_bundle_2000",
+      "relation": "qualifies",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "cap_30_testa_mese_non_hard_gommone",
+      "target": "budget_bundle_2000",
       "relation": "qualifies",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -2427,6 +3327,87 @@
       "weight": 1.0
     },
     {
+      "source": "architettura_e_flusso_di_sbarco",
+      "target": "sbarco",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "architettura_e_flusso_di_sbarco",
+      "target": "bot",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "architettura_e_flusso_di_sbarco",
+      "target": "deep_research",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "architettura_e_flusso_di_sbarco",
+      "target": "worker",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/architettura-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_nascosti_gommone",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_nascosti_gommone",
+      "target": "gommone",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_nascosti_gommone",
+      "target": "costi",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_nascosti_gommone",
+      "target": "burocrazia",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_nascosti_gommone",
+      "target": "manutenzione",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-nascosti-gommone.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "feed_accessori_design_e_scoring",
       "target": "accessori",
       "relation": "tagged",
@@ -2544,8 +3525,53 @@
       "weight": 1.0
     },
     {
+      "source": "logistica_e_trasporto_gommone",
+      "target": "gommone_wiki_concetti_logistica_trasporto_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "logistica_e_trasporto_gommone",
+      "target": "logistica",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "logistica_e_trasporto_gommone",
+      "target": "trasporto",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "logistica_e_trasporto_gommone",
+      "target": "custodia",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "logistica_e_trasporto_gommone",
+      "target": "open_questions",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/logistica-trasporto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "montaggio_e_logistica_gommone",
-      "target": "gommone",
+      "target": "gommone_wiki_concetti_montaggio_gommone_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/montaggio-gommone.md",
@@ -2563,7 +3589,7 @@
     },
     {
       "source": "montaggio_e_logistica_gommone",
-      "target": "logistica",
+      "target": "logistica_wiki_concetti_montaggio_gommone_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/montaggio-gommone.md",
@@ -2752,6 +3778,15 @@
     },
     {
       "source": "indice_wiki",
+      "target": "architettura_e_flusso_di_sbarco",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "le_bestie",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -2797,7 +3832,7 @@
     },
     {
       "source": "indice_wiki",
-      "target": "budget_acquisto_4500",
+      "target": "budget_bundle_2000",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -2860,6 +3895,33 @@
     },
     {
       "source": "indice_wiki",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "logistica_e_trasporto_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "tendalino",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "limite_40_8_cv_30_kw",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -2891,6 +3953,24 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "index",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "architettura_e_flusso_di_sbarco",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3103,15 +4183,6 @@
     },
     {
       "source": "limiti_senza_patente_italia",
-      "target": "le_bestie",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/normativa/limiti-senza-patente.md",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "limiti_senza_patente_italia",
       "target": "patente",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3134,6 +4205,150 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/limiti-senza-patente.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "pesca_ricreativa_in_mare",
+      "target": "pesca_wiki_normativa_pesca_ricreativa_mare_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "pesca_ricreativa_in_mare",
+      "target": "recfishing",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "pesca_ricreativa_in_mare",
+      "target": "masaf",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/pesca-ricreativa-mare.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "assicurazione",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "rc",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "gommone_wiki_normativa_rc_obbligatoria_natanti_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_obbligatoria_natanti",
+      "target": "normativa",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "anzio",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "ardea",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "pomezia",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "varo",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "ordinanze",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "scivolo",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "corridoio",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3166,6 +4381,24 @@
     },
     {
       "source": "overview",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "overview",
+      "target": "logistica_e_trasporto_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "overview",
       "target": "feed_subito_live",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3179,6 +4412,24 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_wiki_preferenze_budget_md",
+      "target": "rc_obbligatoria_natanti",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_wiki_preferenze_budget_md",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/budget.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3247,6 +4498,15 @@
     },
     {
       "source": "intervista_requisiti",
+      "target": "gozzo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/intervista-requisiti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "intervista_requisiti",
       "target": "intervista",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3310,15 +4570,6 @@
     },
     {
       "source": "nice_to_have_e_priorit_d_uso",
-      "target": "gozzo",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/preferenze/nice-to-have.md",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "nice_to_have_e_priorit_d_uso",
       "target": "argo_evo_360_al",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3363,8 +4614,8 @@
       "weight": 1.0
     },
     {
-      "source": "open_questions",
-      "target": "argo_evo_360_al",
+      "source": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "log",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/open-questions.md",
@@ -3372,11 +4623,47 @@
       "weight": 1.0
     },
     {
-      "source": "open_questions",
+      "source": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "varo_e_navigazione_sul_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "open_questions_wiki_preferenze_open_questions_md",
       "target": "todo",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3426,7 +4713,34 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
+      "target": "montaggio_e_logistica_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-gommoni.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_gommoni_primario",
+      "target": "logistica_e_trasporto_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-gommoni.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_gommoni_primario",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-gommoni.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_gommoni_primario",
       "target": "argo_evo_360_al",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3435,7 +4749,7 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
       "target": "feed_annunci_subito",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3444,7 +4758,7 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
       "target": "motore_fuoribordo_9_9_15_cv",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3453,7 +4767,7 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
       "target": "gommone_wiki_preferenze_track_gommoni_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3462,7 +4776,7 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
       "target": "dual_track_wiki_preferenze_track_gommoni_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3471,20 +4785,11 @@
       "weight": 1.0
     },
     {
-      "source": "track_gommoni_parallelo",
+      "source": "track_gommoni_primario",
       "target": "pesca_wiki_preferenze_track_gommoni_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/track-gommoni.md",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "track_motori_parallelo",
-      "target": "argo_evo_360_al",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/preferenze/track-motori.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3525,6 +4830,294 @@
       "weight": 1.0
     },
     {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "sbarco_wiki_sintesi_audit_sbarco_20260811_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "audit",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "memoria",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "streaming",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "pdf",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "mobile",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
+      "target": "token",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-20260811.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "architettura_e_flusso_di_sbarco",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "audit_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "sbarco_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "deep_research_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "wiki",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "audit_sbarco_e_wiki_10_agosto_2026",
+      "target": "mobile_wiki_sintesi_audit_sbarco_wiki_20260810_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/audit-sbarco-wiki-20260810.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "argo_evo_360_al",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "varo_e_navigazione_sul_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "open_questions_wiki_preferenze_open_questions_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "no_patente_nautica",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "gozzo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "logistica_e_trasporto_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "montaggio_e_logistica_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "motore_fuoribordo_9_9_15_cv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "lunghezza_min_3_30_m",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "limite_40_8_cv_30_kw",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "rc_obbligatoria_natanti",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "pesca_ricreativa_in_mare",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "feed_subito_live",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "sbarco_wiki_sintesi_contesto_sbarco_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "contesto",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "source_of_truth",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "dual_track",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "conversazioni_audio_2026_08_09",
       "target": "audio",
       "relation": "tagged",
@@ -3561,7 +5154,196 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "conversazioni_audio_2026_08_09",
+      "target": "storico",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "split_costi_e_danni",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "contesto_operativo_sbarco",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "patto",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "split_wiki_sintesi_patto_bestie_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "danni_wiki_sintesi_patto_bestie_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "uscite",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
+      "target": "soci",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "varo_e_navigazione_sul_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "patto_bestie_digest_operativo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "limite_40_8_cv_30_kw",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "rc_obbligatoria_natanti",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "pesca_ricreativa_in_mare",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "costi_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "rc_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "normativa_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "dotazioni",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "motore_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "varo_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "requisiti_v2",
       "target": "lunghezza_min_3_30_m",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3570,7 +5352,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "motore_fuoribordo_9_9_15_cv",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3579,7 +5361,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "argo_evo_360_al",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3588,7 +5370,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "feed_annunci_subito",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3597,7 +5379,25 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
+      "target": "costi_nascosti_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/requisiti-v1.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "requisiti_v2",
+      "target": "logistica_e_trasporto_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/requisiti-v1.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "requisiti_v2",
       "target": "no_patente_nautica",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3606,8 +5406,8 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
-      "target": "budget_acquisto_4500",
+      "source": "requisiti_v2",
+      "target": "budget_bundle_2000",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/requisiti-v1.md",
@@ -3615,7 +5415,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "le_bestie",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3624,7 +5424,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "ecoscandaglio",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3633,7 +5433,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "feed_subito_live",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3642,7 +5442,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "mercato_usato_4500",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3651,7 +5451,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "anzio",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3660,7 +5460,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "posto_barca_opzione_a",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3669,7 +5469,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "limite_40_8_cv_30_kw",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3678,7 +5478,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "no_patente_6_pax_cosa_realistico",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3687,7 +5487,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "pesca_a_canna_priorit_1",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -3696,7 +5496,7 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "requisiti_wiki_sintesi_requisiti_v1_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3705,11 +5505,38 @@
       "weight": 1.0
     },
     {
-      "source": "requisiti_v1_intervista",
+      "source": "requisiti_v2",
       "target": "shortlist_filtri",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/requisiti-v1.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scenario_scafo_rigido_5_soci",
+      "target": "scafo_rigido",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scenario_scafo_rigido_5_soci",
+      "target": "scenario",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scenario_scafo_rigido_5_soci",
+      "target": "5_soci",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/scenario-rigido-5-soci.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -3751,6 +5578,15 @@
     },
     {
       "source": "shortlist",
+      "target": "scenario_scafo_rigido_5_soci",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/shortlist.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "shortlist",
       "target": "shortlist_wiki_sintesi_shortlist_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -3769,8 +5605,35 @@
     },
     {
       "source": "progetto_barca",
+      "target": "patto_bestie_v1_10",
+      "relation": "governed_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
       "target": "accordo_scritto_danni_split",
       "relation": "requires",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_v1_10",
+      "target": "danni_default_1_p_presenti",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_v1_10",
+      "target": "formula_recesso_tempo_dominante",
+      "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
       "source_location": "L1",
@@ -3804,7 +5667,16 @@
       "weight": 1.0
     },
     {
-      "source": "rc_assicurazione_100_150_anno",
+      "source": "rc_assicurazione_obbligatoria_motore",
+      "target": "rc_scenario_120_anno",
+      "relation": "estimated_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_scenario_120_anno",
       "target": "tco_3600_anno_totale",
       "relation": "part_of",
       "confidence": "EXTRACTED",
@@ -3816,6 +5688,249 @@
       "source": "costi_fissi_1800_anno",
       "target": "tco_3600_anno_totale",
       "relation": "part_of",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_wiki_sintesi_prospetto_costi_a_norma_md",
+      "target": "cinque_cancelli_pre_acquisto",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_wiki_sintesi_prospetto_costi_a_norma_md",
+      "target": "dotazioni_entro_6_miglia",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_wiki_sintesi_prospetto_costi_a_norma_md",
+      "target": "rc_assicurazione_obbligatoria_motore",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "dotazioni_entro_6_miglia",
+      "target": "kit_dotazioni_300_350_4_pax",
+      "relation": "costs",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "rc_assicurazione_obbligatoria_motore",
+      "target": "massimali_rc_6_45m_1_3m",
+      "relation": "requires",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "fasce_motore_9_9_40_cv",
+      "target": "limite_40_8_cv_30_kw",
+      "relation": "respects",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "priorita_motore_15_20_cv_4t",
+      "target": "fasce_motore_9_9_40_cv",
+      "relation": "selects",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "priorita_motore_15_20_cv_4t",
+      "target": "sweet_spot_9_9_15_cv",
+      "relation": "overlaps",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "benzina_scenario_1_97_l",
+      "target": "fasce_motore_9_9_40_cv",
+      "relation": "prices",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
+      "target": "prospetto_costi_a_norma_wiki_sintesi_prospetto_costi_a_norma_md",
+      "relation": "uses",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "pesca_a_canna_priorit_1",
+      "target": "recfishing_2026",
+      "relation": "requires",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_litorale_laziale",
+      "target": "corridoio_di_lancio_obbligatorio",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_litorale_laziale",
+      "target": "no_varo_da_spiaggia_libera",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "corridoio_di_lancio_obbligatorio",
+      "target": "max_3_nodi_in_corridoio",
+      "relation": "requires",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "ardea_pomezia",
+      "target": "varo_litorale_laziale",
+      "relation": "governed_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "tor_san_lorenzo",
+      "target": "ardea_pomezia",
+      "relation": "part_of",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "po_circolo_nautico_tor_san_lorenzo",
+      "target": "tor_san_lorenzo",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "po_rimessaggio_cerolini",
+      "target": "ardea_pomezia",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "po_circolo_nautico_caravallebecio",
+      "target": "ardea_pomezia",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "po_la_torre_ardea",
+      "target": "tor_san_lorenzo",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scivolo_capitaneria_anzio",
+      "target": "anzio",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "porto_turistico_anzio",
+      "target": "anzio",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "marina_cantiere_nettuno",
+      "target": "nettuno",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scivolo_fiumicino",
+      "target": "fiumicino",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "scivoli_san_felice_circeo",
+      "target": "circeo",
+      "relation": "location",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "progetto_barca",
+      "target": "varo_litorale_laziale",
+      "relation": "uses",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_b_gommoni",
+      "target": "varo_litorale_laziale",
+      "relation": "requires",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
       "source_location": "L1",

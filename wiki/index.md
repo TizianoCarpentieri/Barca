@@ -40,7 +40,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
 | [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
 | [[preferenze/nice-to-have]] | Priorità uso + nice per track |
-| [[preferenze/split-costi]] | 1/N, danni gruppo, uscita socio; patto in cantiere (non ingerito) |
+| [[preferenze/split-costi]] | 1/N, danni 1/P presenti; digest patto in [[sintesi/patto-bestie]] |
 | [[preferenze/budget]] | Acquisto ≤2k; cap 30 € **non hard** sul gommone |
 | [[preferenze/open-questions]] | Domande aperte (logistica, preventivi, firma patto) |
 | [[preferenze/intervista-requisiti]] | Diario raccolta requisiti |
@@ -72,7 +72,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[normativa/limiti-senza-patente]] | Soglie MIT: ≤30 kW / 40,8 CV, ≤6 miglia |
 | [[normativa/rc-obbligatoria-natanti]] | **RC obbligatoria** gommone a motore (art. 41 + art. 123 CAP) |
 | [[normativa/pesca-ricreativa-mare]] | SIAN, RecFishing e regole pesca ricreativa aggiornate al 2026 |
-| [[normativa/varo-litorale-lazio]] | Corridoi, distanze, 4 punti di ormeggio Ardea censiti e ordinanze locali |
+| [[normativa/varo-litorale-lazio]] | Guida varo: corridoi, 4 PO Ardea, scivoli Anzio→Circeo, contatti |
 
 ## Mercato
 
@@ -98,5 +98,6 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[sintesi/shortlist]] | Candidati gommone e motore da promuovere dopo verifica |
 | [[sintesi/contesto-sbarco]] | Source of truth compatta per Sbarco |
 | [[sintesi/audit-sbarco-wiki-20260810]] | Cause dei problemi del 10 agosto, correzioni e limiti residui |
-| [[sintesi/prospetto-costi-a-norma]] | Redirect → `contratto/prospetto-costi-a-norma.md` (leggi + costi obbligatori) |
+| [[sintesi/prospetto-costi-a-norma]] | Digest obblighi/costi/dotazioni/fasce motore (fonte `contratto/prospetto-…`) |
+| [[sintesi/patto-bestie]] | Digest patto v1.10 (split, danni, uscite, formula recesso) |
 | [[sintesi/audit-sbarco-20260811]] | Audit memoria, streaming, token, PDF e UI mobile della revisione 2.2.0 |
