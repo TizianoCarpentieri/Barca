@@ -6,6 +6,21 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-20] preferenze | Vele = sogno parallelo (tab Annunci, non piano A)
+
+- Quinta categoria feed **Vele** in arrivo sulla presentazione. Non cambia il must-have “mezzo a motore”.
+- Criteri ancora aperti in [[preferenze/open-questions]]; nota in [[preferenze/nice-to-have]].
+- UI tab Annunci: striscia unica 4–5 voci, niente griglia 2×2.
+
+## [2026-08-20] setup | UI mobile-first: dock, menu, Sbarco FAB, tab annunci
+
+- Tab bar più bassa (non mangia più ~100px); FAB Sbarco alzato sopra il dock.
+- Menu Altro: niente duplicati Home/Annunci/Regole; sezioni Caccia + Manifesto; Status incluso; toggle/ESC/scroll-lock.
+- Home: tile compatte, Status in mappa; splash una volta a sessione.
+- Annunci: tab 2×2 sticky; Accessori allineato alle altre categorie.
+- Animazioni più leggere su touch; toggle “Ricerca profonda” di Sbarco non sembra più acceso di default.
+- Base: rimosso wikilink grezzo visibile in pagina.
+
 ## [2026-08-12] ingest | Prospetto, patto v1.10, mappa varo → wiki + grafo Sbarco
 
 - Digest wiki: [[sintesi/prospetto-costi-a-norma]], [[sintesi/patto-bestie]],

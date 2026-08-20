@@ -50,6 +50,12 @@
         document.documentElement.style.width = '100%';
         document.documentElement.style.maxWidth = '100%';
         if (phone) document.documentElement.classList.add('is-phone');
+        try {
+          if (sessionStorage.getItem('barca_splash') === '1') {
+            document.documentElement.classList.add('splash-skip');
+          }
+        } catch (e) {}
+        if (phone) document.documentElement.classList.add('splash-skip');
       })();
     </script>
 
@@ -130,56 +136,63 @@
       <section class="sec wrap">
         <div class="sec-label"><span class="eyebrow">Mappa del manifesto</span></div>
         <div class="nav-tiles">
-          <a class="nav-tile" href="./equipaggio.html" data-reveal data-tilt>
+          <a class="nav-tile" href="./status.html" data-reveal data-tilt>
             <span class="nav-tile__n">01</span>
+            <div>
+              <div class="nav-tile__t">Status</div>
+              <div class="nav-tile__s">Dove siamo adesso</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./annunci.html" data-reveal data-tilt>
+            <span class="nav-tile__n">02</span>
+            <div>
+              <div class="nav-tile__t">Annunci live</div>
+              <div class="nav-tile__s">Gommoni · Motori · Rigide</div>
+            </div>
+          </a>
+          <a class="nav-tile" href="./equipaggio.html" data-reveal data-tilt>
+            <span class="nav-tile__n">03</span>
             <div>
               <div class="nav-tile__t">Equipaggio</div>
               <div class="nav-tile__s">Tu, Antonio, Peppe</div>
             </div>
           </a>
           <a class="nav-tile" href="./regole.html" data-reveal data-tilt>
-            <span class="nav-tile__n">02</span>
+            <span class="nav-tile__n">04</span>
             <div>
               <div class="nav-tile__t">Regole</div>
               <div class="nav-tile__s">Go, no-go, budget</div>
             </div>
           </a>
           <a class="nav-tile" href="./priorita.html" data-reveal data-tilt>
-            <span class="nav-tile__n">03</span>
+            <span class="nav-tile__n">05</span>
             <div>
               <div class="nav-tile__t">Priorità</div>
               <div class="nav-tile__s">Pesca > giri > bagno</div>
             </div>
           </a>
           <a class="nav-tile" href="./base.html" data-reveal data-tilt>
-            <span class="nav-tile__n">04</span>
+            <span class="nav-tile__n">06</span>
             <div>
               <div class="nav-tile__t">Base</div>
-              <div class="nav-tile__s">Lazio · posto o terra</div>
+              <div class="nav-tile__s">Auto, casa, scivolo</div>
             </div>
           </a>
           <a class="nav-tile" href="./mercato.html" data-reveal data-tilt>
-            <span class="nav-tile__n">05</span>
+            <span class="nav-tile__n">07</span>
             <div>
               <div class="nav-tile__t">Mercato</div>
               <div class="nav-tile__s">Cosa si trova davvero</div>
             </div>
           </a>
           <a class="nav-tile" href="./mosse.html" data-reveal data-tilt>
-            <span class="nav-tile__n">06</span>
+            <span class="nav-tile__n">08</span>
             <div>
               <div class="nav-tile__t">Prossime mosse</div>
               <div class="nav-tile__s">Cosa fare insieme</div>
             </div>
           </a>
-           <a class="nav-tile" href="./annunci.html" data-reveal data-tilt>
-             <span class="nav-tile__n">07</span>
-             <div>
-               <div class="nav-tile__t">Annunci live</div>
-               <div class="nav-tile__s">Rigide · Gommoni · Motori</div>
-             </div>
-           </a>
-         </div>
+        </div>
       </section>
 
       <p class="footer-note wrap">Aggiornato agosto 2026 · Knowledge base viva</p>

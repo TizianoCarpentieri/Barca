@@ -1,7 +1,7 @@
 ---
 title: Open questions
 type: preferenza
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [todo]
 ---
@@ -43,6 +43,11 @@ Dettaglio: [[concetti/costi-nascosti-gommone]] · [[preferenze/budget]].
 - [ ] Stima uscite/anno realistiche dopo prova montaggio.
 - [ ] Dove lavare/asciugare dopo ogni uscita.
 - [ ] Manutenzione: non serve un “referente fisso” obbligatorio; va definito come si ruota il carico.
+
+## Presentazione — track Vele
+
+- [ ] Criteri del feed **Vele** (deriva/cabina, budget, no-patente sì/no) prima di aprire la quinta tab Annunci.
+- [ ] Fonte annunci e scoring (distanza Lazio? prezzo vs nuovo?).
 
 ## Manutenzione knowledge base
 

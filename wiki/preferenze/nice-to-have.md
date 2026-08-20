@@ -1,7 +1,7 @@
 ---
 title: Nice-to-have e priorità d'uso
 type: preferenza
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [desiderata, pesca, priorita]
 ---
@@ -62,6 +62,11 @@ tags: [desiderata, pesca, priorita]
 - Piano A **gommoni**: trasporto auto, ref [[modelli/argo-evo-360]], paiolato Al/airdeck.
 - Motore abbinato: niente 2.5/4 CV — [[preferenze/track-motori]].
 - Piano B **rigidi**: solo con ≥5 soci; tendalino e posto/terra — [[sintesi/scenario-rigido-5-soci]].
+
+## Sogno parallelo — Vele
+
+- In **presentazione**, quinta tab Annunci **Vele** (feed a parte). Non sostituisce il piano A gommone a motore.
+- Criteri del track (tipo, budget, patente) ancora da definire — [[preferenze/open-questions]].
 
 ## Core vs sociale
 
