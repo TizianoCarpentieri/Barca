@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0908" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+      html,body{ margin:0; padding:0; width:100%; max-width:100%; overflow-x:hidden; background:#0b0908; color:#f3ebe0; }
+      img,video,svg,canvas{ max-width:100%!important; height:auto; display:block; }
+      *,*::before,*::after{ box-sizing:border-box; }
+    </style>
+    <script>
+      (function () {
+        var short = Math.min(screen.width || 0, screen.height || 0);
+        var touch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var phone = touch && short > 0 && short < 700;
+        var m = document.querySelector('meta[name="viewport"]');
+        if (!m) {
+          m = document.createElement('meta');
+          m.name = 'viewport';
+          document.head.insertBefore(m, document.head.firstChild);
+        }
+        if (phone) {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover');
+          setTimeout(function () {
+            var cw = document.documentElement.clientWidth || window.innerWidth;
+            if (screen.width && cw > screen.width + 60) {
+              m.setAttribute('content', 'width=' + screen.width + ', initial-scale=1, maximum-scale=5, viewport-fit=cover');
+            }
+            document.documentElement.classList.add('is-phone');
+          }, 0);
+        } else {
+          m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+        }
+        document.documentElement.style.width = '100%';
+        document.documentElement.style.maxWidth = '100%';
+        if (phone) document.documentElement.classList.add('is-phone');
+      })();
+    </script>
+    <meta name="description" content="Documenti di bordo delle Bestie: patto soci, prospetto costi a norma, punti di lancio Lazio." />
+    <title>Documenti — Progetto Barca</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div class="glow-orb" aria-hidden="true"></div>
+    <main class="page">
+      <header class="ph wrap">
+        <a class="ph__back" href="./index.html">← Manifesto</a>
+        <span class="eyebrow">Cantiere · Bozze</span>
+        <h1 class="display display-lg">Documenti</h1>
+        <p class="ph__sub">Patto, costi a norma e punti di lancio. Da leggere insieme — niente è firmato.</p>
+      </header>
+
+      <section class="sec wrap">
+        <div class="ads-cats" id="doc-cats" role="tablist" aria-label="Documento">
+          <button type="button" class="ads-cat is-on" data-doc="patto" role="tab" aria-selected="true">Patto</button>
+          <button type="button" class="ads-cat" data-doc="costi" role="tab" aria-selected="false">Costi</button>
+          <button type="button" class="ads-cat" data-doc="varo" role="tab" aria-selected="false">Varo</button>
+        </div>
+
+        <div class="ads-meta">
+          <div class="ads-meta__row">
+            <span class="stamp stamp--brass" id="doc-stamp">Bozza</span>
+            <span class="ads-meta__updated" id="doc-title">Patto tra soci</span>
+          </div>
+          <p class="ads-meta__note" id="doc-note"></p>
+        </div>
+
+        <article class="card doc-prose" id="doc-body" aria-live="polite"></article>
+      </section>
+
+      <p class="footer-note wrap">Bozze di lavoro · non sostituiscono la legge</p>
+    </main>
+    <script type="module" src="/src/js/app.js"></script>
+    <script type="module" src="/src/js/documenti.js"></script>
+  </body>
+</html>

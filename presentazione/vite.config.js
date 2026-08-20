@@ -1,8 +1,26 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { spawnSync } from 'child_process'
+
+function syncDocumenti() {
+  spawnSync(process.execPath, [resolve(__dirname, 'scripts/sync-documenti.mjs')], {
+    stdio: 'inherit',
+  })
+}
 
 export default defineConfig({
   base: './',
+  plugins: [
+    {
+      name: 'sync-documenti',
+      buildStart() {
+        syncDocumenti()
+      },
+      configureServer() {
+        syncDocumenti()
+      },
+    },
+  ],
   resolve: {
     alias: {
       canvg: resolve(__dirname, 'src/js/pdf-optional-stub.js'),
@@ -26,6 +44,7 @@ export default defineConfig({
         gommoni: resolve(__dirname, 'gommoni.html'),
         motori: resolve(__dirname, 'motori.html'),
         accessori: resolve(__dirname, 'accessori.html'),
+        documenti: resolve(__dirname, 'documenti.html'),
       },
     },
   },

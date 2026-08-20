@@ -1,7 +1,7 @@
 ---
 title: Varo e navigazione sul litorale laziale
 type: normativa
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [ardea, pomezia, varo, ordinanze, scivolo, corridoio]
 sources:
@@ -15,7 +15,8 @@ sources:
 # Varo e navigazione sul litorale laziale
 
 Guida operativa per le Bestie (base Ardea/Pomezia/Tor San Lorenzo).  
-Dati mappa: `contratto/dati/punti-varo-lazio.json` (agg. 2026-08-12). PDF grafico: export mappa punti varo in `contratto/`.
+**Testo integrale + tabelle:** [[documenti/varo]] · sito `documenti.html?doc=varo`.  
+Dati: `contratto/dati/punti-varo-lazio.json` (agg. 2026-08-12).
 
 **Disclaimer:** regole su atti 2025–2026; operatività di corridoi/PO/scivoli va **confermata a telefono** prima dell’uscita. Concessione censita ≠ varo giornaliero garantito.
 

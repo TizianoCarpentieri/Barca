@@ -6,6 +6,14 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-20] ingest | Documenti di bordo in wiki + sito + Sbarco
+
+- Patto, prospetto costi e punti di lancio ingeriti come **bozza ipotetica** (non firmata).
+- Testi integrali: [[documenti/patto]], [[documenti/costi]], [[documenti/varo]]; hub [[documenti]].
+- Impianto patto dichiarato riutilizzabile per gommone / rigida / vela.
+- Sito: `presentazione/documenti.html` (tab Patto · Costi · Varo).
+- Sbarco 2.2.4: contesto + `read_wiki` fino a 48k sui path `wiki/documenti/*`.
+
 ## [2026-08-20] sbarco | streaming visibile (non più blocco unico)
 
 - Causa: token SSE accorpati da rete/CF + un solo rAF → un paint dell'intera risposta.

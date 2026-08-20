@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources:
@@ -42,11 +42,15 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 
 ## Patto, costi a norma, varo (ingeriti)
 
-| Tema | Pagina wiki | File completo |
-|------|-------------|----------------|
-| Obblighi/costi/dotazioni/motori | [[sintesi/prospetto-costi-a-norma]] | `contratto/prospetto-costi-a-norma.md` |
-| Patto soci v1.10 (bozza non firmata) | [[sintesi/patto-bestie]] | `contratto/bozza-patto-v1.md` |
-| Mappa punti varo Lazio | [[normativa/varo-litorale-lazio]] | `contratto/dati/punti-varo-lazio.json` |
+Bozze **ipotetiche tra soci, non firmate**. L'impianto del patto si riusa per gommone, scafo rigido o vela (si cambia il Bene). Consultazione sul sito: `documenti.html`.
+
+| Tema | Digest | Testo integrale wiki | File fonte |
+|------|--------|----------------------|------------|
+| Patto soci v1.10 | [[sintesi/patto-bestie]] | [[documenti/patto]] | `contratto/bozza-patto-v1.md` |
+| Costi/obblighi/dotazioni | [[sintesi/prospetto-costi-a-norma]] | [[documenti/costi]] | `contratto/prospetto-costi-a-norma.md` |
+| Punti di lancio Lazio | [[normativa/varo-litorale-lazio]] | [[documenti/varo]] | `contratto/dati/punti-varo-lazio.json` |
+
+Se l'utente chiede un articolo, una tabella o un punto di varo: **read_wiki** sui path `wiki/documenti/patto.md`, `wiki/documenti/costi.md`, `wiki/documenti/varo.md`. Hub: [[documenti]].
 
 **Flash utile:**
 - RC obbligatoria su motore amovibile; massimali min. 6,45 M€ / 1,3 M€ (2026).

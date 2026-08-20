@@ -24,7 +24,8 @@ Le bestie (tu + Antonio + Peppe) cercano un **gommone pneumatico smontabile no-p
 | Motore | **9–40 CV**, purché senza patente; 4T preferito; gambo compatibile con lo scafo |
 | Reference | [[modelli/argo-evo-360]] a 970 € nuovo (benchmark scafo) |
 
-UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · Accessori).
+UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · Accessori).  
+Documenti di bordo: [Patto · Costi · Varo](https://tizianocarpentieri.github.io/Barca/documenti.html) (bozze, non firmati).
 Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scoring]].
 
 ## Stato
@@ -44,7 +45,7 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Accordo scritto bestie | 🟡 bozza in cantiere (fuori wiki); da revisionare insieme e firmare — **non** ancora ingerita |
 | Scenario rigido 5 soci | ⬜ [[sintesi/scenario-rigido-5-soci]] |
 | Feed Subito automatico | ✅ 3 feed + geo-score + cron |
-| Sbarco deep research | 🟢 produzione `2.2.3`; streaming visibile a cadenza sul client; PDF `save_doc` + fallback |
+| Sbarco deep research | 🟢 produzione `2.2.4`; streaming visibile; documenti patto/costi/varo in wiki |
 | Lint wiki automatico | ✅ `node scripts/lint-wiki.mjs` |
 | Shortlist candidati | ⬜ da popolare dai feed |
 | Visite/prove | ⬜ non iniziato |

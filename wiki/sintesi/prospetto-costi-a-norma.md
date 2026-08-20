@@ -1,7 +1,7 @@
 ---
 title: Prospetto costi a norma
 type: sintesi
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [costi, RC, normativa, dotazioni, motore, varo]
 sources:
@@ -14,7 +14,9 @@ sources:
 # Prospetto costi a norma — digest wiki
 
 **Fonte di verità completa:** `contratto/prospetto-costi-a-norma.md` (audit 11–12 ago 2026).  
-Questa pagina è il digest operativo per Sbarco e la navigazione wiki. Non sostituisce norme, ordinanze, polizza o manuale.
+**Testo integrale in wiki:** [[documenti/costi]] · sito `documenti.html?doc=costi`.
+
+Digest operativo per Sbarco. Non sostituisce norme, ordinanze, polizza o manuale. Il metodo (cancelli, RC, dotazioni, TCO) vale anche per uno scafo rigido o una vela.
 
 **Profilo:** natante pneumatico non RIB da **≥3,90 m**; fuoribordo **9–40 CV** no-patente; 3 soci; ≤6 miglia; pesca ricreativa; trasporto sgonfio in auto.
 

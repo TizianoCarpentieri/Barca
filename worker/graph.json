@@ -1210,6 +1210,186 @@
       "norm_label": "#cantiere"
     },
     {
+      "id": "prospetto_costi_a_norma_testo_integrale",
+      "label": "Prospetto costi a norma — testo integrale",
+      "file_type": "sintesi",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "prospetto costi a norma — testo integrale"
+    },
+    {
+      "id": "costi_wiki_documenti_costi_md",
+      "label": "#costi",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#costi"
+    },
+    {
+      "id": "rc",
+      "label": "#RC",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#rc"
+    },
+    {
+      "id": "dotazioni",
+      "label": "#dotazioni",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#dotazioni"
+    },
+    {
+      "id": "normativa",
+      "label": "#normativa",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#normativa"
+    },
+    {
+      "id": "patto_bestie_bozza_integrale",
+      "label": "Patto Bestie — bozza integrale",
+      "file_type": "sintesi",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "patto bestie — bozza integrale"
+    },
+    {
+      "id": "patto",
+      "label": "#patto",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#patto"
+    },
+    {
+      "id": "bozza",
+      "label": "#bozza",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#bozza"
+    },
+    {
+      "id": "soci",
+      "label": "#soci",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#soci"
+    },
+    {
+      "id": "split",
+      "label": "#split",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#split"
+    },
+    {
+      "id": "punti_di_lancio_litorale_laziale",
+      "label": "Punti di lancio — litorale laziale",
+      "file_type": "normativa",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "punti di lancio — litorale laziale"
+    },
+    {
+      "id": "varo",
+      "label": "#varo",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#varo"
+    },
+    {
+      "id": "corridoio",
+      "label": "#corridoio",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#corridoio"
+    },
+    {
+      "id": "scivolo",
+      "label": "#scivolo",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scivolo"
+    },
+    {
+      "id": "ardea",
+      "label": "#Ardea",
+      "file_type": "tag",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ardea"
+    },
+    {
+      "id": "documenti_di_bordo",
+      "label": "Documenti di bordo",
+      "file_type": "sintesi",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "documenti di bordo"
+    },
+    {
+      "id": "patto_wiki_documenti_md",
+      "label": "#patto",
+      "file_type": "tag",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#patto"
+    },
+    {
+      "id": "costi_wiki_documenti_md",
+      "label": "#costi",
+      "file_type": "tag",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#costi"
+    },
+    {
+      "id": "varo_wiki_documenti_md",
+      "label": "#varo",
+      "file_type": "tag",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#varo"
+    },
+    {
+      "id": "bozza_wiki_documenti_md",
+      "label": "#bozza",
+      "file_type": "tag",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#bozza"
+    },
+    {
       "id": "indice_wiki",
       "label": "Indice wiki",
       "file_type": "sintesi",
@@ -1498,7 +1678,7 @@
       "norm_label": "#assicurazione"
     },
     {
-      "id": "rc",
+      "id": "rc_wiki_normativa_rc_obbligatoria_natanti_md",
       "label": "#RC",
       "file_type": "tag",
       "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
@@ -1516,7 +1696,7 @@
       "norm_label": "#gommone"
     },
     {
-      "id": "normativa",
+      "id": "normativa_wiki_normativa_rc_obbligatoria_natanti_md",
       "label": "#normativa",
       "file_type": "tag",
       "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
@@ -1534,7 +1714,7 @@
       "norm_label": "varo e navigazione sul litorale laziale"
     },
     {
-      "id": "ardea",
+      "id": "ardea_wiki_normativa_varo_litorale_lazio_md",
       "label": "#ardea",
       "file_type": "tag",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -1552,7 +1732,7 @@
       "norm_label": "#pomezia"
     },
     {
-      "id": "varo",
+      "id": "varo_wiki_normativa_varo_litorale_lazio_md",
       "label": "#varo",
       "file_type": "tag",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -1570,7 +1750,7 @@
       "norm_label": "#ordinanze"
     },
     {
-      "id": "scivolo",
+      "id": "scivolo_wiki_normativa_varo_litorale_lazio_md",
       "label": "#scivolo",
       "file_type": "tag",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -1579,7 +1759,7 @@
       "norm_label": "#scivolo"
     },
     {
-      "id": "corridoio",
+      "id": "corridoio_wiki_normativa_varo_litorale_lazio_md",
       "label": "#corridoio",
       "file_type": "tag",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -1786,7 +1966,7 @@
       "norm_label": "#budget"
     },
     {
-      "id": "split",
+      "id": "split_wiki_preferenze_split_costi_md",
       "label": "#split",
       "file_type": "tag",
       "source_file": "wiki/preferenze/split-costi.md",
@@ -2119,7 +2299,7 @@
       "norm_label": "patto bestie — digest operativo"
     },
     {
-      "id": "patto",
+      "id": "patto_wiki_sintesi_patto_bestie_md",
       "label": "#patto",
       "file_type": "tag",
       "source_file": "wiki/sintesi/patto-bestie.md",
@@ -2155,7 +2335,7 @@
       "norm_label": "#uscite"
     },
     {
-      "id": "soci",
+      "id": "soci_wiki_sintesi_patto_bestie_md",
       "label": "#soci",
       "file_type": "tag",
       "source_file": "wiki/sintesi/patto-bestie.md",
@@ -2200,7 +2380,7 @@
       "norm_label": "#normativa"
     },
     {
-      "id": "dotazioni",
+      "id": "dotazioni_wiki_sintesi_prospetto_costi_a_norma_md",
       "label": "#dotazioni",
       "file_type": "tag",
       "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
@@ -3768,8 +3948,233 @@
       "weight": 1.0
     },
     {
+      "source": "prospetto_costi_a_norma_testo_integrale",
+      "target": "costi_wiki_documenti_costi_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_testo_integrale",
+      "target": "rc",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_testo_integrale",
+      "target": "dotazioni",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma_testo_integrale",
+      "target": "normativa",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_bozza_integrale",
+      "target": "patto",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_bozza_integrale",
+      "target": "bozza",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_bozza_integrale",
+      "target": "soci",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_bozza_integrale",
+      "target": "split",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/patto.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "varo",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "corridoio",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "scivolo",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "punti_di_lancio_litorale_laziale",
+      "target": "ardea",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti/varo.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "punti_di_lancio_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "patto_wiki_documenti_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "costi_wiki_documenti_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "varo_wiki_documenti_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "documenti_di_bordo",
+      "target": "bozza_wiki_documenti_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/documenti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "indice_wiki",
       "target": "dual_track",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "documenti_di_bordo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "punti_di_lancio_litorale_laziale",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -3962,6 +4367,51 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "punti_di_lancio_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "documenti_di_bordo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "ecoscandaglio",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -4264,7 +4714,7 @@
     },
     {
       "source": "rc_obbligatoria_natanti",
-      "target": "rc",
+      "target": "rc_wiki_normativa_rc_obbligatoria_natanti_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
@@ -4282,10 +4732,19 @@
     },
     {
       "source": "rc_obbligatoria_natanti",
-      "target": "normativa",
+      "target": "normativa_wiki_normativa_rc_obbligatoria_natanti_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/rc-obbligatoria-natanti.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "varo_e_navigazione_sul_litorale_laziale",
+      "target": "punti_di_lancio_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/normativa/varo-litorale-lazio.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -4300,7 +4759,7 @@
     },
     {
       "source": "varo_e_navigazione_sul_litorale_laziale",
-      "target": "ardea",
+      "target": "ardea_wiki_normativa_varo_litorale_lazio_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -4318,7 +4777,7 @@
     },
     {
       "source": "varo_e_navigazione_sul_litorale_laziale",
-      "target": "varo",
+      "target": "varo_wiki_normativa_varo_litorale_lazio_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -4336,7 +4795,7 @@
     },
     {
       "source": "varo_e_navigazione_sul_litorale_laziale",
-      "target": "scivolo",
+      "target": "scivolo_wiki_normativa_varo_litorale_lazio_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -4345,7 +4804,7 @@
     },
     {
       "source": "varo_e_navigazione_sul_litorale_laziale",
-      "target": "corridoio",
+      "target": "corridoio_wiki_normativa_varo_litorale_lazio_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/normativa/varo-litorale-lazio.md",
@@ -4660,6 +5119,15 @@
     },
     {
       "source": "split_costi_e_danni",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/split-costi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "split_costi_e_danni",
       "target": "budget_bundle_2000",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4678,7 +5146,7 @@
     },
     {
       "source": "split_costi_e_danni",
-      "target": "split",
+      "target": "split_wiki_preferenze_split_costi_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/split-costi.md",
@@ -4957,7 +5425,43 @@
     },
     {
       "source": "contesto_operativo_sbarco",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
       "target": "varo_e_navigazione_sul_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "punti_di_lancio_litorale_laziale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "documenti_di_bordo",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/contesto-sbarco.md",
@@ -5164,6 +5668,15 @@
     },
     {
       "source": "patto_bestie_digest_operativo",
+      "target": "patto_bestie_bozza_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patto_bestie_digest_operativo",
       "target": "split_costi_e_danni",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -5182,7 +5695,7 @@
     },
     {
       "source": "patto_bestie_digest_operativo",
-      "target": "patto",
+      "target": "patto_wiki_sintesi_patto_bestie_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/patto-bestie.md",
@@ -5218,10 +5731,19 @@
     },
     {
       "source": "patto_bestie_digest_operativo",
-      "target": "soci",
+      "target": "soci_wiki_sintesi_patto_bestie_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/patto-bestie.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "prospetto_costi_a_norma",
+      "target": "prospetto_costi_a_norma_testo_integrale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -5317,7 +5839,7 @@
     },
     {
       "source": "prospetto_costi_a_norma",
-      "target": "dotazioni",
+      "target": "dotazioni_wiki_sintesi_prospetto_costi_a_norma_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/prospetto-costi-a-norma.md",

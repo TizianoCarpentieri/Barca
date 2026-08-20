@@ -1,7 +1,7 @@
 ---
 title: Patto Bestie — digest operativo
 type: sintesi
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [patto, split, danni, uscite, soci]
 sources:
@@ -11,8 +11,12 @@ sources:
 
 # Patto di gestione condivisa — digest wiki
 
-**Testo completo:** `contratto/bozza-patto-v1.md` **v1.10** (2026-08-12).  
-Bozza di lavoro a precisione contrattuale tra amici; **non firmata**. Prevale sempre la legge.
+**Bozza ipotetica tra soci, non firmata.** Precisione da contratto, accordo tra amici. Prevale la legge.
+
+**Testo integrale:** [[documenti/patto]] · fonte `contratto/bozza-patto-v1.md` **v1.10**.  
+Sul sito: `documenti.html?doc=patto`.
+
+Impianto **riutilizzabile** per gommone, scafo rigido o vela: si cambia il Bene, restano quote, danni, uscite, recesso.
 
 Soci: **Tiziano, Antonio, Peppe** (N=3). Bene = gommone + motore + dotazioni Allegato A.
 

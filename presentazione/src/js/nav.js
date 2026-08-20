@@ -46,6 +46,7 @@ export function mountNav() {
         <a href="./base.html"><strong>Base</strong><span>Trasporto e casa</span></a>
         <a href="./mercato.html"><strong>Mercato</strong><span>Cosa si trova sotto 2k</span></a>
         <a href="./mosse.html"><strong>Mosse</strong><span>Cosa facciamo ora</span></a>
+        <a href="./documenti.html"><strong>Documenti</strong><span>Patto, costi, punti di lancio</span></a>
       </div>
     </div>
   `

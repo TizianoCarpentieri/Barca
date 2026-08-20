@@ -1,7 +1,7 @@
 ---
 title: Split costi e danni
 type: preferenza
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [budget, split, danni, regole, accordo]
 sources:
@@ -16,7 +16,7 @@ sources:
 
 Preferenze di gruppo allineate al piano A gommone.  
 **Digest operativo del patto:** [[sintesi/patto-bestie]] (v1.10).  
-Testo integrale firmabile: `contratto/bozza-patto-v1.md` (ancora **non firmato**).
+Testo integrale: [[documenti/patto]] · sito `documenti.html?doc=patto` (ancora **non firmato**).
 
 ## Principi fissi
 

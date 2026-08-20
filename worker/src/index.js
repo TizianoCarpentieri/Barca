@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.2.3";
+const WORKER_VERSION = "2.2.4";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -416,9 +416,10 @@ const EMBEDDED_WIKI = {
 - Motore: 9-40 CV no-patente (≤30 kW e cilindrata); 4T preferito; sweet 15-20 CV 4T se budget.
 - Benchmark scafo: Argo-Evo 360 AL nuovo 970 EUR; usato eq. senza motore almeno -20%.
 - Piano B: scafo rigido solo con ≥5 soci e preventivi reali.
-- Patto v1.10 (bozza): wiki/sintesi/patto-bestie.md — danni default 1/P presenti; formula recesso tempo-dominante.
-- Prospetto costi: wiki/sintesi/prospetto-costi-a-norma.md — RC obbligatoria, kit dotazioni ~300-350 EUR, massimali RC 2026.
-- Varo: wiki/normativa/varo-litorale-lazio.md — solo corridoi/scivoli; 4 PO Ardea da chiamare; hub Anzio/Nettuno.
+- Patto v1.10: bozza ipotetica NON firmata; impianto anche per rigida/vela. Digest wiki/sintesi/patto-bestie.md; integrale wiki/documenti/patto.md
+- Prospetto costi a norma: wiki/documenti/costi.md (digest wiki/sintesi/prospetto-costi-a-norma.md) — RC obbligatoria, kit ~300-350 EUR.
+- Punti di lancio Lazio: wiki/documenti/varo.md (digest wiki/normativa/varo-litorale-lazio.md) — solo corridoi/scivoli; 4 PO Ardea.
+- Sito consultazione: presentazione/documenti.html (tab Patto, Costi, Varo).
 - Priorita': pesca, giri costa, bagno/relax, facilita'.
 - Aperti: auto/custodia, conferma telefonica punto varo, preventivi RC, firma patto, shortlist ≤2000 EUR.
 
@@ -426,7 +427,7 @@ Per dettagli usa read_wiki. Non trasformare stime o note storiche in fatti verif
 };
 
 async function fetchWikiPage(kv, key, pageDef) {
-  const cacheKey = `wiki:cache:v3:${key}`;
+  const cacheKey = `wiki:cache:v4:${key}`;
   try {
     const cached = await kv.get(cacheKey);
     if (cached) return cached;
@@ -483,7 +484,7 @@ UTENTE ATTIVO: ${activeUser} (id: ${userId}).
 
 Usa gli strumenti disponibili quando necessario:
 - **search_web**: per cercare prezzi, normative, costi reali, recensioni modelli
-- **read_wiki**: per leggere pagine della wiki non incluse nel contesto
+- **read_wiki**: per leggere pagine wiki. Per patto/costi/varo usa 'wiki/documenti/patto.md', 'wiki/documenti/costi.md', 'wiki/documenti/varo.md'.
 - **read_url**: per verificare il contenuto di una fonte trovata
 - **save_doc**: per preparare confronti, checklist e analisi esportabili in PDF
 - **remember**: per salvare un fatto stabile e verificato nella memoria condivisa
@@ -571,7 +572,7 @@ const TOOLS = [
       parameters: {
         type: "object",
         properties: {
-          page: { type: "string", description: "Percorso pagina wiki, es. 'wiki/modelli/argo-evo-360.md'" }
+          page: { type: "string", description: "Percorso pagina wiki, es. 'wiki/documenti/patto.md' o 'wiki/modelli/argo-evo-360.md'" }
         },
         required: ["page"],
         additionalProperties: false,
@@ -795,8 +796,8 @@ async function executeReadWiki(page, signal) {
       headers: { "User-Agent": "Sbarco/2.0" },
     }, WEB_TIMEOUT_MS, signal);
     if (!resp.ok) return `Pagina wiki '${cleanPage}' non trovata (HTTP ${resp.status}).`;
-    const text = await readTextLimited(resp, 16_000);
-    return text.length > 8000 ? text.slice(0, 8000) + "\n\n[... troncato, troppo lungo]" : text;
+    const text = await readTextLimited(resp, 60_000);
+    return text.length > 48_000 ? text.slice(0, 48_000) + "\n\n[... troncato, troppo lungo]" : text;
   } catch (err) {
     return `Errore nel leggere la wiki (${err.name === "AbortError" ? "timeout" : err.message}).`;
   }

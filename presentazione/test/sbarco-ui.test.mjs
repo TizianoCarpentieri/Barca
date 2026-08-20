@@ -4,6 +4,25 @@ import test from "node:test";
 import { drainSseBuffer, renderMarkdown } from "../src/js/sbarco-format.js";
 import { createSbarcoPdf, normalizePdfText } from "../src/js/sbarco-pdf.js";
 
+test("render Markdown con tabelle, hr e checkbox per i documenti", () => {
+  const html = renderMarkdown(`# Titolo
+
+---
+
+- [ ] Da fare
+- [x] Fatto
+
+| Voce | Euro |
+|---|---|
+| RC | **120** |
+`);
+  assert.match(html, /<hr>/);
+  assert.match(html, /☐/);
+  assert.match(html, /☑/);
+  assert.match(html, /sbarco-table-wrap/);
+  assert.match(html, /<strong>120<\/strong>/);
+});
+
 test("render Markdown strutturato e sicuro per la chat mobile", () => {
   const html = renderMarkdown(`# Titolo
 

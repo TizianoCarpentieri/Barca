@@ -9,7 +9,7 @@
 
 **Fase corrente:** cantiere attivo in `contratto/`.  
 **Bozza vigente:** `bozza-patto-v1.md` — leggi la riga **Versione** in testa (oggi **1.10**).
-Non propagare il testo del patto in `wiki/` finché non è stabile e il gruppo non lo chiede.
+Dal 2026-08-20 il gruppo ha chiesto l’ingest: testi in `wiki/documenti/` come **bozza ipotetica** (non firmata) e sul sito `documenti.html`. La fonte di verità resta questo cantiere; dopo ogni edit della bozza rilanciare `node presentazione/scripts/sync-documenti.mjs`.
 
 ---
 

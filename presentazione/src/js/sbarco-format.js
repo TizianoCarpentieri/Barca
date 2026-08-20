@@ -63,10 +63,20 @@ function isBlockStart(lines, index) {
   const next = lines[index + 1] || "";
   return !line.trim()
     || /^```/.test(line.trim())
-    || /^#{1,4}\s+/.test(line)
+    || /^#{1,6}\s+/.test(line)
+    || /^---+$/.test(line.trim())
     || /^>\s?/.test(line)
     || /^\s*([-*+] |\d+[.)] )/.test(line)
     || (line.trim().startsWith("|") && isTableSeparator(next));
+}
+
+function renderListItem(text = "") {
+  const check = String(text).match(/^\[([ xX])\]\s+([\s\S]*)$/)
+  if (check) {
+    const on = check[1].toLowerCase() === "x"
+    return `<span class="doc-check" aria-hidden="true">${on ? "☑" : "☐"}</span> ${renderInline(check[2])}`
+  }
+  return renderInline(text)
 }
 
 export function renderMarkdown(value = "") {
@@ -91,7 +101,13 @@ export function renderMarkdown(value = "") {
       continue;
     }
 
-    const heading = line.match(/^(#{1,4})\s+(.+)$/);
+    if (/^---+$/.test(line.trim())) {
+      output.push("<hr>");
+      index += 1;
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       const level = Math.min(4, heading[1].length + 1);
       output.push(`<h${level}>${renderInline(heading[2])}</h${level}>`);
@@ -126,7 +142,7 @@ export function renderMarkdown(value = "") {
         index += 1;
       }
       const tag = ordered ? "ol" : "ul";
-      output.push(`<${tag}>${items.map(item => `<li>${renderInline(item)}</li>`).join("")}</${tag}>`);
+      output.push(`<${tag}>${items.map(item => `<li>${renderListItem(item)}</li>`).join("")}</${tag}>`);
       continue;
     }
 

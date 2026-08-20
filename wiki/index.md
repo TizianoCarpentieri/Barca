@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-12
+updated: 2026-08-20
 status: active
 tags: [index]
 ---
@@ -22,7 +22,17 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Path | Sommario |
 |------|----------|
 | `presentazione/` | Sito Vite mobile-first + annunci + widget Sbarco (GitHub Pages) |
+| `presentazione/documenti.html` | Consultazione patto, costi, punti di lancio |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
+
+## Documenti di bordo (bozze)
+
+| Pagina | Sommario |
+|--------|----------|
+| [[documenti]] | Hub: bozze ipotetiche tra soci, anche per rigida/vela |
+| [[documenti/patto]] | Patto v1.10 integrale (non firmato) |
+| [[documenti/costi]] | Prospetto costi a norma integrale |
+| [[documenti/varo]] | Punti di lancio Lazio da JSON |
 
 ## Sbarco
 
