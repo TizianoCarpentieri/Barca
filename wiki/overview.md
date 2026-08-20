@@ -25,7 +25,8 @@ Le bestie (tu + Antonio + Peppe) cercano un **gommone pneumatico smontabile no-p
 | Reference | [[modelli/argo-evo-360]] a 970 € nuovo (benchmark scafo) |
 
 UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · Accessori).  
-Documenti di bordo: [Patto · Costi · Varo](https://tizianocarpentieri.github.io/Barca/documenti.html) (bozze, non firmati).
+Documenti di bordo: [Patto · Costi · Varo](https://tizianocarpentieri.github.io/Barca/documenti.html) (bozze, non firmati).  
+Scuola: [Simulazioni](https://tizianocarpentieri.github.io/Barca/simulazioni.html) · [Nodi](https://tizianocarpentieri.github.io/Barca/nodi.html).
 Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scoring]].
 
 ## Stato

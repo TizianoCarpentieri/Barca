@@ -47,6 +47,7 @@ export function mountNav() {
         <a href="./mercato.html"><strong>Mercato</strong><span>Cosa si trova sotto 2k</span></a>
         <a href="./mosse.html"><strong>Mosse</strong><span>Cosa facciamo ora</span></a>
         <a href="./documenti.html"><strong>Documenti</strong><span>Patto, costi, punti di lancio</span></a>
+        <a href="./simulazioni.html"><strong>Simulazioni</strong><span>Nodi e scuola di coperta</span></a>
       </div>
     </div>
   `

@@ -52,6 +52,8 @@ Bozze **ipotetiche tra soci, non firmate**. L'impianto del patto si riusa per go
 
 Se l'utente chiede un articolo, una tabella o un punto di varo: **read_wiki** sui path `wiki/documenti/patto.md`, `wiki/documenti/costi.md`, `wiki/documenti/varo.md`. Hub: [[documenti]].
 
+**Scuola sul sito:** [[concetti/simulazioni]] · trainer nodi `nodi.html` (gassa d'amante, parlato, otto, piano, giro morto, bandiera).
+
 **Flash utile:**
 - RC obbligatoria su motore amovibile; massimali min. 6,45 M€ / 1,3 M€ (2026).
 - Dotazioni ≤6 miglia: kit STIMA 300–350 € (4 pax).

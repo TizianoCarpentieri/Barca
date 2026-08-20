@@ -23,6 +23,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 |------|----------|
 | `presentazione/` | Sito Vite mobile-first + annunci + widget Sbarco (GitHub Pages) |
 | `presentazione/documenti.html` | Consultazione patto, costi, punti di lancio |
+| `presentazione/simulazioni.html` | Scuola di coperta: nodi (poi varo e no-patente) |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
 
 ## Documenti di bordo (bozze)
@@ -74,6 +75,8 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/logistica-trasporto]] | Auto, custodia, ciclo uscita — da verificare |
 | [[concetti/tendalino-copertura]] | Nota storica sul tendalino per lo scenario scafo rigido |
 | [[concetti/architettura-sbarco]] | Architettura e garanzie operative del chatbot |
+| [[concetti/simulazioni]] | Hub scuola/giochi sul sito |
+| [[concetti/nodi-marinareschi]] | Sei nodi da gommone + trainer |
 
 ## Normativa
 

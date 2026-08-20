@@ -6,6 +6,12 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-20] setup | Simulazioni: trainer nodi sul sito
+
+- Hub `simulazioni.html` e gioco `nodi.html`: Impara / Fai tu / Quiz.
+- Sei nodi da gommone (otto, piano, gassa, parlato, giro morto, bandiera).
+- Wiki: [[concetti/simulazioni]], [[concetti/nodi-marinareschi]].
+
 ## [2026-08-20] ingest | Documenti di bordo in wiki + sito + Sbarco
 
 - Patto, prospetto costi e punti di lancio ingeriti come **bozza ipotetica** (non firmata).

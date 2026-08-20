@@ -45,6 +45,8 @@ export default defineConfig({
         motori: resolve(__dirname, 'motori.html'),
         accessori: resolve(__dirname, 'accessori.html'),
         documenti: resolve(__dirname, 'documenti.html'),
+        simulazioni: resolve(__dirname, 'simulazioni.html'),
+        nodi: resolve(__dirname, 'nodi.html'),
       },
     },
   },

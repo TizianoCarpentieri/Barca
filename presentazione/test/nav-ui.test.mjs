@@ -28,4 +28,5 @@ test('lo sheet non duplica Home/Regole e include Status + feed', async () => {
   assert.match(sheet, /Caccia/)
   assert.match(sheet, /Manifesto/)
   assert.match(sheet, /documenti\.html/)
+  assert.match(sheet, /simulazioni\.html/)
 })
