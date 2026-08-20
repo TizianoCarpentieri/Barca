@@ -68,7 +68,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.2.2","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# → {"status":"ok","version":"2.2.3","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -125,7 +125,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.2.2` e la policy quota attiva.
+1. `/api/health` riporta `version: 2.2.3` e la policy quota attiva.
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,

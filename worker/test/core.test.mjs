@@ -81,6 +81,14 @@ test("mantiene margini conservativi per l'output visibile", () => {
   });
 });
 
+test("spezza le risposte gia pronte in chunk cadenzati visibili", () => {
+  assert.ok(__test.syntheticStreamChars <= 48);
+  assert.ok(__test.syntheticStreamDelayMs >= 20);
+  const text = "x".repeat(200);
+  const chunks = text.match(new RegExp(`[\\s\\S]{1,${__test.syntheticStreamChars}}`, "g"));
+  assert.ok(chunks.length >= 4);
+});
+
 test("applica la quota illimitata a Tiziano e cinque utilizzi agli altri", () => {
   assert.deepEqual(__test.getDailyQuota("tiziano"), { unlimited: true, max: null });
   assert.deepEqual(__test.getDailyQuota("antonio"), { unlimited: false, max: 5 });

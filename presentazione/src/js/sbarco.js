@@ -6,6 +6,7 @@
  */
 
 import { drainSseBuffer, escapeHtml, renderMarkdown } from "./sbarco-format.js";
+import { createStreamReveal } from "./sbarco-stream.js";
 
 const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
@@ -413,37 +414,35 @@ const MAX_DAILY = 5;
   async function handleStream(resp, progress) {
     let msgDiv = null;
     let bodyEl = null;
-    let fullText = "";
     const reader = resp.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
     let receivedDone = false;
     let receivedError = false;
     let answerMeta = null;
-    let renderFrame = null;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ensureAnswer = () => {
       if (msgDiv) return;
       progress.remove();
       msgDiv = document.createElement("article");
-      msgDiv.className = "sbarco-msg sbarco-msg--sbarco";
+      msgDiv.className = "sbarco-msg sbarco-msg--sbarco is-streaming";
       bodyEl = document.createElement("div");
       bodyEl.className = "sbarco-msg__body";
       msgDiv.appendChild(bodyEl);
       msgsEl.appendChild(msgDiv);
     };
 
-    const renderAnswer = () => {
-      renderFrame = null;
-      if (!bodyEl) return;
-      const stickToBottom = isNearBottom();
-      bodyEl.innerHTML = renderMarkdown(fullText);
-      if (stickToBottom) scrollToBottom();
-    };
-
-    const scheduleRender = () => {
-      if (renderFrame == null) renderFrame = requestAnimationFrame(renderAnswer);
-    };
+    const reveal = createStreamReveal({
+      reducedMotion: reduced,
+      onUpdate(text, state) {
+        ensureAnswer();
+        const stickToBottom = isNearBottom();
+        bodyEl.innerHTML = renderMarkdown(text);
+        msgDiv.classList.toggle("is-streaming", state.streaming);
+        if (stickToBottom) scrollToBottom();
+      },
+    });
 
     const consumePayload = payload => {
       try {
@@ -453,11 +452,7 @@ const MAX_DAILY = 5;
           return;
         }
         if (data.status) progress.update(data.status.label, data.status.detail, data.status.round, data.status.maxRounds);
-        if (data.token) {
-          fullText += data.token;
-          ensureAnswer();
-          scheduleRender();
-        }
+        if (data.token) reveal.push(data.token);
         if (data.documents) data.documents.forEach(addDocumentMsg);
         if (data.meta) answerMeta = data.meta;
         if (data.error) {
@@ -472,25 +467,31 @@ const MAX_DAILY = 5;
       } catch {}
     };
 
-    while (true) {
-      const result = await reader.read();
-      if (result.done) break;
-      buffer += decoder.decode(result.value, { stream: true });
-      const drained = drainSseBuffer(buffer);
-      buffer = drained.rest;
-      drained.payloads.forEach(consumePayload);
+    try {
+      while (true) {
+        const result = await reader.read();
+        if (result.done) break;
+        buffer += decoder.decode(result.value, { stream: true });
+        const drained = drainSseBuffer(buffer);
+        buffer = drained.rest;
+        drained.payloads.forEach(consumePayload);
+      }
+      buffer += decoder.decode();
+      drainSseBuffer(buffer, true).payloads.forEach(consumePayload);
+      await reveal.flush();
+    } catch (err) {
+      reveal.cancel();
+      throw err;
     }
-    buffer += decoder.decode();
-    drainSseBuffer(buffer, true).payloads.forEach(consumePayload);
-    if (renderFrame != null) cancelAnimationFrame(renderFrame);
-    renderAnswer();
 
+    const fullText = reveal.received;
     if (!fullText && !receivedError) {
       progress.fail(receivedDone
         ? "La ricerca e' terminata senza testo. Riprova: questo caso verra' registrato in /debug."
         : "La connessione si e' chiusa prima della risposta.");
     } else if (fullText) {
       progress.remove();
+      msgDiv?.classList.remove("is-streaming");
       addAnswerChrome(msgDiv, fullText, answerMeta);
     }
     return { responseStarted: Boolean(fullText) };

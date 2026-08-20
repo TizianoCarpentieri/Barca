@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.2.2";
+const WORKER_VERSION = "2.2.3";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -22,8 +22,8 @@ const AGENT_STEP_TOKENS = 1000;
 const FINAL_RESPONSE_TOKENS = 2600;
 const DEEPSEEK_TIMEOUT_MS = 55_000;
 const WEB_TIMEOUT_MS = 12_000;
-const SYNTHETIC_STREAM_CHARS = 96;
-const SYNTHETIC_STREAM_DELAY_MS = 10;
+const SYNTHETIC_STREAM_CHARS = 48;
+const SYNTHETIC_STREAM_DELAY_MS = 24;
 
 function getDailyQuota(userId) {
   const unlimited = userId === "tiziano";
@@ -873,6 +873,10 @@ function emitSSE(controller, encoder, payload) {
   controller.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
 }
 
+function emitSSEComment(controller, encoder) {
+  controller.enqueue(encoder.encode(`:\n\n`));
+}
+
 function drainSSEFrames(buffer, flush = false) {
   const frames = [];
   let rest = buffer;
@@ -922,6 +926,7 @@ async function emitBufferedText(text, controller, encoder, signal, onFirstToken)
   for (let index = 0; index < chunks.length; index += 1) {
     onFirstToken?.();
     emitSSE(controller, encoder, { token: chunks[index] });
+    emitSSEComment(controller, encoder);
     if (index < chunks.length - 1) await waitForFlush(signal);
   }
 }
@@ -1774,6 +1779,8 @@ export const __test = {
     agentStep: AGENT_STEP_TOKENS,
     finalResponse: FINAL_RESPONSE_TOKENS,
   },
+  syntheticStreamChars: SYNTHETIC_STREAM_CHARS,
+  syntheticStreamDelayMs: SYNTHETIC_STREAM_DELAY_MS,
   sha256Base64Url,
   issueTizianoSession,
   verifyTizianoSession,

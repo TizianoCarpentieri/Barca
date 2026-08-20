@@ -6,6 +6,11 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-20] sbarco | streaming visibile (non più blocco unico)
+
+- Causa: token SSE accorpati da rete/CF + un solo rAF → un paint dell'intera risposta.
+- Fix: `createStreamReveal` sul client (coda visibile + cursore); Worker 2.2.3 chunk più piccoli e commenti SSE per lo flush.
+
 ## [2026-08-20] preferenze | Vele = sogno parallelo (tab Annunci, non piano A)
 
 - Quinta categoria feed **Vele** in arrivo sulla presentazione. Non cambia il must-have “mezzo a motore”.

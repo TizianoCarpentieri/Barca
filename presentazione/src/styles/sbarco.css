@@ -237,6 +237,21 @@ html.sheet-open .sbarco-fab {
 }
 @keyframes sbarco-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
 
+.sbarco-msg.is-streaming .sbarco-msg__body::after {
+  content: "";
+  display: inline-block;
+  width: 0.42em;
+  height: 1em;
+  margin-left: 0.18em;
+  vertical-align: -0.12em;
+  background: var(--sbarco-accent);
+  border-radius: 1px;
+  animation: sbarco-caret 0.85s steps(1) infinite;
+}
+@keyframes sbarco-caret {
+  50% { opacity: 0; }
+}
+
 .sbarco-msg--sbarco {
   background: linear-gradient(145deg, rgba(20, 41, 45, .96), rgba(13, 29, 32, .96));
   border: 1px solid var(--sbarco-border);
@@ -555,4 +570,5 @@ html.sheet-open .sbarco-fab {
   .sbarco-msg,
   .sbarco-progress { transition: none; animation: none; }
   .sbarco-progress__icon { animation-duration: 1.8s; }
+  .sbarco-msg.is-streaming .sbarco-msg__body::after { display: none; }
 }

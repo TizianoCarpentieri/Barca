@@ -48,6 +48,13 @@ test("offre il PDF solo per i documenti preparati da Sbarco", async () => {
   assert.match(source, /Scarica PDF/);
 });
 
+test("rivela i token SSE a cadenza invece di un solo dump DOM", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  assert.match(source, /createStreamReveal/);
+  assert.match(source, /is-streaming/);
+  assert.doesNotMatch(source, /requestAnimationFrame\(renderAnswer\)/);
+});
+
 test("mostra la quota illimitata di Tiziano e cinque utilizzi agli altri", async () => {
   const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
   assert.match(source, /const MAX_DAILY = 5;/);

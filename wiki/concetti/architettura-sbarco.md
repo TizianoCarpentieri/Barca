@@ -1,7 +1,7 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-11
+updated: 2026-08-20
 status: active
 tags: [sbarco, bot, deep-research, worker]
 sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
@@ -60,6 +60,9 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
   privo di newline; il client fa lo stesso.
 - Una risposta rapida già completa viene emessa in frame cadenzati. Questo
   evita che rete e browser accorpino tutti i token in un solo aggiornamento.
+- Il client rivela i token a cadenza visibile (cursore in coda), anche se
+  Cloudflare consegna l’intera risposta in un unico read. Con
+  `prefers-reduced-motion` il testo arriva intero.
 - Se il modello chiude senza contenuto, il client mostra un errore esplicito.
 - Timeout, budget e annullamento impediscono ricerche senza fine.
 - `/debug` legge anche gli ultimi eventi persistiti in KV, non solo la memoria dell’istanza.
