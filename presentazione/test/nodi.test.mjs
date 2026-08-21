@@ -1,5 +1,6 @@
 import assert from "node:assert/strict"
 import test from "node:test"
+import { readFileSync } from "node:fs"
 import { KNOTS, getKnot, stepHit3, stepPaths } from "../src/js/nodi-data.js"
 import {
   buildQuiz,
@@ -115,4 +116,17 @@ test("copertura didattica: ogni nodo almeno un incrocio; varco dove esiste un oc
       assert.ok(knot.steps.some((s) => s.gate), `${knot.id} senza gate`)
     }
   }
+})
+
+test("UI trainer: overlay controlli e chip lento cablati", () => {
+  const js = readFileSync(new URL("../src/js/nodi.js", import.meta.url), "utf8")
+  const css = readFileSync(new URL("../src/styles/main.css", import.meta.url), "utf8")
+  assert.match(js, /knot-stage__bar/)
+  assert.match(js, /data-slow/)
+  assert.match(js, /knot-flash/)
+  assert.match(js, /flashCross/)
+  assert.match(js, /knot-gate2/)
+  assert.match(css, /\.knot-stage__bar/)
+  assert.match(css, /\.knot-gate2/)
+  assert.match(css, /\.knot-chip/)
 })

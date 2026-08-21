@@ -2311,7 +2311,7 @@ html.is-phone .badge {
 .knot-stage--3d {
   aspect-ratio: 4 / 5;
   min-height: 18rem;
-  max-height: min(34rem, 78vh);
+  max-height: min(34rem, 66svh);
   touch-action: none;
   cursor: grab;
   overflow: hidden;
@@ -2338,12 +2338,17 @@ html.is-phone .badge {
   display: block;
 }
 
-.knot-view-toggle {
+.knot-chips {
   position: absolute;
   top: 0.55rem;
   right: 0.55rem;
   z-index: 2;
-  padding: 0.28rem 0.55rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.knot-chip {
+  padding: 0.28rem 0.6rem;
   border-radius: 99px;
   border: 1px solid rgba(243, 235, 224, 0.18);
   background: rgba(12, 10, 9, 0.72);
@@ -2353,6 +2358,96 @@ html.is-phone .badge {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.knot-chip.is-on {
+  border-color: rgba(255, 59, 10, 0.55);
+  color: #ff8f70;
+}
+
+.knot-stage__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.6rem 0.8rem;
+  background: linear-gradient(to top, rgba(7, 5, 4, 0.85), transparent);
+}
+
+.knot-stage__bar .btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 1.05rem;
+}
+
+.knot-head {
+  margin: 0 0 0.6rem;
+}
+
+.knot-head .eyebrow {
+  font-size: 0.72rem;
+}
+
+.knot-head strong {
+  display: block;
+  font-family: var(--font-cond);
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0.1rem 0 0.15rem;
+}
+
+.knot-head p {
+  margin: 0;
+  color: var(--foam-dim);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.knot-cross2 {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 210, 62, 0.45);
+  color: #ffd23e;
+  font-family: var(--font-cond);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.knot-flash {
+  min-height: 1.25rem;
+  margin: 0.45rem 0 0;
+  font-family: var(--font-cond);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffd23e;
+}
+
+.knot-gate2 {
+  fill: none;
+  stroke: #ffd23e;
+  stroke-width: 2.5;
+  stroke-dasharray: 7 6;
+  animation: knot-gate-pulse 1.4s var(--ease-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes knot-gate-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.95; }
 }
 
 .knot-3d-hint {
@@ -2453,21 +2548,11 @@ html.is-phone .badge {
   50% { transform: scale(1.2); opacity: 0.8; }
 }
 
-.knot-coach h2 {
-  font-family: var(--font-cond);
-  font-size: 1.45rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0.25rem 0 0.35rem;
-}
-
-.knot-coach p,
 .knot-use {
   color: var(--foam-dim);
   line-height: 1.45;
+  margin: 0 0 1rem;
 }
-
-.knot-use { margin: 0 0 1rem; }
 
 .knot-warn {
   margin: 0.75rem 0 0;
@@ -2510,7 +2595,9 @@ html.is-phone .badge {
 
 @media (prefers-reduced-motion: reduce) {
   .knot-hit.is-now,
-  .knot-stage.is-shake { animation: none; }
+  .knot-stage.is-shake,
+  .knot-gate2 { animation: none; }
+  .knot-gate2 { opacity: 0.8; }
   .knot-3d-hint { transition: none; }
 }
 

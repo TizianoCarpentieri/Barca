@@ -11,6 +11,7 @@ import {
 } from "./nodi-logic.js"
 
 const VIEW_KEY = "barca_nodi_view"
+const SLOW_KEY = "barca_nodi_slow"
 
 const app = document.getElementById("nodi-app")
 if (app) {
@@ -85,14 +86,16 @@ if (app) {
   }
 
   function stageSvg(knot, revealed, { hits = false, current = 0, fresh = -1 } = {}) {
+    const gateStep = !hits && fresh >= 0 ? knot.steps[fresh] : null
     return `<svg class="knot-svg" viewBox="0 0 260 320" role="img" aria-label="${knot.name}">
       ${objectSvg(knot.object)}
       ${ropeSvg(knot, revealed, fresh)}
+      ${gateStep?.gate ? `<circle class="knot-gate2" cx="${gateStep.hit.x}" cy="${gateStep.hit.y}" r="${gateStep.gate.r * 10}"/>` : ""}
       ${hits ? hitsSvg(knot, current, revealed) : ""}
     </svg>`
   }
 
-  function playFresh(svg) {
+  function playFresh(svg, dur = 0.8) {
     if (reduced || !svg) return
     svg.querySelectorAll(".knot-rope.is-fresh").forEach((p) => {
       let len = 0
@@ -105,7 +108,7 @@ if (app) {
       p.style.strokeDasharray = `${len}`
       p.style.strokeDashoffset = `${len}`
       requestAnimationFrame(() => {
-        p.style.transition = "stroke-dashoffset .8s cubic-bezier(0.16, 1, 0.3, 1)"
+        p.style.transition = `stroke-dashoffset ${dur}s cubic-bezier(0.16, 1, 0.3, 1)`
         p.style.strokeDashoffset = "0"
       })
     })
@@ -144,6 +147,8 @@ if (app) {
     let step = 0
     let use3d = prefer3d()
     let boot3d = null
+    let slow = sessionStorage.getItem(SLOW_KEY) === "1"
+    let flashTimer = 0
     const wrap = document.createElement("div")
 
     app.innerHTML = `
@@ -162,22 +167,53 @@ if (app) {
       </div>
       <p class="knot-legend"><span class="knot-swatch knot-swatch--stand"></span> Dormiente
         <span class="knot-swatch knot-swatch--work"></span> Corrente — il capo che muovi</p>
+      <div class="knot-head" id="knot-head"></div>
       <div class="knot-stage" id="knot-stage">
-        <button type="button" class="knot-view-toggle" data-toggle-view>2D</button>
-        <span class="knot-3d-hint" data-hint hidden>Segui il capo arancio</span>
+        <div class="knot-chips">
+          <button type="button" class="knot-chip" data-toggle-view>2D</button>
+          <button type="button" class="knot-chip" data-slow>Lento</button>
+        </div>
+        <span class="knot-3d-hint" data-hint hidden>Segui il capo arancio · tap = avanti</span>
         <div class="knot-stage__draw" id="knot-draw"></div>
+        <div class="knot-stage__bar" id="knot-cta"></div>
       </div>
-      <div class="knot-coach" id="knot-coach"></div>
-      <p class="knot-warn" data-warn hidden></p>
-      <div class="hero__cta-row" id="knot-cta"></div>`
+      <p class="knot-flash" id="knot-flash" hidden></p>
+      <p class="knot-warn" data-warn hidden></p>`
 
     const stage = wrap.querySelector("#knot-stage")
     const drawEl = wrap.querySelector("#knot-draw")
-    const coach = wrap.querySelector("#knot-coach")
+    const head = wrap.querySelector("#knot-head")
     const cta = wrap.querySelector("#knot-cta")
+    const flashEl = wrap.querySelector("#knot-flash")
     const warnEl = wrap.querySelector("[data-warn]")
     const toggle = wrap.querySelector("[data-toggle-view]")
+    const toggleSlow = wrap.querySelector("[data-slow]")
     const hint = wrap.querySelector("[data-hint]")
+
+    function flash(msg) {
+      flashEl.hidden = false
+      flashEl.textContent = msg
+      clearTimeout(flashTimer)
+      flashTimer = setTimeout(() => {
+        flashEl.hidden = true
+        flashEl.textContent = ""
+      }, 1600)
+    }
+
+    function shake() {
+      stage.classList.remove("is-shake")
+      void stage.offsetWidth
+      stage.classList.add("is-shake")
+    }
+
+    function speedFactor() {
+      return slow ? 0.6 : 1
+    }
+
+    function applySlow() {
+      toggleSlow.classList.toggle("is-on", slow)
+      active3d?.setSpeed(speedFactor())
+    }
 
     function revealedCount() {
       return Math.max(step, tryMode ? step : step + 1)
@@ -194,6 +230,17 @@ if (app) {
       }
     }
 
+    function nextHandler() {
+      if (step >= stepMax - 1) {
+        state = markLearned(state, knot.id)
+        persist()
+        go("")
+        return
+      }
+      step += 1
+      paint(step)
+    }
+
     function paint2d(fresh) {
       drop3d()
       stage.classList.remove("knot-stage--3d")
@@ -201,16 +248,22 @@ if (app) {
       toggle.textContent = "3D"
       const opts = stageOpts(fresh)
       drawEl.innerHTML = stageSvg(knot, opts.revealed, opts)
-      playFresh(drawEl.querySelector(".knot-svg"))
+      playFresh(drawEl.querySelector(".knot-svg"), 0.8 / speedFactor())
       drawEl.querySelectorAll("[data-hit]").forEach((el) => {
         el.addEventListener("click", () => onHit(Number(el.getAttribute("data-hit"))))
       })
+      drawEl.onclick = tryMode ? null : nextHandler
     }
 
     function onHit(i) {
       const done = tryMode && step >= stepMax
       if (!tryMode || done) return
       if (i === step) {
+        const cross = knot.steps[i].cross
+        if (cross) {
+          flash(cross.label)
+          active3d?.flashCross(i)
+        }
         step += 1
         if (step >= stepMax) {
           state = markPracticed(state, knot.id)
@@ -218,9 +271,11 @@ if (app) {
         }
         paint(step - 1)
       } else if (i > step) {
-        stage.classList.remove("is-shake")
-        void stage.offsetWidth
-        stage.classList.add("is-shake")
+        flash("No: il pallino acceso, quello del gesto da fare")
+        shake()
+      } else {
+        flash("Già fatto: ora il pallino acceso")
+        shake()
       }
     }
 
@@ -241,6 +296,7 @@ if (app) {
                 knot,
                 reduced,
                 onHit,
+                onTap: nextHandler,
                 onOrbit: () => hint.classList.add("is-gone"),
                 onError: () => {
                   use3d = false
@@ -248,6 +304,7 @@ if (app) {
                   paint2d(-1)
                 },
               })
+              active3d.setSpeed(speedFactor())
             })()
           await boot3d
         }
@@ -269,10 +326,11 @@ if (app) {
     function paintChrome() {
       const current = knot.steps[Math.min(step, stepMax - 1)]
       const done = tryMode && step >= stepMax
-      coach.innerHTML = `
+      const crossChip = !tryMode && current?.cross ? ` <span class="knot-cross2">${current.cross.label}</span>` : ""
+      head.innerHTML = `
         <span class="eyebrow">${done ? "Nodo chiuso" : `Passo ${Math.min(step + 1, stepMax)} / ${stepMax}`}</span>
-        <h2>${done ? knot.name : current.title}</h2>
-        <p>${done ? "Tira i capi e controlla. Poi il quiz sui nomi." : `${tryMode ? "Tocca il pallino acceso. " : "Guarda dove va il capo arancio. "}${current.text}`}</p>`
+        <strong>${done ? knot.name : current.title}</strong>
+        <p>${done ? "Tira i capi e controlla. Poi il quiz sui nomi." : `${tryMode ? "Tocca il pallino acceso. " : "Guarda dove passa il capo arancio. "}${current.text}${crossChip}`}</p>`
       if (knot.warn && (done || !tryMode)) {
         warnEl.hidden = false
         warnEl.textContent = knot.warn
@@ -285,20 +343,11 @@ if (app) {
           ? `<a class="btn btn-primary" href="?quiz=1">Quiz</a><button type="button" class="btn btn-ghost" data-reset>Rifai</button>`
           : `<button type="button" class="btn btn-ghost" data-reset>Ricomincia</button>`
       } else {
-        cta.innerHTML = `<button type="button" class="btn btn-ghost" data-prev ${step <= 0 ? "disabled" : ""}>Indietro</button>
+        cta.innerHTML = `<button type="button" class="btn btn-ghost" data-prev ${step <= 0 ? "disabled" : ""}>◀</button>
            <button type="button" class="btn btn-ghost" data-replay>Rivedi</button>
-           <button type="button" class="btn btn-primary" data-next>${step >= stepMax - 1 ? "Ho capito" : "Avanti"}</button>`
+           <button type="button" class="btn btn-primary" data-next>${step >= stepMax - 1 ? "Ho capito" : "▶"}</button>`
       }
-      cta.querySelector("[data-next]")?.addEventListener("click", () => {
-        if (step >= stepMax - 1) {
-          state = markLearned(state, knot.id)
-          persist()
-          go("")
-          return
-        }
-        step += 1
-        paint(step)
-      })
+      cta.querySelector("[data-next]")?.addEventListener("click", nextHandler)
       cta.querySelector("[data-prev]")?.addEventListener("click", () => {
         step = Math.max(0, step - 1)
         paint(-1)
@@ -328,6 +377,13 @@ if (app) {
       paint(-1)
     })
 
+    toggleSlow.addEventListener("click", () => {
+      slow = !slow
+      sessionStorage.setItem(SLOW_KEY, slow ? "1" : "0")
+      applySlow()
+    })
+
+    applySlow()
     paint(tryMode ? -1 : 0)
   }
 
