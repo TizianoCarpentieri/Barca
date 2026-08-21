@@ -6,6 +6,12 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-21] setup | Nodi: telecamera del gesto + mobile
+
+- Trainer più didattico: varco (gate) pulsante prima del gesto, camera che si avvicina, slow-mo + etichetta SOPRA/SOTTO all'incrocio, bottone Lento.
+- Mobile-first: head passo compatto, barra controlli ◀ Rivedi ▶ sullo stage, tap = avanti, Fai tu con messaggi d'errore espliciti e rinforzo sopra/sotto.
+- Spec: docs/superpowers/specs/2026-08-21-nodi-telecamera-gesto-design.md · piano: docs/superpowers/plans/2026-08-21-nodi-telecamera-gesto.md.
+
 ## [2026-08-21] setup | Nodi 3D: il capo si muove (non compare già fatto)
 
 - Animazione del **capo** (pallino + freccia «CAPO»), camera che segue il gesto, percorso fantasma, niente auto-rotate.

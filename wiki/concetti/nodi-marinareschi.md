@@ -10,7 +10,11 @@ tags: [nodi, scuola, gommone]
 
 Trainer sul sito: `presentazione/nodi.html` (hub [[simulazioni]] via `simulazioni.html`).
 
-Vista **3D** (three.js, lazy solo su questa pagina): il capo arancio **viaggia** sul passo (freccia CAPO), la camera lo segue, percorso fantasma, bottone Rivedi. Ruota col dito solo se vuoi vedere dietro. Fallback SVG 2D se manca WebGL o dal bottone «2D».
+Vista **3D** (three.js, lazy solo su questa pagina): prima di ogni gesto il **varco** da infilare (occhiello, anello, asola) pulsa illuminato e la camera si avvicina; al momento dell'**incrocio** il gesto rallenta e compare l'etichetta («SOPRA la dormiente», «DIETRO l'albero», …). Bottone **Lento** (0,6×), **Rivedi** sul passo, freccia CAPO, percorso fantasma. Ruota col dito solo se vuoi vedere dietro; **tap sullo stage = avanti**. Fallback SVG 2D se manca WebGL o dal chip «2D» (varco come cerchio tratteggiato, etichetta nel testo).
+
+Mobile-first: titolo passo compatto sopra lo stage e barra controlli **◀ Rivedi ▶ sovrapposta allo stage** — animazione e bottoni sempre nella stessa schermata. In «Fai tu» l'errore dice qual è il pallino giusto e il passo riuscito mostra l'etichetta sopra/sotto come rinforzo.
+
+Spec e piano: `docs/superpowers/specs/2026-08-21-nodi-telecamera-gesto-design.md` · `docs/superpowers/plans/2026-08-21-nodi-telecamera-gesto.md`.
 
 Sei nodi di partenza, i nomi italiani e l’uso sul mezzo piccolo. Non sostituisce una cima in mano: è per imparare i nomi, la sequenza e gli incroci sopra/sotto.
 
