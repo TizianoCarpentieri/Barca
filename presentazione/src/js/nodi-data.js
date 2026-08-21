@@ -212,6 +212,7 @@ export const KNOTS = [
         hit: { x: 186, y: 118 },
         pts: otto2,
         hit3: V(186, 118, 0.7),
+        cross: { at: 0.12, label: "SOPRA LA DORMIENTE", pos: V(130, 150, 0) },
       },
       {
         title: "Incrocia dietro",
@@ -221,6 +222,7 @@ export const KNOTS = [
         hit: { x: 86, y: 128 },
         pts: otto3,
         hit3: V(86, 128, -1.0),
+        cross: { at: 0.45, label: "DIETRO LA PRIMA VOLTA", pos: V(84, 130, -0.8) },
       },
       {
         title: "Dentro e stringi",
@@ -230,6 +232,8 @@ export const KNOTS = [
         hit: { x: 108, y: 72 },
         pts: otto4,
         hit3: V(98, 68, 0.8),
+        gate: { pos: V(130, 112, 0.2), r: 2 },
+        cross: { at: 0.35, label: "DENTRO L'OCCHIO", pos: V(112, 104, 0.5) },
       },
     ],
   },
@@ -263,6 +267,7 @@ export const KNOTS = [
         hit: { x: 136, y: 140 },
         pts: piano2,
         hit3: V(136, 140, 1.0),
+        cross: { at: 0.15, label: "DESTRO SOPRA IL SINISTRO", pos: V(112, 168, 0) },
       },
       {
         title: "Sinistra sopra",
@@ -272,6 +277,7 @@ export const KNOTS = [
         hit: { x: 136, y: 196 },
         pts: piano3,
         hit3: V(136, 196, 1.0),
+        cross: { at: 0.15, label: "SINISTRO SOPRA IL DESTRO", pos: V(112, 168, 0) },
       },
       {
         title: "Tira i quattro capi",
@@ -312,6 +318,7 @@ export const KNOTS = [
         hit: { x: 108, y: 132 },
         pts: gassa2,
         hit3: V(108, 132, 0.4),
+        cross: { at: 0.55, label: "OCCHIO VERSO IL CORRENTE", pos: V(108, 132, 0.6) },
       },
       {
         title: "Il coniglio esce",
@@ -321,6 +328,8 @@ export const KNOTS = [
         hit: { x: 86, y: 188 },
         pts: gassa3,
         hit3: V(86, 188, 0.4),
+        gate: { pos: V(108, 132, 0.55), r: 1.7 },
+        cross: { at: 0.6, label: "SU DALLA TANA", pos: V(110, 134, 0.9) },
       },
       {
         title: "Gira l'albero",
@@ -330,6 +339,7 @@ export const KNOTS = [
         hit: { x: 184, y: 84 },
         pts: gassa4,
         hit3: V(184, 84, -0.9),
+        cross: { at: 0.3, label: "DIETRO L'ALBERO", pos: V(184, 84, -0.9) },
       },
       {
         title: "Rientra e stringi",
@@ -339,6 +349,8 @@ export const KNOTS = [
         hit: { x: 108, y: 158 },
         pts: gassa5,
         hit3: V(108, 158, 0.8),
+        gate: { pos: V(108, 132, 0.55), r: 1.7 },
+        cross: { at: 0.25, label: "GIÙ NELLA TANA", pos: V(118, 138, 0.7) },
       },
     ],
   },
@@ -370,6 +382,7 @@ export const KNOTS = [
         hit: { x: 196, y: 200 },
         pts: parlato2,
         hit3: [parlatoR, -2.0, 0],
+        cross: { at: 0.5, label: "GIRO COMPLETO, STESSO LATO", pos: [parlatoR, -2.3, 0] },
       },
       {
         title: "Seconda volta",
@@ -379,6 +392,7 @@ export const KNOTS = [
         hit: { x: 196, y: 136 },
         pts: parlato3,
         hit3: [parlatoR, 0.1, 0],
+        cross: { at: 0.45, label: "SOPRA LA PRIMA VOLTA", pos: [parlatoR, 0.1, 0] },
       },
       {
         title: "Sotto l'incrocio",
@@ -388,6 +402,8 @@ export const KNOTS = [
         hit: { x: 78, y: 118 },
         pts: parlato4,
         hit3: [-0.4, 1.35, -2.4],
+        gate: { pos: [-0.6, 1.2, -2.2], r: 1.1 },
+        cross: { at: 0.5, label: "SOTTO LA X", pos: [-0.4, 1.35, -2.4] },
       },
     ],
   },
@@ -412,6 +428,7 @@ export const KNOTS = [
         hit: { x: 130, y: 220 },
         pts: giro1,
         hit3: [0, -6, 0],
+        gate: { pos: [0, ringY - ringR - 0.5, 0], r: 1.6 },
       },
       {
         title: "Giro morto",
@@ -421,6 +438,7 @@ export const KNOTS = [
         hit: { x: 78, y: 78 },
         pts: giro2,
         hit3: giro2[Math.floor(giro2.length / 2)],
+        cross: { at: 0.5, label: "UN GIRO E MEZZO", pos: [0, ringY, 0] },
       },
       {
         title: "Primo mezzo collo",
@@ -430,6 +448,7 @@ export const KNOTS = [
         hit: { x: 188, y: 140 },
         pts: giro3,
         hit3: [1.85, -0.9, 0],
+        cross: { at: 0.4, label: "SOPRA LA DORMIENTE", pos: [1.85, -0.9, 0] },
       },
       {
         title: "Secondo mezzo collo",
@@ -439,6 +458,7 @@ export const KNOTS = [
         hit: { x: 130, y: 236 },
         pts: giro4,
         hit3: [1.85, -3.0, 0],
+        cross: { at: 0.4, label: "SOPRA LA DORMIENTE", pos: [1.85, -3.0, 0] },
       },
     ],
   },
@@ -471,6 +491,8 @@ export const KNOTS = [
         hit: { x: 210, y: 210 },
         pts: band2,
         hit3: V(210, 210, 0.15),
+        gate: { pos: V(118, 112, 0.3), r: 2 },
+        cross: { at: 0.7, label: "DENTRO L'ASOLA", pos: V(118, 118, 0.5) },
       },
       {
         title: "Gira l'asola",
@@ -480,6 +502,7 @@ export const KNOTS = [
         hit: { x: 88, y: 72 },
         pts: band3,
         hit3: V(88, 72, -1.0),
+        cross: { at: 0.3, label: "DIETRO ENTRAMBI I CAPI", pos: V(92, 70, -1.0) },
       },
       {
         title: "Sotto se stessa",
@@ -489,6 +512,8 @@ export const KNOTS = [
         hit: { x: 148, y: 140 },
         pts: band4,
         hit3: V(148, 140, 0.7),
+        gate: { pos: V(142, 134, 0.5), r: 1.4 },
+        cross: { at: 0.55, label: "SOTTO SE STESSA", pos: V(148, 140, 0.7) },
       },
     ],
   },

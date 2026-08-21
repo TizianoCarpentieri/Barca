@@ -84,3 +84,35 @@ test("voto quiz e progressi in storage finto", () => {
   assert.equal(knotStars(state.knots["gassa-amante"]), 2)
   assert.equal(state.quizBest, 7)
 })
+
+test("gate e cross: formati validi su tutti i passi", () => {
+  for (const knot of KNOTS) {
+    for (const step of knot.steps) {
+      if (step.gate) {
+        assert.equal(step.gate.pos.length, 3)
+        assert.ok(step.gate.pos.every(Number.isFinite), `${knot.id} gate.pos`)
+        assert.ok(step.gate.r > 0.5 && step.gate.r < 4, `${knot.id} gate.r`)
+        assert.ok(step.hit, `${knot.id} gate senza hit 2D`)
+      }
+      if (step.cross) {
+        assert.ok(step.cross.at >= 0.05 && step.cross.at <= 0.95, `${knot.id} cross.at`)
+        assert.ok(
+          typeof step.cross.label === "string" && step.cross.label.length >= 3 && step.cross.label.length <= 28,
+          `${knot.id} cross.label`,
+        )
+        assert.equal(step.cross.pos.length, 3)
+        assert.ok(step.cross.pos.every(Number.isFinite), `${knot.id} cross.pos`)
+      }
+    }
+  }
+})
+
+test("copertura didattica: ogni nodo almeno un incrocio; varco dove esiste un occhiello", () => {
+  const noGate = new Set(["nodo-piano"])
+  for (const knot of KNOTS) {
+    assert.ok(knot.steps.some((s) => s.cross), `${knot.id} senza cross`)
+    if (!noGate.has(knot.id)) {
+      assert.ok(knot.steps.some((s) => s.gate), `${knot.id} senza gate`)
+    }
+  }
+})
