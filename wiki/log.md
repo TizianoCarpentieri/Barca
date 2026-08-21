@@ -6,6 +6,11 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-21] setup | Nodi 3D: il capo si muove (non compare già fatto)
+
+- Animazione del **capo** (pallino + freccia «CAPO»), camera che segue il gesto, percorso fantasma, niente auto-rotate.
+- Bottone **Rivedi** sul passo. Hint: «Segui il capo arancio».
+
 ## [2026-08-21] setup | Nodi 3D sul sito (trainer)
 
 - `nodi.html`: cima come tubo 3D (three.js lazy), OrbitControls touch, Impara / Fai tu / Quiz.

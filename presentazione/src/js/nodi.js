@@ -161,10 +161,10 @@ if (app) {
         <a class="ads-cat${tryMode ? " is-on" : ""}" href="?id=${knot.id}&mode=prova">Fai tu</a>
       </div>
       <p class="knot-legend"><span class="knot-swatch knot-swatch--stand"></span> Dormiente
-        <span class="knot-swatch knot-swatch--work"></span> Corrente</p>
+        <span class="knot-swatch knot-swatch--work"></span> Corrente — il capo che muovi</p>
       <div class="knot-stage" id="knot-stage">
         <button type="button" class="knot-view-toggle" data-toggle-view>2D</button>
-        <span class="knot-3d-hint" data-hint hidden>Ruota col dito</span>
+        <span class="knot-3d-hint" data-hint hidden>Segui il capo arancio</span>
         <div class="knot-stage__draw" id="knot-draw"></div>
       </div>
       <div class="knot-coach" id="knot-coach"></div>
@@ -272,7 +272,7 @@ if (app) {
       coach.innerHTML = `
         <span class="eyebrow">${done ? "Nodo chiuso" : `Passo ${Math.min(step + 1, stepMax)} / ${stepMax}`}</span>
         <h2>${done ? knot.name : current.title}</h2>
-        <p>${done ? "Tira i capi e controlla. Poi il quiz sui nomi." : `${tryMode ? "Tocca il pallino acceso. " : ""}${current.text}`}</p>`
+        <p>${done ? "Tira i capi e controlla. Poi il quiz sui nomi." : `${tryMode ? "Tocca il pallino acceso. " : "Guarda dove va il capo arancio. "}${current.text}`}</p>`
       if (knot.warn && (done || !tryMode)) {
         warnEl.hidden = false
         warnEl.textContent = knot.warn
@@ -286,6 +286,7 @@ if (app) {
           : `<button type="button" class="btn btn-ghost" data-reset>Ricomincia</button>`
       } else {
         cta.innerHTML = `<button type="button" class="btn btn-ghost" data-prev ${step <= 0 ? "disabled" : ""}>Indietro</button>
+           <button type="button" class="btn btn-ghost" data-replay>Rivedi</button>
            <button type="button" class="btn btn-primary" data-next>${step >= stepMax - 1 ? "Ho capito" : "Avanti"}</button>`
       }
       cta.querySelector("[data-next]")?.addEventListener("click", () => {
@@ -305,6 +306,10 @@ if (app) {
       cta.querySelector("[data-reset]")?.addEventListener("click", () => {
         step = 0
         paint(-1)
+      })
+      cta.querySelector("[data-replay]")?.addEventListener("click", () => {
+        if (use3d && active3d?.replay) active3d.replay()
+        else paint(tryMode ? -1 : step)
       })
     }
 

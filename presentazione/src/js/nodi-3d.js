@@ -34,17 +34,10 @@ function tubeMesh(pts, radius, material) {
   }
   const curve = new THREE.CatmullRomCurve3(vecs, false, "catmullrom", 0.18)
   const len = Math.max(curve.getLength(), 0.4)
-  const tubular = Math.max(18, Math.ceil(len * 5))
+  const tubular = Math.max(24, Math.ceil(len * 6))
   const geo = new THREE.TubeGeometry(curve, tubular, radius, 10, false)
   const mesh = new THREE.Mesh(geo, material)
-  return { mesh, geo, curve, indexCount: geo.index ? geo.index.count : geo.attributes.position.count }
-}
-
-function addCap(group, pt, radius, material) {
-  const s = new THREE.Mesh(new THREE.SphereGeometry(radius, 12, 10), material)
-  s.position.set(pt[0], pt[1], pt[2])
-  group.add(s)
-  return s
+  return { mesh, geo, curve, len, indexCount: geo.index ? geo.index.count : geo.attributes.position.count }
 }
 
 function knotBounds(knot) {
@@ -113,16 +106,37 @@ function addObject(scene, knot, foamMat) {
     const t = tubeMesh(knot.objectPts, 0.62, foamMat)
     if (t) {
       scene.add(t.mesh)
-      addCap(scene, knot.objectPts[0], 0.62, foamMat)
-      addCap(scene, knot.objectPts[knot.objectPts.length - 1], 0.62, foamMat)
       disposers.push(t.geo)
     }
   }
   return disposers
 }
 
-function easeOut(t) {
-  return 1 - (1 - t) ** 3
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2
+}
+
+function makeLabel(text, fill) {
+  const c = document.createElement("canvas")
+  c.width = 384
+  c.height = 96
+  const ctx = c.getContext("2d")
+  ctx.font = "700 52px Barlow Condensed, Barlow, sans-serif"
+  ctx.textAlign = "center"
+  ctx.textBaseline = "middle"
+  ctx.lineWidth = 10
+  ctx.strokeStyle = "#0b0908"
+  ctx.strokeText(text, 192, 50)
+  ctx.fillStyle = fill
+  ctx.fillText(text, 192, 50)
+  const tex = new THREE.CanvasTexture(c)
+  tex.colorSpace = THREE.SRGBColorSpace
+  const spr = new THREE.Sprite(
+    new THREE.SpriteMaterial({ map: tex, depthTest: false, depthWrite: false, transparent: true }),
+  )
+  spr.scale.set(4.4, 1.1, 1)
+  spr.center.set(0.5, -0.15)
+  return { spr, tex, mat: spr.material }
 }
 
 export function createKnotView({ container, knot, reduced = false, onHit, onOrbit, onError }) {
@@ -153,7 +167,13 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
   scene.add(rim)
 
   const foamMat = mat(FOAM, { roughness: 0.58 })
-  const buoyMat = mat(BUOY, { roughness: 0.5, metalness: 0.12, emissive: BUOY, emissiveIntensity: 0.07 })
+  const buoyMat = mat(BUOY, { roughness: 0.5, metalness: 0.12, emissive: BUOY, emissiveIntensity: 0.18 })
+  const ghostMat = new THREE.MeshBasicMaterial({
+    color: BUOY,
+    transparent: true,
+    opacity: 0.22,
+    depthWrite: false,
+  })
   const waitMat = new THREE.MeshBasicMaterial({
     color: 0xf3ebe0,
     transparent: true,
@@ -178,16 +198,23 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     const group = new THREE.Group()
     group.visible = false
     const tubes = []
+    const ghosts = []
     for (const path of stepPaths(step)) {
       const material = path.kind === "standing" ? foamMat : buoyMat
       const t = tubeMesh(path.pts, RADIUS, material)
       if (!t) continue
-      t.mesh.userData.indexCount = t.indexCount
+      t.kind = path.kind
       t.geo.setDrawRange(0, t.indexCount)
       group.add(t.mesh)
-      addCap(group, path.pts[0], RADIUS, material)
-      addCap(group, path.pts[path.pts.length - 1], RADIUS, material)
       tubes.push(t)
+      if (path.kind === "working") {
+        const g = tubeMesh(path.pts, RADIUS * 0.55, ghostMat)
+        if (g) {
+          g.mesh.visible = false
+          scene.add(g.mesh)
+          ghosts.push(g)
+        }
+      }
     }
     scene.add(group)
     const hit = stepHit3(step)
@@ -196,20 +223,34 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     ball.visible = false
     ball.userData.stepIndex = knot.steps.indexOf(step)
     scene.add(ball)
-    return { group, tubes, ball }
+    return { group, tubes, ghosts, ball, step }
   })
+
+  const tip = new THREE.Group()
+  const tipBall = new THREE.Mesh(new THREE.SphereGeometry(0.72, 18, 14), buoyMat)
+  const tipCone = new THREE.Mesh(new THREE.ConeGeometry(0.38, 1.35, 12), buoyMat)
+  tipCone.rotation.x = Math.PI / 2
+  tipCone.position.z = -1.15
+  tip.add(tipBall)
+  tip.add(tipCone)
+  const capo = makeLabel("CAPO", "#ff3b0a")
+  capo.spr.position.set(0, 1.35, 0)
+  tip.add(capo.spr)
+  tip.visible = false
+  scene.add(tip)
+  const _look = new THREE.Object3D()
+  scene.add(_look)
 
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.enablePan = false
   controls.enableDamping = !reduced
   controls.dampingFactor = 0.08
-  controls.minDistance = dist * 0.55
+  controls.minDistance = dist * 0.45
   controls.maxDistance = dist * 1.85
   controls.minPolarAngle = 0.35
   controls.maxPolarAngle = Math.PI - 0.4
   controls.target.copy(center)
-  controls.autoRotate = !reduced
-  controls.autoRotateSpeed = 1.15
+  controls.autoRotate = false
   controls.rotateSpeed = 0.72
   controls.touches.ONE = THREE.TOUCH.ROTATE
   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN
@@ -222,7 +263,7 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
   let current = 0
   let revealed = 0
   let pulse = 0
-  let hintGone = false
+  let userSteering = false
 
   function resize() {
     const w = Math.max(1, container.clientWidth)
@@ -240,17 +281,90 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     tube.geo.setDrawRange(0, Math.max(0, Math.floor(frac * n)))
   }
 
+  function hideGhosts() {
+    stepGroups.forEach((g) => g.ghosts.forEach((gh) => (gh.mesh.visible = false)))
+  }
+
+  function leadTube(g) {
+    return g.tubes.find((t) => t.kind === "working") || g.tubes[0]
+  }
+
+  function placeTip(curve, t, kind) {
+    const u = Math.min(1, Math.max(0, t))
+    const p = curve.getPointAt(u)
+    const tan = curve.getTangentAt(u).normalize()
+    tip.visible = true
+    tip.position.copy(p)
+    _look.position.copy(p)
+    const up = Math.abs(tan.y) > 0.92 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0)
+    _look.up.copy(up)
+    _look.lookAt(p.clone().add(tan))
+    tip.quaternion.copy(_look.quaternion)
+    const working = kind !== "standing"
+    tipBall.material = working ? buoyMat : foamMat
+    tipCone.material = working ? buoyMat : foamMat
+    tipCone.visible = working
+    capo.spr.visible = working
+  }
+
+  function restTip() {
+    for (let i = revealed - 1; i >= 0; i -= 1) {
+      const lead = leadTube(stepGroups[i])
+      if (!lead) continue
+      placeTip(lead.curve, 1, lead.kind)
+      return
+    }
+    tip.visible = false
+  }
+
+  function camOffsetFor(curve) {
+    const a = curve.getPointAt(0.15)
+    const b = curve.getPointAt(0.55)
+    const tan = b.clone().sub(a).normalize()
+    const side = new THREE.Vector3().crossVectors(tan, new THREE.Vector3(0, 1, 0))
+    if (side.lengthSq() < 0.04) side.set(1, 0, 0)
+    side.normalize()
+    return side.multiplyScalar(Math.max(11, span * 0.7)).add(new THREE.Vector3(0, Math.max(4, span * 0.28), 0))
+  }
+
+  function startAnim(g) {
+    const lead = leadTube(g)
+    if (!lead) return
+    const dur = reduced ? 1 : Math.max(1600, Math.min(2800, lead.len * 95))
+    g.ghosts.forEach((gh) => {
+      gh.mesh.visible = !tryMode
+    })
+    g.tubes.forEach((t) => setDraw(t, 0))
+    const offset = userSteering ? camera.position.clone().sub(controls.target) : camOffsetFor(lead.curve)
+    const follow = !userSteering && !reduced
+    anim = {
+      g,
+      lead,
+      start: performance.now(),
+      dur,
+      offset,
+      follow,
+    }
+    if (follow) controls.enabled = false
+    placeTip(lead.curve, 0, lead.kind)
+  }
+
   function applyReveal(count, fresh, animate) {
     revealed = count
+    hideGhosts()
     stepGroups.forEach((g, i) => {
       const on = i < count
       g.group.visible = on
       g.tubes.forEach((t) => setDraw(t, on ? 1 : 0))
     })
-    if (animate && !reduced && fresh >= 0 && fresh < count) {
+    if (animate && fresh >= 0 && fresh < count) {
       const g = stepGroups[fresh]
-      g.tubes.forEach((t) => setDraw(t, 0))
-      anim = { g, start: performance.now(), dur: 820 }
+      g.group.visible = true
+      startAnim(g)
+    } else {
+      anim = null
+      controls.enabled = true
+      restTip()
     }
     needs = true
   }
@@ -271,9 +385,21 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     raf = requestAnimationFrame(tick)
     const now = performance.now()
     if (anim) {
-      const t = easeOut(Math.min(1, (now - anim.start) / anim.dur))
+      const t = easeInOut(Math.min(1, (now - anim.start) / anim.dur))
       anim.g.tubes.forEach((tube) => setDraw(tube, t))
-      if (t >= 1) anim = null
+      placeTip(anim.lead.curve, t, anim.lead.kind)
+      if (anim.follow && !userSteering) {
+        const p = anim.lead.curve.getPointAt(t)
+        controls.target.copy(p)
+        camera.position.copy(p).add(anim.offset)
+        camera.lookAt(p)
+      }
+      if (t >= 1) {
+        anim.g.ghosts.forEach((gh) => (gh.mesh.visible = false))
+        anim = null
+        controls.enabled = true
+        restTip()
+      }
       needs = true
     }
     if (tryMode) {
@@ -285,12 +411,10 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
         needs = true
       }
     }
-    if (controls.autoRotate || controls.enableDamping) needs = true
-    if (!needs && !document.hidden) {
-      return
-    }
+    if (controls.enableDamping) needs = true
+    if (!needs && !document.hidden) return
     if (document.hidden) return
-    controls.update()
+    if (!(anim && anim.follow && !userSteering)) controls.update()
     renderer.render(scene, camera)
     needs = false
   }
@@ -310,11 +434,10 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
   canvas.addEventListener("webglcontextlost", onLost)
   canvas.addEventListener("pointerdown", (e) => {
     ptr = { x: e.clientX, y: e.clientY }
-    if (!hintGone) {
-      hintGone = true
-      controls.autoRotate = false
-      onOrbit?.()
-    }
+    userSteering = true
+    if (anim) anim.follow = false
+    controls.enabled = true
+    onOrbit?.()
   })
   canvas.addEventListener("pointerup", (e) => {
     if (!ptr || !tryMode) {
@@ -337,11 +460,10 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     if (hit) onHit?.(hit.object.userData.stepIndex)
   })
   controls.addEventListener("start", () => {
-    if (!hintGone) {
-      hintGone = true
-      controls.autoRotate = false
-      onOrbit?.()
-    }
+    userSteering = true
+    if (anim) anim.follow = false
+    controls.enabled = true
+    onOrbit?.()
   })
   controls.addEventListener("change", () => {
     needs = true
@@ -361,6 +483,11 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       applyReveal(n, fresh, animate)
       applyHits()
     },
+    replay() {
+      if (revealed < 1) return
+      userSteering = false
+      applyReveal(revealed, revealed - 1, true)
+    },
     dispose() {
       running = false
       cancelAnimationFrame(raf)
@@ -371,12 +498,18 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       renderer.dispose()
       foamMat.dispose()
       buoyMat.dispose()
+      ghostMat.dispose()
       waitMat.dispose()
       nowMat.dispose()
       doneMat.dispose()
+      capo.tex.dispose()
+      capo.mat.dispose()
+      tipBall.geometry.dispose()
+      tipCone.geometry.dispose()
       extras.forEach((x) => x.dispose?.())
       stepGroups.forEach((g) => {
         g.tubes.forEach((t) => t.geo.dispose())
+        g.ghosts.forEach((gh) => gh.geo.dispose())
         g.ball.geometry.dispose()
       })
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas)

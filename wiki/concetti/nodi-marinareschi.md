@@ -10,7 +10,7 @@ tags: [nodi, scuola, gommone]
 
 Trainer sul sito: `presentazione/nodi.html` (hub [[simulazioni]] via `simulazioni.html`).
 
-Vista **3D** (three.js, lazy solo su questa pagina): ruota con un dito, pizzica per zoom, passi che crescono, modalità Fai tu con pallini sulla cima. Fallback SVG 2D se manca WebGL o dal bottone «2D».
+Vista **3D** (three.js, lazy solo su questa pagina): il capo arancio **viaggia** sul passo (freccia CAPO), la camera lo segue, percorso fantasma, bottone Rivedi. Ruota col dito solo se vuoi vedere dietro. Fallback SVG 2D se manca WebGL o dal bottone «2D».
 
 Sei nodi di partenza, i nomi italiani e l’uso sul mezzo piccolo. Non sostituisce una cima in mano: è per imparare i nomi, la sequenza e gli incroci sopra/sotto.
 
