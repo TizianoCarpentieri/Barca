@@ -139,7 +139,7 @@ function makeLabel(text, fill) {
   return { spr, tex, mat: spr.material }
 }
 
-export function createKnotView({ container, knot, reduced = false, onHit, onOrbit, onError }) {
+export function createKnotView({ container, knot, reduced = false, onHit, onOrbit, onError, onTap }) {
   const scene = new THREE.Scene()
   const { center, span } = knotBounds(knot)
   const dist = Math.max(16, span * 1.55)
@@ -264,6 +264,9 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
   let revealed = 0
   let pulse = 0
   let userSteering = false
+  let speed = 1
+  let gateRing = null
+  let crossSpr = null
 
   function resize() {
     const w = Math.max(1, container.clientWidth)
@@ -283,6 +286,56 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
 
   function hideGhosts() {
     stepGroups.forEach((g) => g.ghosts.forEach((gh) => (gh.mesh.visible = false)))
+  }
+
+  function ensureGateRing() {
+    if (gateRing) return gateRing
+    const geo = new THREE.TorusGeometry(1, 0.085, 10, 48)
+    const m = new THREE.MeshBasicMaterial({ color: BUOY, transparent: true, opacity: 0.6, depthTest: false, depthWrite: false })
+    const mesh = new THREE.Mesh(geo, m)
+    mesh.visible = false
+    mesh.renderOrder = 3
+    scene.add(mesh)
+    gateRing = { mesh, geo, mat: m, r: 1 }
+    return gateRing
+  }
+
+  function showGate(gate) {
+    if (!gate || tryMode || reduced) return
+    const g = ensureGateRing()
+    g.r = gate.r
+    g.mesh.position.set(gate.pos[0], gate.pos[1], gate.pos[2])
+    g.mesh.scale.setScalar(gate.r)
+    g.mesh.visible = true
+  }
+
+  function hideGate() {
+    if (gateRing) gateRing.mesh.visible = false
+  }
+
+  function showCrossLabel(cross, ms = 0) {
+    if (!cross) return
+    if (!crossSpr || crossSpr.text !== cross.label) {
+      if (crossSpr) {
+        scene.remove(crossSpr.spr)
+        crossSpr.tex.dispose()
+        crossSpr.mat.dispose()
+      }
+      const made = makeLabel(cross.label, "#ffd23e")
+      made.spr.position.set(cross.pos[0], cross.pos[1], cross.pos[2])
+      made.spr.scale.set(6.2, 1.55, 1)
+      made.mat.opacity = 0
+      scene.add(made.spr)
+      crossSpr = { spr: made.spr, tex: made.tex, mat: made.mat, text: cross.label, shown: true, until: ms > 0 ? performance.now() + ms : 0 }
+    } else {
+      crossSpr.spr.position.set(cross.pos[0], cross.pos[1], cross.pos[2])
+      crossSpr.shown = true
+      crossSpr.until = ms > 0 ? performance.now() + ms : 0
+    }
+  }
+
+  function hideCrossLabel() {
+    if (crossSpr) crossSpr.shown = false
   }
 
   function leadTube(g) {
@@ -327,23 +380,52 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     return side.multiplyScalar(Math.max(11, span * 0.7)).add(new THREE.Vector3(0, Math.max(4, span * 0.28), 0))
   }
 
+  function crossSpeedAt(p, cross) {
+    if (!cross) return 1
+    return Math.abs(p - cross.at) < 0.12 ? 0.35 : 1
+  }
+
   function startAnim(g) {
     const lead = leadTube(g)
     if (!lead) return
-    const dur = reduced ? 1 : Math.max(1600, Math.min(2800, lead.len * 95))
+    const baseDur = reduced ? 1 : Math.max(1600, Math.min(2800, lead.len * 95))
     g.ghosts.forEach((gh) => {
       gh.mesh.visible = !tryMode
     })
     g.tubes.forEach((t) => setDraw(t, 0))
     const offset = userSteering ? camera.position.clone().sub(controls.target) : camOffsetFor(lead.curve)
     const follow = !userSteering && !reduced
+    const gate = !tryMode && !reduced ? g.step.gate || null : null
+    const cross = !tryMode ? g.step.cross || null : null
     anim = {
       g,
       lead,
       start: performance.now(),
-      dur,
+      last: 0,
+      dur: baseDur / speed,
       offset,
       follow,
+      preDelay: reduced || tryMode ? 0 : 700,
+      progress: 0,
+      gate,
+      cross,
+      camFrom: null,
+      camTo: null,
+    }
+    if (!tryMode) hideCrossLabel()
+    if (gate) {
+      showGate(gate)
+      if (!userSteering) {
+        const tgt = new THREE.Vector3(gate.pos[0], gate.pos[1], gate.pos[2])
+        const dir = camera.position.clone().sub(controls.target)
+        if (dir.lengthSq() < 0.01) dir.set(0.3, 0.2, 1)
+        dir.normalize().multiplyScalar(Math.max(9, span * 0.5))
+        anim.camFrom = { pos: camera.position.clone(), tgt: controls.target.clone() }
+        anim.camTo = { pos: tgt.clone().add(dir), tgt: tgt.clone() }
+        anim.offset = anim.camTo.pos.clone().sub(anim.camTo.tgt)
+      }
+    } else {
+      hideGate()
     }
     if (follow) controls.enabled = false
     placeTip(lead.curve, 0, lead.kind)
@@ -363,6 +445,8 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       startAnim(g)
     } else {
       anim = null
+      hideGate()
+      hideCrossLabel()
       controls.enabled = true
       restTip()
     }
@@ -384,11 +468,31 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     if (!running) return
     raf = requestAnimationFrame(tick)
     const now = performance.now()
+    pulse += 0.045
     if (anim) {
-      const t = easeInOut(Math.min(1, (now - anim.start) / anim.dur))
+      const dt = Math.min(64, now - (anim.last || anim.start))
+      anim.last = now
+      if (anim.preDelay > 0) {
+        anim.preDelay = Math.max(0, anim.preDelay - dt)
+        if (anim.camTo) {
+          const k = easeInOut(Math.min(1, 1 - anim.preDelay / 700))
+          camera.position.lerpVectors(anim.camFrom.pos, anim.camTo.pos, k)
+          controls.target.lerpVectors(anim.camFrom.tgt, anim.camTo.tgt, k)
+          camera.lookAt(controls.target)
+        }
+      } else {
+        anim.progress = Math.min(1, anim.progress + (dt / anim.dur) * crossSpeedAt(anim.progress, anim.cross))
+        if (anim.gate && anim.progress > 0.3) hideGate()
+      }
+      const t = anim.preDelay > 0 ? 0 : easeInOut(anim.progress)
       anim.g.tubes.forEach((tube) => setDraw(tube, t))
       placeTip(anim.lead.curve, t, anim.lead.kind)
-      if (anim.follow && !userSteering) {
+      if (anim.cross && anim.preDelay <= 0 && Math.abs(anim.progress - anim.cross.at) < 0.2) {
+        showCrossLabel(anim.cross)
+      } else if (crossSpr && crossSpr.until === 0) {
+        hideCrossLabel()
+      }
+      if (anim.follow && !userSteering && anim.preDelay <= 0) {
         const p = anim.lead.curve.getPointAt(t)
         controls.target.copy(p)
         camera.position.copy(p).add(anim.offset)
@@ -397,13 +501,29 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       if (t >= 1) {
         anim.g.ghosts.forEach((gh) => (gh.mesh.visible = false))
         anim = null
+        hideGate()
+        if (crossSpr && crossSpr.until === 0) hideCrossLabel()
         controls.enabled = true
         restTip()
       }
       needs = true
     }
+    if (gateRing && gateRing.mesh.visible) {
+      gateRing.mesh.quaternion.copy(camera.quaternion)
+      gateRing.mesh.scale.setScalar(gateRing.r * (1 + Math.sin(pulse) * 0.07))
+      gateRing.mat.opacity = 0.42 + Math.sin(pulse) * 0.22
+      needs = true
+    }
+    if (crossSpr) {
+      if (crossSpr.until > 0 && now > crossSpr.until) crossSpr.shown = false
+      const target = crossSpr.shown ? 1 : 0
+      if (Math.abs(target - crossSpr.mat.opacity) > 0.01) {
+        crossSpr.mat.opacity += (target - crossSpr.mat.opacity) * 0.14
+        needs = true
+      }
+      crossSpr.spr.visible = crossSpr.shown || crossSpr.mat.opacity > 0.03
+    }
     if (tryMode) {
-      pulse += 0.045
       const g = stepGroups[current]
       if (g?.ball.visible && g.ball.material === nowMat) {
         const s = 1 + Math.sin(pulse) * 0.14
@@ -440,24 +560,30 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
     onOrbit?.()
   })
   canvas.addEventListener("pointerup", (e) => {
-    if (!ptr || !tryMode) {
-      ptr = null
-      return
-    }
+    if (!ptr) return
     const dx = e.clientX - ptr.x
     const dy = e.clientY - ptr.y
     ptr = null
     if (dx * dx + dy * dy > 81) return
-    const rect = canvas.getBoundingClientRect()
-    const mouse = new THREE.Vector2(
-      ((e.clientX - rect.left) / rect.width) * 2 - 1,
-      -((e.clientY - rect.top) / rect.height) * 2 + 1,
-    )
-    const ray = new THREE.Raycaster()
-    ray.setFromCamera(mouse, camera)
-    const balls = stepGroups.map((g) => g.ball).filter((b) => b.visible)
-    const hit = ray.intersectObjects(balls, false)[0]
-    if (hit) onHit?.(hit.object.userData.stepIndex)
+    if (tryMode) {
+      const rect = canvas.getBoundingClientRect()
+      const mouse = new THREE.Vector2(
+        ((e.clientX - rect.left) / rect.width) * 2 - 1,
+        -((e.clientY - rect.top) / rect.height) * 2 + 1,
+      )
+      const ray = new THREE.Raycaster()
+      ray.setFromCamera(mouse, camera)
+      const balls = stepGroups.map((g) => g.ball).filter((b) => b.visible)
+      const hit = ray.intersectObjects(balls, false)[0]
+      if (hit) onHit?.(hit.object.userData.stepIndex)
+      return
+    }
+    if (anim) {
+      anim.preDelay = 0
+      if (anim.progress < 1) anim.progress = 0.999
+      return
+    }
+    onTap?.()
   })
   controls.addEventListener("start", () => {
     userSteering = true
@@ -483,6 +609,15 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       applyReveal(n, fresh, animate)
       applyHits()
     },
+    setSpeed(s) {
+      speed = s
+    },
+    flashCross(i) {
+      const st = knot.steps[i]
+      if (!st?.cross) return
+      showCrossLabel(st.cross, 1500)
+      needs = true
+    },
     replay() {
       if (revealed < 1) return
       userSteering = false
@@ -507,6 +642,14 @@ export function createKnotView({ container, knot, reduced = false, onHit, onOrbi
       tipBall.geometry.dispose()
       tipCone.geometry.dispose()
       extras.forEach((x) => x.dispose?.())
+      if (gateRing) {
+        gateRing.geo.dispose()
+        gateRing.mat.dispose()
+      }
+      if (crossSpr) {
+        crossSpr.tex.dispose()
+        crossSpr.mat.dispose()
+      }
       stepGroups.forEach((g) => {
         g.tubes.forEach((t) => t.geo.dispose())
         g.ghosts.forEach((gh) => gh.geo.dispose())
