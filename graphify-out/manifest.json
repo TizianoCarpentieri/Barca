@@ -239,11 +239,6 @@
     "ast_hash": "f8ce1683f53c5c603d1fff53b428e33c",
     "semantic_hash": ""
   },
-  "lavoroDeepSeekdel10agosto.md": {
-    "mtime": 1786361307.9179082,
-    "ast_hash": "215e203b9838f5efef9b195063b6d6da",
-    "semantic_hash": ""
-  },
   "presentazione/README.md": {
     "mtime": 1786361307.962787,
     "ast_hash": "d69431e651d849a347150581a545fe26",
@@ -1069,11 +1064,6 @@
     "ast_hash": "5d35a3ee10343e654c5db68b91bfd0b0",
     "semantic_hash": ""
   },
-  "tmp/pdfs/mappa-after.txt": {
-    "mtime": 1786546408.7239308,
-    "ast_hash": "642dd1cd2ccd67f3181d57ffb97713cc",
-    "semantic_hash": ""
-  },
   "raw/normativa/ardea-ord-2026.pdf": {
     "mtime": 1786544623.4894068,
     "ast_hash": "d582945c6fe1bbae0737bceaf62566f3",
@@ -1087,56 +1077,6 @@
   "raw/normativa/pomezia-ord-2026.pdf": {
     "mtime": 1786544618.407856,
     "ast_hash": "3a760c3d378ab9497c286372abadc137",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-after/page-1.png": {
-    "mtime": 1786546379.8700547,
-    "ast_hash": "e58b4ade32e3891fe3653639c4941f6d",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-after/page-2.png": {
-    "mtime": 1786546381.355306,
-    "ast_hash": "dac129ca3c202c59053d5d103f77f12a",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-after/page-3.png": {
-    "mtime": 1786546382.8039975,
-    "ast_hash": "7a6a57d63e45d3e046a950fb1a942785",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-after/page-4.png": {
-    "mtime": 1786546385.3495054,
-    "ast_hash": "934e49878e1d55f5e365cc394427dee1",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-1.png": {
-    "mtime": 1786545746.8382568,
-    "ast_hash": "922183ee9e5e9d2654468a61ccfadb54",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-2.png": {
-    "mtime": 1786545749.533217,
-    "ast_hash": "25d892ed4eefaf36562450d75caf8bfc",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-3.png": {
-    "mtime": 1786545750.268687,
-    "ast_hash": "2088935b3d268da4b24e7e41174c5a05",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-4.png": {
-    "mtime": 1786545751.9978278,
-    "ast_hash": "44318733fcd0dc340ad1b3f19d393f59",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-5.png": {
-    "mtime": 1786545753.038223,
-    "ast_hash": "5e7e48bae4de894212b4fae3a3578d08",
-    "semantic_hash": ""
-  },
-  "tmp/pdfs/mappa-before/page-6.png": {
-    "mtime": 1786545754.5868318,
-    "ast_hash": "82493517e75feda8f46f6951668b1f82",
     "semantic_hash": ""
   }
 }
