@@ -1,7 +1,7 @@
 ---
 title: Nodi da gommone
 type: concetto
-updated: 2026-08-20
+updated: 2026-08-21
 status: active
 tags: [nodi, scuola, gommone]
 ---
@@ -10,7 +10,9 @@ tags: [nodi, scuola, gommone]
 
 Trainer sul sito: `presentazione/nodi.html` (hub [[simulazioni]] via `simulazioni.html`).
 
-Sei nodi di partenza, i nomi italiani e l’uso sul mezzo piccolo. Non sostituisce una cima in mano: è per imparare i nomi e la sequenza.
+Vista **3D** (three.js, lazy solo su questa pagina): ruota con un dito, pizzica per zoom, passi che crescono, modalità Fai tu con pallini sulla cima. Fallback SVG 2D se manca WebGL o dal bottone «2D».
+
+Sei nodi di partenza, i nomi italiani e l’uso sul mezzo piccolo. Non sostituisce una cima in mano: è per imparare i nomi, la sequenza e gli incroci sopra/sotto.
 
 | Nodo | Inglese | A cosa serve sul gommone |
 |------|---------|--------------------------|

@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-20
+updated: 2026-08-21
 status: active
 tags: [index]
 ---
@@ -76,7 +76,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/tendalino-copertura]] | Nota storica sul tendalino per lo scenario scafo rigido |
 | [[concetti/architettura-sbarco]] | Architettura e garanzie operative del chatbot |
 | [[concetti/simulazioni]] | Hub scuola/giochi sul sito |
-| [[concetti/nodi-marinareschi]] | Sei nodi da gommone + trainer |
+| [[concetti/nodi-marinareschi]] | Sei nodi da gommone + trainer 3D |
 
 ## Normativa
 

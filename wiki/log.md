@@ -6,6 +6,12 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-21] setup | Nodi 3D sul sito (trainer)
+
+- `nodi.html`: cima come tubo 3D (three.js lazy), OrbitControls touch, Impara / Fai tu / Quiz.
+- Fallback SVG 2D (WebGL assente, errore, o toggle 2D). Catalogo resta 2D.
+- Dati: waypoints 3D in `nodi-data.js` accanto ai path SVG.
+
 ## [2026-08-20] setup | Simulazioni: trainer nodi sul sito
 
 - Hub `simulazioni.html` e gioco `nodi.html`: Impara / Fai tu / Quiz.

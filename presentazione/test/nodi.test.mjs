@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
 import test from "node:test"
-import { KNOTS, getKnot } from "../src/js/nodi-data.js"
+import { KNOTS, getKnot, stepHit3, stepPaths } from "../src/js/nodi-data.js"
 import {
   buildQuiz,
   gradeQuiz,
@@ -27,6 +27,25 @@ test("catalogo nodi: id unici, passi e bersagli allineati", () => {
   }
   assert.equal(getKnot("gassa-amante").name, "Gassa d'amante")
   assert.equal(getKnot("nodo-inesistente"), null)
+})
+
+test("ogni passo ha geometria 3D valida", () => {
+  for (const knot of KNOTS) {
+    for (const [i, step] of knot.steps.entries()) {
+      const paths = stepPaths(step)
+      assert.ok(paths.length >= 1, `${knot.id}#${i} senza path 3D`)
+      for (const path of paths) {
+        assert.ok(path.pts.length >= 2, `${knot.id}#${i} pts corti`)
+        for (const pt of path.pts) {
+          assert.equal(pt.length, 3)
+          assert.ok(pt.every(Number.isFinite), `${knot.id}#${i} pt non finito`)
+        }
+      }
+      const hit = stepHit3(step)
+      assert.equal(hit.length, 3)
+      assert.ok(hit.every(Number.isFinite))
+    }
+  }
 })
 
 test("quiz: ogni domanda ha la risposta tra le opzioni", () => {
