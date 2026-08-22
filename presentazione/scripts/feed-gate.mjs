@@ -123,11 +123,8 @@ export function validateFeeds(dataDir, { now = Date.now(), maxAgeMs = MAX_AGE_MS
     summaries.push(`${name}: ${items.length} annunci, ${data.errors?.length || 0} errori fonte`)
   }
 
-  const softOverlap = new Set(['vele', 'accessori'])
   for (const dupe of findCrossFeedDuplicates(loaded)) {
-    const msg = `cross-feed duplicato ${dupe.feeds.join(' ∩ ')}: ${dupe.url}`
-    if (dupe.feeds.some((name) => softOverlap.has(name))) warnings.push(msg)
-    else errors.push(msg)
+    warnings.push(`cross-feed duplicato ${dupe.feeds.join(' ∩ ')}: ${dupe.url}`)
   }
 
   return { errors, warnings, summaries }

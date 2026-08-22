@@ -93,8 +93,8 @@ Criteri: [[preferenze/track-vele]]. Reference: [[modelli/comet-770]].
   **feed core** (rigide, gommoni, motori, accessori): file mancanti, feed
   vecchi o piccoli, duplicati, misure/CV fuori scala e RIB sfuggiti al filtro.
 - **Vele è soft:** file assente, stantio o magro = **warning**, non ferma il
-  piano A. Stesso URL in due tab = warning se tocca vele/accessori, errore
-  fra i core. Helper vela condivisi: `isSailboat`, `sailTypeOf`, inventario
+  piano A. Stesso URL in due tab = **warning** (anche rigide ∩ motori: bundle
+  reali su Subito). Helper vela condivisi: `isSailboat`, `sailTypeOf`, inventario
   randa/genoa/spinnaker.
 
 ## Track motori

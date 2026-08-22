@@ -74,6 +74,27 @@ test('lo stesso URL in due tab e un duplicato cross-feed', () => {
   assert.deepEqual(dupes[0].feeds.sort(), ['motori', 'vele'])
 })
 
+test('un duplicato tra rigide e motori resta un warning e non blocca il deploy', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'feed-gate-'))
+  try {
+    const shared = 'https://www.subito.it/nautica/lancia-con-motore.htm'
+    writeFeed(dir, 'gommoni')
+    writeFeed(dir, 'accessori')
+    writeFeed(dir, 'vele', { count: 6 })
+    writeFeed(dir, 'annunci', {
+      items: [item({ url: shared }), ...Array.from({ length: 9 }, (_, i) => item({ id: `a-${i}`, url: `https://www.subito.it/nautica/a-${i}.htm`, price: 1500 + i }))],
+    })
+    writeFeed(dir, 'motori', {
+      items: [item({ id: 'm-shared', url: shared, price: 900 }), ...Array.from({ length: 9 }, (_, i) => item({ id: `m-${i}`, url: `https://www.subito.it/nautica/mo-${i}.htm`, price: 400 + i }))],
+    })
+    const result = validateFeeds(dir)
+    assert.equal(result.errors.length, 0)
+    assert.ok(result.warnings.some((w) => /annunci ∩ motori/.test(w) || /motori ∩ annunci/.test(w)))
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
 test('un duplicato che tocca solo vele o accessori resta un warning', () => {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'feed-gate-'))
   try {
