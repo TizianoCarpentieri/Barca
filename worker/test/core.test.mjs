@@ -548,6 +548,109 @@ test("GET /api/status senza auth torna 401 passkeyRequired", async () => {
   assert.equal(body.passkeyRequired, true);
 });
 
+test("estrae tool call DSML dal contenuto quando mancano i tool_calls strutturati", () => {
+  const content = [
+    "Verifico la wiki:",
+    "<|DSML|function_calls>",
+    '<|DSML|invoke name="read_wiki">',
+    '<|DSML|parameter name="page" string="true">wiki/modelli/comet-770.md</|DSML|parameter>',
+    "</|DSML|invoke>",
+    '<|DSML|invoke name="search_web">',
+    '<|DSML|parameter name="query" string="false">{"query":"prezzo comet 770"}</|DSML|parameter>',
+    "</|DSML|invoke>",
+    "</|DSML|function_calls>",
+  ].join("\n");
+  const parsed = __test.parseDsmlToolCalls(content);
+  assert.equal(parsed.toolCalls.length, 2);
+  assert.equal(parsed.toolCalls[0].function.name, "read_wiki");
+  assert.equal(parsed.toolCalls[0].function.arguments, '{"page":"wiki/modelli/comet-770.md"}');
+  assert.equal(parsed.toolCalls[1].function.name, "search_web");
+  assert.equal(parsed.toolCalls[1].function.arguments, '{"query":"prezzo comet 770"}');
+  assert.ok(parsed.toolCalls[0].id && parsed.toolCalls[1].id);
+  assert.equal(parsed.text, "Verifico la wiki:");
+});
+
+test("stripDsmlMarkup rimuove blocchi e frammenti DSML dal testo visibile", () => {
+  assert.equal(
+    __test.stripDsmlMarkup("Risposta <|DSML|function_calls>sporcizia</|DSML|function_calls> pulita"),
+    "Risposta pulita"
+  );
+  assert.equal(__test.stripDsmlMarkup("Nessun markup qui"), "Nessun markup qui");
+});
+
+test("i tool call DSML nel contenuto vengono eseguiti in silenzio e mai mostrati all utente", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  const wikiFetches = [];
+  let agentCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      wikiFetches.push(url);
+      return new Response("# Pagina Comet 770", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      const body = JSON.parse(init.body);
+      if (agentCalls === 1) {
+        const dsml = [
+          "<|DSML|function_calls>",
+          '<|DSML|invoke name="read_wiki">',
+          '<|DSML|parameter name="page" string="true">wiki/modelli/comet-770.md</|DSML|parameter>',
+          "</|DSML|invoke>",
+          "</|DSML|function_calls>",
+        ].join("\n");
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: { role: "assistant", content: dsml } }] });
+      }
+      assert.ok(
+        body.messages.some(message => message.role === "tool" && /Pagina Comet 770/.test(message.content)),
+        "il risultato dello strumento DSML deve tornare al modello"
+      );
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Risposta dalla wiki del Comet 770." } }],
+        usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Cosa dice la wiki del Comet 770?", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.ok(
+      wikiFetches.some(url => url.includes("wiki/modelli/comet-770.md")),
+      "il tool read_wiki DSML deve essere eseguito davvero"
+    );
+    assert.match(body, /Risposta dalla wiki del Comet 770/);
+    assert.match(body, /"toolSequence":\["read_wiki"\]/);
+    assert.match(body, /"done":true/);
+    assert.doesNotMatch(body, /DSML|function_calls|invoke|parameter/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 2);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("OPTIONS espone Allow-Headers session e Expose-Headers token", async () => {
   const response = await worker.fetch(new Request("https://sbarco.test/api/status", {
     method: "OPTIONS",

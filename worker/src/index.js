@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.3.0";
+const WORKER_VERSION = "2.3.1";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -991,6 +991,64 @@ function toolProgressLabel(toolCall) {
   return "Sbarco sistema il carico a bordo…";
 }
 
+// ── DSML tool calls ────────────────────────────────────────────────
+// DeepSeek puo' restituire le chiamate agli strumenti inline nel contenuto
+// come markup DSML (<|DSML|function_calls>…) invece che nel campo
+// strutturato tool_calls. Vanno eseguite come strumenti veri e mai mostrate.
+
+function stripDsmlMarkup(value = "") {
+  return String(value)
+    .replace(/<\|DSML\|function_calls>[\s\S]*?<\/\|DSML\|function_calls>/gi, " ")
+    .replace(/<\|DSML\|[^>]*>|<\/\|DSML\|[^>]*>/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function parseDsmlToolCalls(value = "") {
+  const content = String(value);
+  const toolCalls = [];
+  const blockMatch = /<\|DSML\|function_calls>([\s\S]*?)<\/\|DSML\|function_calls>/i.exec(content);
+  if (blockMatch) {
+    const invokeRe = /<\|DSML\|invoke name="([^"]+)"[^>]*>([\s\S]*?)<\/\|DSML\|invoke>/gi;
+    let match;
+    let index = 0;
+    while ((match = invokeRe.exec(blockMatch[1])) !== null) {
+      const name = match[1];
+      const paramsBlock = match[2];
+      const args = {};
+      const paramRe = /<\|DSML\|parameter name="([^"]+)" string="(true|false)"[^>]*>([\s\S]*?)<\/\|DSML\|parameter>/gi;
+      let param;
+      while ((param = paramRe.exec(paramsBlock)) !== null) {
+        const key = param[1];
+        const raw = param[3];
+        if (param[2] === "true") {
+          args[key] = raw;
+        } else {
+          try {
+            const parsedValue = JSON.parse(raw.trim());
+            if (parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)) {
+              Object.assign(args, parsedValue);
+            } else {
+              args[key] = parsedValue;
+            }
+          } catch {
+            args[key] = raw.trim();
+          }
+        }
+      }
+      if (name) {
+        toolCalls.push({
+          id: `dsml-${Date.now()}-${index}`,
+          type: "function",
+          function: { name, arguments: JSON.stringify(args) },
+        });
+        index += 1;
+      }
+    }
+  }
+  return { toolCalls, text: stripDsmlMarkup(content) };
+}
+
 async function requestAgentStep(apiKey, model, messages, signal, requiredTool = null) {
   const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
     method: "POST",
@@ -1153,9 +1211,10 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             if (firstAgentMs == null) firstAgentMs = Date.now() - startedAt;
             addUsage(usage, data.usage || {});
             const choice = data.choices[0];
-            const message = { ...choice.message, content: choice.message.content ?? "" };
+            const parsed = parseDsmlToolCalls(choice.message.content ?? "");
+            const message = { ...choice.message, content: parsed.text };
             messages.push(message);
-            const toolCalls = message.tool_calls || [];
+            const toolCalls = [...(message.tool_calls || []), ...parsed.toolCalls];
 
             if (toolCalls.length > 0) {
               state.toolCalls += toolCalls.length;
@@ -1825,6 +1884,8 @@ export const __test = {
   normalizeChatTier,
   resolveChatModel,
   getMessageCost,
+  parseDsmlToolCalls,
+  stripDsmlMarkup,
   checkRateLimit,
   incrementRateLimit,
   memoryExtractModel: BASE_MODEL,

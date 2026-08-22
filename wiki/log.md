@@ -6,6 +6,21 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-22] fix(sbarco) | Tool call DSML eseguiti in silenzio, mai mostrati
+
+- Causa: DeepSeek v4 con `thinking: disabled` può restituire le chiamate agli
+  strumenti inline nel `content` come markup DSML (`<|DSML|function_calls>…`)
+  invece che nel campo `tool_calls`. Il tool loop leggeva solo il campo
+  strutturato: il markup finiva in chat come risposta e lo strumento non veniva
+  mai eseguito (chat "bloccata").
+- Fix: `parseDsmlToolCalls` estrae gli `invoke` dal contenuto e li esegue come
+  tool veri; `stripDsmlMarkup` rimuove blocchi e frammenti DSML da ogni testo
+  candidato. Le chiamate non arrivano mai all'utente.
+- Test: 3 nuovi test in `worker/test/core.test.mjs` (parser, strip, chat
+  end-to-end con DSML); 31/31 verdi. Versione Worker 2.3.1.
+- Doc: [[concetti/architettura-sbarco]] sezione Garanzie di uscita.
+
+
 ## [2026-08-22] lint | Sbarco: cache wiki v6, memoria su Flash, grafo non a runtime
 
 - Cache KV `wiki:cache:v6` così dopo il deploy non resta il contesto vecchio.

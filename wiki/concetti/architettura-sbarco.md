@@ -64,6 +64,9 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
   Cloudflare consegna l’intera risposta in un unico read. Con
   `prefers-reduced-motion` il testo arriva intero.
 - Se il modello chiude senza contenuto, il client mostra un errore esplicito.
+- Le chiamate agli strumenti emesse da DeepSeek come markup DSML nel contenuto
+  (`<|DSML|function_calls>…`) vengono estratte, eseguite come tool veri e mai
+  mostrate all'utente; lo stesso markup viene rimosso da ogni testo candidato.
 - Timeout, budget e annullamento impediscono ricerche senza fine.
 - `/debug` legge anche gli ultimi eventi persistiti in KV, non solo la memoria dell’istanza.
 
