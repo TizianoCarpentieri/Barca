@@ -139,6 +139,15 @@
       "norm_label": "track c - motori"
     },
     {
+      "id": "track_d_vele",
+      "label": "Track D - Vele",
+      "file_type": "concept",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "track d - vele"
+    },
+    {
       "id": "budget_bundle_2000",
       "label": "Budget bundle ≤2000€",
       "file_type": "constraint",
@@ -191,6 +200,33 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "cap 30€/testa/mese non hard gommone"
+    },
+    {
+      "id": "budget_vela_9000_in_due",
+      "label": "Budget vela ≤9000€ in due",
+      "file_type": "constraint",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "budget vela ≤9000€ in due"
+    },
+    {
+      "id": "fissi_vela_700_testa_anno_all_in",
+      "label": "Fissi vela ≤700€/testa/anno all-in",
+      "file_type": "constraint",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "fissi vela ≤700€/testa/anno all-in"
+    },
+    {
+      "id": "stretch_vela_10000_e_900_testa",
+      "label": "Stretch vela 10000€ e 900€/testa",
+      "file_type": "constraint",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "stretch vela 10000€ e 900€/testa"
     },
     {
       "id": "no_patente_nautica",
@@ -344,6 +380,141 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "garanzia 3 anni"
+    },
+    {
+      "id": "comet_770",
+      "label": "Comet 770",
+      "file_type": "model",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "comet 770"
+    },
+    {
+      "id": "comar_yachts",
+      "label": "Comar Yachts",
+      "file_type": "brand",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "comar yachts"
+    },
+    {
+      "id": "jean_marie_finot",
+      "label": "Jean-Marie Finot",
+      "file_type": "person",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "jean-marie finot"
+    },
+    {
+      "id": "cabinato_7_9_m",
+      "label": "Cabinato 7-9 m",
+      "file_type": "type",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "cabinato 7-9 m"
+    },
+    {
+      "id": "deriva_imbullonata_senza_madieri",
+      "label": "Deriva imbullonata senza madieri",
+      "file_type": "spec",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "deriva imbullonata senza madieri"
+    },
+    {
+      "id": "pescaggio_1_45_1_50_m",
+      "label": "Pescaggio 1.45-1.50 m",
+      "file_type": "spec",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "pescaggio 1.45-1.50 m"
+    },
+    {
+      "id": "farymann_diesel_originale",
+      "label": "Farymann diesel originale",
+      "file_type": "spec",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "farymann diesel originale"
+    },
+    {
+      "id": "osmosi_e_coperta_balsa",
+      "label": "Osmosi e coperta balsa",
+      "file_type": "risk",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "osmosi e coperta balsa"
+    },
+    {
+      "id": "anzio_slot_8_50_banchina_4282_iva",
+      "label": "Anzio slot 8.50 banchina 4282€ IVA",
+      "file_type": "estimate",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "anzio slot 8.50 banchina 4282€ iva"
+    },
+    {
+      "id": "anzio_boa_8_50_3239_iva",
+      "label": "Anzio boa 8.50 3239€ IVA",
+      "file_type": "estimate",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "anzio boa 8.50 3239€ iva"
+    },
+    {
+      "id": "fiumicino_foce_da_preventivare",
+      "label": "Fiumicino foce da preventivare",
+      "file_type": "open_question",
+      "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "fiumicino foce da preventivare"
+    },
+    {
+      "id": "patente_oltre_6_miglia_anche_a_vela",
+      "label": "Patente oltre 6 miglia anche a vela",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/limiti-senza-patente.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "patente oltre 6 miglia anche a vela"
+    },
+    {
+      "id": "ponza_richiede_patente_senza_limiti",
+      "label": "Ponza richiede patente senza limiti",
+      "file_type": "regulation",
+      "source_file": "wiki/normativa/limiti-senza-patente.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "ponza richiede patente senza limiti"
+    },
+    {
+      "id": "conversazioni_audio_2026_08_20",
+      "label": "Conversazioni audio 2026-08-20",
+      "file_type": "source",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "conversazioni audio 2026-08-20"
+    },
+    {
+      "id": "soci_extra_vela_benvenuti",
+      "label": "Soci extra vela benvenuti",
+      "file_type": "preference",
+      "source_file": "wiki/preferenze/gruppo.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "soci extra vela benvenuti"
     },
     {
       "id": "motore_fuoribordo_9_9_15_cv",
@@ -832,6 +1003,51 @@
       "norm_label": "#manutenzione"
     },
     {
+      "id": "costi_di_possesso_di_un_cabinato_8_m",
+      "label": "Costi di possesso di un cabinato ~8 m",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "costi di possesso di un cabinato ~8 m"
+    },
+    {
+      "id": "tco",
+      "label": "#tco",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#tco"
+    },
+    {
+      "id": "vela",
+      "label": "#vela",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#vela"
+    },
+    {
+      "id": "ormeggio",
+      "label": "#ormeggio",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ormeggio"
+    },
+    {
+      "id": "anzio_wiki_concetti_costi_possesso_cabinato_md",
+      "label": "#anzio",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#anzio"
+    },
+    {
       "id": "feed_accessori_design_e_scoring",
       "label": "Feed accessori — design e scoring",
       "file_type": "concetto",
@@ -1084,6 +1300,42 @@
       "norm_label": "#fisica"
     },
     {
+      "id": "nodi_da_gommone",
+      "label": "Nodi da gommone",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "nodi da gommone"
+    },
+    {
+      "id": "nodi",
+      "label": "#nodi",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#nodi"
+    },
+    {
+      "id": "scuola",
+      "label": "#scuola",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scuola"
+    },
+    {
+      "id": "gommone_wiki_concetti_nodi_marinareschi_md",
+      "label": "#gommone",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#gommone"
+    },
+    {
       "id": "pesca_da_barca_piccola_no_patente",
       "label": "Pesca da barca piccola (no-patente)",
       "file_type": "concetto",
@@ -1127,6 +1379,33 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#canne"
+    },
+    {
+      "id": "simulazioni",
+      "label": "Simulazioni",
+      "file_type": "concetto",
+      "source_file": "wiki/concetti/simulazioni.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "simulazioni"
+    },
+    {
+      "id": "scuola_wiki_concetti_simulazioni_md",
+      "label": "#scuola",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/simulazioni.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#scuola"
+    },
+    {
+      "id": "nodi_wiki_concetti_simulazioni_md",
+      "label": "#nodi",
+      "file_type": "tag",
+      "source_file": "wiki/concetti/simulazioni.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#nodi"
     },
     {
       "id": "tendalino_copertura_sole",
@@ -1588,6 +1867,60 @@
       "norm_label": "#benchmark"
     },
     {
+      "id": "comet_770_wiki_modelli_comet_770_md",
+      "label": "Comet 770",
+      "file_type": "modello",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "comet 770"
+    },
+    {
+      "id": "vela_wiki_modelli_comet_770_md",
+      "label": "#vela",
+      "file_type": "tag",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#vela"
+    },
+    {
+      "id": "comet",
+      "label": "#comet",
+      "file_type": "tag",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#comet"
+    },
+    {
+      "id": "comar",
+      "label": "#comar",
+      "file_type": "tag",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#comar"
+    },
+    {
+      "id": "finot",
+      "label": "#finot",
+      "file_type": "tag",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#finot"
+    },
+    {
+      "id": "reference_wiki_modelli_comet_770_md",
+      "label": "#reference",
+      "file_type": "tag",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#reference"
+    },
+    {
       "id": "limiti_senza_patente_italia",
       "label": "Limiti senza patente (Italia)",
       "file_type": "normativa",
@@ -1804,13 +2137,22 @@
       "norm_label": "#usato"
     },
     {
-      "id": "tco",
+      "id": "tco_wiki_preferenze_budget_md",
       "label": "#tco",
       "file_type": "tag",
       "source_file": "wiki/preferenze/budget.md",
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#tco"
+    },
+    {
+      "id": "vela_wiki_preferenze_budget_md",
+      "label": "#vela",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#vela"
     },
     {
       "id": "gruppo",
@@ -2074,6 +2416,51 @@
       "norm_label": "#dual-track"
     },
     {
+      "id": "track_vele_sogno_parallelo",
+      "label": "Track vele (sogno parallelo)",
+      "file_type": "preferenza",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "track vele (sogno parallelo)"
+    },
+    {
+      "id": "vela_wiki_preferenze_track_vele_md",
+      "label": "#vela",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#vela"
+    },
+    {
+      "id": "dual_track_wiki_preferenze_track_vele_md",
+      "label": "#dual-track",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#dual-track"
+    },
+    {
+      "id": "comet_wiki_preferenze_track_vele_md",
+      "label": "#comet",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#comet"
+    },
+    {
+      "id": "ormeggio_wiki_preferenze_track_vele_md",
+      "label": "#ormeggio",
+      "file_type": "tag",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#ormeggio"
+    },
+    {
       "id": "audit_sbarco_memoria_streaming_pdf_e_mobile",
       "label": "Audit Sbarco - memoria, streaming, PDF e mobile",
       "file_type": "sintesi",
@@ -2288,6 +2675,60 @@
       "source_location": "L1",
       "_origin": "semantic",
       "norm_label": "#storico"
+    },
+    {
+      "id": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "Conversazioni audio 2026-08-20",
+      "file_type": "sintesi",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "conversazioni audio 2026-08-20"
+    },
+    {
+      "id": "audio_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "#audio",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#audio"
+    },
+    {
+      "id": "whatsapp_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "#whatsapp",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#whatsapp"
+    },
+    {
+      "id": "vela_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "#vela",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#vela"
+    },
+    {
+      "id": "comet_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "#comet",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#comet"
+    },
+    {
+      "id": "bestie_wiki_sintesi_conversazioni_audio_20260820_md",
+      "label": "#bestie",
+      "file_type": "tag",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "_origin": "semantic",
+      "norm_label": "#bestie"
     },
     {
       "id": "patto_bestie_digest_operativo",
@@ -2904,6 +3345,15 @@
       "weight": 1.0
     },
     {
+      "source": "dual_track",
+      "target": "track_d_vele",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "budget_bundle_2000",
       "target": "progetto_barca",
       "relation": "constrains",
@@ -2942,6 +3392,33 @@
     {
       "source": "cap_30_testa_mese_non_hard_gommone",
       "target": "budget_bundle_2000",
+      "relation": "qualifies",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_vela_9000_in_due",
+      "target": "track_d_vele",
+      "relation": "constrains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "fissi_vela_700_testa_anno_all_in",
+      "target": "track_d_vele",
+      "relation": "constrains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "stretch_vela_10000_e_900_testa",
+      "target": "budget_vela_9000_in_due",
       "relation": "qualifies",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -3087,6 +3564,186 @@
       "source": "argo_evo_360_al",
       "target": "budget_acquisto_4500",
       "relation": "respects",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "comar_yachts",
+      "relation": "built_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "jean_marie_finot",
+      "relation": "designed_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "cabinato_7_9_m",
+      "relation": "is_type",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "deriva_imbullonata_senza_madieri",
+      "relation": "has_spec",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "pescaggio_1_45_1_50_m",
+      "relation": "has_spec",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "farymann_diesel_originale",
+      "relation": "has_spec",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "osmosi_e_coperta_balsa",
+      "relation": "has_risk",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770",
+      "target": "track_d_vele",
+      "relation": "belongs_to",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_d_vele",
+      "target": "cabinato_7_9_m",
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_d_vele",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "constrained_by",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "anzio_slot_8_50_banchina_4282_iva",
+      "target": "fissi_vela_700_testa_anno_all_in",
+      "relation": "exceeds",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "anzio_boa_8_50_3239_iva",
+      "target": "fissi_vela_700_testa_anno_all_in",
+      "relation": "stresses",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "fiumicino_foce_da_preventivare",
+      "target": "track_d_vele",
+      "relation": "blocks",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "patente_oltre_6_miglia_anche_a_vela",
+      "target": "no_patente_nautica",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "ponza_richiede_patente_senza_limiti",
+      "target": "patente_oltre_6_miglia_anche_a_vela",
+      "relation": "implies",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20",
+      "target": "track_d_vele",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20",
+      "target": "comet_770",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "soci_extra_vela_benvenuti",
+      "target": "track_d_vele",
+      "relation": "enables",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "tiziano",
+      "target": "track_d_vele",
+      "relation": "pursues",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "antonio",
+      "target": "track_d_vele",
+      "relation": "pursues",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
       "source_location": "L1",
@@ -3588,6 +4245,60 @@
       "weight": 1.0
     },
     {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "tco",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "vela",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "ormeggio",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "costi_di_possesso_di_un_cabinato_8_m",
+      "target": "anzio_wiki_concetti_costi_possesso_cabinato_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/costi-possesso-cabinato.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "feed_accessori_design_e_scoring",
       "target": "accessori",
       "relation": "tagged",
@@ -3653,6 +4364,24 @@
     {
       "source": "feed_annunci_e_scoring",
       "target": "argo_evo_360_al",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-annunci-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_annunci_e_scoring",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/feed-annunci-scoring.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_annunci_e_scoring",
+      "target": "comet_770",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/feed-annunci-scoring.md",
@@ -3831,6 +4560,33 @@
       "weight": 1.0
     },
     {
+      "source": "nodi_da_gommone",
+      "target": "nodi",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "nodi_da_gommone",
+      "target": "scuola",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "nodi_da_gommone",
+      "target": "gommone_wiki_concetti_nodi_marinareschi_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/nodi-marinareschi.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "pesca_da_barca_piccola_no_patente",
       "target": "ecoscandaglio",
       "relation": "references",
@@ -3872,6 +4628,33 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/concetti/pesca-da-barca-piccola.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "simulazioni",
+      "target": "nodi_da_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/simulazioni.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "simulazioni",
+      "target": "scuola_wiki_concetti_simulazioni_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/simulazioni.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "simulazioni",
+      "target": "nodi_wiki_concetti_simulazioni_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/concetti/simulazioni.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -4228,6 +5011,15 @@
     },
     {
       "source": "indice_wiki",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "ecoscandaglio",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4246,7 +5038,25 @@
     },
     {
       "source": "indice_wiki",
+      "target": "fiumicino_foce_da_preventivare",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "argo_evo_360_al",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "comet_770",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -4309,6 +5119,15 @@
     },
     {
       "source": "indice_wiki",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "logistica_e_trasporto_gommone",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4319,6 +5138,24 @@
     {
       "source": "indice_wiki",
       "target": "tendalino",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "simulazioni",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
+      "target": "nodi_da_gommone",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
@@ -4363,10 +5200,73 @@
     },
     {
       "source": "indice_wiki",
+      "target": "conversazioni_audio_2026_08_20",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "indice_wiki",
       "target": "index",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/index.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "conversazioni_audio_2026_08_20",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "comet_770",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "simulazioni",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "nodi_da_gommone",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -4400,6 +5300,15 @@
     {
       "source": "log",
       "target": "documenti_di_bordo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/log.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "log",
+      "target": "fiumicino_foce_da_preventivare",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/log.md",
@@ -4453,7 +5362,25 @@
     },
     {
       "source": "feed_subito_live",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/mercato/feed-subito-live.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_subito_live",
       "target": "argo_evo_360_al",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/mercato/feed-subito-live.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "feed_subito_live",
+      "target": "comet_770",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/mercato/feed-subito-live.md",
@@ -4628,6 +5555,87 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/modelli/argo-evo-360.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "conversazioni_audio_2026_08_20",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "limite_40_8_cv_30_kw",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "vela_wiki_modelli_comet_770_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "comet",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "comar",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "finot",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "comet_770_wiki_modelli_comet_770_md",
+      "target": "reference_wiki_modelli_comet_770_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/modelli/comet-770.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -4813,6 +5821,15 @@
     },
     {
       "source": "overview",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "overview",
       "target": "argo_evo_360_al",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4858,6 +5875,15 @@
     },
     {
       "source": "overview",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/overview.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "overview",
       "target": "feed_subito_live",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4894,6 +5920,24 @@
     },
     {
       "source": "budget_wiki_preferenze_budget_md",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_wiki_preferenze_budget_md",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_wiki_preferenze_budget_md",
       "target": "usato_wiki_preferenze_budget_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -4903,7 +5947,16 @@
     },
     {
       "source": "budget_wiki_preferenze_budget_md",
-      "target": "tco",
+      "target": "tco_wiki_preferenze_budget_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/budget.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "budget_wiki_preferenze_budget_md",
+      "target": "vela_wiki_preferenze_budget_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/budget.md",
@@ -4984,6 +6037,15 @@
     },
     {
       "source": "must_have",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/must-have.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "must_have",
       "target": "gozzo",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -5020,6 +6082,15 @@
     },
     {
       "source": "must_have",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/must-have.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "must_have",
       "target": "requisiti_wiki_preferenze_must_have_md",
       "relation": "tagged",
       "confidence": "EXTRACTED",
@@ -5039,6 +6110,24 @@
     {
       "source": "nice_to_have_e_priorit_d_uso",
       "target": "motore_fuoribordo_9_9_15_cv",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/nice-to-have.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "nice_to_have_e_priorit_d_uso",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/nice-to-have.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "nice_to_have_e_priorit_d_uso",
+      "target": "track_d_vele",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/nice-to-have.md",
@@ -5102,6 +6191,15 @@
     {
       "source": "open_questions_wiki_preferenze_open_questions_md",
       "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/open-questions.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "track_d_vele",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/preferenze/open-questions.md",
@@ -5298,6 +6396,87 @@
       "weight": 1.0
     },
     {
+      "source": "track_vele_sogno_parallelo",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "conversazioni_audio_2026_08_20",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "limite_40_8_cv_30_kw",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "feed_annunci_subito",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "vela_wiki_preferenze_track_vele_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "dual_track_wiki_preferenze_track_vele_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "comet_wiki_preferenze_track_vele_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "track_vele_sogno_parallelo",
+      "target": "ormeggio_wiki_preferenze_track_vele_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/preferenze/track-vele.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "audit_sbarco_memoria_streaming_pdf_e_mobile",
       "target": "sbarco_wiki_sintesi_audit_sbarco_20260811_md",
       "relation": "tagged",
@@ -5416,6 +6595,15 @@
     },
     {
       "source": "contesto_operativo_sbarco",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
       "target": "argo_evo_360_al",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -5470,7 +6658,43 @@
     },
     {
       "source": "contesto_operativo_sbarco",
-      "target": "open_questions_wiki_preferenze_open_questions_md",
+      "target": "simulazioni",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "track_d_vele",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "conversazioni_audio_2026_08_20",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/contesto-sbarco.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "contesto_operativo_sbarco",
+      "target": "fiumicino_foce_da_preventivare",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/contesto-sbarco.md",
@@ -5663,6 +6887,78 @@
       "relation": "tagged",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/conversazioni-audio-20260809.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "comet_770_wiki_modelli_comet_770_md",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "budget_bundle_2000",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "anzio_slot_8_50_banchina_4282_iva",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "audio_wiki_sintesi_conversazioni_audio_20260820_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "whatsapp_wiki_sintesi_conversazioni_audio_20260820_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "vela_wiki_sintesi_conversazioni_audio_20260820_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "comet_wiki_sintesi_conversazioni_audio_20260820_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "conversazioni_audio_2026_08_20_wiki_sintesi_conversazioni_audio_20260820_md",
+      "target": "bestie_wiki_sintesi_conversazioni_audio_20260820_md",
+      "relation": "tagged",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/conversazioni-audio-20260820.md",
       "source_location": "L1",
       "weight": 1.0
     },
@@ -5894,6 +7190,15 @@
     {
       "source": "requisiti_v2",
       "target": "feed_annunci_subito",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/sintesi/requisiti-v1.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "requisiti_v2",
+      "target": "comet_770_wiki_modelli_comet_770_md",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "wiki/sintesi/requisiti-v1.md",

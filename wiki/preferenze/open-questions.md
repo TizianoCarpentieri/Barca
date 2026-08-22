@@ -1,7 +1,7 @@
 ---
 title: Open questions
 type: preferenza
-updated: 2026-08-20
+updated: 2026-08-22
 status: active
 tags: [todo]
 ---
@@ -44,10 +44,18 @@ Dettaglio: [[concetti/costi-nascosti-gommone]] · [[preferenze/budget]].
 - [ ] Dove lavare/asciugare dopo ogni uscita.
 - [ ] Manutenzione: non serve un “referente fisso” obbligatorio; va definito come si ruota il carico.
 
-## Presentazione — track Vele
+## Track Vele — bloccanti prima di comprare
 
-- [ ] Criteri del feed **Vele** (deriva/cabina, budget, no-patente sì/no) prima di aprire la quinta tab Annunci.
-- [ ] Fonte annunci e scoring (distanza Lazio? prezzo vs nuovo?).
+Criteri del feed chiusi il 22 ago: [[preferenze/track-vele]] (cabinato 7–9 m, ≤9/10k, all-in 700/900, Subito + geo Lazio). Restano i fatti da terra:
+
+- [ ] Preventivo reale **Fiumicino foce** (e un secondo porto secondario): canone, IVA, acqua, luce, fondale vs pescaggio 1,5 m.
+- [ ] Anzio boa vs banchina: solo se il canone + resto sta nel cap; oggi la banchina 8,50 **non** ci sta.
+- [ ] Concessione demaniale: esiste una graduatoria utile? (chat: «casa popolare del posto barca»)
+- [ ] Scuola/patente 12 miglia vela+motore: preventivo Lazio, chi la fa per primo.
+- [ ] Peppe sì/no sul cabinato; lista soci extra (Matteo, Giulia, padre, Paolo) con cifra.
+- [ ] Perito + secca su qualsiasi 770 «pronta»: osmosi, balsa, bulloni chiglia, Farymann/refit.
+- [ ] Consegna se l’usato è lontano (Giulianova = truck o periplo).
+- [ ] Riadattare il patto al Bene-vela quando i numeri chiudono.
 
 ## Manutenzione knowledge base
 

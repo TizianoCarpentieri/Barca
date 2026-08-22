@@ -1,13 +1,14 @@
 ---
 title: Feed annunci e scoring
 type: concetto
-updated: 2026-08-10
+updated: 2026-08-22
 status: active
 tags: [subito, scoring, feed, distanza]
 sources:
   - presentazione/scripts/fetch-annunci.mjs
   - presentazione/scripts/fetch-gommoni.mjs
   - presentazione/scripts/fetch-motori.mjs
+  - presentazione/scripts/fetch-vele.mjs
   - presentazione/scripts/geo-score.mjs
   - presentazione/scripts/feed-normalizers.mjs
   - presentazione/scripts/validate-feeds.mjs
@@ -15,13 +16,14 @@ sources:
 
 # Feed annunci Subito — logica di scoring
 
-Tre feed paralleli, **una sola UI** con tab:
+Quattro tab + Accessori, **una sola UI** Annunci:
 
 | Tab | JSON | Script |
 |-----|------|--------|
 | **Rigide** | `annunci.json` | `fetch-annunci.mjs` |
 | **Gommoni** | `gommoni.json` | `fetch-gommoni.mjs` |
 | **Motori** | `motori.json` | `fetch-motori.mjs` |
+| **Vele** | `vele.json` | `fetch-vele.mjs` |
 
 - Live: https://tizianocarpentieri.github.io/Barca/annunci.html  
 - Deploy + cron 2×/giorno: `.github/workflows/pages.yml`  
@@ -67,6 +69,16 @@ Altrimenti penalità forte (“meglio nuovo”).
 **Bundle con motore** decente a totale ragionevole → bonus.
 
 Pavimento: paiolato alluminio > airdeck. Chiglia gonfiabile preferita.
+
+## Track vele (sogno)
+
+Criteri: [[preferenze/track-vele]]. Reference: [[modelli/comet-770]].
+
+- Cabinato 6,5–9 m (sweet 7,5–8); derive da club = weak
+- Hard ≤9.000 €, stretch ≤10.000
+- Bonus Lazio, Comet/Comar/Finot, ausiliario ≤40,8 CV
+- Penalità distanza come gli altri scafi (non è un accessorio spedibile)
+- Etichetta UI: sogno parallelo, non piano A
 
 ### Normalizzazione e gate (2026-08-10)
 

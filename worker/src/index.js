@@ -412,10 +412,13 @@ const EMBEDDED_WIKI = {
 
 - Gruppo: Tiziano, Antonio e Peppe; base Ardea/Pomezia/Tor San Lorenzo, mare laziale.
 - Piano A: gommone pneumatico smontabile non RIB, min 3,90 m, 3 comodi e fino a ~6 solo picco sociale.
-- Budget: massimo 2.000 EUR bundle gommone+motore usato; cap 30 EUR/testa/mese NON hard sul gommone.
-- Motore: 9-40 CV no-patente (≤30 kW e cilindrata); 4T preferito; sweet 15-20 CV 4T se budget.
-- Benchmark scafo: Argo-Evo 360 AL nuovo 970 EUR; usato eq. senza motore almeno -20%.
-- Piano B: scafo rigido solo con ≥5 soci e preventivi reali.
+- Budget gommone: massimo 2.000 EUR bundle usato; cap 30 EUR/testa/mese NON hard sul gommone.
+- Sogno vela (track D): cabinato 7-9 m, ref Comet 770. In due ≤9.000 EUR (stretch 10.000). Fissi all-in ≤700 EUR/testa/anno (stretch 900), tutto incluso non solo porto. Soci extra benvenuti. Non sostituisce il piano A.
+- Anzio banchina slot 8,50 (serve al 770) = 4.282 EUR IVA incl. 2026: da sola sfora il cap 700 anche in 5-6. Prima preventivo Fiumicino foce.
+- Patente vela: superficie velica NON basta; oltre 6 miglia sempre; 24 m sono le navi. Ponza da Anzio ~30 M = senza limiti.
+- Motore gommone: 9-40 CV no-patente (≤30 kW e cilindrata); 4T preferito; sweet 15-20 CV 4T se budget.
+- Benchmark scafo gommone: Argo-Evo 360 AL nuovo 970 EUR; usato eq. senza motore almeno -20%.
+- Piano B: scafo rigido a motore solo con ≥5 soci e preventivi reali.
 - Patto v1.10: bozza ipotetica NON firmata; impianto anche per rigida/vela. Digest wiki/sintesi/patto-bestie.md; integrale wiki/documenti/patto.md
 - Prospetto costi a norma: wiki/documenti/costi.md (digest wiki/sintesi/prospetto-costi-a-norma.md) — RC obbligatoria, kit ~300-350 EUR.
 - Punti di lancio Lazio: wiki/documenti/varo.md (digest wiki/normativa/varo-litorale-lazio.md) — solo corridoi/scivoli; 4 PO Ardea.
@@ -427,7 +430,7 @@ Per dettagli usa read_wiki. Non trasformare stime o note storiche in fatti verif
 };
 
 async function fetchWikiPage(kv, key, pageDef) {
-  const cacheKey = `wiki:cache:v4:${key}`;
+  const cacheKey = `wiki:cache:v5:${key}`;
   try {
     const cached = await kv.get(cacheKey);
     if (cached) return cached;

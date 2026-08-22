@@ -1,7 +1,7 @@
 ---
 title: Requisiti v2
 type: sintesi
-updated: 2026-08-11
+updated: 2026-08-22
 status: active
 tags: [requisiti, shortlist-filtri]
 ---
@@ -9,7 +9,7 @@ tags: [requisiti, shortlist-filtri]
 # Requisiti v2 — Le Bestie
 
 Sintesi aggiornata 2026-08-11 (allineamento post-cantiere patto, senza ingest del testo).  
-**Gommone = piano A. Scafo rigido = piano B (condizionato a ≥5 soci).**
+**Gommone = piano A. Scafo rigido a motore = piano B (condizionato a ≥5 soci). Cabinato a vela = sogno parallelo (track D), non acquisto finché il TCO all-in non sta nel cap.**
 
 Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[modelli/argo-evo-360]] · [[concetti/feed-annunci-scoring]].
 
@@ -30,7 +30,8 @@ Dettagli: [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[model
 | Patente | **Nessuno** ce l’ha; **ideale non prenderla** → ≤**30 kW / 40,8 CV** + cilindrate + **≤6 miglia** |
 | Performance | **Non attese** (consapevoli) |
 | Scafo | **Gommone pneumatico smontabile**, no RIB, trasportabile auto |
-| Escluso | Scafo rigido (se non con ≥5 soci e preventivi verificati) |
+| Escluso dal piano A | Scafo rigido a motore (se non con ≥5 soci); vela non è piano A |
+| Sogno vela | Cabinato 7–9 m, ref [[modelli/comet-770]]; in 2 ≤9/10k; fissi ≤700/900 €/testa all-in |
 | Comfort | **Tendalino/copertura sole** aftermarket (opzionale su gommone) |
 | Uso #1 | **Pesca a canna** (surfcasting da adattare → bolentino naturale) |
 | Uso #2–4 | Giri costa → bagno/relax → facilità |

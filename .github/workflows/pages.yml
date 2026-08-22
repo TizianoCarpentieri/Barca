@@ -53,6 +53,9 @@ jobs:
       - name: Fetch accessori (Subito)
         working-directory: presentazione
         run: node scripts/fetch-accessori.mjs
+      - name: Fetch vele (sogno parallelo)
+        working-directory: presentazione
+        run: node scripts/fetch-vele.mjs
       - name: Valida freschezza e qualita feed
         working-directory: presentazione
         run: npm run validate-feeds

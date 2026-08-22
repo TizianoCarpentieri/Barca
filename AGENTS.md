@@ -131,14 +131,16 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Capacità target:** 3 comodi per pesca; ideale fino a **6** per uscite sociali
 - **Patente:** nessuno; ideale restare no-patente (≤40,8 CV)
 - **Budget piano A:** bundle gommone+motore ≤2.000 €; costi fissi gommone **senza hard-cap 30 €/testa/mese** (era scenario porto); attesi RC+tagliando
+- **Sogno vela (in 2):** cabinato ≤9.000 € (stretch 10.000); fissi **≤700 €/testa/anno all-in** (stretch 900). Soci extra benvenuti
 - **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi che reggano ≤30 €/testa/mese
 
-### Piano corrente (2026-08-10)
+### Piano corrente (2026-08-22)
 1. **Gommoni — piano A** — pneumatici no RIB; **min 3,90 m**, nessun max duro se auto/trasporto; 3 comodi, 4+ preferibile, 6 bonus non rigido; Al floor / airdeck; Argo-Evo 360 resta solo riferimento storico di prezzo/dotazione
 2. **Motori abbinati** — **9–40 CV**, purché senza patente (≤30 kW/40,8 CV e cilindrata ammessa); 4T preferito; gambo compatibile con lo scafo
-3. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
+3. **Vele — sogno parallelo** — cabinato 7–9 m, ref Comet 770; in 2 ≤9k/stretch 10k; fissi ≤700/900 €/testa all-in. Non si compra senza preventivo ormeggio
+4. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
 
-Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`).
+Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori|**Vele**. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`). Vele = osservazione, non piano A.
 
 ### Ancora da definire (`wiki/preferenze/open-questions.md`)
 - Auto e custodia; accesso/scivolo; preventivi reali; checklist candidati; accordo e intestazione

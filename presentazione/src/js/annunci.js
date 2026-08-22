@@ -145,6 +145,18 @@ if (!listEl) {
         'Accessori nautici per barche piccole (Subito). Score su rapporto prezzo vs nuovo, condizione, marca, spedizione/distanza.',
       how: 'Feed accessori (Subito): ecoscandagli, portacanne, bimini, ancore, sicurezza, pompe… Score premia quanto sei sotto il prezzo nuovo di riferimento.',
     },
+    vele: {
+      file: 'vele.json',
+      label: 'Vele',
+      stamp: 'Vele · sogno',
+      hardMax: 9000,
+      hardLabel: '≤9.000€',
+      fitHigh: 55,
+      ph: 'VELA',
+      fallbackNote:
+        'Sogno parallelo, non piano A. Cabinati 6,5–9 m, ref Comet 770. Hard ≤9.000€, stretch 10.000. L’ormeggio Lazio è il vero costo.',
+      how: 'Feed vele (osservazione). Classe Comet 770, Lazio preferito, ausiliario ≤40,8 CV. Non è una shortlist d’acquisto: prima i preventivi porto.',
+    },
   }
 
   function detectCat() {
@@ -155,6 +167,7 @@ if (!listEl) {
     if (h && FEEDS[h]) return h
     if (location.pathname.includes('gommoni')) return 'gommoni'
     if (location.pathname.includes('motori')) return 'motori'
+    if (location.pathname.includes('vele')) return 'vele'
     return 'rigide'
   }
 
@@ -201,6 +214,11 @@ if (!listEl) {
       { label: 'Configurazione', hint: 'Poi le caratteristiche chiave', options: [option('quattro-tempi', '4 tempi'), option('gambo-corto', 'Gambo corto')] },
       { label: 'Affare e distanza', hint: 'Infine convenienza pratica', options: [option('alto', 'Fit alto'), option('hard', FEEDS[cat].hardLabel), option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
     ]
+    if (cat === 'vele') return [
+      { label: 'Tipo', hint: 'Prima la forma', options: [option('vele-cabinato', 'Cabinato'), option('vele-comet', 'Classe 6,5–9 m')] },
+      { label: 'Patente e budget', hint: 'Poi i vincoli Bestie', options: [option('no-patente', 'Ausiliario ≤40,8 CV'), option('hard', FEEDS[cat].hardLabel), option('alto', 'Fit alto')] },
+      { label: 'Logistica', hint: 'Infine distanza e freschezza', options: [option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
+    ]
 
     const destOptions = Object.entries(DEST_LABELS).map(([key, label]) => option(key, label, 'dest'))
     const tipIds = destFilter === 'all' ? [] : (DEST_TIPS[destFilter] || [])
@@ -218,7 +236,10 @@ if (!listEl) {
     if (key === 'alto') return it.fit === 'alto'
     if (key === 'hard') return hardMax() != null && it.price != null && it.price <= hardMax()
     if (key === 'rigida-compatta') return it.length_m != null && it.length_m <= 5
-    if (key === 'no-patente') return it.cv != null && it.cv <= 40.8
+    if (key === 'no-patente') {
+      if (cat === 'vele') return it.cv == null || it.cv <= 40.8
+      return it.cv != null && it.cv <= 40.8
+    }
     if (key === 'gommone-target') return it.length_m >= 3.3 && it.length_m <= 3.9
     if (key === 'bundle') return Boolean(it.has_engine)
     if (key === 'pavimento') return Boolean(it.floor)
@@ -226,6 +247,8 @@ if (!listEl) {
     if (key === 'motore-compatibile') return it.cv >= 6 && it.cv <= 20
     if (key === 'quattro-tempi') return Boolean(it.four_stroke)
     if (key === 'gambo-corto') return it.shaft === 'corto'
+    if (key === 'vele-cabinato') return it.sail_type === 'cabinato'
+    if (key === 'vele-comet') return it.length_m != null && it.length_m >= 6.5 && it.length_m <= 9
     return true
   }
 
@@ -336,6 +359,7 @@ if (!listEl) {
     const len = it.length_m != null ? `${it.length_m} m` : ''
     const brand = it.brand ? String(it.brand) : ''
     const floor = it.floor ? String(it.floor) : ''
+    const sailType = it.sail_type ? String(it.sail_type) : ''
     const catLabel = it.category_label ? String(it.category_label) : ''
     const cond = it.condition ? String(it.condition) : ''
     const ratio = it.ratio != null ? `${Math.round(it.ratio * 100)}% del nuovo` : ''
@@ -381,6 +405,7 @@ if (!listEl) {
             ${brand ? `<span>${escapeHtml(brand)}</span>` : ''}
             ${ratio ? `<span>${escapeHtml(ratio)}</span>` : ''}
             ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
+            ${sailType ? `<span>${escapeHtml(sailType)}</span>` : ''}
             ${bundle ? `<span>${escapeHtml(bundle)}</span>` : ''}
             <span>score ${it.score ?? '—'}</span>
           </div>

@@ -6,6 +6,20 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-22] ingest | Sogno vela — audio 20 ago + Comet 770 + TCO Anzio
+
+- 108 vocali Tiziano–Antonio da `raw/audio/WhatsApp Unknown 2026-08-21 at 17.07.29.zip`. Whisper small → `raw/audio/whatsapp-2026-08-21/TRASCRIZIONE.md`. Sintesi [[sintesi/conversazioni-audio-20260820]].
+- Preferenze: in 2 acquisto ≤9k / stretch 10k; fissi **≤700 €/testa/anno all-in** (stretch 900). Soci extra benvenuti. Peppe in chat freddo sul cabinato.
+- Reference [[modelli/comet-770]] (Comar/Finot, 7,68×2,65, 236 es., deriva imbullonata).
+- Ricerca: MIT patente (vela ≠ 24 m); listini Anzio 2026 banchina+boa; mercato Subito 3,9–13k; osmosi/Farymann/balsa.
+- TCO: slot 8,50 banchina **4.282 € IVA incl.** — da solo sfora il cap 700 anche in 5–6. [[concetti/costi-possesso-cabinato]] · [[preferenze/track-vele]]
+- Sbarco: contesto + grafo retrieval aggiornati.
+- Tab Annunci **Vele** (osservazione, hard 9k / stretch 10k).
+
+## [2026-08-22] preferenze | Cap vela 700/900 all-in; 9–10k in due
+
+Sostituisce il segnaposto «Vele = tab in arrivo». Must-have chiarito: piano A resta motore; vela = track D di osservazione.
+
 ## [2026-08-21] setup | Nodi: telecamera del gesto + mobile
 
 - Trainer più didattico: varco (gate) pulsante prima del gesto, camera che si avvicina, slow-mo + etichetta SOPRA/SOTTO all'incrocio, bottone Lento.

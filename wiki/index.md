@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-21
+updated: 2026-08-22
 status: active
 tags: [index]
 ---
@@ -14,14 +14,14 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[overview]] | Stato attuale — **gommone primario**, motore abbinato, rigido condizionale |
+| [[overview]] | Stato attuale — **gommone primario** + **sogno vela** (Comet 770) |
 | [[log]] | Diario cronologico operazioni |
 
 ## Presentazione (per le bestie)
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Sito Vite mobile-first + annunci + widget Sbarco (GitHub Pages) |
+| `presentazione/` | Sito Vite mobile-first + annunci (incl. tab Vele) + widget Sbarco |
 | `presentazione/documenti.html` | Consultazione patto, costi, punti di lancio |
 | `presentazione/simulazioni.html` | Scuola di coperta: nodi (poi varo e no-patente) |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
@@ -50,6 +50,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[preferenze/must-have]] | Vincoli trasversali + per track |
 | [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
 | [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
+| [[preferenze/track-vele]] | **Track D** sogno: cabinato 7–9 m, ≤9/10k, fissi 700/900 all-in |
 | [[preferenze/nice-to-have]] | Priorità uso + nice per track |
 | [[preferenze/split-costi]] | 1/N, danni 1/P presenti; digest patto in [[sintesi/patto-bestie]] |
 | [[preferenze/budget]] | Acquisto ≤2k; cap 30 € **non hard** sul gommone |
@@ -61,6 +62,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Pagina | Sommario |
 |--------|----------|
 | [[modelli/argo-evo-360]] | **Benchmark gommone** nuovo 970 € (Argo-Evo 360 AL) |
+| [[modelli/comet-770]] | **Reference sogno vela** Comar/Finot 7,68 m |
 
 ## Concetti
 
@@ -72,6 +74,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |
 | [[concetti/montaggio-gommone]] | Fatica operativa gommone vs rigido: ciclo completo, criticità |
 | [[concetti/costi-nascosti-gommone]] | Costi oltre scafo+motore: burocrazia, dotazioni, manutenzione, assicurazione |
+| [[concetti/costi-possesso-cabinato]] | TCO Comet-class: Anzio 8,50, IVA, cap 700 all-in |
 | [[concetti/logistica-trasporto]] | Auto, custodia, ciclo uscita — da verificare |
 | [[concetti/tendalino-copertura]] | Nota storica sul tendalino per lo scenario scafo rigido |
 | [[concetti/architettura-sbarco]] | Architettura e garanzie operative del chatbot |
@@ -107,6 +110,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 |--------|----------|
 | [[sintesi/requisiti-v1]] | Profilo requisiti: piano A gommone + piano B rigido condizionale |
 | [[sintesi/conversazioni-audio-20260809]] | Trascrizioni 45 vocali WhatsApp del 9 ago |
+| [[sintesi/conversazioni-audio-20260820]] | 108 vocali Tiziano–Antonio: sogno vela, Comet 770, ormeggio |
 | [[sintesi/scenario-rigido-5-soci]] | Cosa servirebbe per attivare il track scafo rigido |
 | [[sintesi/shortlist]] | Candidati gommone e motore da promuovere dopo verifica |
 | [[sintesi/contesto-sbarco]] | Source of truth compatta per Sbarco |

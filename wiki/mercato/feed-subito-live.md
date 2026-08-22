@@ -1,7 +1,7 @@
 ---
 title: Feed Subito live
 type: mercato
-updated: 2026-08-10
+updated: 2026-08-22
 status: active
 tags: [subito, automazione, pages]
 ---
@@ -12,10 +12,11 @@ tags: [subito, automazione, pages]
 
 | Cosa | Link |
 |------|------|
-| Hub annunci (3 tab) | https://tizianocarpentieri.github.io/Barca/annunci.html |
+| Hub annunci | https://tizianocarpentieri.github.io/Barca/annunci.html |
 | Rigide | `?cat=rigide` (default) |
 | Gommoni | `?cat=gommoni` |
 | Motori | `?cat=motori` |
+| Vele (sogno) | `?cat=vele` |
 | Redirect legacy | `gommoni.html` / `motori.html` → tab corrispondente |
 
 ## Repo
@@ -27,7 +28,7 @@ tags: [subito, automazione, pages]
 | `presentazione/scripts/fetch-*.mjs` | scrape/score Subito |
 | `presentazione/scripts/geo-score.mjs` | distanza da base Lazio |
 | `presentazione/public/data/*.json` | output statico su Pages |
-| `.github/workflows/pages.yml` | test + 4 fetch + quality gate + deploy |
+| `.github/workflows/pages.yml` | test + fetch (incl. vele) + quality gate + deploy |
 
 ## Comandi locali
 
@@ -37,6 +38,7 @@ npm run fetch-annunci
 npm run fetch-gommoni
 npm run fetch-motori
 npm run fetch-accessori
+npm run fetch-vele
 npm run validate-feeds
 npm run build
 ```
@@ -50,4 +52,4 @@ gate falliscono: non distribuisce tab mancanti fingendo un deploy riuscito.
 
 ## Documentazione logica
 
-[[concetti/feed-annunci-scoring]] · [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[modelli/argo-evo-360]]
+[[concetti/feed-annunci-scoring]] · [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[preferenze/track-vele]] · [[modelli/argo-evo-360]] · [[modelli/comet-770]]

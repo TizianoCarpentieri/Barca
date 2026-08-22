@@ -36,6 +36,7 @@ export function mountNav() {
         <a href="./annunci.html?cat=gommoni"><strong>Gommoni</strong><span>Pneumatici piano A</span></a>
         <a href="./annunci.html?cat=motori"><strong>Motori</strong><span>Fuoribordo no-patente</span></a>
         <a href="./annunci.html?cat=rigide"><strong>Rigide</strong><span>Piano B condizionale</span></a>
+        <a href="./annunci.html?cat=vele"><strong>Vele</strong><span>Sogno Comet 770</span></a>
         <a href="./accessori.html"><strong>Accessori</strong><span>Pesca, bimini, sicurezza</span></a>
       </div>
       <p class="dock-sheet__label">Manifesto</p>

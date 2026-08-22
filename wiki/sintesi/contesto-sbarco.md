@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-20
+updated: 2026-08-22
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources:
@@ -13,6 +13,8 @@ sources:
   - wiki/sintesi/prospetto-costi-a-norma.md
   - wiki/sintesi/patto-bestie.md
   - wiki/normativa/varo-litorale-lazio.md
+  - wiki/preferenze/track-vele.md
+  - wiki/modelli/comet-770.md
 ---
 
 # Contesto operativo Sbarco
@@ -23,8 +25,9 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 ## Decisione corrente
 
 - **Piano A:** gommone pneumatico smontabile, non RIB, trasportabile in auto.
-- **Piano B:** scafo rigido soltanto con ≥5 soci e preventivi reali.
-- **Gruppo:** Tiziano, Antonio e Peppe; base Ardea/Pomezia/Tor San Lorenzo, mare laziale.
+- **Sogno parallelo (track D):** cabinato a vela 7–9 m, ref [[modelli/comet-770]]. Non sostituisce il piano A. Si osserva; si compra solo se il TCO all-in sta nel cap.
+- **Piano B:** scafo rigido a motore soltanto con ≥5 soci e preventivi reali.
+- **Gruppo:** Tiziano, Antonio e Peppe sul gommone. Sul sogno vela il nucleo più probabile è Tiziano+Antonio; altri soci (Matteo, Giulia, padre di Giulia, Paolo) **benvenuti**. Peppe in chat 20 ago risulta freddo sul cabinato.
 - **Uso:** 3 comodi per pesca; fino a ~6 solo picco sociale.
 - **Quote Sbarco:** Tiziano illimitato; Antonio e Peppe 5/giorno (Europe/Rome).
 
@@ -33,7 +36,9 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 | Voce | Valore corrente |
 |------|-----------------|
 | Bundle gommone + motore | **≤2.000 €**, preferibilmente usato |
+| Cabinato vela (in 2) | **≤9.000 €**, stretch **10.000 €** |
 | Costi fissi gommone | **non hard-cap 30 €/testa/mese**; attesi RC + tagliando; benzina = variabile |
+| Costi fissi vela all-in | **≤700 €/testa/anno** (stretch **900**), **tutto** (ormeggio+RC+carena+motore+fondo). Anzio banchina 8,50 = 4.282 € IVA incl. → sfora il cap |
 | Gommone | **min 3,90 m**; 3 comodi, 4+ preferibile, 6 bonus; Al/airdeck; chiglia gonfiabile preferita |
 | Motore | **9–40 CV** no-patente (≤30 kW **e** cilindrata); 4T preferito; gambo compatibile |
 | Patente | nessuno; target senza patente ≤6 miglia |
@@ -78,6 +83,10 @@ Se l'utente chiede un articolo, una tabella o un punto di varo: **read_wiki** su
 - Firmare patto (bozza ingerita; restano [DA DECIDERE]).
 - Shortlist bundle ≤2.000 €.
 - Uscite solitarie sì/no definitivo.
+- Vela: preventivo Fiumicino foce; scuola 12 miglia; perito su qualsiasi 770.
+
+Dettaglio vela: [[preferenze/track-vele]] · [[concetti/costi-possesso-cabinato]] · [[sintesi/conversazioni-audio-20260820]].
+Patente vela: la superficie velica **non** basta; oltre 6 miglia serve sempre; i 24 m sono le navi, non la soglia vela. Ponza da Anzio ~30 M → senza limiti.
 
 Dettaglio: [[preferenze/open-questions]].
 
@@ -94,7 +103,8 @@ Dettaglio: [[preferenze/open-questions]].
 
 - Patto/costi/varo: [[sintesi/patto-bestie]] · [[sintesi/prospetto-costi-a-norma]] · [[normativa/varo-litorale-lazio]]
 - Requisiti: [[preferenze/must-have]] · [[sintesi/requisiti-v1]]
-- Budget: [[preferenze/budget]] · [[concetti/costi-nascosti-gommone]]
+- Budget: [[preferenze/budget]] · [[concetti/costi-nascosti-gommone]] · [[concetti/costi-possesso-cabinato]]
+- Vela: [[preferenze/track-vele]] · [[modelli/comet-770]]
 - Logistica: [[concetti/logistica-trasporto]] · [[concetti/montaggio-gommone]]
 - Motori/scafo: [[preferenze/track-motori]] · [[preferenze/track-gommoni]]
 - Normativa: [[normativa/limiti-senza-patente]] · [[normativa/rc-obbligatoria-natanti]] · [[normativa/pesca-ricreativa-mare]]

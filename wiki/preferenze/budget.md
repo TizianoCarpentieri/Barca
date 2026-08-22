@@ -1,10 +1,10 @@
 ---
 title: Budget
 type: preferenza
-updated: 2026-08-11
+updated: 2026-08-22
 status: active
-tags: [budget, usato, tco]
-sources: [raw/audio/, wiki/preferenze/split-costi.md]
+tags: [budget, usato, tco, vela]
+sources: [raw/audio/, wiki/preferenze/split-costi.md, raw/mercato/tco-cabinato-lazio-2026-08-22.md]
 ---
 
 # Budget
@@ -120,6 +120,19 @@ Con uso moderato, target sano: **canone fisso ≤ ~1.500–2.000 €/anno** cos�
 ## Split e danni
 
 Vedi [[preferenze/split-costi]] (allineato 2026-08-11): 1/N, default gruppo presenti salvo colpa palese, tempo > uscite in liquidazione quota.
+
+## Track Vele (sogno, 2026-08-22)
+
+Non mescolare con il bundle gommone. Dettaglio: [[preferenze/track-vele]].
+
+| Voce | In **2** soci (scenario base detto in chat) | Se N≥5 |
+|------|-----------------------------------------------|---------|
+| Acquisto cabinato | **≤ 9.000 €** (stretch **10.000** con sforzo enorme) | 1/N; un 12 m da 15–20k solo se il TCO all-in resta sotto cap |
+| Fissi **all-in** / testa / anno | **≤ 700 €** (stretch **900**). Include ormeggio, RC, carena, motore, fondo — **non solo porto** | Stesso cap a testa: più N aiuta, Anzio banchina **no** |
+
+Anzio slot 8,50 +IVA = **4.282 €/anno** solo banchina → in 2 è 2.141 €/testa prima del resto. Il cap 700 all-in **non ci sta**. Prima i preventivi Fiumicino/porti secondari. [[concetti/costi-possesso-cabinato]]
+
+Risparmio verso i 10k (chat): ~417 €/testa/mese × 12 su conto comune. Schema, non addebito già attivo.
 
 ## Open
 

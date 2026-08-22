@@ -12,6 +12,7 @@
     "fetch-gommoni": "node scripts/fetch-gommoni.mjs",
     "fetch-motori": "node scripts/fetch-motori.mjs",
     "fetch-accessori": "node scripts/fetch-accessori.mjs",
+    "fetch-vele": "node scripts/fetch-vele.mjs",
     "update-accessori-ref": "node scripts/update-accessori-ref.mjs",
     "validate-feeds": "node scripts/validate-feeds.mjs"
   },

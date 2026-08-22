@@ -1,7 +1,7 @@
 ---
 title: Gruppo
 type: preferenza
-updated: 2026-08-11
+updated: 2026-08-22
 status: active
 tags: [gruppo, bestie, lazio]
 ---
@@ -72,6 +72,17 @@ cronologia delle chat non vengono azzerate.
 | Consapevolezza | Con no-patente e ~6 pax **niente performance** |
 
 Dettaglio inviluppo: [[concetti/no-patente-6-pax-realta]].
+
+## Track vela — chi c’è (audio 20 ago + conferma 22 ago)
+
+| Persona | Ruolo sul sogno vela |
+|---------|----------------------|
+| Tiziano + Antonio | Nucleo più probabile («90% saremo solo noi due») |
+| Peppe | In chat risulta freddo sul cabinato (spese casa); resta sul gommone finché non dice sì |
+| Matteo, Giulia, padre di Giulia, Paolo | Candidati soci **benvenuti**; Giulia ha iniziato la patente pre-Covid; il padre ha mestiere in mare |
+| N grande | Se arrivano teste, l’acquisto si spezza; il cap **700–900 €/testa all-in** resta |
+
+Uscite da soli sul 770: ammesse in chat con le stesse regole danni del gommone (un tocco in banchina ≠ sfondare).
 
 ## Note
 

@@ -1,7 +1,7 @@
 ---
 title: Nice-to-have e priorità d'uso
 type: preferenza
-updated: 2026-08-20
+updated: 2026-08-22
 status: active
 tags: [desiderata, pesca, priorita]
 ---
@@ -65,8 +65,9 @@ tags: [desiderata, pesca, priorita]
 
 ## Sogno parallelo — Vele
 
-- In **presentazione**, quinta tab Annunci **Vele** (feed a parte). Non sostituisce il piano A gommone a motore.
-- Criteri del track (tipo, budget, patente) ancora da definire — [[preferenze/open-questions]].
+- Cabinato 7–9 m, ref [[modelli/comet-770]]. Tab Annunci **Vele**. Non sostituisce il piano A gommone.
+- Criteri: [[preferenze/track-vele]]. Sogno dichiarato in audio: calette, Pontine, mestiere a vela, due settimane — **dopo** scuola e conti ormeggio.
+- 12 m / Comet 910 solo se N≥5 e TCO all-in nel cap. Oggi è un confronto, non un target.
 
 ## Core vs sociale
 

@@ -12,6 +12,7 @@ const RULES = {
   gommoni: { minItems: 10 },
   motori: { minItems: 10 },
   accessori: { minItems: 10 },
+  vele: { minItems: 5 },
 }
 
 const errors = []
@@ -69,6 +70,17 @@ for (const [name, rule] of Object.entries(RULES)) {
     for (const item of items) {
       if (item.cv != null && (!Number.isFinite(item.cv) || item.cv < 6 || item.cv > 40.8)) {
         errors.push(`motori: CV fuori requisito ${item.cv} (${item.subject})`)
+      }
+    }
+  }
+
+  if (name === 'vele') {
+    for (const item of items) {
+      if (item.length_m != null && (!Number.isFinite(item.length_m) || item.length_m < 2 || item.length_m > 24)) {
+        errors.push(`vele: lunghezza fuori scala ${item.length_m} (${item.subject})`)
+      }
+      if (item.sail_type && !['cabinato', 'deriva'].includes(item.sail_type)) {
+        errors.push(`vele: sail_type sconosciuto ${item.sail_type} (${item.subject})`)
       }
     }
   }

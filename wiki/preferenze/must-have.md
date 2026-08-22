@@ -1,7 +1,7 @@
 ---
 title: Must-have
 type: preferenza
-updated: 2026-08-11
+updated: 2026-08-22
 status: active
 tags: [requisiti]
 ---
@@ -14,7 +14,7 @@ Trasversali a **tutti** i track, poi vincoli per track.
 
 | # | Requisito | Note | Status |
 |---|-----------|------|--------|
-| 1 | Mezzo a **motore** | Non vela | active |
+| 1 | Piano A: mezzo a **motore** | Il **sogno vela** è un track parallelo di osservazione, non il piano A. [[preferenze/track-vele]] | active |
 | 2 | Uso **senza patente** (target forte) | ≤30 kW / 40,8 CV + regole IT; nessuno ha patente | active |
 | 3 | Adatto a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio | active |
 | 4 | Divertimento **senza performance sportive** | Con 6 pax e ≤40 CV non si pretenda planata allegra | active |
@@ -64,6 +64,20 @@ Dettaglio: [[preferenze/track-gommoni]].
 | Preferenze | 4 tempi, gambo corto, marche buone |
 
 Dettaglio: [[preferenze/track-motori]].
+
+## Track D — Vele (SOGNO PARALLELO)
+
+**Status: `observation`** — non si compra finché ormeggio+TCO all-in ≤700 €/testa (stretch 900) e c’è scuola/patente.
+
+| Voce | Valore |
+|------|--------|
+| Forma | Cabinato a vela 7–9 m (ref [[modelli/comet-770]]) |
+| Acquisto in 2 | ≤9.000 €, stretch 10.000 |
+| Fissi all-in | ≤700 €/testa/anno (stretch 900), **tutto** |
+| Soci extra | Benvenuti; non alzano il cap a testa |
+| Escluso come primo mezzo | Derive da club, 12 m senza conti |
+
+Dettaglio: [[preferenze/track-vele]].
 
 ## Nota patente
 

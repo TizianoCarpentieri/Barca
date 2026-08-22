@@ -43,6 +43,7 @@ export default defineConfig({
         annunci: resolve(__dirname, 'annunci.html'),
         gommoni: resolve(__dirname, 'gommoni.html'),
         motori: resolve(__dirname, 'motori.html'),
+        vele: resolve(__dirname, 'vele.html'),
         accessori: resolve(__dirname, 'accessori.html'),
         documenti: resolve(__dirname, 'documenti.html'),
         simulazioni: resolve(__dirname, 'simulazioni.html'),
