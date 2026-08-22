@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.3.1";
+const WORKER_VERSION = "2.3.2";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -27,6 +27,7 @@ const DEEPSEEK_TIMEOUT_MS = 55_000;
 const WEB_TIMEOUT_MS = 12_000;
 const SYNTHETIC_STREAM_CHARS = 48;
 const SYNTHETIC_STREAM_DELAY_MS = 24;
+const MIN_FINAL_TEXT_CHARS = 40;
 
 function getDailyQuota(userId) {
   const unlimited = userId === "tiziano";
@@ -860,7 +861,7 @@ async function executeTool(toolCall, context = {}) {
       if (context.state) context.state.searches += 1;
       return await executeSearchWeb(args.query || "", context.signal);
     case "read_wiki":
-      return await executeReadWiki(args.page || "", context.signal);
+      return await executeReadWiki(args.page || args.path || "", context.signal);
     case "read_url":
       if (context.state && context.state.webReads >= MAX_WEB_READS) return "Budget lettura fonti raggiunto: sintetizza i risultati disponibili.";
       if (context.state) context.state.webReads += 1;
@@ -991,62 +992,75 @@ function toolProgressLabel(toolCall) {
   return "Sbarco sistema il carico a bordo…";
 }
 
-// ── DSML tool calls ────────────────────────────────────────────────
+// ── Tool call markup ───────────────────────────────────────────────
 // DeepSeek puo' restituire le chiamate agli strumenti inline nel contenuto
-// come markup DSML (<|DSML|function_calls>…) invece che nel campo
-// strutturato tool_calls. Vanno eseguite come strumenti veri e mai mostrate.
+// come markup (<|DSML|function_calls>… oppure <|tool_calls> senza prefisso)
+// invece che nel campo strutturato tool_calls. Vanno eseguite come strumenti
+// veri e mai mostrate all'utente, in nessuna variante del formato.
 
-function stripDsmlMarkup(value = "") {
+function stripToolCallMarkup(value = "") {
   return String(value)
-    .replace(/<\|DSML\|function_calls>[\s\S]*?<\/\|DSML\|function_calls>/gi, " ")
-    .replace(/<\|DSML\|[^>]*>|<\/\|DSML\|[^>]*>/gi, " ")
+    .replace(/<\|([a-zA-Z_|]+)[^>]*>[\s\S]*?<\/\|\1>/g, " ")
+    .replace(/<\/?\|[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function parseDsmlToolCalls(value = "") {
+function parseToolCallMarkup(value = "") {
   const content = String(value);
   const toolCalls = [];
-  const blockMatch = /<\|DSML\|function_calls>([\s\S]*?)<\/\|DSML\|function_calls>/i.exec(content);
-  if (blockMatch) {
-    const invokeRe = /<\|DSML\|invoke name="([^"]+)"[^>]*>([\s\S]*?)<\/\|DSML\|invoke>/gi;
-    let match;
-    let index = 0;
-    while ((match = invokeRe.exec(blockMatch[1])) !== null) {
-      const name = match[1];
-      const paramsBlock = match[2];
-      const args = {};
-      const paramRe = /<\|DSML\|parameter name="([^"]+)" string="(true|false)"[^>]*>([\s\S]*?)<\/\|DSML\|parameter>/gi;
-      let param;
-      while ((param = paramRe.exec(paramsBlock)) !== null) {
-        const key = param[1];
-        const raw = param[3];
-        if (param[2] === "true") {
-          args[key] = raw;
-        } else {
-          try {
-            const parsedValue = JSON.parse(raw.trim());
-            if (parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)) {
-              Object.assign(args, parsedValue);
-            } else {
-              args[key] = parsedValue;
-            }
-          } catch {
-            args[key] = raw.trim();
+  const invokeRe = /<\|(?:DSML\|)?invoke name="([^"]+)"[^>]*>([\s\S]*?)<\/\|(?:DSML\|)?invoke>/gi;
+  let match;
+  let index = 0;
+  while ((match = invokeRe.exec(content)) !== null) {
+    const name = match[1];
+    const paramsBlock = match[2];
+    const args = {};
+    const paramRe = /<\|(?:DSML\|)?parameter name="([^"]+)" string="(true|false)"[^>]*>([\s\S]*?)<\/\|(?:DSML\|)?parameter>/gi;
+    let param;
+    while ((param = paramRe.exec(paramsBlock)) !== null) {
+      const key = param[1];
+      const raw = param[3];
+      if (param[2] === "true") {
+        args[key] = raw;
+      } else {
+        try {
+          const parsedValue = JSON.parse(raw.trim());
+          if (parsedValue && typeof parsedValue === "object" && !Array.isArray(parsedValue)) {
+            Object.assign(args, parsedValue);
+          } else {
+            args[key] = parsedValue;
           }
+        } catch {
+          args[key] = raw.trim();
         }
       }
-      if (name) {
-        toolCalls.push({
-          id: `dsml-${Date.now()}-${index}`,
-          type: "function",
-          function: { name, arguments: JSON.stringify(args) },
-        });
-        index += 1;
-      }
+    }
+    if (name) {
+      toolCalls.push({
+        id: `markup-${Date.now()}-${index}`,
+        type: "function",
+        function: { name, arguments: JSON.stringify(args) },
+      });
+      index += 1;
     }
   }
-  return { toolCalls, text: stripDsmlMarkup(content) };
+  return { toolCalls, text: stripToolCallMarkup(content) };
+}
+
+// Filtro riga per riga per gli stream: scarta le righe di markup e i valori
+// che vi si trovano dentro, anche se il blocco e' troncato a meta'.
+function createMarkupLineFilter() {
+  let inside = false;
+  return (line = "") => {
+    const opens = (line.match(/<\|/g) || []).length;
+    const closes = (line.match(/<\/\|/g) || []).length;
+    if (opens > 0 || closes > 0) {
+      inside = opens > closes;
+      return "";
+    }
+    return inside ? "" : line;
+  };
 }
 
 async function requestAgentStep(apiKey, model, messages, signal, requiredTool = null) {
@@ -1112,8 +1126,17 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
 
   const reader = resp.body.getReader();
   const decoder = new TextDecoder();
+  const filter = createMarkupLineFilter();
   let buffer = "";
+  let pending = "";
   let fullText = "";
+  const flushLine = line => {
+    const clean = filter(line);
+    if (!clean) return;
+    onFirstToken?.();
+    fullText += clean;
+    emitSSE(controller, encoder, { token: clean });
+  };
   const processPayloads = payloads => {
     for (const raw of payloads) {
       if (raw === "[DONE]") continue;
@@ -1121,10 +1144,12 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
         const event = JSON.parse(raw);
         addUsage(usage, event.usage || {});
         const delta = event.choices?.[0]?.delta?.content;
-        if (delta) {
-          onFirstToken?.();
-          fullText += delta;
-          emitSSE(controller, encoder, { token: delta });
+        if (!delta) continue;
+        pending += delta;
+        let index;
+        while ((index = pending.indexOf("\n")) >= 0) {
+          flushLine(pending.slice(0, index + 1));
+          pending = pending.slice(index + 1);
         }
       } catch {}
     }
@@ -1139,8 +1164,44 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   }
   buffer += decoder.decode();
   processPayloads(drainSSEFrames(buffer, true).data);
-  if (!fullText.trim()) throw new Error("DeepSeek ha chiuso la sintesi senza contenuto.");
-  return fullText;
+  if (pending) flushLine(pending);
+  if (fullText.trim().length >= MIN_FINAL_TEXT_CHARS) return fullText;
+
+  // Il modello ha scritto solo markup di chiamate strumenti nel testo:
+  // un solo tentativo correttivo non-streaming, poi errore esplicito.
+  const retryMessages = [
+    ...messages,
+    {
+      role: "system",
+      content: "La risposta precedente conteneva solo markup di chiamate strumenti. Rispondi ORA con SOLO il testo della risposta in italiano, senza tag e senza markup di strumenti. Apri con la conclusione e cita le fonti.",
+    },
+  ];
+  const retryResp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: model || "deepseek-v4-flash",
+      messages: retryMessages,
+      tool_choice: "none",
+      temperature: 0.3,
+      max_tokens: FINAL_RESPONSE_TOKENS,
+      thinking: { type: "disabled" },
+      stream: false,
+    }),
+  }, DEEPSEEK_TIMEOUT_MS, signal);
+  if (!retryResp.ok) {
+    const errorText = await readTextLimited(retryResp, 600);
+    throw new Error(`DeepSeek retry HTTP ${retryResp.status}: ${errorText.slice(0, 300)}`);
+  }
+  const retryData = await retryResp.json();
+  addUsage(usage, retryData.usage || {});
+  const retryText = stripToolCallMarkup(retryData.choices?.[0]?.message?.content || "");
+  if (!retryText.trim()) throw new Error("DeepSeek ha chiuso la sintesi senza contenuto.");
+  await emitBufferedText(retryText, controller, encoder, signal, onFirstToken);
+  return retryText;
 }
 
 function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal, tier = "base" }) {
@@ -1211,7 +1272,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             if (firstAgentMs == null) firstAgentMs = Date.now() - startedAt;
             addUsage(usage, data.usage || {});
             const choice = data.choices[0];
-            const parsed = parseDsmlToolCalls(choice.message.content ?? "");
+            const parsed = parseToolCallMarkup(choice.message.content ?? "");
             const message = { ...choice.message, content: parsed.text };
             messages.push(message);
             const toolCalls = [...(message.tool_calls || []), ...parsed.toolCalls];
@@ -1884,8 +1945,10 @@ export const __test = {
   normalizeChatTier,
   resolveChatModel,
   getMessageCost,
-  parseDsmlToolCalls,
-  stripDsmlMarkup,
+  parseToolCallMarkup,
+  stripToolCallMarkup,
+  createMarkupLineFilter,
+  executeTool,
   checkRateLimit,
   incrementRateLimit,
   memoryExtractModel: BASE_MODEL,

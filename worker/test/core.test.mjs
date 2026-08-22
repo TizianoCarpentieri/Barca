@@ -560,7 +560,7 @@ test("estrae tool call DSML dal contenuto quando mancano i tool_calls strutturat
     "</|DSML|invoke>",
     "</|DSML|function_calls>",
   ].join("\n");
-  const parsed = __test.parseDsmlToolCalls(content);
+  const parsed = __test.parseToolCallMarkup(content);
   assert.equal(parsed.toolCalls.length, 2);
   assert.equal(parsed.toolCalls[0].function.name, "read_wiki");
   assert.equal(parsed.toolCalls[0].function.arguments, '{"page":"wiki/modelli/comet-770.md"}');
@@ -570,13 +570,167 @@ test("estrae tool call DSML dal contenuto quando mancano i tool_calls strutturat
   assert.equal(parsed.text, "Verifico la wiki:");
 });
 
-test("stripDsmlMarkup rimuove blocchi e frammenti DSML dal testo visibile", () => {
+test("estrae anche il formato direct-call senza prefisso DSML", () => {
+  const content = [
+    "<|tool_calls>",
+    '<|invoke name="read_wiki">',
+    '<|parameter name="path" string="true">wiki/preferenze/track-gommoni.md</|parameter>',
+    "</|invoke>",
+    '<|invoke name="read_wiki">',
+    '<|parameter name="path" string="true">wiki/mercato/usato-under-4500.md</|parameter>',
+    "</|invoke>",
+    "</|tool_calls>",
+  ].join("\n");
+  const parsed = __test.parseToolCallMarkup(content);
+  assert.equal(parsed.toolCalls.length, 2);
+  assert.equal(parsed.toolCalls[0].function.name, "read_wiki");
+  assert.equal(parsed.toolCalls[0].function.arguments, '{"path":"wiki/preferenze/track-gommoni.md"}');
+  assert.equal(parsed.toolCalls[1].function.arguments, '{"path":"wiki/mercato/usato-under-4500.md"}');
+  assert.equal(parsed.text, "");
+});
+
+test("stripToolCallMarkup rimuove blocchi e frammenti DSML e direct-call dal testo visibile", () => {
   assert.equal(
-    __test.stripDsmlMarkup("Risposta <|DSML|function_calls>sporcizia</|DSML|function_calls> pulita"),
+    __test.stripToolCallMarkup("Risposta <|DSML|function_calls>sporcizia</|DSML|function_calls> pulita"),
     "Risposta pulita"
   );
-  assert.equal(__test.stripDsmlMarkup("Nessun markup qui"), "Nessun markup qui");
+  assert.equal(
+    __test.stripToolCallMarkup("Prima <|invoke name=\"read_wiki\"><|parameter name=\"path\" string=\"true\">wiki/x.md</|parameter></|invoke> dopo"),
+    "Prima dopo"
+  );
+  assert.equal(__test.stripToolCallMarkup("Nessun markup qui"), "Nessun markup qui");
 });
+
+test("il filtro riga scarta il markup di tool call anche a cavallo di piu righe", () => {
+  const filter = __test.createMarkupLineFilter();
+  assert.equal(filter("Testo pulito\n"), "Testo pulito\n");
+  assert.equal(filter("<|tool_calls>\n"), "");
+  assert.equal(filter('<|invoke name="read_wiki">\n'), "");
+  assert.equal(filter("wiki/preferenze/track-gommoni.md</|parameter>\n"), "");
+  assert.equal(filter("</|invoke>\n"), "");
+  assert.equal(filter("</|tool_calls>\n"), "");
+  assert.equal(filter("Risposta vera e propria.\n"), "Risposta vera e propria.\n");
+});
+
+test("read_wiki accetta anche il parametro path usato dal formato direct-call", async () => {
+  const originalFetch = globalThis.fetch;
+  const wikiFetches = [];
+  globalThis.fetch = async (input) => {
+    wikiFetches.push(String(input));
+    return new Response("# Pagina track gommoni", { status: 200, headers: { "content-type": "text/markdown" } });
+  };
+  try {
+    const output = await __test.executeTool({
+      function: { name: "read_wiki", arguments: '{"path":"wiki/preferenze/track-gommoni.md"}' },
+    }, {});
+    assert.match(output, /Pagina track gommoni/);
+    assert.ok(wikiFetches.some(url => url.includes("wiki/preferenze/track-gommoni.md")));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("la sintesi finale filtra il markup di tool call e riprova con testo pulito", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("duckduckgo.com")) {
+      return new Response(`<a class="result__a" href="https://example.com/fonte">Fonte ufficiale</a><a class="result__snippet">Dato.</a>`, {
+        status: 200,
+        headers: { "content-type": "text/html" },
+      });
+    }
+    if (url.startsWith("https://example.com/")) {
+      return new Response("<main>Dato verificato dalla fonte.</main>", {
+        status: 200,
+        headers: { "content-type": "text/html" },
+      });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.stream) {
+        const markup = [
+          "<|tool_calls>",
+          '<|invoke name="read_wiki">',
+          '<|parameter name="path" string="true">wiki/preferenze/track-gommoni.md</|parameter>',
+          "</|invoke>",
+          "</|tool_calls>",
+        ].join("\n");
+        const sse = `data: ${JSON.stringify({ choices: [{ delta: { content: markup } }] })}\n\ndata: [DONE]\n\n`;
+        const encoder = new TextEncoder();
+        return new Response(new ReadableStream({
+          start(controller) {
+            controller.enqueue(encoder.encode(sse));
+            controller.close();
+          },
+        }), { status: 200, headers: { "content-type": "text/event-stream" } });
+      }
+      if (body.tool_choice === "none") {
+        assert.ok(body.messages.some(message => /senza tag/i.test(message.content)));
+        return Response.json({
+          choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Sintesi finale pulita con le fonti verificate." } }],
+          usage: { prompt_tokens: 10, completion_tokens: 6, total_tokens: 16 },
+        });
+      }
+      if (body.tool_choice?.function?.name === "search_web") {
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [
+            { id: "s1", type: "function", function: { name: "search_web", arguments: '{"query":"gommoni prezzi"}' } },
+            { id: "s2", type: "function", function: { name: "search_web", arguments: '{"query":"gommoni lazio"}' } },
+          ],
+        } }] });
+      }
+      if (body.tool_choice?.function?.name === "read_url") {
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [
+            { id: "r1", type: "function", function: { name: "read_url", arguments: '{"url":"https://example.com/fonte"}' } },
+            { id: "r2", type: "function", function: { name: "read_url", arguments: '{"url":"https://example.com/fonte2"}' } },
+          ],
+        } }] });
+      }
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "" } }],
+        usage: { prompt_tokens: 5, completion_tokens: 1, total_tokens: 6 },
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Cerca online i prezzi attuali dei gommoni", mode: "deep" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /Sintesi finale pulita con le fonti verificate/);
+    assert.match(body, /"done":true/);
+    assert.doesNotMatch(body, /tool_calls|invoke|parameter|<\|/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 
 test("i tool call DSML nel contenuto vengono eseguiti in silenzio e mai mostrati all utente", async () => {
   const originalFetch = globalThis.fetch;

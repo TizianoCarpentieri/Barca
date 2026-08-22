@@ -6,19 +6,23 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
-## [2026-08-22] fix(sbarco) | Tool call DSML eseguiti in silenzio, mai mostrati
+## [2026-08-22] fix(sbarco) | Markup tool call mai in chat: formato direct-call + sintesi finale filtrata
 
-- Causa: DeepSeek v4 con `thinking: disabled` può restituire le chiamate agli
-  strumenti inline nel `content` come markup DSML (`<|DSML|function_calls>…`)
-  invece che nel campo `tool_calls`. Il tool loop leggeva solo il campo
-  strutturato: il markup finiva in chat come risposta e lo strumento non veniva
-  mai eseguito (chat "bloccata").
-- Fix: `parseDsmlToolCalls` estrae gli `invoke` dal contenuto e li esegue come
-  tool veri; `stripDsmlMarkup` rimuove blocchi e frammenti DSML da ogni testo
-  candidato. Le chiamate non arrivano mai all'utente.
-- Test: 3 nuovi test in `worker/test/core.test.mjs` (parser, strip, chat
-  end-to-end con DSML); 31/31 verdi. Versione Worker 2.3.1.
-- Doc: [[concetti/architettura-sbarco]] sezione Garanzie di uscita.
+- Riprodotto live (Pro + ricerca profonda): la sintesi finale trasmetteva in
+  chat il markup `<|tool_calls>…` scritto dal modello come testo (variante
+  senza prefisso DSML, con parametro `path` invece di `page`).
+- Fix: `parseToolCallMarkup` riconosce entrambi i formati (DSML e direct-call)
+  e li esegue come tool veri; `stripToolCallMarkup` rimuove blocchi e
+  frammenti da ogni testo candidato; `read_wiki` accetta anche `path`.
+- La sintesi finale in streaming ora filtra riga per riga il markup; se resta
+  poco o niente, un solo retry non-streaming "solo testo, senza tag", poi
+  errore esplicito. Il markup non puo' raggiungere la chat.
+- Test: 4 nuovi (direct-call, strip, filtro righe, retry finale) — 35/35.
+  Worker 2.3.2. Doc: [[concetti/architettura-sbarco]].
+- Nota diagnostica: il motore di ricerca DuckDuckGo risponde con markup
+  leggibile da locale ma non dal Worker (deep run con 0 fonti lette): il
+  modello ripiega su read_wiki e lo dichiara nella risposta. Da indagare a parte.
+
 
 
 ## [2026-08-22] lint | Sbarco: cache wiki v6, memoria su Flash, grafo non a runtime

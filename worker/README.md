@@ -1,4 +1,4 @@
-# Sbarco Worker — Cloudflare
+﻿# Sbarco Worker â€” Cloudflare
 
 Assistente chat per Progetto Barca con contesto wiki, memoria KV deduplicata,
 strumenti web e risposta SSE progressiva.
@@ -27,15 +27,15 @@ npx wrangler secret put DEEPSEEK_API_KEY
 ### 2b. Attiva la passkey esclusiva di Tiziano
 
 Imposta un codice monouso, comunicalo solo a Tiziano e poi apri Sbarco dal suo
-Galaxy: selezionando **Tiziano** verrà chiesto il codice e il telefono
-registrerà una passkey platform con verifica biometrica/PIN. Da quel momento
+Galaxy: selezionando **Tiziano** verrÃ  chiesto il codice e il telefono
+registrerÃ  una passkey platform con verifica biometrica/PIN. Da quel momento
 chat, quota, status e `/debug` di Tiziano richiedono la firma della stessa
-passkey; scegliere “Tiziano” nel menu non è sufficiente.
+passkey; scegliere â€œTizianoâ€ nel menu non Ã¨ sufficiente.
 
 Dopo la **prima** verifica passkey riuscita, il Worker emette una **session**
 opaca (`X-Tiziano-Session`) valida **30 minuti** con rinnovo a ogni uso
 (sliding). Il browser la conserva in `localStorage` (`barca_tiziano_session`).
-Finché la session è valida non serve un nuovo QR/impronta. Scaduta o revocata
+FinchÃ© la session Ã¨ valida non serve un nuovo QR/impronta. Scaduta o revocata
 in KV (`auth:tiziano:session:*`), si ripete una sola passkey.
 
 ```bash
@@ -69,7 +69,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.3.1","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# â†’ {"status":"ok","version":"2.3.2","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -83,7 +83,7 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 
 ## Quote giornaliere
 
-- **Tiziano:** utilizzo illimitato; il Worker non legge né incrementa una
+- **Tiziano:** utilizzo illimitato; il Worker non legge nÃ© incrementa una
   chiave quota per questo profilo.
 - **Antonio e Peppe:** 5 utilizzi al giorno ciascuno.
 - Il giorno cambia a mezzanotte nel fuso `Europe/Rome`. La versione nella
@@ -103,7 +103,7 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 | `/api/status?userId=...` | GET | contatore giornaliero reale |
 | `/api/chat` | POST | chat SSE; body `{userId, question, mode}` |
 
-`mode` può essere `auto` o `deep`. La modalità profonda apre lo stream prima
+`mode` puÃ² essere `auto` o `deep`. La modalitÃ  profonda apre lo stream prima
 della ricerca, invia fasi/heartbeat, limita fonti e round e forza la sintesi
 finale senza ulteriori tool. Dettaglio: `wiki/concetti/architettura-sbarco.md`.
 
@@ -126,7 +126,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.3.1` e la policy quota attiva (Base 1 credito, Pro 2).
+1. `/api/health` riporta `version: 2.3.2` e la policy quota attiva (Base 1 credito, Pro 2).
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,
@@ -134,7 +134,7 @@ Dopo il deploy verificare:
 
 ## Aggiornare il grafo
 
-Il grafo serve alla navigazione e all'analisi del repository, ma non viene più
+Il grafo serve alla navigazione e all'analisi del repository, ma non viene piÃ¹
 incorporato nel bundle del Worker. Dopo modifiche sostanziali al progetto:
 
 ```bash
