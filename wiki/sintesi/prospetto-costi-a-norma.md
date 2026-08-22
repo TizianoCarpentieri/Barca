@@ -1,7 +1,7 @@
 ---
 title: Prospetto costi a norma
 type: sintesi
-updated: 2026-08-20
+updated: 2026-08-22
 status: active
 tags: [costi, RC, normativa, dotazioni, motore, varo]
 sources:
@@ -47,6 +47,7 @@ Portata prudenziale art. 60 DM 133/2024 se non CE: fino 3,50 m → 3 pax; 3,50�
 ## RC
 
 - **OBBLIGO** su motore amovibile di qualsiasi potenza.
+- **CONDIZIONALE vela:** solo remi/vela senza ausiliario → RC esclusa (art. 41). Con ausiliario, anche 6 CV, RC obbligatoria.
 - Massimali min. dal 14/01/2026: **6,45 M€** persone · **1,3 M€** cose.
 - Premio: **TBD** (almeno 3 preventivi); accantonamento scenario **120 €/anno**.
 - Sanzione navigare senza RC: art. 193 CdS (~866–3.464 €).

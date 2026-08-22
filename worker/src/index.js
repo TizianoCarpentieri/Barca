@@ -2,11 +2,14 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.2.4";
+const WORKER_VERSION = "2.3.0";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
 const MAX_DAILY_MESSAGES = 5;
+const BASE_MODEL = "deepseek-v4-flash";
+const PRO_MODEL = "deepseek-v4-pro";
+const PRO_CREDIT_COST = 2;
 const RATE_LIMIT_POLICY_VERSION = "v2-20260811";
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const USER_NAMES = { tiziano: "Tiziano", antonio: "Antonio", peppe: "Peppe" };
@@ -49,6 +52,24 @@ function getRateLimitKey(userId, date = getRomeDateKey()) {
 function getRemainingToday(userId, count = 0) {
   const quota = getDailyQuota(userId);
   return quota.unlimited ? null : Math.max(0, quota.max - count);
+}
+
+function normalizeChatTier(tier) {
+  if (tier == null || tier === "") return "base";
+  const value = String(tier).trim().toLowerCase();
+  if (value === "base") return "base";
+  if (value === "pro") return "pro";
+  return null;
+}
+
+function resolveChatModel(env = {}, tier = "base") {
+  if (tier === "pro") return env.DEEPSEEK_MODEL_PRO || PRO_MODEL;
+  return env.DEEPSEEK_MODEL || BASE_MODEL;
+}
+
+function getMessageCost(userId, tier = "base") {
+  if (userId === "tiziano") return 0;
+  return tier === "pro" ? PRO_CREDIT_COST : 1;
 }
 
 // ── Passkey di Tiziano ───────────────────────────────────────────────────
@@ -424,13 +445,14 @@ const EMBEDDED_WIKI = {
 - Punti di lancio Lazio: wiki/documenti/varo.md (digest wiki/normativa/varo-litorale-lazio.md) — solo corridoi/scivoli; 4 PO Ardea.
 - Sito consultazione: presentazione/documenti.html (tab Patto, Costi, Varo).
 - Priorita': pesca, giri costa, bagno/relax, facilita'.
-- Aperti: auto/custodia, conferma telefonica punto varo, preventivi RC, firma patto, shortlist ≤2000 EUR.
+- Tab Annunci Vele = osservazione, non shortlist. Feed live: annunci.html?cat=vele
+- Aperti: auto/custodia, conferma telefonica punto varo, preventivi RC, firma patto, shortlist ≤2000 EUR, preventivo Fiumicino foce.
 
 Per dettagli usa read_wiki. Non trasformare stime o note storiche in fatti verificati.`,
 };
 
 async function fetchWikiPage(kv, key, pageDef) {
-  const cacheKey = `wiki:cache:v5:${key}`;
+  const cacheKey = `wiki:cache:v6:${key}`;
   try {
     const cached = await kv.get(cacheKey);
     if (cached) return cached;
@@ -487,7 +509,7 @@ UTENTE ATTIVO: ${activeUser} (id: ${userId}).
 
 Usa gli strumenti disponibili quando necessario:
 - **search_web**: per cercare prezzi, normative, costi reali, recensioni modelli
-- **read_wiki**: per leggere pagine wiki. Per patto/costi/varo usa 'wiki/documenti/patto.md', 'wiki/documenti/costi.md', 'wiki/documenti/varo.md'.
+- **read_wiki**: per leggere pagine wiki. Per patto/costi/varo usa 'wiki/documenti/patto.md', 'wiki/documenti/costi.md', 'wiki/documenti/varo.md'. Per il sogno vela: 'wiki/preferenze/track-vele.md', 'wiki/modelli/comet-770.md', 'wiki/concetti/costi-possesso-cabinato.md'.
 - **read_url**: per verificare il contenuto di una fonte trovata
 - **save_doc**: per preparare confronti, checklist e analisi esportabili in PDF
 - **remember**: per salvare un fatto stabile e verificato nella memoria condivisa
@@ -571,11 +593,11 @@ const TOOLS = [
     type: "function",
     function: {
       name: "read_wiki",
-      description: "Legge una pagina della wiki di progetto. Usa per approfondire modelli, confronti, normative, o qualsiasi pagina non nel contesto base. Passa il percorso relativo dalla root del repo, es. 'wiki/modelli/argo-evo-360.md' o 'wiki/confronti/rimessaggio-abc.md'.",
+      description: "Legge una pagina della wiki di progetto. Usa l'indice compatto nel prompt per scegliere il path. Esempi: 'wiki/preferenze/track-vele.md', 'wiki/modelli/comet-770.md', 'wiki/concetti/costi-possesso-cabinato.md', 'wiki/documenti/patto.md'.",
       parameters: {
         type: "object",
         properties: {
-          page: { type: "string", description: "Percorso pagina wiki, es. 'wiki/documenti/patto.md' o 'wiki/modelli/argo-evo-360.md'" }
+          page: { type: "string", description: "Percorso pagina wiki, es. 'wiki/preferenze/track-vele.md' o 'wiki/documenti/patto.md'" }
         },
         required: ["page"],
         additionalProperties: false,
@@ -1063,7 +1085,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   return fullText;
 }
 
-function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal }) {
+function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal, tier = "base" }) {
   const encoder = new TextEncoder();
   const streamAbort = new AbortController();
   const abortFromRequest = () => streamAbort.abort(requestSignal?.reason || "client-disconnected");
@@ -1188,6 +1210,8 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
           if (documents.length > 0) emitSSE(controller, encoder, { documents });
           const metrics = {
             mode: researchMode ? "deep" : "quick",
+            tier,
+            model,
             rounds,
             searches: state.searches,
             sourcesRead: state.webReads,
@@ -1289,7 +1313,7 @@ NON includere altro testo.`,
         "Authorization": `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: model || "deepseek-chat",
+        model: BASE_MODEL,
         messages: extractPrompt,
         temperature: 0.1,
         max_tokens: 500,
@@ -1374,22 +1398,24 @@ async function persistConversation(kv, userId, history, question, fullText, apiK
 
 // ── Rate limiter ─────────────────────────────────────────────────
 
-async function checkRateLimit(kv, userId) {
+async function checkRateLimit(kv, userId, cost = 1) {
   const quota = getDailyQuota(userId);
   if (quota.unlimited) return { count: 0, key: null, allowed: true, unlimited: true };
+  const need = Math.max(0, Number(cost) || 0);
   const key = getRateLimitKey(userId);
   try {
     const raw = await kv.get(key);
     const parsed = raw ? parseInt(raw, 10) : 0;
     const count = Number.isFinite(parsed) ? parsed : 0;
-    return { count, key, allowed: count < quota.max, unlimited: false };
+    return { count, key, allowed: count + need <= quota.max, unlimited: false };
   } catch {
     return { count: 0, key, allowed: true, unlimited: false };
   }
 }
 
-async function incrementRateLimit(kv, userId, knownCount = null) {
+async function incrementRateLimit(kv, userId, knownCount = null, cost = 1) {
   if (getDailyQuota(userId).unlimited) return 0;
+  const add = Math.max(1, Number(cost) || 1);
   const key = getRateLimitKey(userId);
   try {
     let count = knownCount;
@@ -1398,7 +1424,7 @@ async function incrementRateLimit(kv, userId, knownCount = null) {
       const parsed = raw ? parseInt(raw, 10) : 0;
       count = Number.isFinite(parsed) ? parsed : 0;
     }
-    const newCount = count + 1;
+    const newCount = count + add;
     // The date in the key enforces midnight in Rome; the TTL only removes stale keys.
     await kv.put(key, String(newCount), { expirationTtl: 36 * 60 * 60 });
     return newCount;
@@ -1616,7 +1642,7 @@ export default {
     if (url.pathname === "/api/chat" && request.method === "POST") {
       try {
         const body = await request.json();
-        const { userId, question, mode = "auto" } = body;
+        const { userId, question, mode = "auto", tier: requestedTier } = body;
 
         if (!userId || !VALID_USERS.includes(userId)) {
           return new Response(
@@ -1649,6 +1675,16 @@ export default {
           );
         }
 
+        const tier = normalizeChatTier(requestedTier);
+        if (!tier) {
+          return new Response(
+            JSON.stringify({ error: "Modello non valido. Usa base o pro." }),
+            { status: 400, headers: corsHeaders }
+          );
+        }
+        const cost = getMessageCost(userId, tier);
+        const model = resolveChatModel(env, tier);
+
         const apiKey = env.DEEPSEEK_API_KEY;
         if (!apiKey) {
           return new Response(
@@ -1668,23 +1704,25 @@ export default {
         // Rate limit check
         let currentRateCount = null;
         if (env.SBARCO_KV) {
-          const rate = await checkRateLimit(env.SBARCO_KV, userId);
+          const rate = await checkRateLimit(env.SBARCO_KV, userId, cost);
           currentRateCount = rate.count;
           if (!rate.allowed) {
+            const remainingNow = getRemainingToday(userId, rate.count);
+            const quota = getDailyQuota(userId);
+            const error = remainingNow <= 0
+              ? `Limite giornaliero raggiunto (${quota.max} crediti). Torna domani!`
+              : `Pro costa ${PRO_CREDIT_COST} crediti, ne hai ${remainingNow}. Usa Base o torna domani.`;
             return new Response(
-              JSON.stringify({
-                error: `Limite giornaliero raggiunto (${getDailyQuota(userId).max} msg). Torna domani!`,
-                remaining: 0,
-              }),
+              JSON.stringify({ error, remaining: remainingNow, tier, cost }),
               { status: 429, headers: corsHeaders }
             );
           }
         }
 
-        // Consume one daily message when the request is accepted, then open the
+        // Consume credits when the request is accepted, then open the
         // SSE response immediately. Context loading and research happen inside it.
         const newCount = env.SBARCO_KV
-          ? await incrementRateLimit(env.SBARCO_KV, userId, currentRateCount)
+          ? await incrementRateLimit(env.SBARCO_KV, userId, currentRateCount, cost)
           : 0;
         const remaining = env.SBARCO_KV
           ? getRemainingToday(userId, newCount)
@@ -1693,12 +1731,13 @@ export default {
           env,
           ctx,
           apiKey,
-          model: env.DEEPSEEK_MODEL,
+          model,
           userId,
           question: question.trim().slice(0, 4000),
           requestedMode: mode,
           remaining,
           requestSignal: request.signal,
+          tier,
         });
 
         return new Response(stream, {
@@ -1739,6 +1778,11 @@ export default {
             tiziano: "unlimited",
             antonio: MAX_DAILY_MESSAGES,
             peppe: MAX_DAILY_MESSAGES,
+            credits: { base: 1, pro: PRO_CREDIT_COST },
+          },
+          models: {
+            base: BASE_MODEL,
+            pro: PRO_MODEL,
           },
         }),
         { headers: corsHeaders }
@@ -1778,6 +1822,13 @@ export const __test = {
   getRomeDateKey,
   getRateLimitKey,
   getRemainingToday,
+  normalizeChatTier,
+  resolveChatModel,
+  getMessageCost,
+  checkRateLimit,
+  incrementRateLimit,
+  memoryExtractModel: BASE_MODEL,
+  wikiCacheVersion: "v6",
   rateLimitPolicyVersion: RATE_LIMIT_POLICY_VERSION,
   outputTokenBudgets: {
     agentStep: AGENT_STEP_TOKENS,

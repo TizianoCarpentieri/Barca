@@ -9,6 +9,14 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { applyDistanceScore } from './geo-score.mjs'
+import {
+  extractPreferredPower,
+  extractSailInventory,
+  isClubDinghy,
+  isSailboat,
+  normalizeLengthMeters,
+  sailTypeOf,
+} from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/vele.json')
@@ -47,14 +55,10 @@ const QUERIES = [
 const EXCLUDE_RE =
   /\b(gommone|semi[\s-]?rigido|semirigido|\brib\b|zodiac|windsurf|kitesurf|sup\b|canoa|kayak|moto d['’]?acqua|jet ski|caravan|camper)\b/i
 
-const CLUB_DINGHY_RE = /\b(optimist|laser|420\b|470\b|49er|finn\b|rs\s?feva|rs\s?tera|splash|byte|topper)\b/i
-
 const MOTOR_ONLY_RE =
   /^(vendo\s+)?(motore|fuoribordo|mercury|yamaha|suzuki|tohatsu|evinrude|johnson|honda\s+bf|selva)\b/i
 
 const TRAILER_ONLY_RE = /\b(solo\s+)?(carrello|rimorchio)\b/i
-
-const SAIL_HINT_RE = /\b(vela|sloop|cutter|ketch|randa|genoa|fiocco|albero|cabinato|deriva|comet|comar|finot)\b/i
 
 function feat(ad, uri) {
   const f = (ad.features || []).find((x) => x.uri === uri)
@@ -67,38 +71,8 @@ function priceOf(ad) {
   return Number.isFinite(n) ? n : null
 }
 
-function extractCv(text) {
-  if (!text) return null
-  const t = text.replace(',', '.')
-  const cvs = []
-  const re = /(\d{1,2}(?:\.\d)?)\s*(?:cv|hp|cavalli)\b/gi
-  let m
-  while ((m = re.exec(t))) cvs.push(parseFloat(m[1]))
-  const kws = []
-  const rekw = /(\d{1,2}(?:\.\d)?)\s*kw\b/gi
-  while ((m = rekw.exec(t))) kws.push(parseFloat(m[1]) * 1.3596)
-  const all = [...cvs, ...kws].filter((n) => n > 0 && n < 300)
-  if (!all.length) return null
-  return Math.max(...all)
-}
-
-function extractLength(ad, text) {
-  const f = feat(ad, '/ship_length')
-  if (f?.value) {
-    const n = parseFloat(String(f.value).replace(',', '.'))
-    if (Number.isFinite(n) && n > 2 && n < 25) return n
-  }
-  const m = String(text).match(/(\d(?:[.,]\d)?)\s*m(?:etri)?\b/i)
-  if (!m) return null
-  const n = parseFloat(m[1].replace(',', '.'))
-  return Number.isFinite(n) && n > 2 && n < 25 ? n : null
-}
-
-function sailTypeOf(blob) {
-  if (CLUB_DINGHY_RE.test(blob)) return 'deriva'
-  if (/\b(cabinato|cabina|cuccette|dinette|bagno marino|comet|comar)\b/i.test(blob)) return 'cabinato'
-  if (/\b(deriva mobile|dinghy|derive)\b/i.test(blob)) return 'deriva'
-  return 'cabinato'
+function extractLength(ad, subject, body) {
+  return normalizeLengthMeters(feat(ad, '/ship_length')?.value, subject, body, { min: 2, max: 24 })
 }
 
 function imgUrl(ad) {
@@ -132,9 +106,10 @@ function normalize(ad) {
   const city = ad.geo?.city?.value || ''
   const town = ad.geo?.town?.value || ''
   const place = [town, city, region].filter(Boolean).join(' · ')
-  const cv = extractCv(text)
-  const length_m = extractLength(ad, text)
+  const cv = extractPreferredPower(subject, body, 2, 300)
+  const length_m = extractLength(ad, subject, body)
   const sail_type = sailTypeOf(text)
+  const sails = extractSailInventory(text)
   const url = ad.urls?.default || ad.urls?.mobile || null
   const id = (ad.urn || url || subject).toString()
 
@@ -147,6 +122,7 @@ function normalize(ad) {
     cv,
     length_m,
     sail_type,
+    sails,
     region,
     city,
     town,
@@ -175,10 +151,10 @@ function classify(item) {
   if (MOTOR_ONLY_RE.test(item.subject.trim())) {
     return { status: 'reject', score: 0, reasons: ['solo motore'] }
   }
-  if (TRAILER_ONLY_RE.test(item.subject) && !SAIL_HINT_RE.test(blob)) {
+  if (TRAILER_ONLY_RE.test(item.subject) && !isSailboat(blob)) {
     return { status: 'reject', score: 0, reasons: ['solo carrello'] }
   }
-  if (!SAIL_HINT_RE.test(blob)) {
+  if (!isSailboat(blob)) {
     return { status: 'reject', score: 0, reasons: ['non vela'] }
   }
 
@@ -190,7 +166,7 @@ function classify(item) {
     score += 10
   }
 
-  if (item.sail_type === 'deriva' || CLUB_DINGHY_RE.test(blob)) {
+  if (item.sail_type === 'deriva' || isClubDinghy(blob)) {
     score -= 18
     reasons.push('deriva/club — poco fit 3–4 adulti')
     if (status === 'ok') status = 'weak'

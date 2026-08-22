@@ -45,10 +45,12 @@ npm run build
 
 ## Snapshot raw
 
-Dopo fetch: `raw/mercato/subito-feed-*.json`, `subito-gommoni-*.json`, `subito-motori-*.json`.
+Dopo fetch: `raw/mercato/subito-feed-*.json`, `subito-gommoni-*.json`, `subito-motori-*.json`, `subito-vele-*.json`.
 
-La pubblicazione mantiene l'ultima versione online se un fetch core o il quality
-gate falliscono: non distribuisce tab mancanti fingendo un deploy riuscito.
+La pubblicazione mantiene l'ultima versione online se un fetch **core** o il
+quality gate falliscono: non distribuisce tab mancanti fingendo un deploy
+riuscito. Il fetch **Vele** è `continue-on-error`: un Hades giù sul sogno non
+blocca gommoni/motori; il gate tratta vele come warning.
 
 ## Documentazione logica
 

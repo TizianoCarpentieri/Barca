@@ -12,7 +12,9 @@ const SBARCO_WORKER = "https://sbarco.tizianocarpentieri.workers.dev";
 
 const VALID_USERS = ["tiziano", "antonio", "peppe"];
 const LS_KEY = "barca_user";
+const LS_TIER = "barca_sbarco_tier";
 const LS_TIZIANO_SESSION = "barca_tiziano_session";
+const PRO_CREDIT_COST = 2;
 const SESSION_SKEW_MS = 30_000;
 const MAX_DAILY = 5;
 
@@ -51,6 +53,10 @@ const MAX_DAILY = 5;
         <button class="sbarco-header__close" aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="sbarco-modebar">
+        <div class="sbarco-tier" role="radiogroup" aria-label="Modello Sbarco">
+          <button type="button" class="sbarco-tier__btn is-on" data-tier="base" aria-pressed="true">Base</button>
+          <button type="button" class="sbarco-tier__btn" data-tier="pro" aria-pressed="false">Pro <small class="sbarco-tier__cost">2×</small></button>
+        </div>
         <button type="button" class="sbarco-mode" aria-pressed="false">
           <span class="sbarco-mode__dot"></span>
           <span class="sbarco-mode__copy"><strong>Ricerca profonda</strong><small>Web e fonti incrociate</small></span>
@@ -77,12 +83,16 @@ const MAX_DAILY = 5;
   const inputForm = root.querySelector(".sbarco-input-wrap");
   const modeBtn = root.querySelector(".sbarco-mode");
   const modeHint = root.querySelector(".sbarco-mode__hint");
+  const tierBar = root.querySelector(".sbarco-tier");
+  const tierBtns = [...root.querySelectorAll(".sbarco-tier__btn")];
+  const tierCostEl = root.querySelector(".sbarco-tier__cost");
 
   let isOpen = false;
   let isSending = false;
   let currentUser = initialUser;
   let remaining = MAX_DAILY;
   let deepMode = false;
+  let chatTier = localStorage.getItem(LS_TIER) === "pro" ? "pro" : "base";
   let activeController = null;
 
   if (currentUser) {
@@ -97,6 +107,22 @@ const MAX_DAILY = 5;
     return user === "tiziano";
   }
 
+  function messageCost() {
+    if (isUnlimitedUser(currentUser)) return 0;
+    return chatTier === "pro" ? PRO_CREDIT_COST : 1;
+  }
+
+  function setChatTier(next, persist = true) {
+    chatTier = next === "pro" ? "pro" : "base";
+    if (persist) localStorage.setItem(LS_TIER, chatTier);
+    tierBtns.forEach((btn) => {
+      const on = btn.getAttribute("data-tier") === chatTier;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", String(on));
+    });
+    syncControls();
+  }
+
   function updateCounter(rem, unlimited = isUnlimitedUser(currentUser)) {
     if (unlimited) {
       remaining = Infinity;
@@ -108,22 +134,35 @@ const MAX_DAILY = 5;
     }
     remaining = Math.max(0, Number(rem) || 0);
     counterEl.textContent = `${remaining}/${MAX_DAILY}`;
-    counterEl.title = `${remaining} utilizzi rimasti oggi su ${MAX_DAILY}`;
+    counterEl.title = `${remaining} crediti rimasti oggi su ${MAX_DAILY}`;
     counterEl.className = `sbarco-header__counter ${remaining <= 1 ? "low" : ""}`;
     syncControls();
   }
 
   function syncControls() {
-    const canChat = Boolean(currentUser) && remaining > 0;
+    const unlimited = isUnlimitedUser(currentUser);
+    const cost = messageCost();
+    const canAfford = unlimited || remaining >= Math.max(cost, 1);
+    const canChat = Boolean(currentUser) && (unlimited || remaining > 0) && canAfford;
+    const proBtn = tierBtns.find((btn) => btn.getAttribute("data-tier") === "pro");
     inputEl.disabled = isSending || !canChat;
-    modeBtn.disabled = isSending || !canChat;
+    modeBtn.disabled = isSending || !currentUser || (!unlimited && remaining <= 0);
+    tierBtns.forEach((btn) => { btn.disabled = isSending || !currentUser; });
+    if (proBtn) proBtn.disabled = isSending || !currentUser || (!unlimited && remaining < PRO_CREDIT_COST);
+    if (tierCostEl) tierCostEl.hidden = unlimited;
     userSelect.disabled = isSending;
     sendBtn.disabled = !currentUser || (!isSending && !canChat);
     sendBtn.textContent = isSending ? "Ferma" : "Invia";
     sendBtn.classList.toggle("is-stop", isSending);
-    modeHint.textContent = deepMode ? "On = più tempo, più verifiche" : "Off = risposta rapida";
+    const tierLabel = chatTier === "pro" ? "Pro" : "Base";
+    modeHint.textContent = deepMode
+      ? `${tierLabel} · ricerca profonda`
+      : `${tierLabel} · risposta rapida`;
     if (!currentUser) inputEl.placeholder = "Seleziona chi sei per iniziare";
-    else if (remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
+    else if (!unlimited && remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
+    else if (!unlimited && chatTier === "pro" && remaining < PRO_CREDIT_COST) {
+      inputEl.placeholder = `Pro costa ${PRO_CREDIT_COST} crediti (ne hai ${remaining})`;
+    }
     else if (deepMode) inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
     else inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
   }
@@ -306,6 +345,15 @@ const MAX_DAILY = 5;
     void refreshStatus();
   }
 
+  setChatTier(chatTier, false);
+
+  tierBar?.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-tier]");
+    if (!btn || btn.disabled || isSending) return;
+    setChatTier(btn.getAttribute("data-tier"));
+    inputEl.focus();
+  });
+
   modeBtn.addEventListener("click", () => {
     if (isSending) return;
     deepMode = !deepMode;
@@ -365,7 +413,12 @@ const MAX_DAILY = 5;
       const chatOpts = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentUser, question: text, mode: deepMode ? "deep" : "auto" }),
+        body: JSON.stringify({
+          userId: currentUser,
+          question: text,
+          mode: deepMode ? "deep" : "auto",
+          tier: chatTier,
+        }),
         signal: activeController.signal,
       };
       const resp = currentUser === "tiziano"
@@ -528,7 +581,10 @@ const MAX_DAILY = 5;
     if (meta) {
       const info = document.createElement("div");
       info.className = "sbarco-msg__meta";
-      const parts = [meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida"];
+      const parts = [
+        meta.tier === "pro" ? "Pro" : "Base",
+        meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida",
+      ];
       if (meta.sourcesRead) parts.push(`${meta.sourcesRead} fonti lette`);
       if (meta.elapsedMs) parts.push(`${(meta.elapsedMs / 1000).toFixed(1)} s`);
       info.textContent = parts.join(" · ");

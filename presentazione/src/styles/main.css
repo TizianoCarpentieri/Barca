@@ -1508,6 +1508,34 @@ html.is-phone .badge {
   box-shadow: 0 0 0 1px rgba(255, 59, 10, 0.12);
 }
 
+.ads-cat__badge {
+  margin-left: 0.22rem;
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.08rem 0.28rem;
+  border-radius: 999px;
+  background: rgba(212, 167, 69, 0.22);
+  color: var(--brass, #d4a745);
+}
+
+.ads-cat--sogno.is-on {
+  background: rgba(212, 167, 69, 0.2);
+  border-color: rgba(212, 167, 69, 0.5);
+  box-shadow: 0 0 0 1px rgba(212, 167, 69, 0.14);
+}
+
+.ads-cat--sogno.is-on .ads-cat__badge {
+  background: rgba(212, 167, 69, 0.4);
+  color: #f3ebe0;
+}
+
+@media (max-width: 420px) {
+  .ads-cat__badge {
+    display: none;
+  }
+}
+
 .ads-cat--icon {
   display: inline-flex;
   align-items: center;

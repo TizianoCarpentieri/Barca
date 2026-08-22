@@ -5,7 +5,7 @@ const icons = {
   more: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg>`,
 }
 
-export const ADS_PAGES = ['annunci.html', 'accessori.html', 'gommoni.html', 'motori.html']
+export const ADS_PAGES = ['annunci.html', 'accessori.html', 'gommoni.html', 'motori.html', 'vele.html']
 export const DOCK_PAGES = ['index.html', 'regole.html', ...ADS_PAGES]
 
 export function mountNav() {

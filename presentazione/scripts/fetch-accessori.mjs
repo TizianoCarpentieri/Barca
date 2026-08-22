@@ -8,6 +8,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { classifyAccessorio, detectCategory, TIPOLOGIE } from './scoring-accessori.mjs'
+import { isWholeSailboat } from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/accessori.json')
@@ -122,6 +123,7 @@ async function fetchSubito() {
       for (const ad of data.ads || []) {
         const n = normalizeSubito(ad)
         if (!n) continue
+        if (isWholeSailboat(n.subject)) continue
         const key = n.url.replace(/[?#].*$/, '')
         if (!byId.has(key)) byId.set(key, n)
       }

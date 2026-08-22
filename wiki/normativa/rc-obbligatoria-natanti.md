@@ -1,7 +1,7 @@
 ---
 title: RC obbligatoria natanti
 type: normativa
-updated: 2026-08-11
+updated: 2026-08-22
 status: active
 tags: [assicurazione, RC, gommone, normativa]
 sources:
@@ -35,6 +35,8 @@ Fonti primarie: Codice della nautica su Normattiva, CAP ufficiale IVASS e Regola
 | Soglia no-patente ≤40,8 CV | **Irrilevante** per l’obbligo RC |
 | Motore fuoribordo (amovibile) | L’obbligo grava sul motore/natante su cui è applicato (art. 41 c.2, art. 123 c.3) |
 | Solo a remi | Escluso dall’obbligo |
+| Cabinato solo vela, **senza** ausiliario | Escluso dall’obbligo (art. 41) |
+| Cabinato con ausiliario, anche 6 CV | **RC obbligatoria** (track D, osservazione) |
 | Porto Anzio (e molti porti) | RC spesso **anche** da regolamento locale (già in raw regolamento Anzio) |
 
 ## Cosa **non** è l’obbligo di legge

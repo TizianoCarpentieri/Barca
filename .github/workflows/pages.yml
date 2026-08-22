@@ -56,6 +56,7 @@ jobs:
       - name: Fetch vele (sogno parallelo)
         working-directory: presentazione
         run: node scripts/fetch-vele.mjs
+        continue-on-error: true
       - name: Valida freschezza e qualita feed
         working-directory: presentazione
         run: npm run validate-feeds

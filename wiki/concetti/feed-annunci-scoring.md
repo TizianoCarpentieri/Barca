@@ -89,8 +89,13 @@ Criteri: [[preferenze/track-vele]]. Reference: [[modelli/comet-770]].
   la potenza consigliata.
 - Per i motori marca, potenza e gambo nel titolo prevalgono sulle compatibilita'
   elencate nel corpo.
-- `validate-feeds.mjs` blocca il deploy per file mancanti, feed vecchi o piccoli,
-  duplicati, misure/CV fuori scala e RIB sfuggiti al filtro.
+- `validate-feeds.mjs` (logica in `feed-gate.mjs`) blocca il deploy per i
+  **feed core** (rigide, gommoni, motori, accessori): file mancanti, feed
+  vecchi o piccoli, duplicati, misure/CV fuori scala e RIB sfuggiti al filtro.
+- **Vele è soft:** file assente, stantio o magro = **warning**, non ferma il
+  piano A. Stesso URL in due tab = warning se tocca vele/accessori, errore
+  fra i core. Helper vela condivisi: `isSailboat`, `sailTypeOf`, inventario
+  randa/genoa/spinnaker.
 
 ## Track motori
 

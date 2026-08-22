@@ -8,6 +8,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { applyDistanceScore } from './geo-score.mjs'
+import { isSailboat } from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/annunci.json')
@@ -173,6 +174,9 @@ function classify(item) {
 
   if (EXCLUDE_RE.test(blob)) {
     return { status: 'reject', score: 0, reasons: ['gommone/RIB/escluso'] }
+  }
+  if (isSailboat(`${item.subject} ${item.body}`)) {
+    return { status: 'reject', score: 0, reasons: ['barca a vela'] }
   }
   if (TRAILER_ONLY_RE.test(item.subject) && !HULL_HINT_RE.test(blob)) {
     return { status: 'reject', score: 0, reasons: ['solo carrello'] }

@@ -9,7 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { applyDistanceScore } from './geo-score.mjs'
-import { extractPreferredBrand, extractPreferredPower, extractPreferredShaft } from './feed-normalizers.mjs'
+import { extractPreferredBrand, extractPreferredPower, extractPreferredShaft, isSailboat } from './feed-normalizers.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.join(__dirname, '../public/data/motori.json')
@@ -195,7 +195,7 @@ function classify(item) {
   if (EXCLUDE_BIG_RE.test(blob)) {
     return { status: 'reject', score: 0, reasons: ['troppo potente'] }
   }
-  if (EXCLUDE_INBOARD_SAIL.test(blob)) {
+  if (EXCLUDE_INBOARD_SAIL.test(blob) || isSailboat(`${item.subject} ${item.body}`)) {
     return { status: 'reject', score: 0, reasons: ['non fuoribordo'] }
   }
   if (ONLY_MOTOR_RE.test(blob) && !/fuoribordo|yamaha|suzuki|mercury/i.test(blob)) {

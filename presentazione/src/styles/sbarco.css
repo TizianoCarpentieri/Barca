@@ -150,7 +150,39 @@ html.sheet-open .sbarco-fab {
   align-items: center;
   gap: 9px;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
+.sbarco-tier {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 2px;
+  border: 1px solid var(--sbarco-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .04);
+}
+.sbarco-tier__btn {
+  min-height: 32px;
+  padding: 6px 11px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sbarco-text);
+  font: 600 11px/1 'Barlow Condensed', sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.sbarco-tier__btn small {
+  margin-left: 3px;
+  font: 600 9px/1 'Barlow Condensed', sans-serif;
+  opacity: .72;
+}
+.sbarco-tier__btn.is-on {
+  background: radial-gradient(circle at 35% 25%, #f0b966, var(--sbarco-accent) 55%, #a96724);
+  color: #102024;
+}
+.sbarco-tier__btn.is-on small { opacity: .8; color: inherit; }
+.sbarco-tier__btn:disabled { opacity: .45; cursor: default; }
 .sbarco-mode {
   min-height: 38px;
   border: 1px solid var(--sbarco-border);
@@ -529,6 +561,7 @@ html.sheet-open .sbarco-fab {
   .sbarco-header__brand small { font-size: 10px; }
   .sbarco-header select { max-width: 118px; min-width: 96px; }
   .sbarco-mode { flex: 1; min-height: 44px; }
+  .sbarco-tier__btn { min-height: 40px; }
   .sbarco-msgs { padding: 14px 11px 16px; }
   .sbarco-msg { max-width: 96%; }
   .sbarco-progress { width: 96%; }

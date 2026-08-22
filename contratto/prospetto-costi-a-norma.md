@@ -94,6 +94,7 @@ Il VHF è obbligatorio oltre 6 miglia; entro 6 miglia non lo è, ma se viene ins
 ### 4.1 Obbligo e contenuto minimo
 
 - **OBBLIGO:** la RC è necessaria per il motore amovibile di qualsiasi potenza prima della navigazione; l'obbligo non dipende dalla patente.
+- **CONDIZIONALE vela:** unità solo a remi/vela **senza motore ausiliario** → RC **non** obbligatoria (art. 41 D.Lgs. 171/2005). Con ausiliario amovibile, anche 6 CV, RC **obbligatoria**. Fonte: `raw/normativa/rc-obbligatoria-natanti-2026-08-11.md`.
 - Il certificato identifica, per il natante non immatricolato, marca e numero del motore; va conservato ed esibito ai controlli. Il contrassegno cartaceo non deve essere esposto.
 - I massimali minimi vigenti dal 14 gennaio 2026 sono **6.450.000 euro per danni alle persone** e **1.300.000 euro per danni alle cose** per sinistro. Un'offerta inferiore non è un confronto valido con la copertura obbligatoria vigente.
 - Il responsabile della conduzione non è coperto dalla RC obbligatoria per le proprie lesioni: l'infortuni conducente/equipaggio è una garanzia separata.

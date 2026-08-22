@@ -14,6 +14,7 @@ preview_id = "55f0e6aa687744868b827b7580f2ed0d"
 #   wrangler secret put DEEPSEEK_API_KEY
 [vars]
 DEEPSEEK_MODEL = "deepseek-v4-flash"
+DEEPSEEK_MODEL_PRO = "deepseek-v4-pro"
 ALLOWED_ORIGIN = "https://tizianocarpentieri.github.io"
 
 [observability]

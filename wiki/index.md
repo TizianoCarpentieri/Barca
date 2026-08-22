@@ -103,6 +103,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | Pagina | Sommario |
 |--------|----------|
 | [[confronti/rimessaggio-abc]] | Posto vs carrello vs terra |
+| [[confronti/report-annunci-vela]] | Audit tab Vele: tenuto vs rimandato |
 
 ## Sintesi
 

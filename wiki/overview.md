@@ -50,7 +50,7 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Accordo scritto bestie | 🟡 bozza in cantiere (fuori wiki); da revisionare insieme e firmare — **non** ancora ingerita |
 | Scenario rigido 5 soci | ⬜ [[sintesi/scenario-rigido-5-soci]] |
 | Feed Subito automatico | ✅ 3 feed + geo-score + cron |
-| Sbarco deep research | 🟢 produzione `2.2.4`; streaming visibile; documenti patto/costi/varo in wiki |
+| Sbarco deep research | 🟢 produzione `2.3.0`; Base/Pro (Flash vs V4-Pro); streaming visibile |
 | Lint wiki automatico | ✅ `node scripts/lint-wiki.mjs` |
 | Shortlist candidati | ⬜ da popolare dai feed |
 | Visite/prove | ⬜ non iniziato |

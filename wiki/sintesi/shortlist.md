@@ -1,7 +1,7 @@
 ---
 title: Shortlist
 type: sintesi
-updated: 2026-08-10
+updated: 2026-08-22
 status: draft
 tags: [shortlist]
 ---
@@ -17,6 +17,7 @@ Feed live:
 - [Annunci · Gommoni](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=gommoni)
 - [Annunci · Motori](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=motori)
 - [Annunci · Rigide](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=rigide) — solo scenario futuro
+- [Annunci · Vele](https://tizianocarpentieri.github.io/Barca/annunci.html?cat=vele) — **osservazione**, non shortlist ([[preferenze/track-vele]])
 
 Filtri e scoring: [[concetti/feed-annunci-scoring]] · [[sintesi/requisiti-v1]].
 

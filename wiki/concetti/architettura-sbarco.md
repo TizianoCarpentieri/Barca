@@ -1,7 +1,7 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-20
+updated: 2026-08-22
 status: active
 tags: [sbarco, bot, deep-research, worker]
 sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
@@ -82,11 +82,23 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 - `read_url` ricontrolla ogni redirect contro reti locali; il prompt tratta le
   pagine esterne come dati non affidabili, mai come istruzioni.
 
+## Modello (Base / Pro)
+
+Scelta nel widget, indipendente da rapida/profonda. Il Worker accetta `tier`.
+
+| Tier | Modello API | Costo crediti |
+|------|-------------|---------------|
+| **Base** (default) | `deepseek-v4-flash` (`DEEPSEEK_MODEL`) | 1 (compari) · 0 Tiziano |
+| **Pro** | `deepseek-v4-pro` (`DEEPSEEK_MODEL_PRO`) | **2** (compari) · 0 Tiziano |
+
+Il `thinking` resta disattivato anche su Pro (`tool_choice`). Client vecchi senza `tier` restano su Base.
+
 ## Quote giornaliere
 
 - Tiziano è autenticato tramite passkey e non passa dal contatore: la sua quota
-  è illimitata sia nel Worker sia nella UI, dove viene mostrato `∞`.
-- Antonio e Peppe hanno 5 utilizzi giornalieri ciascuno.
+  è illimitata sia nel Worker sia nella UI, dove viene mostrato `∞`. Vale per Base e Pro.
+- Antonio e Peppe hanno **5 crediti** giornalieri ciascuno. Base = 1 credito, Pro = 2.
+  Con 1 credito rimasto Pro è rifiutato (429) e il contatore non scala.
 - Le chiavi KV includono la versione della policy e la data `Europe/Rome`:
   `rate:v2-20260811:{userId}:YYYY-MM-DD`. Il cambio di versione ha azzerato i
   conteggi il 2026-08-11 senza toccare chat, summary o memoria.
@@ -95,7 +107,8 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 
 ## Memoria e wiki
 
-- Contesto primario: [[sintesi/contesto-sbarco]].
+- Contesto primario: [[sintesi/contesto-sbarco]] (GitHub Raw, cache KV `wiki:cache:v6:*`, TTL 5 min). Fallback: blocco `EMBEDDED_WIKI` nel Worker.
+- Indice compatto da [[index]]: il modello sceglie i path, poi `read_wiki` apre la pagina. **Non** carica `graphify-out/graph.json` né `worker/graph.json` a runtime: il grafo è per gli agenti nel repo (`graphify query`), non per la chat.
 - Le altre pagine vengono aperte su richiesta tramite `read_wiki`.
 - `remember` salva davvero un fatto verificato in KV.
 - La memoria condivisa conserva al massimo 40 fatti e ne passa 12 al modello.

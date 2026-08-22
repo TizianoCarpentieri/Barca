@@ -11,6 +11,14 @@ test('il dock ha Home, Annunci, Regole e Altro come bottone', async () => {
   assert.match(src, /<button type="button"/)
 })
 
+test('il tab Vele e marcato sogno e non e una pagina accessori', async () => {
+  const html = await readFile(new URL('../annunci.html', import.meta.url), 'utf8')
+  assert.match(html, /data-cat="vele"/)
+  assert.match(html, /ads-cat--sogno/)
+  assert.match(html, /ads-cat__badge/)
+  assert.match(html, /sogno parallelo/)
+})
+
 test('lo sheet non duplica Home/Regole e include Status + feed', async () => {
   const src = await readFile(new URL('../src/js/nav.js', import.meta.url), 'utf8')
   const sheet = src.slice(src.indexOf('Altre pagine'))

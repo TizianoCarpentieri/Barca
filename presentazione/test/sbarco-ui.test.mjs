@@ -82,6 +82,15 @@ test("mostra la quota illimitata di Tiziano e cinque utilizzi agli altri", async
   assert.doesNotMatch(source, /user === "tiziano" \? 10/);
 });
 
+test("il widget espone Base e Pro e i compari pagano 2 crediti su Pro", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  assert.match(source, /data-tier="base"/);
+  assert.match(source, /data-tier="pro"/);
+  assert.match(source, /const PRO_CREDIT_COST = 2;/);
+  assert.match(source, /tier: chatTier/);
+  assert.match(source, /Pro costa \$\{PRO_CREDIT_COST\} crediti/);
+});
+
 test("genera un PDF multipagina valido con tabella e fonti", () => {
   const content = `# 🎯 Analisi bundle
 

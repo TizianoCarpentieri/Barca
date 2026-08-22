@@ -49,7 +49,8 @@ Non committare mai il codice. Per sostituire il telefono, cancella la chiave KV
 In `wrangler.toml`, modifica `ALLOWED_ORIGIN` con l'URL del tuo GitHub Pages:
 ```toml
 [vars]
-DEEPSEEK_MODEL = "deepseek-chat"
+DEEPSEEK_MODEL = "deepseek-v4-flash"
+DEEPSEEK_MODEL_PRO = "deepseek-v4-pro"
 ALLOWED_ORIGIN = "https://tizianocarpentieri.github.io"
 ```
 
@@ -68,7 +69,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.2.4","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# → {"status":"ok","version":"2.3.0","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -125,7 +126,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.2.4` e la policy quota attiva.
+1. `/api/health` riporta `version: 2.3.0` e la policy quota attiva (Base 1 credito, Pro 2).
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,

@@ -6,6 +6,26 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-22] lint | Sbarco: cache wiki v6, memoria su Flash, grafo non a runtime
+
+- Cache KV `wiki:cache:v6` così dopo il deploy non resta il contesto vecchio.
+- Estrazione memoria: `deepseek-v4-flash`, non `deepseek-chat` (ritirato).
+- Runtime Sbarco = contesto + indice + `read_wiki` da GitHub Raw. `graph.json` resta per gli agenti nel repo.
+
+## [2026-08-22] feat(sbarco) | Base / Pro (DeepSeek V4-Pro)
+
+- Widget: selettore **Base** (`deepseek-v4-flash`) e **Pro** (`deepseek-v4-pro`), indipendente dalla ricerca profonda.
+- Tiziano resta ∞. Antonio/Peppe: Pro scala **2 crediti**, Base 1. Con 1 credito Pro è 429 e il contatore non si muove.
+- Worker `2.3.0`. Non in produzione finché non si fa deploy Worker + push Pages.
+
+## [2026-08-22] ingest | Report annunci Vele — rinforzo feed (non rifattura)
+
+- Fonte: `raw/annunci/report-annunci-vela-2026-08-22.md`. Digest [[confronti/report-annunci-vela]].
+- Helper vela condivisi + test; rigide/motori/accessori si respingono col tab Vele.
+- Gate: vele **soft** (warning) + duplicati cross-feed; CI `continue-on-error` sul fetch vele.
+- UI: badge **sogno**, geo unica `geo-score.mjs`, tag randa/genoa.
+- Prospetto: RC condizionale vela (art. 41). Shortlist gommone invariata.
+
 ## [2026-08-22] ingest | Sogno vela — audio 20 ago + Comet 770 + TCO Anzio
 
 - 108 vocali Tiziano–Antonio da `raw/audio/WhatsApp Unknown 2026-08-21 at 17.07.29.zip`. Whisper small → `raw/audio/whatsapp-2026-08-21/TRASCRIZIONE.md`. Sintesi [[sintesi/conversazioni-audio-20260820]].

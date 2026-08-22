@@ -1,3 +1,6 @@
+import { extractSailInventory } from '../../scripts/feed-normalizers.mjs'
+import { distanceFactor } from '../../scripts/geo-score.mjs'
+
 const listEl = document.getElementById('ads-list')
 const emptyEl = document.getElementById('ads-empty')
 const errEl = document.getElementById('ads-error')
@@ -14,39 +17,6 @@ const howEl = document.getElementById('ads-how')
 if (!listEl) {
   /* not on annunci page */
 } else {
-  /* ——— geo: base Ardea/Pomezia (allineato a scripts/geo-score.mjs) ——— */
-  const LAZIO_TOWNS =
-    /\b(anzio|nettuno|pomezia|ardea|fiumicino|roma|ostia|circeo|san\s*felice|sperlonga|gaeta|formia|latina|civitavecchia|santa\s*marinella|ladispoli|torvaianica|aprilia|minturno|fondi|terracina|sabaudia)\b/i
-  const REGION_PRICE_FACTOR = {
-    Lazio: 1.0,
-    Toscana: 1.12,
-    Umbria: 1.14,
-    Abruzzo: 1.14,
-    Marche: 1.15,
-    Campania: 1.12,
-    Molise: 1.18,
-    'Emilia-Romagna': 1.2,
-    Liguria: 1.18,
-    Basilicata: 1.2,
-    Puglia: 1.2,
-    Calabria: 1.25,
-    Sicilia: 1.3,
-    Sardegna: 1.32,
-    Lombardia: 1.28,
-    Piemonte: 1.3,
-    "Valle d'Aosta": 1.32,
-    Veneto: 1.28,
-    'Friuli-Venezia Giulia': 1.3,
-    'Trentino-Alto Adige': 1.3,
-  }
-
-  function distanceFactor(it) {
-    const place = `${it.place || ''} ${it.town || ''} ${it.city || ''}`
-    if (it.region === 'Lazio' || LAZIO_TOWNS.test(place)) return 1.0
-    const f = REGION_PRICE_FACTOR[it.region]
-    return typeof f === 'number' ? f : 1.28
-  }
-
   /** Ricalcola score se il JSON non ha ancora distance_factor (o per coerenza UI). */
   function withGeoScore(it) {
     const factor =
@@ -59,8 +29,7 @@ if (!listEl) {
           ? Math.round(price * factor)
           : null
 
-    // Accessori: niente penalità distanza (oggetti spedibili via Subito)
-    if (cat === 'accessori') {
+    if (FEEDS[cat]?.noDistancePenalty) {
       return { ...it, distance_factor: 1, effective_price: effectivePrice }
     }
 
@@ -141,6 +110,7 @@ if (!listEl) {
       fitHigh: 65,
       ph: 'ACCESSORIO',
       hasEngine: false,
+      noDistancePenalty: true,
         fallbackNote:
         'Accessori nautici per barche piccole (Subito). Score su rapporto prezzo vs nuovo, condizione, marca, spedizione/distanza.',
       how: 'Feed accessori (Subito): ecoscandagli, portacanne, bimini, ancore, sicurezza, pompe… Score premia quanto sei sotto il prezzo nuovo di riferimento.',
@@ -360,6 +330,9 @@ if (!listEl) {
     const brand = it.brand ? String(it.brand) : ''
     const floor = it.floor ? String(it.floor) : ''
     const sailType = it.sail_type ? String(it.sail_type) : ''
+    const sails = Array.isArray(it.sails) && it.sails.length
+      ? it.sails
+      : extractSailInventory(`${it.subject || ''} ${it.body || ''}`)
     const catLabel = it.category_label ? String(it.category_label) : ''
     const cond = it.condition ? String(it.condition) : ''
     const ratio = it.ratio != null ? `${Math.round(it.ratio * 100)}% del nuovo` : ''
@@ -406,6 +379,7 @@ if (!listEl) {
             ${ratio ? `<span>${escapeHtml(ratio)}</span>` : ''}
             ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
             ${sailType ? `<span>${escapeHtml(sailType)}</span>` : ''}
+            ${sails.map((s) => `<span>${escapeHtml(s)}</span>`).join('')}
             ${bundle ? `<span>${escapeHtml(bundle)}</span>` : ''}
             <span>score ${it.score ?? '—'}</span>
           </div>
@@ -567,5 +541,18 @@ if (!listEl) {
       })
   }
 
+  function assertTabsMatchFeeds() {
+    if (!catsEl) return
+    const buttons = [...catsEl.querySelectorAll('[data-cat]')].map((el) => el.getAttribute('data-cat'))
+    if (!buttons.length) return
+    const expected = Object.keys(FEEDS).filter((key) => key !== 'accessori')
+    const missing = expected.filter((key) => !buttons.includes(key))
+    const extra = buttons.filter((key) => !FEEDS[key])
+    if (missing.length || extra.length) {
+      console.error('[annunci] tab/FEEDS mismatch', { missing, extra })
+    }
+  }
+
+  assertTabsMatchFeeds()
   loadCat()
 }

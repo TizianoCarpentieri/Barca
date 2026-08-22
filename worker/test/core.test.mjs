@@ -102,6 +102,49 @@ test("applica la quota illimitata a Tiziano e cinque utilizzi agli altri", () =>
   );
 });
 
+test("l estrazione memoria usa Flash, non il modello chat ritirato, e la cache wiki e v6", () => {
+  assert.equal(__test.memoryExtractModel, "deepseek-v4-flash");
+  assert.equal(__test.wikiCacheVersion, "v6");
+  assert.doesNotMatch(String(__test.memoryExtractModel), /deepseek-chat/);
+});
+
+test("Base usa Flash e Pro usa deepseek-v4-pro; i compari pagano 2 crediti su Pro", () => {
+  assert.equal(__test.normalizeChatTier(), "base");
+  assert.equal(__test.normalizeChatTier("pro"), "pro");
+  assert.equal(__test.normalizeChatTier("FLASH"), null);
+  assert.equal(__test.resolveChatModel({ DEEPSEEK_MODEL: "deepseek-v4-flash" }, "base"), "deepseek-v4-flash");
+  assert.equal(__test.resolveChatModel({}, "pro"), "deepseek-v4-pro");
+  assert.equal(__test.getMessageCost("tiziano", "pro"), 0);
+  assert.equal(__test.getMessageCost("antonio", "base"), 1);
+  assert.equal(__test.getMessageCost("peppe", "pro"), 2);
+});
+
+test("Pro con un solo credito rimasto viene rifiutato e non scala il contatore", async () => {
+  const key = __test.getRateLimitKey("antonio");
+  const store = new Map([[key, "4"]]);
+  const kv = {
+    async get(name) { return store.get(name) ?? null; },
+    async put(name, value) { store.set(name, String(value)); },
+  };
+  const env = { SBARCO_KV: kv, DEEPSEEK_API_KEY: "test-key", ALLOWED_ORIGIN: "*" };
+  const denied = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: "antonio", question: "Quanto costa l ormeggio?", mode: "auto", tier: "pro" }),
+  }), env, {});
+  assert.equal(denied.status, 429);
+  const body = await denied.json();
+  assert.match(body.error, /2 crediti/i);
+  assert.equal(body.remaining, 1);
+  assert.equal(store.get(key), "4");
+
+  const allowed = await __test.checkRateLimit(kv, "antonio", 1);
+  assert.equal(allowed.allowed, true);
+  const after = await __test.incrementRateLimit(kv, "antonio", allowed.count, 1);
+  assert.equal(after, 5);
+  assert.equal(store.get(key), "5");
+});
+
 test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async () => {
   const today = new Date().toISOString().slice(0, 10);
   const store = new Map([[`rate:antonio:${today}`, "4"]]);
