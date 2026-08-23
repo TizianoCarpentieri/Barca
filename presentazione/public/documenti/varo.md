@@ -1,4 +1,4 @@
-﻿> **Guida punti di lancio / varo** sul litorale laziale. Confermare a telefono prima di ogni uscita.
+> **Guida punti di lancio / varo** sul litorale laziale. Confermare a telefono prima di ogni uscita.
 >
 > Le regole sui corridoi valgono per unitÃ  a **motore o vela**. I PO e gli scivoli restano la pista concreta da Ardea/Pomezia.
 >

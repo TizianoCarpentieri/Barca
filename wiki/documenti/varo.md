@@ -1,4 +1,4 @@
-﻿---
+---
 title: Punti di lancio â€” litorale laziale
 type: normativa
 updated: 2026-08-20
