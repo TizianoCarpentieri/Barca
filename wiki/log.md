@@ -658,3 +658,11 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Verificato: Pomezia/Torvaianica e Ardea/Lavinio non hanno porti (solo PO e passaggi); Marina di Ardea resta progetto. URL ufficiali confermati: portoturisticodiroma.it, nettunomarina.com, portodianzio.eu; Rio Martino su fonti Comune Sabaudia.
 - Aggiornati: varo.md (link), index.md, contesto-sbarco.md (il bot ora apre il censimento con read_wiki invece di rifare la ricerca), log.
 - Resta da chiudere a telefono: indirizzi/URL mancanti (checklist nella pagina).
+
+## [2026-08-23] fix(sbarco) | Modalità "ricerca estesa" con crediti scalati e regola esaurimento-request
+
+- Aggiunta modalità `extended` al Worker e al client (toggle rapida→profonda→estesa): 12 round, 12 ricerche, 16 pagine lette, 48 tool call, tetto 300 s, timeout client 420 s; stesse garanzie di uscita (riserva sintesi, budget prompt, tool_choice none in sintesi). System prompt dedicato: annotare i risultati man mano, dichiarare le voci non verificabili, tabella finale con fonti.
+- Costi: estesa Base = 3 crediti, Pro = 5. **Regola esaurimento-richiesta**: basta 1 credito per partire e si consuma `min(costo, residuo)`; la richiesta non viene mai bloccata a metà per quota (0 crediti → 429 prima di partire, nessuna scalata).
+- Rimborso su agent_error ora ripristina l'importo effettivamente scalato (`charged`), non il costo teorico.
+- Test: 57/57 (nuovi: costi estesa, budget 12/12/16/48, complete-anyway con 2 crediti → consuma 2 e completa, 429 a 0 crediti, 400 su modalità sconosciuta). Docs aggiornate: architettura-sbarco (modalità+quote), contesto-sbarco, README worker.
+- Causa: censimento Fiumicino→Sabaudia che ha esaurito il budget profonda (3/5/14). Con l'estesa Sbarco ora può completare lavori del genere da solo; il censimento fatto a mano resta come base verificata.

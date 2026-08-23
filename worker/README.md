@@ -105,9 +105,14 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 | `/api/status?userId=...` | GET | contatore giornaliero reale |
 | `/api/chat` | POST | chat SSE; body `{userId, question, mode, tier}` |
 
-`mode` può essere `auto` o `deep`; `tier` può essere `base` o `pro`. La
-modalità profonda apre lo stream prima della ricerca, invia fasi/heartbeat,
+`mode` può essere `auto`, `deep` o `extended`; `tier` può essere `base` o `pro`.
+La modalità profonda apre lo stream prima della ricerca, invia fasi/heartbeat,
 limita fonti e round e forza la sintesi finale senza ulteriori tool.
+La modalità **estesa** serve a censimenti e lavori multi-località: 12 round,
+12 ricerche, 16 pagine lette, 48 chiamate strumento, tetto 300 s — con le
+stesse garanzie di uscita. Costo: Base 1 · Pro 2 · estesa Base 3 · Pro 5; con
+i profili limitati l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`
+senza mai fermarsi a metà.
 Dettaglio: `wiki/concetti/architettura-sbarco.md`.
 
 Le risposte rapide gia' complete vengono inviate in frame cadenzati per evitare

@@ -30,10 +30,16 @@ lunga non appare più come una chat bloccata.
 |----------|-----|--------|
 | Rapida/auto | domande sul progetto e wiki | fino a 3 round; step da 1.000 token |
 | Ricerca profonda | prezzi, normativa, dati correnti e richiesta esplicita | fino a 6 round; step da 1.000 token |
+| Ricerca estesa | censimenti, elenchi multi-località, lavori lunghi | fino a 12 round; tetto 300 s; step da 1.000 token |
 
 La ricerca profonda usa al massimo 3 ricerche, 5 pagine web lette, 14 chiamate
-strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
-12 secondi. Raggiunto un limite, Sbarco deve sintetizzare quanto raccolto.
+strumento complessive e 4 strumenti concorrenti. La **ricerca estesa** alza i
+tetti a 12 ricerche, 16 pagine, 48 chiamate strumento e chiede al modello di
+annotare i risultati man mano (i tool result più vecchi vengono comunque
+compattati dal budget del prompt: i riassunti del modello restano, i raw
+no). Ogni fonte web ha timeout di 12 secondi. Raggiunto un limite, Sbarco deve
+sintetizzare quanto raccolto: valgono le stesse garanzie di uscita della
+profonda (round, durata, riserva per la sintesi finale senza strumenti).
 
 ## Latenza percepita e misurata
 
@@ -150,8 +156,12 @@ restano non-thinking. Client vecchi senza `tier` restano su Base.
 
 - Tiziano è autenticato tramite passkey e non passa dal contatore: la sua quota
   è illimitata sia nel Worker sia nella UI, dove viene mostrato `∞`. Vale per Base e Pro.
-- Antonio e Peppe hanno **5 crediti** giornalieri ciascuno. Base = 1 credito, Pro = 2.
-  Con 1 credito rimasto Pro è rifiutato (429) e il contatore non scala.
+- Antonio e Peppe hanno **5 crediti** giornalieri ciascuno. Base = 1 credito, Pro = 2,
+  ricerca estesa = **3 (Base) / 5 (Pro)**. Con 1 credito rimasto Pro è rifiutato
+  (429) e il contatore non scala.
+- **Regola "esaurimento richiesta"** per la ricerca estesa: basta **1 credito**
+  per partire e si consuma `min(costo, residuo)`; la richiesta non viene mai
+  bloccata a metà per quota (0 crediti = 429 prima di partire).
 - Le chiavi KV includono la versione della policy e la data `Europe/Rome`:
   `rate:v2-20260811:{userId}:YYYY-MM-DD`. Il cambio di versione ha azzerato i
   conteggi il 2026-08-11 senza toccare chat, summary o memoria.

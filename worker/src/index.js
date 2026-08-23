@@ -19,6 +19,15 @@ const MAX_TOOL_CALLS = 14;
 const MAX_PARALLEL_TOOLS = 4;
 const MAX_SEARCH_CALLS = 3;
 const MAX_WEB_READS = 5;
+// Ricerca estesa: censimenti e lavori multi-località. Budget ampi ma sempre
+// con garanzie di uscita (round, durata, tool, sintesi finale senza strumenti).
+const EXTENDED_ROUNDS = 12;
+const EXTENDED_SEARCH_CALLS = 12;
+const EXTENDED_WEB_READS = 16;
+const EXTENDED_TOOL_CALLS = 48;
+const EXTENDED_DURATION_MS = 300_000;
+const EXTENDED_BASE_COST = 3;
+const EXTENDED_PRO_COST = 5;
 // I round intermedi devono scegliere/consumare tool, non scrivere saggi. La
 // risposta completa ha un budget separato in FINAL_RESPONSE_TOKENS.
 const AGENT_STEP_TOKENS = 1000;
@@ -85,8 +94,9 @@ function resolveChatModel(env = {}, tier = "base") {
   return env.DEEPSEEK_MODEL || BASE_MODEL;
 }
 
-function getMessageCost(userId, tier = "base") {
+function getMessageCost(userId, tier = "base", mode = "auto") {
   if (userId === "tiziano") return 0;
+  if (mode === "extended") return tier === "pro" ? EXTENDED_PRO_COST : EXTENDED_BASE_COST;
   return tier === "pro" ? PRO_CREDIT_COST : 1;
 }
 
@@ -582,12 +592,20 @@ function compactWikiIndex(index = "") {
   return lines.join("\n").slice(0, 3_600);
 }
 
-async function buildSystemPrompt(kv, researchMode = false, userId = "tiziano") {
+async function buildSystemPrompt(kv, researchMode = false, userId = "tiziano", extendedMode = false) {
   const entries = await Promise.all(
     Object.entries(WIKI_PAGES).map(async ([key, def]) => [key, await fetchWikiPage(kv, key, def)])
   );
   const pages = Object.fromEntries(entries);
-  const researchRules = researchMode
+  const researchRules = extendedMode
+    ? `MODALITA' RICERCA ESTESA ATTIVA (censimento multi-localita'):
+- Procedi per gruppi o localita': cerca e verifica ogni voce prima di passare alla successiva.
+- Annota nel tuo testo i risultati man mano (nome, indirizzo, URL) prima di continuare: sono appunti per la tabella finale.
+- Se una voce non ha sito o indirizzo verificabile, dichiaralo esplicitamente invece di inventarlo.
+- Incrocia fonti ufficiali; segnala conflitti e date.
+- Concludi con una tabella completa: voce, comune, indirizzo, URL, fonte.
+- Usa remember solo per un fatto stabile e ben documentato.`
+    : researchMode
     ? `MODALITA' RICERCA PROFONDA ATTIVA:
 - Esegui 2-3 search_web con query complementari.
 - Apri con read_url da 2 a 5 fonti pertinenti, privilegiando fonti ufficiali e recenti.
@@ -903,7 +921,7 @@ async function fetchPublicUrl(value, options, timeoutMs, signal, maxRedirects = 
 }
 
 function detectResearchMode(question, requestedMode = "auto") {
-  if (requestedMode === "deep") return true;
+  if (requestedMode === "deep" || requestedMode === "extended") return true;
   const text = normalizeLabel(question);
   return /(ricerca approfondita|deep research|cerca sul web|cerca online|verifica online|fonti aggiornate|quanto costa|prezzi? attuali|normativa aggiornata)/.test(text);
 }
@@ -1024,7 +1042,8 @@ async function executeTool(toolCall, context = {}) {
 
   switch (name) {
     case "search_web": {
-      if (context.state && context.state.searches >= MAX_SEARCH_CALLS) return "Budget ricerca raggiunto: sintetizza con le fonti gia' raccolte.";
+      const searchCap = context.limits?.searches ?? MAX_SEARCH_CALLS;
+      if (context.state && context.state.searches >= searchCap) return "Budget ricerca raggiunto: sintetizza con le fonti gia' raccolte.";
       if (context.state) context.state.searches += 1;
       const result = await executeSearchWeb(args.query || "", context.signal, context.kv);
       if (context.state && typeof result === "string" && result.startsWith("Nessun risultato")) {
@@ -1034,10 +1053,12 @@ async function executeTool(toolCall, context = {}) {
     }
     case "read_wiki":
       return await executeReadWiki(args.page || args.path || "", context.signal, context.kv);
-    case "read_url":
-      if (context.state && context.state.webReads >= MAX_WEB_READS) return "Budget lettura fonti raggiunto: sintetizza i risultati disponibili.";
+    case "read_url": {
+      const readCap = context.limits?.webReads ?? MAX_WEB_READS;
+      if (context.state && context.state.webReads >= readCap) return "Budget lettura fonti raggiunto: sintetizza i risultati disponibili.";
       if (context.state) context.state.webReads += 1;
       return await executeReadUrl(args.url || "", context.signal);
+    }
     case "save_doc": {
       if (!args.title || !args.content) return "Titolo e contenuto del documento sono obbligatori.";
       // Il documento finisce dritto nel PDF: il markup di tool e i blocchi
@@ -1429,10 +1450,18 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
     start(controller) {
       void (async () => {
         const startedAt = Date.now();
-        const researchMode = detectResearchMode(question, requestedMode);
+        const extendedMode = requestedMode === "extended";
+        const researchMode = extendedMode || detectResearchMode(question, requestedMode);
         const pdfRequested = detectPdfRequest(question);
-        const maxRounds = researchMode ? DEEP_RESEARCH_ROUNDS : QUICK_ROUNDS;
-        const maxDuration = researchMode ? 150_000 : 70_000;
+        const maxRounds = extendedMode ? EXTENDED_ROUNDS : researchMode ? DEEP_RESEARCH_ROUNDS : QUICK_ROUNDS;
+        const maxDuration = extendedMode ? EXTENDED_DURATION_MS : researchMode ? 150_000 : 70_000;
+        const limits = {
+          searches: extendedMode ? EXTENDED_SEARCH_CALLS : MAX_SEARCH_CALLS,
+          webReads: extendedMode ? EXTENDED_WEB_READS : MAX_WEB_READS,
+          toolCalls: extendedMode ? EXTENDED_TOOL_CALLS : MAX_TOOL_CALLS,
+        };
+        const minSearches = extendedMode ? 4 : 2;
+        const minWebReads = extendedMode ? 4 : 2;
         const documents = [];
         const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [], searchesEmpty: 0, finishReasons: [] };
         const usage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
@@ -1453,7 +1482,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
         };
 
         const status = (phase, label, detail = "") => emitSSE(controller, encoder, {
-          status: { phase, label, detail, mode: researchMode ? "deep" : "quick", round: rounds, maxRounds },
+          status: { phase, label, detail, mode: extendedMode ? "extended" : researchMode ? "deep" : "quick", round: rounds, maxRounds },
         });
 
         try {
@@ -1462,7 +1491,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             getMemory(env.SBARCO_KV),
             getChatHistory(env.SBARCO_KV, userId),
             getSummary(env.SBARCO_KV, userId),
-            buildSystemPrompt(env.SBARCO_KV, researchMode, userId),
+            buildSystemPrompt(env.SBARCO_KV, researchMode, userId, extendedMode),
           ]), controller, encoder);
           contextReadyMs = Date.now() - startedAt;
           history = loadedHistory;
@@ -1476,9 +1505,9 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             const elapsedBeforeStep = Date.now() - startedAt;
             if (elapsedBeforeStep > maxDuration - FINAL_RESERVE_MS) break;
             status("thinking", researchMode ? "Sbarco prepara le reti da ricerca…" : "Sbarco sta pensando…", `Passaggio ${rounds} di ${maxRounds}`);
-            const requiredTool = researchMode && state.searches < 2
+            const requiredTool = researchMode && state.searches < minSearches
               ? "search_web"
-              : researchMode && state.webReads < 2
+              : researchMode && state.webReads < minWebReads
                 ? "read_url"
                 : pdfRequested && documents.length === 0
                   ? "save_doc"
@@ -1507,7 +1536,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               state.toolCalls += toolCalls.length;
               state.toolSequence.push(...toolCalls.map(call => call.function?.name || "unknown"));
               status("tools", toolProgressLabel(toolCalls[0]), `${toolCalls.length} operazion${toolCalls.length === 1 ? "e" : "i"}`);
-              const allowed = state.toolCalls <= MAX_TOOL_CALLS;
+              const allowed = state.toolCalls <= limits.toolCalls;
               const results = await mapWithConcurrency(toolCalls, MAX_PARALLEL_TOOLS, async toolCall => {
                 if (!allowed) return "Budget strumenti esaurito: passa alla sintesi finale.";
                 return executeTool(toolCall, {
@@ -1516,6 +1545,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
                   signal: streamAbort.signal,
                   state,
                   documents,
+                  limits,
                 });
               });
               toolCalls.forEach((toolCall, index) => {
@@ -1527,12 +1557,12 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             }
 
             const candidate = String(message.content || "").trim();
-            if (researchMode && state.searches < 2 && round < maxRounds - 1) {
-              messages.push({ role: "system", content: "La ricerca profonda non e' completa: esegui almeno due search_web prima della risposta finale." });
+            if (researchMode && state.searches < minSearches && round < maxRounds - 1) {
+              messages.push({ role: "system", content: `La ricerca non e' completa: esegui almeno ${minSearches} search_web prima della risposta finale.` });
               continue;
             }
-            if (researchMode && state.webReads < 2 && round < maxRounds - 1) {
-              messages.push({ role: "system", content: "Hai cercato ma non verificato abbastanza fonti: usa read_url su almeno due risultati pertinenti." });
+            if (researchMode && state.webReads < minWebReads && round < maxRounds - 1) {
+              messages.push({ role: "system", content: `Hai cercato ma non verificato abbastanza fonti: usa read_url su almeno ${minWebReads} risultati pertinenti.` });
               continue;
             }
             if (candidate && choice.finish_reason !== "length") {
@@ -1571,7 +1601,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
           ensureRequestedPdfDocument(pdfRequested, documents, finalText);
           if (documents.length > 0) emitSSE(controller, encoder, { documents });
           const metrics = {
-            mode: researchMode ? "deep" : "quick",
+            mode: extendedMode ? "extended" : researchMode ? "deep" : "quick",
             tier,
             model,
             rounds,
@@ -2117,9 +2147,9 @@ export default {
           }
         }
 
-        if (!["auto", "deep"].includes(mode)) {
+        if (!["auto", "deep", "extended"].includes(mode)) {
           return new Response(
-            JSON.stringify({ error: "Modalita' non valida. Usa auto o deep." }),
+            JSON.stringify({ error: "Modalita' non valida. Usa auto, deep o extended." }),
             { status: 400, headers: corsHeaders }
           );
         }
@@ -2131,7 +2161,7 @@ export default {
             { status: 400, headers: corsHeaders }
           );
         }
-        const cost = getMessageCost(userId, tier);
+        const cost = getMessageCost(userId, tier, mode);
         const model = resolveChatModel(env, tier);
         const deepseekBaseUrl = String(env.DEEPSEEK_BASE_URL || "").replace(/\/+$/, "") || "https://api.deepseek.com/v1";
 
@@ -2151,14 +2181,17 @@ export default {
           });
         }
 
-        // Rate limit check
+        // Rate limit check. Ricerca estesa: basta 1 credito per partire; si
+        // consuma min(costo, residuo) e la richiesta procede comunque fino in
+        // fondo (mai bloccata a metà per quota).
+        const quota = getDailyQuota(userId);
+        const entryNeed = mode === "extended" ? 1 : cost;
         let currentRateCount = null;
         if (env.SBARCO_KV) {
-          const rate = await checkRateLimit(env.SBARCO_KV, userId, cost);
+          const rate = await checkRateLimit(env.SBARCO_KV, userId, entryNeed);
           currentRateCount = rate.count;
           if (!rate.allowed) {
             const remainingNow = getRemainingToday(userId, rate.count);
-            const quota = getDailyQuota(userId);
             const error = remainingNow <= 0
               ? `Limite giornaliero raggiunto (${quota.max} crediti). Torna domani!`
               : `Pro costa ${PRO_CREDIT_COST} crediti, ne hai ${remainingNow}. Usa Base o torna domani.`;
@@ -2171,8 +2204,11 @@ export default {
 
         // Consume credits when the request is accepted, then open the
         // SSE response immediately. Context loading and research happen inside it.
+        const charged = quota.unlimited ? 0 : mode === "extended"
+          ? Math.min(cost, getRemainingToday(userId, currentRateCount ?? 0))
+          : cost;
         const newCount = env.SBARCO_KV
-          ? await incrementRateLimit(env.SBARCO_KV, userId, currentRateCount, cost)
+          ? await incrementRateLimit(env.SBARCO_KV, userId, currentRateCount, charged)
           : 0;
         const remaining = env.SBARCO_KV
           ? getRemainingToday(userId, newCount)
@@ -2188,7 +2224,7 @@ export default {
           remaining,
           requestSignal: request.signal,
           tier,
-          refundCredits: env.SBARCO_KV ? () => decrementRateLimit(env.SBARCO_KV, userId, cost) : null,
+          refundCredits: env.SBARCO_KV ? () => decrementRateLimit(env.SBARCO_KV, userId, charged) : null,
           deepseekBaseUrl,
         });
 
@@ -2230,7 +2266,7 @@ export default {
             tiziano: "unlimited",
             antonio: MAX_DAILY_MESSAGES,
             peppe: MAX_DAILY_MESSAGES,
-            credits: { base: 1, pro: PRO_CREDIT_COST },
+            credits: { base: 1, pro: PRO_CREDIT_COST, extended: { base: EXTENDED_BASE_COST, pro: EXTENDED_PRO_COST } },
           },
           models: {
             base: BASE_MODEL,
@@ -2276,6 +2312,15 @@ export const __test = {
   outputTokenBudgets: {
     agentStep: AGENT_STEP_TOKENS,
     finalResponse: FINAL_RESPONSE_TOKENS,
+  },
+  extendedBudgets: {
+    rounds: EXTENDED_ROUNDS,
+    searches: EXTENDED_SEARCH_CALLS,
+    webReads: EXTENDED_WEB_READS,
+    toolCalls: EXTENDED_TOOL_CALLS,
+    durationMs: EXTENDED_DURATION_MS,
+    baseCost: EXTENDED_BASE_COST,
+    proCost: EXTENDED_PRO_COST,
   },
   syntheticStreamChars: SYNTHETIC_STREAM_CHARS,
   syntheticStreamDelayMs: SYNTHETIC_STREAM_DELAY_MS,

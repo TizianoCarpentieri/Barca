@@ -15,8 +15,16 @@ const LS_KEY = "barca_user";
 const LS_TIER = "barca_sbarco_tier";
 const LS_TIZIANO_SESSION = "barca_tiziano_session";
 const PRO_CREDIT_COST = 2;
+const EXTENDED_BASE_COST = 3;
+const EXTENDED_PRO_COST = 5;
 const SESSION_SKEW_MS = 30_000;
 const MAX_DAILY = 5;
+const MODE_ORDER = ["auto", "deep", "extended"];
+const MODE_COPY = {
+  auto: { strong: "Risposta rapida", small: "Wiki e contesto del progetto" },
+  deep: { strong: "Ricerca profonda", small: "Web e fonti incrociate" },
+  extended: { strong: "Ricerca estesa", small: "Censimenti e multi-località" },
+};
 
 (function () {
   if (document.querySelector(".sbarco-root")) return;
@@ -83,6 +91,8 @@ const MAX_DAILY = 5;
   const inputForm = root.querySelector(".sbarco-input-wrap");
   const modeBtn = root.querySelector(".sbarco-mode");
   const modeHint = root.querySelector(".sbarco-mode__hint");
+  const modeCopyStrong = root.querySelector(".sbarco-mode__copy strong");
+  const modeCopySmall = root.querySelector(".sbarco-mode__copy small");
   const tierBar = root.querySelector(".sbarco-tier");
   const tierBtns = [...root.querySelectorAll(".sbarco-tier__btn")];
   const tierCostEl = root.querySelector(".sbarco-tier__cost");
@@ -91,7 +101,7 @@ const MAX_DAILY = 5;
   let isSending = false;
   let currentUser = initialUser;
   let remaining = MAX_DAILY;
-  let deepMode = false;
+  let modeState = "auto";
   let chatTier = localStorage.getItem(LS_TIER) === "pro" ? "pro" : "base";
   let activeController = null;
 
@@ -109,6 +119,7 @@ const MAX_DAILY = 5;
 
   function messageCost() {
     if (isUnlimitedUser(currentUser)) return 0;
+    if (modeState === "extended") return chatTier === "pro" ? EXTENDED_PRO_COST : EXTENDED_BASE_COST;
     return chatTier === "pro" ? PRO_CREDIT_COST : 1;
   }
 
@@ -142,28 +153,42 @@ const MAX_DAILY = 5;
   function syncControls() {
     const unlimited = isUnlimitedUser(currentUser);
     const cost = messageCost();
-    const canAfford = unlimited || remaining >= Math.max(cost, 1);
+    // Ricerca estesa: basta 1 credito per partire (il worker consuma
+    // min(costo, residuo) e completa comunque la richiesta).
+    const entryCost = modeState === "extended" ? 1 : cost;
+    const canAfford = unlimited || remaining >= Math.max(entryCost, 1);
     const canChat = Boolean(currentUser) && (unlimited || remaining > 0) && canAfford;
     const proBtn = tierBtns.find((btn) => btn.getAttribute("data-tier") === "pro");
     inputEl.disabled = isSending || !canChat;
     modeBtn.disabled = isSending || !currentUser || (!unlimited && remaining <= 0);
     tierBtns.forEach((btn) => { btn.disabled = isSending || !currentUser; });
-    if (proBtn) proBtn.disabled = isSending || !currentUser || (!unlimited && remaining < PRO_CREDIT_COST);
-    if (tierCostEl) tierCostEl.hidden = unlimited;
+    if (proBtn) proBtn.disabled = isSending || !currentUser || (!unlimited && remaining < (modeState === "extended" ? 1 : PRO_CREDIT_COST));
+    if (tierCostEl) {
+      tierCostEl.hidden = unlimited;
+      tierCostEl.textContent = modeState === "extended" ? `${EXTENDED_PRO_COST}×` : `${PRO_CREDIT_COST}×`;
+    }
     userSelect.disabled = isSending;
     sendBtn.disabled = !currentUser || (!isSending && !canChat);
     sendBtn.textContent = isSending ? "Ferma" : "Invia";
     sendBtn.classList.toggle("is-stop", isSending);
     const tierLabel = chatTier === "pro" ? "Pro" : "Base";
-    modeHint.textContent = deepMode
-      ? `${tierLabel} · ricerca profonda`
-      : `${tierLabel} · risposta rapida`;
+    const copy = MODE_COPY[modeState] || MODE_COPY.auto;
+    if (modeCopyStrong) modeCopyStrong.textContent = copy.strong;
+    if (modeCopySmall) modeCopySmall.textContent = copy.small;
+    modeBtn.setAttribute("aria-pressed", String(modeState !== "auto"));
+    modeBtn.classList.toggle("is-active", modeState !== "auto");
+    modeHint.textContent = modeState === "extended"
+      ? `${tierLabel} · estesa (${EXTENDED_BASE_COST}/${EXTENDED_PRO_COST} crediti, basta 1 per partire)`
+      : modeState === "deep"
+        ? `${tierLabel} · ricerca profonda`
+        : `${tierLabel} · risposta rapida`;
     if (!currentUser) inputEl.placeholder = "Seleziona chi sei per iniziare";
     else if (!unlimited && remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
-    else if (!unlimited && chatTier === "pro" && remaining < PRO_CREDIT_COST) {
+    else if (!unlimited && chatTier === "pro" && remaining < PRO_CREDIT_COST && modeState !== "extended") {
       inputEl.placeholder = `Pro costa ${PRO_CREDIT_COST} crediti (ne hai ${remaining})`;
     }
-    else if (deepMode) inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
+    else if (modeState === "extended") inputEl.placeholder = "Censimento o ricerca multi-località: si completa sempre";
+    else if (modeState === "deep") inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
     else inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
   }
 
@@ -359,9 +384,8 @@ const MAX_DAILY = 5;
 
   modeBtn.addEventListener("click", () => {
     if (isSending) return;
-    deepMode = !deepMode;
-    modeBtn.setAttribute("aria-pressed", String(deepMode));
-    modeBtn.classList.toggle("is-active", deepMode);
+    const nextIndex = (MODE_ORDER.indexOf(modeState) + 1) % MODE_ORDER.length;
+    modeState = MODE_ORDER[nextIndex];
     syncControls();
     inputEl.focus();
   });
@@ -405,11 +429,14 @@ const MAX_DAILY = 5;
     syncControls();
 
     addMsg("user", text, currentUser);
-    const progress = addProgress(deepMode
-      ? "Sbarco cala le reti per la ricerca profonda…"
-      : "Sbarco consulta la wiki delle Bestie…");
+    const progress = addProgress(modeState === "extended"
+      ? "Sbarco issa tutte le vele: ricerca estesa in corso…"
+      : modeState === "deep"
+        ? "Sbarco cala le reti per la ricerca profonda…"
+        : "Sbarco consulta la wiki delle Bestie…");
     let responseStarted = false;
-    const timeout = setTimeout(() => activeController?.abort("client-timeout"), 240_000);
+    // L'estesa può arrivare a 300 s + sintesi: il client non la uccide prima.
+    const timeout = setTimeout(() => activeController?.abort("client-timeout"), modeState === "extended" ? 420_000 : 240_000);
 
     try {
       const chatUrl = `${SBARCO_WORKER}/api/chat`;
@@ -419,7 +446,7 @@ const MAX_DAILY = 5;
         body: JSON.stringify({
           userId: currentUser,
           question: text,
-          mode: deepMode ? "deep" : "auto",
+          mode: modeState === "auto" ? "auto" : modeState,
           tier: chatTier,
         }),
         signal: activeController.signal,

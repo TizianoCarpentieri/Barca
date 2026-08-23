@@ -119,6 +119,22 @@ test("Base usa Flash e Pro usa deepseek-v4-pro; i compari pagano 2 crediti su Pr
   assert.equal(__test.getMessageCost("tiziano", "pro"), 0);
   assert.equal(__test.getMessageCost("antonio", "base"), 1);
   assert.equal(__test.getMessageCost("peppe", "pro"), 2);
+  assert.equal(__test.getMessageCost("antonio", "base", "extended"), 3, "ricerca estesa Base = 3 crediti");
+  assert.equal(__test.getMessageCost("peppe", "pro", "extended"), 5, "ricerca estesa Pro = 5 crediti");
+  assert.equal(__test.getMessageCost("tiziano", "pro", "extended"), 0, "Tiziano resta illimitato anche in estesa");
+});
+
+test("ricerca estesa: budget ampi ma sempre delimitati", () => {
+  assert.deepEqual(__test.extendedBudgets, {
+    rounds: 12,
+    searches: 12,
+    webReads: 16,
+    toolCalls: 48,
+    durationMs: 300_000,
+    baseCost: 3,
+    proCost: 5,
+  });
+  assert.equal(__test.detectResearchMode("Domanda normale", "extended"), true);
 });
 
 test("Pro con un solo credito rimasto viene rifiutato e non scala il contatore", async () => {
@@ -1307,4 +1323,86 @@ test("la session Tiziano non riscrive KV finché resta più di 1/3 del TTL", asy
   const renewed = await __test.verifyTizianoSession(issued.sessionToken, env);
   assert.ok(renewed.expiresAt > Date.now() + 25 * 60 * 1000, "il rinnovo riporta la sessione a 30 minuti");
   assert.equal(writesByKey.get(sessionKey) || 0, writesAfterIssue + 1, "renew scritto una sola volta");
+});
+
+test("ricerca estesa: parte con meno crediti del costo e consuma solo il residuo", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  const rateKey = __test.getRateLimitKey("antonio");
+  store.set(rateKey, "3"); // rimangono 2 crediti su 5: costo estesa Base = 3
+  let agentCalls = 0;
+  globalThis.fetch = async (input) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Censimento completato con fonti verificate." } }],
+        usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "antonio", question: "Censimento dei porti del litorale", mode: "extended" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /"mode":"extended"/);
+    assert.match(body, /"rounds":12/);
+    assert.match(body, /Censimento completato con fonti verificate/);
+    assert.match(body, /"done":true/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 12, "l'estesa usa fino a 12 round agente");
+    assert.equal(store.get(rateKey), "5", "consuma min(costo, residuo) = 2 crediti e non blocca la richiesta");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("ricerca estesa con zero crediti viene rifiutata prima di partire", async () => {
+  const store = new Map([[__test.getRateLimitKey("peppe"), "5"]]);
+  const kv = {
+    async get(key) { return store.get(key) ?? null; },
+    async put(key, value) { store.set(key, String(value)); },
+  };
+  const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ userId: "peppe", question: "Censimento dei porti", mode: "extended" }),
+  }), { SBARCO_KV: kv, DEEPSEEK_API_KEY: "test-key", ALLOWED_ORIGIN: "*", TIZIANO_PASSKEY_TEST_BYPASS: "true" }, {});
+  assert.equal(response.status, 429);
+  const body = await response.json();
+  assert.match(body.error, /Limite giornaliero/i);
+  assert.equal(store.get(__test.getRateLimitKey("peppe")), "5");
+});
+
+test("modalita' sconosciuta: 400 esplicito", async () => {
+  const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ userId: "antonio", question: "Ciao", mode: "foo" }),
+  }), { SBARCO_KV: null, DEEPSEEK_API_KEY: "test-key", ALLOWED_ORIGIN: "*", TIZIANO_PASSKEY_TEST_BYPASS: "true" }, {});
+  assert.equal(response.status, 400);
+  const body = await response.json();
+  assert.match(body.error, /auto, deep o extended/i);
 });
