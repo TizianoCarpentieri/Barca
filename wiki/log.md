@@ -640,3 +640,13 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - P4: DEEPSEEK_BASE_URL configurabile da env.
 - Test: 53/53 verdi in locale (isolamento in-process per il sandbox; la CI gira npm test completo); 11 test nuovi per retry, rimborso, cache, budget, rate limit e session sliding.
 - Docs: architettura-sbarco aggiornata (protezioni runtime + affidabilità chiamate), piano con stato di esecuzione.
+
+## [2026-08-23] deploy | Versione migliorata online: worker + sito con smoke verde
+
+- Commit `dece80e` pushato su main: CI GitHub Actions ha eseguito `npm ci`, `node --check`, `npm test` completo e deployato il Worker Cloudflare; Pages ha ribuildato e pubblicato il sito.
+- Prova del nuovo Worker live: `/api/status` senza più `diagMarker`/`diagKvProbe` (i vecchi build li esponevano).
+- Smoke chat rapida (antonio, base): risposta OK in ~1,8 s (1 round, prompt 8.008 token, `done:true`, nessun errore); credito scalato 5→4.
+- Smoke ricerca profonda (peppe, base): OK in ~14,9 s — 4 round, 3 ricerche, 2 fonti lette, 6 tool call, `finishReasons` tutti senza "length", `finalRetry: 0`, `lastAgentPromptTokens: 10.491` (la verifica 2 ora è misurabile), 1 ricerca a vuoto (`searchesEmpty: 1` → la cache DDG mitiga le ripetizioni); credito scalato 5→4.
+- Sito live verificato: bundle `app-BlwatF1t.js` contiene il nuovo flusso enroll (POST con codice nel body).
+- Decisioni di gruppo registrate: quota Antonio/Peppe senza PIN accettata; deep mode resta a 1 credito.
+- Prossime osservazioni da /debug nei prossimi giorni: verifiche 1, 6, 7, 9 (vincoli CF, volume KV, thinking Pro, memoria).
