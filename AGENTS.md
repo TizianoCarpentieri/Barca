@@ -68,7 +68,8 @@ Barca/
 ├── contratto/                # CANTIERE PATTO + costi a norma
 │   ├── agentContratto.md     # mandato agente sul patto
 │   ├── bozza-patto-v1.md     # testo patto tra amici
-│   └── prospetto-costi-a-norma.md  # leggi + costi iniziali/fissi obbligatori
+│   ├── prospetto-costi-a-norma.md  # leggi + costi iniziali/fissi obbligatori
+│   └── dati/                 # dati strutturati (es. punti varo Lazio)
 ├── wiki/                     # KNOWLEDGE BASE (agente scrive)
 │   ├── index.md              # catalogo di tutte le pagine
 │   ├── log.md                # diario append-only
@@ -80,11 +81,16 @@ Barca/
 │   │   ├── budget.md         # range e split costi
 │   │   └── open-questions.md # cose da chiarire ancora
 │   ├── normativa/            # patente, limiti potenza/lunghezza, immatricolazione…
-│   ├── concetti/             # scafo, motore, pesca, rimessaggio…
+│   ├── concetti/             # scafo, motore, pesca, rimessaggio… (e architettura-sbarco)
 │   ├── modelli/              # una pagina per modello/marca valutato
 │   ├── confronti/            # tabelle e analisi side-by-side
 │   ├── mercato/              # zone, dealer, usati, prezzi osservati
-│   └── sintesi/              # decisioni, shortlist, next steps
+│   └── sintesi/              # decisioni, shortlist, contesto-sbarco
+├── presentazione/            # sito pubblico (Vite): annunci, documenti, nodi, widget Sbarco
+│   └── src/js/sbarco*.js     # client Sbarco: chat, stream, markdown, PDF
+├── worker/                   # Cloudflare Worker Sbarco: API chat, quote, memoria, thinking Pro
+├── docs/                     # design spec e piani (superpowers)
+├── scripts/                  # lint wiki e utilità repo
 ├── graphify-out/             # output grafo (generato)
 └── .opencode/                # skill, plugin, config
 ```
