@@ -1,7 +1,7 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-22
+updated: 2026-08-23
 status: active
 tags: [sbarco, bot, deep-research, worker]
 sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
@@ -42,9 +42,17 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
 - I round intermedi mantengono il margine collaudato di 1.000 token; la sintesi
   finale dispone di 2.600 token. I risparmi riguardano il prompt in ingresso,
   non il tetto dell'output visibile, per evitare Markdown o tabelle troncati.
-- Il `thinking` DeepSeek resta disattivato in tutti i round per compatibilità
-  con `tool_choice`; la profondità deriva dalla sequenza obbligatoria di
-  ricerche e letture, non da token di ragionamento nascosti.
+- Il `thinking` DeepSeek è **disattivato nei round con strumenti** (incompatibilità
+  nota V4 con `tool_choice` nel loop agente) ma è **attivo sulla sintesi finale Pro**
+  (`tool_choice: "none"`, con `reasoning_effort: "high"`). Se il provider rifiuta il
+  parametro, un solo retry senza thinking: metriche `thinking: on/off/fallback`.
+- Su Pro il candidate del loop agente non diventa più la risposta finale: si passa
+  sempre alla sintesi in streaming con thinking. Su Base resta il percorso diretto.
+- Il ragionamento della sintesi Pro arriva come evento SSE dedicato `{reasoning: "…"}`
+  e il client lo mostra nel blocco ripiegabile "Come ho ragionato", aperto durante il
+  ragionamento e richiuso al primo token della risposta. Mai fuso nel testo visibile.
+- La profondità di Base deriva dalla sequenza obbligatoria di ricerche e letture,
+  non da token di ragionamento.
 - Ogni evento persistito in `/debug` separa `contextReadyMs`, `firstAgentMs`,
   `firstTokenMs` ed `elapsedMs`, così un rallentamento è localizzabile.
 - `/debug` registra anche token effettivi cumulativi, stima caratteri/token del
@@ -68,6 +76,11 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
   (`<|DSML|function_calls>…` oppure `<|tool_calls>…` senza prefisso) vengono
   estratte, eseguite come tool veri e mai mostrate all'utente; lo stesso
   markup viene rimosso da ogni testo candidato.
+- La sanificazione (`stripToolCallMarkup`) copre anche le varianti con pipe
+  fullwidth (`｜`, `▁`) e i blocchi `<think>…</think>` (aperti o chiusi) e
+  **preserva gli a-capo** del testo visibile: la risposta resta markdown
+  strutturata anche quando nasce in un round agente. Vale per candidate,
+  sintesi in streaming, retry e contenuto `save_doc`.
 - Anche la sintesi finale in streaming filtra riga per riga il markup di
   chiamate strumenti. Se dopo il filtro il testo e' vuoto o minimo, il Worker
   ritenta una sola volta la sintesi senza strumenti e senza tag; se fallisce
@@ -99,7 +112,8 @@ Scelta nel widget, indipendente da rapida/profonda. Il Worker accetta `tier`.
 | **Base** (default) | `deepseek-v4-flash` (`DEEPSEEK_MODEL`) | 1 (compari) · 0 Tiziano |
 | **Pro** | `deepseek-v4-pro` (`DEEPSEEK_MODEL_PRO`) | **2** (compari) · 0 Tiziano |
 
-Il `thinking` resta disattivato anche su Pro (`tool_choice`). Client vecchi senza `tier` restano su Base.
+Il `thinking` è attivo sulla sintesi finale di Pro (vedi sopra); i round con strumenti
+restano non-thinking. Client vecchi senza `tier` restano su Base.
 
 ## Quote giornaliere
 

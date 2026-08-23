@@ -91,6 +91,20 @@ test("il widget espone Base e Pro e i compari pagano 2 crediti su Pro", async ()
   assert.match(source, /Pro costa \$\{PRO_CREDIT_COST\} crediti/);
 });
 
+test("il ragionamento Pro strema in un blocco ripiegabile separato dalla risposta", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  assert.match(source, /if \(data\.reasoning\)/);
+  assert.match(source, /sbarco-reasoning/);
+  assert.match(source, /Come ho ragionato/);
+  assert.match(source, /reasoningEl\.open = false/);
+  assert.match(source, /reasoningBody\.textContent \+= data\.reasoning/);
+  assert.match(source, /meta\.thinking === "on"/);
+  const css = await readFile(new URL("../src/styles/sbarco.css", import.meta.url), "utf8");
+  assert.match(css, /\.sbarco-reasoning__body/);
+  assert.match(css, /sbarco-reasoning-pulse/);
+  assert.match(css, /prefers-reduced-motion/);
+});
+
 test("genera un PDF multipagina valido con tabella e fonti", () => {
   const content = `# 🎯 Analisi bundle
 

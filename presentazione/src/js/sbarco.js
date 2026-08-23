@@ -467,6 +467,8 @@ const MAX_DAILY = 5;
   async function handleStream(resp, progress) {
     let msgDiv = null;
     let bodyEl = null;
+    let reasoningEl = null;
+    let reasoningBody = null;
     const reader = resp.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
@@ -475,15 +477,36 @@ const MAX_DAILY = 5;
     let answerMeta = null;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const ensureAnswer = () => {
+    const ensureMessage = () => {
       if (msgDiv) return;
       progress.remove();
       msgDiv = document.createElement("article");
       msgDiv.className = "sbarco-msg sbarco-msg--sbarco is-streaming";
+      msgsEl.appendChild(msgDiv);
+    };
+
+    // Su Pro il thinking strema qui sopra la risposta: blocco ripiegabile,
+    // aperto mentre ragiona e richiuso quando arriva il primo token utile.
+    const ensureReasoning = () => {
+      if (reasoningEl) return;
+      ensureMessage();
+      reasoningEl = document.createElement("details");
+      reasoningEl.className = "sbarco-reasoning";
+      reasoningEl.open = true;
+      const summary = document.createElement("summary");
+      summary.textContent = "Come ho ragionato";
+      reasoningBody = document.createElement("div");
+      reasoningBody.className = "sbarco-reasoning__body";
+      reasoningEl.append(summary, reasoningBody);
+      msgDiv.appendChild(reasoningEl);
+    };
+
+    const ensureAnswer = () => {
+      if (bodyEl) return;
+      ensureMessage();
       bodyEl = document.createElement("div");
       bodyEl.className = "sbarco-msg__body";
       msgDiv.appendChild(bodyEl);
-      msgsEl.appendChild(msgDiv);
     };
 
     const reveal = createStreamReveal({
@@ -505,7 +528,16 @@ const MAX_DAILY = 5;
           return;
         }
         if (data.status) progress.update(data.status.label, data.status.detail, data.status.round, data.status.maxRounds);
-        if (data.token) reveal.push(data.token);
+        if (data.reasoning) {
+          ensureReasoning();
+          reasoningBody.textContent += data.reasoning;
+          if (isNearBottom()) scrollToBottom();
+          return;
+        }
+        if (data.token) {
+          if (reasoningEl?.open) reasoningEl.open = false;
+          reveal.push(data.token);
+        }
         if (data.documents) data.documents.forEach(addDocumentMsg);
         if (data.meta) answerMeta = data.meta;
         if (data.error) {
@@ -585,6 +617,7 @@ const MAX_DAILY = 5;
         meta.tier === "pro" ? "Pro" : "Base",
         meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida",
       ];
+      if (meta.thinking === "on") parts.push("thinking");
       if (meta.sourcesRead) parts.push(`${meta.sourcesRead} fonti lette`);
       if (meta.elapsedMs) parts.push(`${(meta.elapsedMs / 1000).toFixed(1)} s`);
       info.textContent = parts.join(" · ");

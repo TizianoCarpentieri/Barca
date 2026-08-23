@@ -29,7 +29,7 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 - **Piano B:** scafo rigido a motore soltanto con ≥5 soci e preventivi reali.
 - **Gruppo:** Tiziano, Antonio e Peppe sul gommone. Sul sogno vela il nucleo più probabile è Tiziano+Antonio; altri soci (Matteo, Giulia, padre di Giulia, Paolo) **benvenuti**. Peppe in chat 20 ago risulta freddo sul cabinato.
 - **Uso:** 3 comodi per pesca; fino a ~6 solo picco sociale.
-- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2. Worker `2.3.0`.
+- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2. Worker `2.4.0`: su Pro la risposta passa sempre dalla sintesi finale con thinking attivo (blocco ripiegabile "Come ho ragionato" in chat); su Base percorso diretto.
 
 ## Vincoli economici e tecnici
 

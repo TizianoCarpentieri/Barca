@@ -165,6 +165,8 @@ test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async (
     remaining: 5,
     unlimited: false,
     policyVersion: __test.rateLimitPolicyVersion,
+    diagMarker: "probe-v1",
+    diagKvProbe: "null",
   });
 
   const tizianoResponse = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano"), {
@@ -180,6 +182,8 @@ test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async (
     remaining: null,
     unlimited: true,
     policyVersion: __test.rateLimitPolicyVersion,
+    diagMarker: "probe-v1",
+    diagKvProbe: "null",
   });
 });
 
@@ -817,4 +821,212 @@ test("OPTIONS espone Allow-Headers session e Expose-Headers token", async () => 
   const expose = response.headers.get("Access-Control-Expose-Headers") || "";
   assert.match(expose, /X-Tiziano-Session-Token/i);
   assert.match(expose, /X-Tiziano-Session-Expires/i);
+});
+
+test("stripToolCallMarkup preserva gli a-capo del testo visibile", () => {
+  const content = [
+    "## Conclusione",
+    "",
+    "- punto uno",
+    "- punto due",
+    "",
+    "<|tool_calls>",
+    '<|invoke name="read_wiki">',
+    '<|parameter name="path" string="true">wiki/x.md</|parameter>',
+    "</|invoke>",
+    "</|tool_calls>",
+    "",
+    "Fonte: https://example.com/fonte",
+  ].join("\n");
+  const clean = __test.stripToolCallMarkup(content);
+  assert.match(clean, /^## Conclusione\n\n- punto uno\n- punto due/);
+  assert.match(clean, /Fonte: https:\/\/example\.com\/fonte$/);
+  assert.doesNotMatch(clean, /tool_calls|invoke|parameter/);
+  assert.ok(clean.includes("\n"), "il markdown sanitizzato conserva gli a-capo");
+});
+
+test("stripToolCallMarkup rimuove i blocchi think, anche non chiusi", () => {
+  assert.equal(__test.stripToolCallMarkup("<think>ragiono\nsu tutto</think>\nRisposta."), "Risposta.");
+  assert.equal(__test.stripToolCallMarkup("<think>ragionamento che non finisce mai\nRisposta?"), "");
+  assert.equal(__test.stripToolCallMarkup("Prima.\n<think>x</think>\nDopo."), "Prima.\n\nDopo.");
+  assert.equal(__test.stripToolCallMarkup("Solo <think>inline</think> testo."), "Solo testo.");
+});
+
+test("stripToolCallMarkup rimuove anche il markup con pipe fullwidth", () => {
+  assert.equal(
+    __test.stripToolCallMarkup("Risposta <｜tool▁calls｜>sporca</｜tool▁calls｜> pulita"),
+    "Risposta pulita"
+  );
+  assert.equal(__test.stripToolCallMarkup("Vedi <｜end｜>tag orfano<｜/end｜> resto."), "Vedi tag orfano resto.");
+});
+
+test("il filtro riga scarta anche i blocchi think su piu righe", () => {
+  const filter = __test.createMarkupLineFilter();
+  assert.equal(filter("Testo pulito\n"), "Testo pulito\n");
+  assert.equal(filter("<think>\n"), "");
+  assert.equal(filter("ragionamento interno\n"), "");
+  assert.equal(filter("</think>\n"), "");
+  assert.equal(filter("Risposta vera.\n"), "Risposta vera.\n");
+});
+
+test("save_doc sanifica titolo e contenuto mantenendo gli a-capo", async () => {
+  const documents = [];
+  const output = await __test.executeTool({
+    function: {
+      name: "save_doc",
+      arguments: JSON.stringify({
+        title: "Piano <think>boh</think> Bestie",
+        content: "## Titolo\n\n- punto uno\n<|tool_calls>sporco</|tool_calls>\n- punto due",
+      }),
+    },
+  }, { documents });
+  assert.equal(documents[0].title, "Piano Bestie");
+  assert.equal(documents[0].content, "## Titolo\n\n- punto uno\n\n- punto due");
+  assert.match(output, /Documento "Piano Bestie" preparato/);
+});
+
+test("Pro risponde sempre con la sintesi thinking e strema il ragionamento", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let agentCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.response_format) {
+        return Response.json({ choices: [{ message: { content: '{"facts":[]}' } }] });
+      }
+      agentCalls += 1;
+      if (!body.stream) {
+        assert.equal(body.thinking.type, "disabled");
+        assert.equal("reasoning_effort" in body, false);
+        return Response.json({
+          choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Bozza preliminare del piano." } }],
+          usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 },
+        });
+      }
+      assert.equal(body.thinking.type, "enabled");
+      assert.equal(body.reasoning_effort, "high");
+      assert.equal(body.tool_choice, "none");
+      const encoder = new TextEncoder();
+      const frames = [
+        { choices: [{ delta: { reasoning_content: "Verifico budget e lunghezza del gommone." } }] },
+        { choices: [{ delta: { content: "## Conclusione\n\nIl piano regge: bundle entro **2.000 euro** con motore da 15 CV.\n\nFonte: wiki/sintesi/contesto-sbarco.md" } }] },
+        { choices: [{ delta: {} }], usage: { prompt_tokens: 20, completion_tokens: 30, total_tokens: 50 } },
+      ].map(event => `data: ${JSON.stringify(event)}\n\n`).join("") + "data: [DONE]\n\n";
+      return new Response(new ReadableStream({
+        start(controller) { controller.enqueue(encoder.encode(frames)); controller.close(); },
+      }), { status: 200, headers: { "content-type": "text/event-stream" } });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Riassumi il piano", mode: "auto", tier: "pro" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      DEEPSEEK_MODEL_PRO: "deepseek-v4-pro",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /"reasoning":"Verifico budget e lunghezza del gommone\."/);
+    assert.match(body, /Il piano regge: bundle entro \*\*2\.000 euro\*\*/);
+    assert.match(body, /"thinking":"on"/);
+    assert.match(body, /"tier":"pro"/);
+    assert.match(body, /Sbarco sta riflettendo a fondo/);
+    assert.doesNotMatch(body, /Bozza preliminare del piano/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 2, "round agente + sola sintesi thinking su Pro");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("se il provider rifiuta il thinking la sintesi Pro degrada senza errori", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let synthesisCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.response_format) {
+        return Response.json({ choices: [{ message: { content: '{"facts":[]}' } }] });
+      }
+      if (!body.stream) {
+        return Response.json({
+          choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Bozza preliminare." } }],
+          usage: { prompt_tokens: 10, completion_tokens: 4, total_tokens: 14 },
+        });
+      }
+      synthesisCalls += 1;
+      if (synthesisCalls === 1) {
+        assert.equal(body.thinking.type, "enabled");
+        return new Response(JSON.stringify({ error: "thinking non compatibile con la chiamata" }), { status: 400 });
+      }
+      assert.equal(body.thinking.type, "disabled");
+      assert.equal("reasoning_effort" in body, false);
+      const encoder = new TextEncoder();
+      const frames = [
+        { choices: [{ delta: { content: "## Conclusione\n\nRisposta di fallback senza thinking, comunque completa e ben formattata.\n\nFonte: wiki" } }] },
+        { choices: [{ delta: {} }], usage: { prompt_tokens: 15, completion_tokens: 20, total_tokens: 35 } },
+      ].map(event => `data: ${JSON.stringify(event)}\n\n`).join("") + "data: [DONE]\n\n";
+      return new Response(new ReadableStream({
+        start(controller) { controller.enqueue(encoder.encode(frames)); controller.close(); },
+      }), { status: 200, headers: { "content-type": "text/event-stream" } });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Riassumi il piano", mode: "auto", tier: "pro" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /Risposta di fallback senza thinking/);
+    assert.match(body, /"thinking":"fallback"/);
+    assert.doesNotMatch(body, /"reasoning"/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+    assert.equal(synthesisCalls, 2, "un solo tentativo thinking poi il fallback");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });

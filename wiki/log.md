@@ -6,6 +6,25 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-23] fix(sbarco) | Thinking attivo su Pro + formattazione output ripristinata
+
+- Root cause "muro di testo" (soprattutto su Pro): `stripToolCallMarkup` collassava
+  `\s+` in spazio → ogni risposta nata in un round agente perdeva tutti gli a-capo,
+  markdown piatto anche nei PDF derivati. Riscritta: **preserva i newline**, copre
+  pipe fullwidth (`｜`,`▁`) e blocchi `<think>` (aperti/chiusi). Stesso trattamento
+  per candidate, sintesi streaming, retry e `save_doc`.
+- Thinking riattivato su Pro **solo sulla sintesi finale** (`tool_choice: none`,
+  compatibile V4): il candidate del loop non è più risposta finale su Pro; round
+  con strumenti restano non-thinking. Fallback automatico senza thinking se il
+  provider rifiuta (400/422) → metriche `thinking: on/off/fallback`.
+- Nuovo evento SSE `{reasoning}`: il ragionamento strema nel blocco ripiegabile
+  "Come ho ragionato" (aperto durante il thinking, richiuso al primo token),
+  mai fuso nella risposta. Chip `thinking` nella meta row.
+- Prompt: contratto anti muro di testo (titoli ##, elenchi, grassetti; mai blocco
+  unico). Worker **2.4.0**. Test: worker 42/42, presentazione 36/36.
+- Design: `docs/superpowers/specs/2026-08-23-sbarco-thinking-formattazione-design.md`.
+  Doc: [[concetti/architettura-sbarco]] · [[sintesi/contesto-sbarco]].
+
 ## [2026-08-22] fix(sbarco) | Markup tool call mai in chat: formato direct-call + sintesi finale filtrata
 
 - Riprodotto live (Pro + ricerca profonda): la sintesi finale trasmetteva in

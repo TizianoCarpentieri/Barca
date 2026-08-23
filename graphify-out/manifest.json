@@ -1,1082 +1,2177 @@
 {
   ".opencode/opencode.json": {
-    "mtime": 1786361307.5319476,
+    "mtime": 1785952371.7474272,
     "ast_hash": "039b09e4175dea67183e5e706be923ea",
     "semantic_hash": ""
   },
   ".opencode/plugins/graphify.js": {
-    "mtime": 1786361307.5349388,
+    "mtime": 1785952371.7474272,
     "ast_hash": "b33d000860642c6f4907a877e0387a21",
     "semantic_hash": ""
   },
   "presentazione/package.json": {
-    "mtime": 1786442716.5883322,
-    "ast_hash": "fee19c216b9e945c4bd604d7156f4308",
+    "mtime": 1787395285.2337987,
+    "ast_hash": "150d57fffcba586347efc6036d57d623",
     "semantic_hash": ""
   },
   "presentazione/public/data/accessori.json": {
-    "mtime": 1786372929.6309457,
-    "ast_hash": "44b88db3ae04663a3bb2ef83c3be7a3c",
+    "mtime": 1786385328.8823426,
+    "ast_hash": "28dc824864346b520f7c241946021def",
     "semantic_hash": ""
   },
   "presentazione/public/data/annunci.json": {
-    "mtime": 1786372904.9634001,
-    "ast_hash": "2c75d5edc7bb4e77f62149ef3b010f18",
+    "mtime": 1786385328.8833427,
+    "ast_hash": "d8b137278ee1ade8a1e1546031b0508e",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-accessori.mjs": {
-    "mtime": 1786372480.548604,
-    "ast_hash": "d8e007facc6ee6b0dc4ebb1036bb9a34",
+    "mtime": 1787397289.3169513,
+    "ast_hash": "43cd13e54728c8c9badec7b8ad29aeae",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-annunci.mjs": {
-    "mtime": 1786372470.827826,
-    "ast_hash": "1e23d4ebe57bbe3b43cd41603b19e646",
+    "mtime": 1787397282.5304687,
+    "ast_hash": "a2856f592f276d0ab9ad3d9363720b6a",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-gommoni.mjs": {
-    "mtime": 1786372854.524879,
-    "ast_hash": "10aa92bc3cc77b5c8554f5fca09bcb7e",
+    "mtime": 1786385328.8873432,
+    "ast_hash": "9ba9ff036ab1da18f2b1397c85879288",
     "semantic_hash": ""
   },
   "presentazione/scripts/fetch-motori.mjs": {
-    "mtime": 1786373072.7743132,
-    "ast_hash": "d525998a1c4bfc2cb9c3a51c2f851464",
+    "mtime": 1787397282.5389502,
+    "ast_hash": "6e9c1807adeabab6033ddce6898bd520",
     "semantic_hash": ""
   },
   "presentazione/scripts/geo-score.mjs": {
-    "mtime": 1786361308.681938,
-    "ast_hash": "a5e9235e0a01502bb36dcb2eb2e827a9",
+    "mtime": 1785957502.5051336,
+    "ast_hash": "ab53fabe07668cb34441d935ba8b91ec",
     "semantic_hash": ""
   },
   "presentazione/scripts/patch-head.mjs": {
-    "mtime": 1786361308.705873,
+    "mtime": 1785952371.7702632,
     "ast_hash": "61d5ec15e74900961d9213338769856f",
     "semantic_hash": ""
   },
   "presentazione/scripts/ref-prezzi.json": {
-    "mtime": 1786361308.7198355,
+    "mtime": 1786303753.1878362,
     "ast_hash": "9b0c3db800cd76715ef019433f5b5155",
     "semantic_hash": ""
   },
   "presentazione/scripts/scoring-accessori.mjs": {
-    "mtime": 1786361308.7318065,
+    "mtime": 1786303753.1878362,
     "ast_hash": "e7a3787f381f18c6a56613eab2a6a9a0",
     "semantic_hash": ""
   },
   "presentazione/scripts/update-accessori-ref.mjs": {
-    "mtime": 1786361308.7347965,
+    "mtime": 1786303753.1878362,
     "ast_hash": "60e298aab0f091b489d9bc2763ef1b96",
     "semantic_hash": ""
   },
   "presentazione/src/js/annunci.js": {
-    "mtime": 1786377319.992541,
-    "ast_hash": "1c851dcdeb820da11415da4150120f92",
+    "mtime": 1787397355.6507561,
+    "ast_hash": "91db7c1ecbf265f7f5df5609f746765e",
     "semantic_hash": ""
   },
   "presentazione/src/js/app.js": {
-    "mtime": 1786361308.7497554,
-    "ast_hash": "5a278456ab9cedba1a8b09c3547bd4e4",
+    "mtime": 1787393707.245898,
+    "ast_hash": "8d5f3847e1ca6ad4fb3d448dd312e407",
     "semantic_hash": ""
   },
   "presentazione/src/js/nav.js": {
-    "mtime": 1786361308.7537465,
-    "ast_hash": "f2c945eba626cdcaad17066bedfa8a55",
+    "mtime": 1787397384.2739606,
+    "ast_hash": "db2959b5b144d7da785188d505ac01a7",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco.js": {
-    "mtime": 1786461463.389477,
-    "ast_hash": "55e129d317aa22eafb16770ae4cee5c3",
+    "mtime": 1787485151.0846243,
+    "ast_hash": "340acac8ee44a6bb967de1b8c4478287",
     "semantic_hash": ""
   },
   "presentazione/vite.config.js": {
-    "mtime": 1786444267.8629405,
-    "ast_hash": "bf61e6a87393fe647d594cf0112edbb6",
+    "mtime": 1787395389.8748977,
+    "ast_hash": "458c46989dce44ec389cd60be989c855",
     "semantic_hash": ""
   },
   "raw/mercato/subito-pacchetti-under-5500-2026-08-04.json": {
-    "mtime": 1786361311.9857025,
+    "mtime": 1785952371.7969234,
     "ast_hash": "2bb578650c595ef45120f5bcc4159ea8",
     "semantic_hash": ""
   },
   "raw/mercato/subito-rigidi-under-5500-2026-08-04.json": {
-    "mtime": 1786361311.9950063,
+    "mtime": 1785952371.7969234,
     "ast_hash": "ba33e36a36a9a66b68afa1d6d957784e",
     "semantic_hash": ""
   },
   "raw/mercato/subito-sample-under-4500-2026-08-04.json": {
-    "mtime": 1786361311.997001,
+    "mtime": 1785952371.7969234,
     "ast_hash": "5b20d45c2fa3e336b61ea6230c482976",
     "semantic_hash": ""
   },
   "scripts/lint-wiki.mjs": {
-    "mtime": 1786364177.6930947,
-    "ast_hash": "595cf5d6563313a93f8cdf5d403b4e1e",
+    "mtime": 1786385328.8943436,
+    "ast_hash": "01356219368b57b9926d3dca8ac98951",
     "semantic_hash": ""
   },
   "worker/graph.json": {
-    "mtime": 1786361312.3703074,
-    "ast_hash": "0eb6b74525c6e9c099085489ec853732",
+    "mtime": 1787395424.4486456,
+    "ast_hash": "5d65f4b5af13d1e819718a45c809ce4f",
     "semantic_hash": ""
   },
   "worker/package.json": {
-    "mtime": 1786374146.0330427,
-    "ast_hash": "5f384fa41311cb531d61abe9103906e4",
+    "mtime": 1786385328.9053423,
+    "ast_hash": "cb6b14228760b9af3d3e20f650a2bbb9",
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1786526261.370607,
-    "ast_hash": "d48b54b9e11f1a777415ee0bc5c0e5cd",
+    "mtime": 1787484988.7583964,
+    "ast_hash": "81647ab8dd8300e3d1ffb73e7f1ad786",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1786526092.8138757,
-    "ast_hash": "f31350536fae3853244b10469de42077",
+    "mtime": 1787485126.797949,
+    "ast_hash": "b1770a262f15138d4be97c3e2312f3c7",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1786372504.5746677,
-    "ast_hash": "d212ec53730112d78dd1478b977d1224",
+    "mtime": 1786385328.8723426,
+    "ast_hash": "70d783a697b01bcca264ca061a3c5ad3",
     "semantic_hash": ""
   },
   ".github/workflows/pages.yml": {
-    "mtime": 1786372505.399986,
-    "ast_hash": "26f456f0124504a167dadda942f9b602",
+    "mtime": 1787397289.3024912,
+    "ast_hash": "066742e1702a5ad046369f37b2002079",
     "semantic_hash": ""
   },
   ".opencode/command/ingest.md": {
-    "mtime": 1786361307.5199742,
+    "mtime": 1785952371.7474272,
     "ast_hash": "b8ab256288723f48effe4452c6fcbd1b",
     "semantic_hash": ""
   },
   ".opencode/command/lint-wiki.md": {
-    "mtime": 1786361307.521975,
+    "mtime": 1785952371.7474272,
     "ast_hash": "2eb81575d977e9f88b0f68ea6d8e824e",
     "semantic_hash": ""
   },
   ".opencode/command/status.md": {
-    "mtime": 1786361307.5299532,
+    "mtime": 1785952371.7474272,
     "ast_hash": "003621d7d35152290f11397bc7f841a4",
     "semantic_hash": ""
   },
   ".opencode/skills/frontend-design/SKILL.md": {
-    "mtime": 1786361307.5439167,
+    "mtime": 1785952371.7474272,
     "ast_hash": "f5c3db69b9c6a00578301dd0cbe90253",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/SKILL.md": {
-    "mtime": 1786361307.6139636,
-    "ast_hash": "9ed2c6aeacfaed1605e952784fbaafbb",
+    "mtime": 1786298765.9658077,
+    "ast_hash": "62aa0f6529a7784d9542c575a87d7077",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/add-watch.md": {
-    "mtime": 1786361307.6159692,
-    "ast_hash": "58c888b5ec0689a886543dd765c1acc9",
+    "mtime": 1785358495.885917,
+    "ast_hash": "d59d027fe449f06aa03905a01184e779",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/exports.md": {
-    "mtime": 1786361307.6179762,
-    "ast_hash": "ecc0c36852fee4ba6280cdf2b9149039",
+    "mtime": 1785358495.885917,
+    "ast_hash": "9da2a2152e60a22f07f05fed5158f287",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/extraction-spec.md": {
-    "mtime": 1786361307.6219907,
-    "ast_hash": "024c6f2a3c146b03c72cc871dc56ed3c",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "42fef56a01698118f7fd722acdadea34",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/github-and-merge.md": {
-    "mtime": 1786361307.6308782,
-    "ast_hash": "aa0e7ef186392cad062e60483ca7dbbf",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "cde13df085e4c492aeb7ba298a996d0d",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/hooks.md": {
-    "mtime": 1786361307.6328838,
-    "ast_hash": "0045c2f12c69bff3a641a8908a1ac057",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "3f545db6ce646650bb9de588f5512a27",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/query.md": {
-    "mtime": 1786361307.6368978,
-    "ast_hash": "852ef14334d60a75ae666ea103d4c4f0",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "3c46f8ad006874260614ed8657d02307",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/transcribe.md": {
-    "mtime": 1786361307.6389055,
-    "ast_hash": "5c6a9af05d12b5797b2fa8b9493dcc37",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "67b6a5fa6c0974e18f60db9f8932fbd8",
     "semantic_hash": ""
   },
   ".opencode/skills/graphify/references/update.md": {
-    "mtime": 1786361307.6497033,
-    "ast_hash": "07bf4293ea21b4e00a9655dd4e7f0af5",
+    "mtime": 1785358495.9156804,
+    "ast_hash": "9378bd03d56baaf78bd738ab3848f142",
     "semantic_hash": ""
   },
   ".opencode/skills/llm-wiki/SKILL.md": {
-    "mtime": 1786361307.6517081,
+    "mtime": 1785952371.7635126,
     "ast_hash": "86522bcb95e3509cfa043edbb0260746",
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1786526264.4687939,
-    "ast_hash": "a598905d07b4cfa0e9538f2f3c4c6c6a",
+    "mtime": 1787395150.530469,
+    "ast_hash": "ebc8fe63ad54411391f26032d6487ba3",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-08-08-accessori-revamp-v2.md": {
-    "mtime": 1786361307.66724,
+    "mtime": 1786303753.182034,
     "ast_hash": "8cfa5464f1f06ca8ab5e59801711307f",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-08-10-allineamento-wiki-sbarco.md": {
-    "mtime": 1786361307.6692445,
+    "mtime": 1786385328.8743422,
     "ast_hash": "1a3f52afaa207e8088ae10a756dd1a61",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-08-accessori-revamp-v2.md": {
-    "mtime": 1786361307.6732547,
+    "mtime": 1786303753.1830342,
     "ast_hash": "70eae119bdf6a014537e723430a6f056",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-10-allineamento-wiki-sbarco-design.md": {
-    "mtime": 1786361307.8490927,
+    "mtime": 1786385328.8743422,
     "ast_hash": "f8ce1683f53c5c603d1fff53b428e33c",
     "semantic_hash": ""
   },
   "presentazione/README.md": {
-    "mtime": 1786361307.962787,
+    "mtime": 1785952371.7657833,
     "ast_hash": "d69431e651d849a347150581a545fe26",
     "semantic_hash": ""
   },
   "presentazione/accessori.html": {
-    "mtime": 1786377388.2689474,
-    "ast_hash": "eccdd54ac42958490c4b9b566caf7f35",
+    "mtime": 1787397333.3792753,
+    "ast_hash": "135c32a4c55aa6c6673fb01e6de69716",
     "semantic_hash": ""
   },
   "presentazione/annunci.html": {
-    "mtime": 1786377387.5151658,
-    "ast_hash": "28cfe612d6d671b2d0a0530bb758ddc6",
+    "mtime": 1787397333.3792753,
+    "ast_hash": "14a0ed6919e52f08562c14098db2f5d5",
     "semantic_hash": ""
   },
   "presentazione/base.html": {
-    "mtime": 1786361308.1341474,
-    "ast_hash": "622ee3b64217eb79fdd8c20c7d3cde09",
+    "mtime": 1787393707.2389734,
+    "ast_hash": "36f56e55a3ad1a90705469939af66a25",
     "semantic_hash": ""
   },
   "presentazione/equipaggio.html": {
-    "mtime": 1786361308.1460385,
+    "mtime": 1785952371.766783,
     "ast_hash": "93626b42c40c7827730cb25f3b757cba",
     "semantic_hash": ""
   },
   "presentazione/gommoni.html": {
-    "mtime": 1786361308.148033,
-    "ast_hash": "6da16da306f372dab9782c4136e66a5c",
+    "mtime": 1785955640.1546502,
+    "ast_hash": "13ace7d481d38d709916964f6f6c25b5",
     "semantic_hash": ""
   },
   "presentazione/index.html": {
-    "mtime": 1786361308.1630864,
-    "ast_hash": "68947a77b7f55e8bf72e8591e150378b",
+    "mtime": 1787395314.2485237,
+    "ast_hash": "2607b4060499445a59f76cd92d0a3feb",
     "semantic_hash": ""
   },
   "presentazione/mercato.html": {
-    "mtime": 1786361308.1781237,
-    "ast_hash": "97541109a6a05e34045eea225e4fc6d1",
+    "mtime": 1787393707.2389734,
+    "ast_hash": "454282ca7663ec93af1f1dc9ef36bbe8",
     "semantic_hash": ""
   },
   "presentazione/mosse.html": {
-    "mtime": 1786361308.1821332,
-    "ast_hash": "0ebe706624cf530e79c2af5c82960440",
+    "mtime": 1787393707.2389734,
+    "ast_hash": "19dcace9b12c5586c637bb097d5421a3",
     "semantic_hash": ""
   },
   "presentazione/motori.html": {
-    "mtime": 1786361308.1841385,
-    "ast_hash": "4b0dca6e5d648af92ed93f17cbba0c7d",
+    "mtime": 1785955644.4375603,
+    "ast_hash": "43ea04b7fa85edeeacb96315e35fe0c1",
     "semantic_hash": ""
   },
   "presentazione/priorita.html": {
-    "mtime": 1786361308.2042396,
-    "ast_hash": "925fcd4fb7858e0489cc8c98bb25ad8f",
+    "mtime": 1787393707.2389734,
+    "ast_hash": "9a7a78af70c83fa3f0a86bd1c4ddc302",
     "semantic_hash": ""
   },
   "presentazione/regole.html": {
-    "mtime": 1786361308.247525,
+    "mtime": 1786385328.8853433,
     "ast_hash": "c9f2ce0b82c228fc72c65efe64a186f6",
     "semantic_hash": ""
   },
   "presentazione/status.html": {
-    "mtime": 1786361308.7766862,
+    "mtime": 1786385328.8903425,
     "ast_hash": "7652285501b1761c80dcb7782fad3c3e",
     "semantic_hash": ""
   },
   "raw/README.md": {
-    "mtime": 1786361309.2886384,
+    "mtime": 1785952371.7732618,
     "ast_hash": "99443bceb237e03c984e9ea7947acffe",
     "semantic_hash": ""
   },
   "raw/chat/storico_chat_al_1008.md": {
-    "mtime": 1786361311.2875683,
+    "mtime": 1786385328.8913429,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": ""
   },
   "raw/manuali/karpathy-llm-wiki.md": {
-    "mtime": 1786361311.3005624,
+    "mtime": 1785952371.7742622,
     "ast_hash": "606c4161aeefa561caf79e4f40b10232",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.txt": {
-    "mtime": 1786361311.4907317,
+    "mtime": 1785952371.7782626,
     "ast_hash": "208830b18ebeb9be8a6d7926422bac71",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026.txt": {
-    "mtime": 1786361311.5581322,
+    "mtime": 1785952371.7821283,
     "ast_hash": "df7bcb3f5cbf14670d581185360772e3",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026.txt": {
-    "mtime": 1786361311.7447984,
+    "mtime": 1785952371.7821283,
     "ast_hash": "e856208eb3462527539aee781a290a23",
     "semantic_hash": ""
   },
   "raw/mercato/argo-evo-360-al-reference-2026-08-05.md": {
-    "mtime": 1786361311.7469203,
-    "ast_hash": "a3a22a262053fbf2c1b634b2c9bde10b",
+    "mtime": 1785953843.179425,
+    "ast_hash": "2bfb6cdaae0f16c743b79f947057cad8",
     "semantic_hash": ""
   },
   "raw/mercato/cantieri-anzio-nettuno-paginegialle-2026-08-04.md": {
-    "mtime": 1786361311.749915,
+    "mtime": 1785952371.7821283,
     "ast_hash": "6ebbf6fc31c605d9728e822028ffe849",
     "semantic_hash": ""
   },
   "raw/mercato/litorale-laziale-rimessaggio-2026-08-04.md": {
-    "mtime": 1786361311.7509098,
+    "mtime": 1785952371.7821283,
     "ast_hash": "ffd232dbe8ee1df4fefef76bc0dc749d",
     "semantic_hash": ""
   },
   "raw/mercato/patente-B-traino-note-2026-08-04.md": {
-    "mtime": 1786361311.753901,
+    "mtime": 1785952371.7821283,
     "ast_hash": "db5446f00f842431a9278d8b71111e49",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-1.txt": {
-    "mtime": 1786361311.8800457,
+    "mtime": 1785952371.7821283,
     "ast_hash": "2c78f1c08f6004c997bdbb8372fff269",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-2.txt": {
-    "mtime": 1786361311.9016354,
+    "mtime": 1785952371.7969234,
     "ast_hash": "47e5774acc1f823314d1434ebf527bb5",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-3.txt": {
-    "mtime": 1786361311.982711,
+    "mtime": 1785952371.7969234,
     "ast_hash": "9dc3aab7a495b785ccadbf528dad58f5",
     "semantic_hash": ""
   },
   "raw/mercato/subito-pacchetti-under-5500-2026-08-04.md": {
-    "mtime": 1786361311.9876988,
+    "mtime": 1785952371.7969234,
     "ast_hash": "6c515391133415a63a6c02958e2ec3b3",
     "semantic_hash": ""
   },
   "raw/normativa/mit-conseguimento-patente-nautica-2026-08-04.md": {
-    "mtime": 1786361312.0009897,
+    "mtime": 1785952371.7969234,
     "ast_hash": "238fbef17095172b0e01f7eee4ef2ba0",
     "semantic_hash": ""
   },
   "raw/normativa/note-secondarie-patente-2026-08-04.md": {
-    "mtime": 1786361312.0029843,
+    "mtime": 1785952371.7969234,
     "ast_hash": "f47dc315d90d453fd9978688fd925508",
     "semantic_hash": ""
   },
   "raw/preferenze/intervista-patente-2026-08-04.md": {
-    "mtime": 1786361312.0039835,
+    "mtime": 1785952371.7969234,
     "ast_hash": "9388d1131b00d5bd6537ac95767f65ee",
     "semantic_hash": ""
   },
   "wiki/concetti/architettura-sbarco.md": {
-    "mtime": 1786526092.4677017,
-    "ast_hash": "ed4fe4c1ed4b3492008e16ea5d1e880a",
+    "mtime": 1787485229.0533674,
+    "ast_hash": "4920e4fabdd9b8cd621486c592833915",
     "semantic_hash": ""
   },
   "wiki/concetti/costi-nascosti-gommone.md": {
-    "mtime": 1786526095.852022,
+    "mtime": 1787393707.3220973,
     "ast_hash": "5269d8a866a5bbf2214c779a71651a5d",
     "semantic_hash": ""
   },
   "wiki/concetti/feed-accessori-scoring.md": {
-    "mtime": 1786361312.012958,
+    "mtime": 1786303753.190836,
     "ast_hash": "94b51015acd144b1fcb1dda92603e1eb",
     "semantic_hash": ""
   },
   "wiki/concetti/feed-annunci-scoring.md": {
-    "mtime": 1786373226.6608863,
-    "ast_hash": "1b2ec551d11509eaf4aa268d670e521f",
+    "mtime": 1787399009.100341,
+    "ast_hash": "983f293590290b13739d121273532a4a",
     "semantic_hash": ""
   },
   "wiki/concetti/logistica-trasporto.md": {
-    "mtime": 1786526095.8802283,
+    "mtime": 1787393707.32313,
     "ast_hash": "cc27db730d1e0f904e0e6c5afdd50f73",
     "semantic_hash": ""
   },
   "wiki/concetti/montaggio-gommone.md": {
-    "mtime": 1786361312.0179443,
-    "ast_hash": "d536abfcb15e173a58df1c8010562932",
+    "mtime": 1786304772.1147158,
+    "ast_hash": "a1ba9ae4244bfc64744572d10f574571",
     "semantic_hash": ""
   },
   "wiki/concetti/no-patente-6-pax-realta.md": {
-    "mtime": 1786361312.0189416,
+    "mtime": 1785952371.7969234,
     "ast_hash": "13dd51db060520bfb3e7b316a4c70716",
     "semantic_hash": ""
   },
   "wiki/concetti/pesca-da-barca-piccola.md": {
-    "mtime": 1786361312.020936,
+    "mtime": 1785952371.7969234,
     "ast_hash": "309e10cc9bba32994670b6fd8e8d806a",
     "semantic_hash": ""
   },
   "wiki/concetti/tendalino-copertura.md": {
-    "mtime": 1786363385.5989056,
-    "ast_hash": "f17091947c195f93b2af96d9cc6ab886",
+    "mtime": 1786385328.895343,
+    "ast_hash": "b0ad55ae0f540689033848ef41424d21",
     "semantic_hash": ""
   },
   "wiki/confronti/rimessaggio-abc.md": {
-    "mtime": 1786363388.416539,
-    "ast_hash": "5469e35e8c2616a8141914331a32e6e7",
+    "mtime": 1786385328.8963425,
+    "ast_hash": "5981ae66dd0de1df156ef239f974334f",
     "semantic_hash": ""
   },
   "wiki/index.md": {
-    "mtime": 1786546221.9914942,
-    "ast_hash": "2889b660f508359b57fc9804b6d2687b",
+    "mtime": 1787397406.8272707,
+    "ast_hash": "3185ca46555042dbfd54c591246e00b4",
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1786546223.2295551,
-    "ast_hash": "7b8a3f6b7081647f9e9b55609374fcbc",
+    "mtime": 1787485249.8782275,
+    "ast_hash": "37c60c31552512c914c20687f557643d",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
-    "mtime": 1786373249.0035336,
-    "ast_hash": "74e193cf701de245ebdc83078bfd13c1",
+    "mtime": 1787397406.8282762,
+    "ast_hash": "818aab94e4848bb2ebefe51f4b0478da",
     "semantic_hash": ""
   },
   "wiki/mercato/litorale-laziale.md": {
-    "mtime": 1786361312.1122894,
+    "mtime": 1785952371.7969234,
     "ast_hash": "bd031192d6784d62c43350c69d0046d8",
     "semantic_hash": ""
   },
   "wiki/mercato/usato-under-4500.md": {
-    "mtime": 1786363387.2892945,
-    "ast_hash": "f615a254576312a2c1253c2d018cfbf5",
+    "mtime": 1786385328.8973424,
+    "ast_hash": "cef4e0250fe762aa440f505c3ec98c62",
     "semantic_hash": ""
   },
   "wiki/modelli/argo-evo-360.md": {
-    "mtime": 1786361312.116279,
-    "ast_hash": "0b6637c9bec4650e33f88bae8a1ea2ed",
+    "mtime": 1785959358.9608448,
+    "ast_hash": "cf63edc4cebb1c5f60f7eb4637ce4c44",
     "semantic_hash": ""
   },
   "wiki/normativa/limiti-senza-patente.md": {
-    "mtime": 1786526264.5750127,
-    "ast_hash": "9ccd4cfad761f312a37c2c419f2fce22",
+    "mtime": 1787395052.1551182,
+    "ast_hash": "d817dbbfb9ff0e0145833f2a517b940e",
     "semantic_hash": ""
   },
   "wiki/overview.md": {
-    "mtime": 1786526264.639781,
-    "ast_hash": "07de208880e76b97c8dd67690dc45d17",
+    "mtime": 1787398386.0787902,
+    "ast_hash": "afc1c91cd7341ef284e46bec3b0b4b48",
     "semantic_hash": ""
   },
   "wiki/preferenze/budget.md": {
-    "mtime": 1786526096.303335,
-    "ast_hash": "5476d2ee083ceef860d293fa4a97b6a5",
+    "mtime": 1787395021.7753935,
+    "ast_hash": "75993b524776774852fd8990f72c5eb2",
     "semantic_hash": ""
   },
   "wiki/preferenze/gruppo.md": {
-    "mtime": 1786526096.3053298,
-    "ast_hash": "86f08aed4a2c09fdb94a2a68262b9385",
+    "mtime": 1787395021.7723932,
+    "ast_hash": "834a8d74229db92c4086cc65933c182b",
     "semantic_hash": ""
   },
   "wiki/preferenze/intervista-requisiti.md": {
-    "mtime": 1786363378.621886,
-    "ast_hash": "98f456552f743aebd3a3e8ed88767e11",
+    "mtime": 1786385328.899343,
+    "ast_hash": "517f78ef918ae7ac91467c28e1e390a1",
     "semantic_hash": ""
   },
   "wiki/preferenze/must-have.md": {
-    "mtime": 1786526264.6437702,
-    "ast_hash": "4b7b4e0aaf4d889b2f299dba4d3d17ba",
+    "mtime": 1787395021.781319,
+    "ast_hash": "0c8154a39d4e05b7e1ca8aa5195772dc",
     "semantic_hash": ""
   },
   "wiki/preferenze/nice-to-have.md": {
-    "mtime": 1786542138.9940963,
-    "ast_hash": "77611e7538bf22fe66d0dd85f8857941",
+    "mtime": 1787395052.1451657,
+    "ast_hash": "748d243b951ed705b496ac053ec9b544",
     "semantic_hash": ""
   },
   "wiki/preferenze/open-questions.md": {
-    "mtime": 1786526264.654691,
-    "ast_hash": "32c8893310aa848d3d7756dccdd64367",
+    "mtime": 1787395052.1478732,
+    "ast_hash": "59f078902327ef87e8228518292d91b6",
     "semantic_hash": ""
   },
   "wiki/preferenze/split-costi.md": {
-    "mtime": 1786526096.3448339,
-    "ast_hash": "7c1917f14491a102ba880c9223db055d",
+    "mtime": 1787393707.330812,
+    "ast_hash": "dda6b200187ba9722af4ff454d93aee7",
     "semantic_hash": ""
   },
   "wiki/preferenze/track-gommoni.md": {
-    "mtime": 1786526264.656696,
+    "mtime": 1787393707.3318121,
     "ast_hash": "8a8d846862a22921c12c63d219ca398d",
     "semantic_hash": ""
   },
   "wiki/preferenze/track-motori.md": {
-    "mtime": 1786526264.6607077,
+    "mtime": 1787393707.3321533,
     "ast_hash": "a91d5a42e3f89b24b4420841d243cbd1",
     "semantic_hash": ""
   },
   "wiki/sintesi/audit-sbarco-wiki-20260810.md": {
-    "mtime": 1786365217.632365,
-    "ast_hash": "17502248206ef7624b74494743912427",
+    "mtime": 1786385328.9023433,
+    "ast_hash": "0e5fc127fc62b33b52932fae4435f947",
     "semantic_hash": ""
   },
   "wiki/sintesi/contesto-sbarco.md": {
-    "mtime": 1786526264.7113116,
-    "ast_hash": "6b0475e7a73da4a19f5e6fd9607c9d83",
+    "mtime": 1787485234.7167268,
+    "ast_hash": "c782ef37221cddd891d1d29f591aa464",
     "semantic_hash": ""
   },
   "wiki/sintesi/conversazioni-audio-20260809.md": {
-    "mtime": 1786526096.4373915,
+    "mtime": 1787393707.3327644,
     "ast_hash": "00aecdd539f29a665a11f259792777c0",
     "semantic_hash": ""
   },
   "wiki/sintesi/requisiti-v1.md": {
-    "mtime": 1786526264.7170696,
-    "ast_hash": "0aabb4e33b93ebee47ce6b5f4da63159",
+    "mtime": 1787395105.5377436,
+    "ast_hash": "22c85dc3657393d954a2484d691d9572",
     "semantic_hash": ""
   },
   "wiki/sintesi/scenario-rigido-5-soci.md": {
-    "mtime": 1786364144.6493776,
-    "ast_hash": "c7a4cfb6e09a1fe4b1b72dc936df96a8",
+    "mtime": 1786385328.903343,
+    "ast_hash": "e087d96bd8339e5a836eec7bc0bf8515",
     "semantic_hash": ""
   },
   "wiki/sintesi/shortlist.md": {
-    "mtime": 1786364935.3559663,
-    "ast_hash": "6fe85ff4d6c698327dcb2361b2fc7dbe",
+    "mtime": 1787397423.709058,
+    "ast_hash": "691295dc14f06ad252ff462c6f99f703",
     "semantic_hash": ""
   },
   "worker/README.md": {
-    "mtime": 1786526261.3665962,
-    "ast_hash": "b832b9e8eadd010d28f815e3ab671ae1",
+    "mtime": 1787402126.4743588,
+    "ast_hash": "12c895be1ade88d791336e880730ba2e",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.pdf": {
-    "mtime": 1786361311.4860375,
+    "mtime": 1785952371.7782626,
     "ast_hash": "98176c2e653d1a9a3d7ae7b25e2dafc2",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026.pdf": {
-    "mtime": 1786361311.5500433,
+    "mtime": 1785952371.7821283,
     "ast_hash": "396d0e4c8817519df68b5a1c95cecda9",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026.pdf": {
-    "mtime": 1786361311.743189,
+    "mtime": 1785952371.7821283,
     "ast_hash": "fa83ef2a3b49ae75ffdbc18087dd0851",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-1.pdf": {
-    "mtime": 1786361311.8697317,
+    "mtime": 1785952371.7821283,
     "ast_hash": "db747871c51bbfd37013e79ef118ff44",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-2.pdf": {
-    "mtime": 1786361311.8989964,
+    "mtime": 1785952371.7969234,
     "ast_hash": "942f5c7eb178497614771a73dd25f3ba",
     "semantic_hash": ""
   },
   "raw/mercato/portodianzio-tariffe-3.pdf": {
-    "mtime": 1786361311.9807181,
+    "mtime": 1785952371.7969234,
     "ast_hash": "3e8d71bd8c500144777f18f781203ad6",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026-img0.jpg": {
-    "mtime": 1786361311.4925187,
+    "mtime": 1785952371.7792623,
     "ast_hash": "2a799643c144506617bbe43c7c616abb",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi banchina anno 2026-render.png": {
-    "mtime": 1786361311.5095153,
+    "mtime": 1785952371.7802618,
     "ast_hash": "f76adcddb071ced8874df258d68353f6",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026-img0.jpg": {
-    "mtime": 1786361311.5641153,
+    "mtime": 1785952371.7821283,
     "ast_hash": "d1796bf096cf40981315b0deb582deab",
     "semantic_hash": ""
   },
   "raw/mercato/Tariffe ormeggi boa anno 2026-render.png": {
-    "mtime": 1786361311.7302248,
+    "mtime": 1785952371.7821283,
     "ast_hash": "c7120d19d2a438ca3d7ead4cf51789c3",
     "semantic_hash": ""
   },
-  "raw/audio/WhatsApp Audio 2026-08-09 at 19.31.06.ogg": {
-    "mtime": 1786361309.3035977,
-    "ast_hash": "c830901f967d062c46716b88755694ae",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Audio 2026-08-09 at 19.57.15.ogg": {
-    "mtime": 1786361309.3135724,
-    "ast_hash": "c402cfdefb4fa041315fcf319a4896f1",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.09.35.ogg": {
-    "mtime": 1786361309.320552,
-    "ast_hash": "00afa7b31f5e40da39207b9dae67fd88",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.43.02.ogg": {
-    "mtime": 1786361309.3365462,
-    "ast_hash": "518cb87e3380e54423dd3e4b0c8855b1",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.44.39.ogg": {
-    "mtime": 1786361309.3514638,
-    "ast_hash": "610ce2f2d5d591925c2c880d5fc31932",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.47.29.ogg": {
-    "mtime": 1786361309.6020358,
-    "ast_hash": "19f74047231c473477b317237ec1a7c4",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.47.46.ogg": {
-    "mtime": 1786361309.6050258,
-    "ast_hash": "b80719a6aa5745815ef4f896a9e3b918",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.50.03.ogg": {
-    "mtime": 1786361309.6159961,
-    "ast_hash": "e85fe18c013b5f9ffe8c32a5e2746de4",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.50.53.ogg": {
-    "mtime": 1786361309.6189892,
-    "ast_hash": "000dbad97815af43672d523061c591e9",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.52.25.ogg": {
-    "mtime": 1786361309.6229782,
-    "ast_hash": "c4e89cb84d181b92ae21600e336f5b0a",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 12.53.29.ogg": {
-    "mtime": 1786361309.6628716,
-    "ast_hash": "7bfffafdf591fae9b55a5938f8f0431a",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 15.10.04.ogg": {
-    "mtime": 1786361309.6967807,
-    "ast_hash": "98588a501b90e3ab9d315a567517a85b",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 15.10.26.ogg": {
-    "mtime": 1786361309.7007706,
-    "ast_hash": "71bbb44fdb624352a18f8d20efbe8ec5",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 15.22.04.ogg": {
-    "mtime": 1786361309.705757,
-    "ast_hash": "6d554d9481e9416cc8cc828982625e77",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.40.41.ogg": {
-    "mtime": 1786361309.836038,
-    "ast_hash": "e676c61ac871688edde7eec82b3b6fa9",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.41.58.ogg": {
-    "mtime": 1786361309.8497107,
-    "ast_hash": "5e6c66a599d4265ef86c41773ca943e5",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.01.ogg": {
-    "mtime": 1786361309.8659124,
-    "ast_hash": "af4d0c4c994955d2d7fffbc989906965",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.25.ogg": {
-    "mtime": 1786361309.8679209,
-    "ast_hash": "db9df92f5e894b02f45508e14c5c395f",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.42.ogg": {
-    "mtime": 1786361309.8719351,
-    "ast_hash": "a3ceb08c65d5277554bff635c9a0df98",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.45.50.ogg": {
-    "mtime": 1786361309.880939,
-    "ast_hash": "57f6e973b2b635b8fd8c2c8b8a1d5e2d",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.46.11.ogg": {
-    "mtime": 1786361309.8849497,
-    "ast_hash": "2697d3efd842e82bcaa7163701f0b7f6",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.47.03.ogg": {
-    "mtime": 1786361309.8889596,
-    "ast_hash": "5850a872bc84c90cfd3a71f2168f7590",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.47.42.ogg": {
-    "mtime": 1786361309.9051502,
-    "ast_hash": "e3a2e892a78fbce891edc168a70059fd",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.48.20.ogg": {
-    "mtime": 1786361309.920064,
-    "ast_hash": "5119eb7261c1131fe578130dbbdc2bb6",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.48.55.ogg": {
-    "mtime": 1786361309.9327,
-    "ast_hash": "a7c754498a2a4552e441699cdb895bf9",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.49.17.ogg": {
-    "mtime": 1786361309.9510727,
-    "ast_hash": "a6978379433bc8c85cb850c020fe51a4",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.50.11.ogg": {
-    "mtime": 1786361310.6501598,
-    "ast_hash": "a07d9b9478cf968dd4f48b3745a1d3a0",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.50.45.ogg": {
-    "mtime": 1786361310.6651218,
-    "ast_hash": "8f5bb985ba727b3004ecf1b97a4329e4",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.51.08.ogg": {
-    "mtime": 1786361310.6800828,
-    "ast_hash": "bd5d8f1805cbf10dc870b3bee5bf20b5",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.24.ogg": {
-    "mtime": 1786361310.6820745,
-    "ast_hash": "4b0b2ef0f4067414c61095dadeeada00",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.29.ogg": {
-    "mtime": 1786361310.6890552,
-    "ast_hash": "db309ac3fb16f1ec8901121bf8cdbbb6",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.52.39.ogg": {
-    "mtime": 1786361310.696037,
-    "ast_hash": "98fe3402e803e865c18de444484c8bb1",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.53.18.ogg": {
-    "mtime": 1786361310.6970341,
-    "ast_hash": "73fd64fa63e145eafda8f51556c1dc4d",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.53.37.ogg": {
-    "mtime": 1786361310.700027,
-    "ast_hash": "684898031a7cc994d1281b086a9cdf66",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.04.ogg": {
-    "mtime": 1786361310.7040164,
-    "ast_hash": "ae491e3f390bff04d2e509bec394b2b8",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.29.ogg": {
-    "mtime": 1786361310.712108,
-    "ast_hash": "5a79139a864732088f8217844c126111",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.39.ogg": {
-    "mtime": 1786361310.7159834,
-    "ast_hash": "6ee658b23a976b8d2991c2e6e14301e3",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 18.54.47.ogg": {
-    "mtime": 1786361310.7299461,
-    "ast_hash": "866207f22b58f28c58882f65792a2ba6",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 19.31.12.ogg": {
-    "mtime": 1786361310.734933,
-    "ast_hash": "451be283eee1a044e81ff53cadf2109d",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 19.44.38.ogg": {
-    "mtime": 1786361311.2352586,
-    "ast_hash": "4a3c7dfcfc680067cc0d80da97e19e39",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 19.45.46.ogg": {
-    "mtime": 1786361311.2473361,
-    "ast_hash": "852c7561fe83b9e1bf451d93262b39be",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 19.46.39.ogg": {
-    "mtime": 1786361311.2523303,
-    "ast_hash": "f8a4a1ed5577d94f7c2775193dd54572",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 19.59.11.ogg": {
-    "mtime": 1786361311.2656264,
-    "ast_hash": "2097a895518d83056029d24fda8e3b80",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 20.00.38.ogg": {
-    "mtime": 1786361311.2796009,
-    "ast_hash": "f7b7d8698fe5e487c0eb6bf2b692873c",
-    "semantic_hash": ""
-  },
-  "raw/audio/WhatsApp Ptt 2026-08-09 at 20.55.16.ogg": {
-    "mtime": 1786361311.2845764,
-    "ast_hash": "cd9b3b696ac4bc88b783f1d58f02c61b",
-    "semantic_hash": ""
-  },
   "presentazione/public/data/gommoni.json": {
-    "mtime": 1786373114.99674,
-    "ast_hash": "3791721335cf9fefa4a9fc86a4f0d6d4",
+    "mtime": 1786385328.8843434,
+    "ast_hash": "444fdd8192924908ccccb745d229b0ce",
     "semantic_hash": ""
   },
   "presentazione/public/data/motori.json": {
-    "mtime": 1786373139.1913648,
-    "ast_hash": "67838477e5939590ac107697cea5c1e0",
+    "mtime": 1786385328.8853433,
+    "ast_hash": "3310d2dd8a87bdd6fdb38dd4c1e33570",
     "semantic_hash": ""
   },
   "presentazione/scripts/feed-normalizers.mjs": {
-    "mtime": 1786373639.104671,
-    "ast_hash": "28ccbea785591b21d26b44211cd8dcc9",
+    "mtime": 1787397449.421134,
+    "ast_hash": "163213c8de1793f07d5ca20aae993f46",
     "semantic_hash": ""
   },
   "presentazione/scripts/validate-feeds.mjs": {
-    "mtime": 1786372481.335544,
-    "ast_hash": "cf6d9567cc073403c1944a1a4d06f1a6",
+    "mtime": 1787397237.102097,
+    "ast_hash": "446f9e9f4529e621c584354fd7865825",
     "semantic_hash": ""
   },
   "presentazione/test/feed-normalizers.test.mjs": {
-    "mtime": 1786373073.8937757,
-    "ast_hash": "6d2a975b81edc9fbe384c3ef7736e480",
+    "mtime": 1787397135.160948,
+    "ast_hash": "cf2a7e3bdc5670fb380994f5b05b83f8",
     "semantic_hash": ""
   },
   "raw/mercato/accessori-feed-2026-08-10.json": {
-    "mtime": 1786372929.6351802,
-    "ast_hash": "44b88db3ae04663a3bb2ef83c3be7a3c",
+    "mtime": 1786385328.8913429,
+    "ast_hash": "28dc824864346b520f7c241946021def",
     "semantic_hash": ""
   },
   "raw/mercato/subito-feed-2026-08-10.json": {
-    "mtime": 1786372904.9707615,
-    "ast_hash": "2c75d5edc7bb4e77f62149ef3b010f18",
+    "mtime": 1786385328.8923426,
+    "ast_hash": "d8b137278ee1ade8a1e1546031b0508e",
     "semantic_hash": ""
   },
   "raw/mercato/subito-gommoni-2026-08-10.json": {
-    "mtime": 1786373115.0060115,
-    "ast_hash": "3791721335cf9fefa4a9fc86a4f0d6d4",
+    "mtime": 1786385328.8933425,
+    "ast_hash": "444fdd8192924908ccccb745d229b0ce",
     "semantic_hash": ""
   },
   "raw/mercato/subito-motori-2026-08-10.json": {
-    "mtime": 1786373139.1953819,
-    "ast_hash": "67838477e5939590ac107697cea5c1e0",
+    "mtime": 1786385328.8933425,
+    "ast_hash": "3310d2dd8a87bdd6fdb38dd4c1e33570",
     "semantic_hash": ""
   },
   "scripts/smoke-sbarco.mjs": {
-    "mtime": 1786375393.7625997,
-    "ast_hash": "22a601ddd86f7ac66bab0d26d3450df5",
+    "mtime": 1786385328.8943436,
+    "ast_hash": "4c459b8ca53d9512f4a03b53a22c1299",
     "semantic_hash": ""
   },
   "presentazione/src/js/pdf-optional-stub.js": {
-    "mtime": 1786444266.3173754,
-    "ast_hash": "df0ec532e4c21a9131972283e5d6a294",
+    "mtime": 1787393707.245898,
+    "ast_hash": "b4fe64e63de6b1d101a322812d69049a",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco-format.js": {
-    "mtime": 1786443166.4380722,
-    "ast_hash": "31b81bf2108a51f4a545e1b3971e575d",
+    "mtime": 1787393707.245898,
+    "ast_hash": "51dd3590bdeb60128a55dca3768f5b38",
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco-pdf.js": {
-    "mtime": 1786459787.3297718,
-    "ast_hash": "cc831f98e1acdbcdc612af3a971842a8",
+    "mtime": 1787393707.245898,
+    "ast_hash": "64f0d81031aecf77d993a014f3262255",
     "semantic_hash": ""
   },
   "presentazione/test/render-sbarco-pdf-fixture.mjs": {
-    "mtime": 1786459713.7174416,
-    "ast_hash": "192a59183b077ffa7dd01070ea0d2318",
+    "mtime": 1787393707.252911,
+    "ast_hash": "8d565ed0925b90a51515f17ddbced767",
     "semantic_hash": ""
   },
   "presentazione/test/sbarco-ui.test.mjs": {
-    "mtime": 1786461464.984534,
-    "ast_hash": "7d44d7893c5e77736b3e5122173c751a",
+    "mtime": 1787485170.9419231,
+    "ast_hash": "f36ed7fe05b29d76fc45058a4587e65b",
     "semantic_hash": ""
   },
   "presentazione/test/sbarco-visual-fixture.html": {
-    "mtime": 1786459714.931455,
-    "ast_hash": "313869955a7633705bda736e0e47ce5a",
+    "mtime": 1787393707.252911,
+    "ast_hash": "9b369055f7aedf6942a1b0378d86a044",
     "semantic_hash": ""
   },
   "wiki/sintesi/audit-sbarco-20260811.md": {
-    "mtime": 1786446694.4224644,
-    "ast_hash": "4638be9eef6335c01bd54cfdc0cc02fe",
+    "mtime": 1787393707.3327644,
+    "ast_hash": "b34cc08c833f1ab723d83e39633e26e5",
     "semantic_hash": ""
   },
   "contratto/agentContratto.md": {
-    "mtime": 1786543362.8603592,
-    "ast_hash": "a0701d51b581b226131bf8b61d00690a",
+    "mtime": 1787393707.228691,
+    "ast_hash": "e510b41f36b001b43af82651d575391f",
     "semantic_hash": ""
   },
   "contratto/bozza-patto-v1.md": {
-    "mtime": 1786543658.927831,
-    "ast_hash": "0b1bc628936609dc8c1c2a922cc596c2",
+    "mtime": 1787393707.228691,
+    "ast_hash": "069f63f786b2e212aac6715db65baedc",
     "semantic_hash": ""
   },
   "contratto/prospetto-costi-a-norma.md": {
-    "mtime": 1786546216.314936,
-    "ast_hash": "b16568896bee1bfae4706f144b6770fe",
+    "mtime": 1787397406.826596,
+    "ast_hash": "a8cb7d40890dbb6204821dc29e129319",
     "semantic_hash": ""
   },
   "raw/mercato/rc-natanti-prezzi-canali-2026-08-11.md": {
-    "mtime": 1786450245.4479551,
-    "ast_hash": "4295639a4b1e3d4684395053036cb403",
+    "mtime": 1787393707.3049166,
+    "ast_hash": "3468e1a8949f708fbe928b269a7ce829",
     "semantic_hash": ""
   },
   "raw/mercato/tagliando-fuoribordo-2026-08-11.md": {
-    "mtime": 1786457441.9739108,
-    "ast_hash": "e955ade92acd1e17a31c63cf65ba8b8f",
+    "mtime": 1787393707.3049166,
+    "ast_hash": "8abd3dc50bd0cdedd13ef31d1d865ee0",
     "semantic_hash": ""
   },
   "raw/normativa/alcol-e-dotazioni-2026-08-11.md": {
-    "mtime": 1786451860.5723767,
-    "ast_hash": "8d58ab88a367e44657e5fe1277a76b16",
+    "mtime": 1787393707.3059194,
+    "ast_hash": "9cabd3ddda959681d28034ad6a11c62e",
     "semantic_hash": ""
   },
   "raw/normativa/rc-obbligatoria-natanti-2026-08-11.md": {
-    "mtime": 1786449391.908015,
-    "ast_hash": "d7d18feb83eff72ce38a4cd1437112bb",
+    "mtime": 1787393707.3214548,
+    "ast_hash": "070341814156ee33213a9da559400475",
     "semantic_hash": ""
   },
   "wiki/normativa/rc-obbligatoria-natanti.md": {
-    "mtime": 1786526264.5822353,
-    "ast_hash": "6dc4b263e52cec04bbee9d64bc4a3c15",
+    "mtime": 1787397449.421134,
+    "ast_hash": "23f018a52bc23ea2b8f9ead81a72f35e",
     "semantic_hash": ""
   },
   "wiki/sintesi/prospetto-costi-a-norma.md": {
-    "mtime": 1786450238.5321572,
-    "ast_hash": "eb6dee64433dce45c354b50336cc0342",
-    "semantic_hash": ""
-  },
-  ".opencode/package.json": {
-    "mtime": 1786444568.0516496,
-    "ast_hash": "09cc53e3bd7d20833dde72d89f662e36",
+    "mtime": 1787397423.709058,
+    "ast_hash": "c9c47a2a9c9437aa4e697ce6b882cb2b",
     "semantic_hash": ""
   },
   "contratto/export-pdf.mjs": {
-    "mtime": 1786543293.8816772,
-    "ast_hash": "b1cc5868869fcf3cfeef8a0319a1f399",
+    "mtime": 1787393707.2321336,
+    "ast_hash": "a56423ab21a856844e3b494f95d8aa66",
     "semantic_hash": ""
   },
   "contratto/package.json": {
-    "mtime": 1786543234.596268,
+    "mtime": 1787393707.2321336,
     "ast_hash": "930d7d2b66d50f38e8289df9b108119a",
     "semantic_hash": ""
   },
   "contratto/README-export.md": {
-    "mtime": 1786543237.3217976,
-    "ast_hash": "8b1af928df5c991ec400a974a6273d05",
+    "mtime": 1787393707.228691,
+    "ast_hash": "b9cb73e69d58500ac755d542ef2f3f81",
     "semantic_hash": ""
   },
   "raw/mercato/fasce-motore-peso-consumo-2026-08-12.md": {
-    "mtime": 1786528000.6097565,
-    "ast_hash": "3e7412de1422ca490c84a0676d3be2de",
+    "mtime": 1787393707.3038106,
+    "ast_hash": "82a7ab1524a69c7010017c8d42e41c9a",
     "semantic_hash": ""
   },
   "raw/mercato/verifica-fasce-motore-e-benzina-2026-08-12.md": {
-    "mtime": 1786542023.0212681,
-    "ast_hash": "407bfd75aab2c2eda7ac80fcd308f037",
+    "mtime": 1787393707.3059194,
+    "ast_hash": "1ab4d115ca701f6b8241e298198bc700",
     "semantic_hash": ""
   },
   "raw/normativa/audit-nautica-diporto-2026-08-11.md": {
-    "mtime": 1786526264.5019536,
+    "mtime": 1787393707.311963,
     "ast_hash": "098ecfbe2700c983667939cf2d92ab4c",
     "semantic_hash": ""
   },
   "raw/normativa/ordinanze-litorale-lazio-2026-08-11.md": {
-    "mtime": 1786545110.1904807,
+    "mtime": 1787393707.3177366,
     "ast_hash": "c8cd908b05e7f169c647edea3be48d8c",
     "semantic_hash": ""
   },
   "raw/normativa/pesca-ricreativa-mare-2026-08-11.md": {
-    "mtime": 1786526264.5166707,
+    "mtime": 1787393707.318753,
     "ast_hash": "7fd0133edaadca1a405c73d2fbc58406",
     "semantic_hash": ""
   },
   "wiki/normativa/pesca-ricreativa-mare.md": {
-    "mtime": 1786526264.5795534,
+    "mtime": 1787393707.3268456,
     "ast_hash": "69819212713d419233ce5f1dc6bb10fc",
     "semantic_hash": ""
   },
   "wiki/normativa/varo-litorale-lazio.md": {
-    "mtime": 1786546213.378904,
-    "ast_hash": "fc4156e73c7351a92983ebebab907b99",
+    "mtime": 1787393707.327878,
+    "ast_hash": "d3ae371e00ce46a0fa83d6a29d695d74",
     "semantic_hash": ""
   },
   "contratto/build-mappa-varo.mjs": {
-    "mtime": 1786546278.5081396,
-    "ast_hash": "68eac7500bb2aa3c380ca7a0d60bd3bf",
+    "mtime": 1787393707.228691,
+    "ast_hash": "4c0f0b7f8e5a111ecc6b7f77c5fb5c54",
     "semantic_hash": ""
   },
   "contratto/dati/punti-varo-lazio.json": {
-    "mtime": 1786546008.1290488,
-    "ast_hash": "c8ec198896b872f198f6f1ec1dfd12d8",
+    "mtime": 1787393707.2311862,
+    "ast_hash": "2614ad5ddeb1f5b45b334fcd50b0968c",
     "semantic_hash": ""
   },
   "raw/mercato/punti-varo-lazio-core-2026-08-12.md": {
-    "mtime": 1786542983.0707488,
-    "ast_hash": "65502810aa6670c64627b689a21c9189",
+    "mtime": 1787393707.3049166,
+    "ast_hash": "ce89dd1a467f0145d34524356eac60ca",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-12-sbarco-session-token-design.md": {
-    "mtime": 1786546184.5948467,
-    "ast_hash": "99c466bb4c7f2f1687c8cee5dc759e36",
+    "mtime": 1787393707.2321336,
+    "ast_hash": "5be16d08e0dcb0d7fc48ae06ae98f323",
     "semantic_hash": ""
   },
   "raw/normativa/ardea-ord-2026.txt": {
-    "mtime": 1786544758.0576236,
+    "mtime": 1787393707.3109434,
     "ast_hash": "86772a11db1649f79ef1eb013012f66b",
     "semantic_hash": ""
   },
   "raw/normativa/corridoi-lancio-ardea-pomezia-2026-08-12.md": {
-    "mtime": 1786544871.0144892,
-    "ast_hash": "6ac5903470e474f31449536ddc01f025",
+    "mtime": 1787393707.312755,
+    "ast_hash": "1c817d0f805a0866a5ef54e8b5946c6e",
     "semantic_hash": ""
   },
   "raw/normativa/cp-roma-66-2025.txt": {
-    "mtime": 1786544761.3101075,
+    "mtime": 1787393707.3177366,
     "ast_hash": "53ea0fcae28236146e96c0baaad7d46b",
     "semantic_hash": ""
   },
   "raw/normativa/pomezia-ord-2026.txt": {
-    "mtime": 1786544759.6705413,
+    "mtime": 1787393707.3208606,
     "ast_hash": "37323884eeefc5771bfe2a1439563122",
     "semantic_hash": ""
   },
   "raw/normativa/punti-ormeggio-ardea-2025-2026-2026-08-12.md": {
-    "mtime": 1786545874.688841,
-    "ast_hash": "5d35a3ee10343e654c5db68b91bfd0b0",
+    "mtime": 1787393707.3208606,
+    "ast_hash": "9c6006ce7d65f9588a5c6d54cb437ac8",
     "semantic_hash": ""
   },
   "raw/normativa/ardea-ord-2026.pdf": {
-    "mtime": 1786544623.4894068,
+    "mtime": 1787393707.3109434,
     "ast_hash": "d582945c6fe1bbae0737bceaf62566f3",
     "semantic_hash": ""
   },
   "raw/normativa/cp-roma-66-2025.pdf": {
-    "mtime": 1786544624.7531276,
+    "mtime": 1787393707.3167639,
     "ast_hash": "5cc74326932e11671ca60ee7c70b6de0",
     "semantic_hash": ""
   },
   "raw/normativa/pomezia-ord-2026.pdf": {
-    "mtime": 1786544618.407856,
+    "mtime": 1787393707.3197513,
     "ast_hash": "3a760c3d378ab9497c286372abadc137",
+    "semantic_hash": ""
+  },
+  ".wrangler/cache/wrangler-account.json": {
+    "mtime": 1787403512.739896,
+    "ast_hash": "d9314b079cdc99febad24c49eb8f3845",
+    "semantic_hash": ""
+  },
+  "presentazione/public/data/vele.json": {
+    "mtime": 1787395339.094491,
+    "ast_hash": "c5391c048d111add675537b1077b1e01",
+    "semantic_hash": ""
+  },
+  "presentazione/scripts/feed-gate.mjs": {
+    "mtime": 1787398998.3532953,
+    "ast_hash": "2f15cc3e57e663841f6d99b45560c585",
+    "semantic_hash": ""
+  },
+  "presentazione/scripts/fetch-vele.mjs": {
+    "mtime": 1787397272.606407,
+    "ast_hash": "9c6e83c636f6b62890d64e609ea09a5a",
+    "semantic_hash": ""
+  },
+  "presentazione/scripts/sync-documenti.mjs": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "9bb9f7611b24c66a24097731e4a65b8a",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/documenti.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "6fdac3d13bc89f8509c9a895985ef441",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/nodi-3d.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "9e03028a5d3e6cd49fe6aa3b47de2dfb",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/nodi-data.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "94147109855ae06693bd7aab257d3e61",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/nodi-logic.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "740ed83c52c0fdc598ef2ed2ddb795e3",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/nodi.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "b44e252d93809f3028f27682590a6d3c",
+    "semantic_hash": ""
+  },
+  "presentazione/src/js/sbarco-stream.js": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "727bdbce3be604fcc3584bf0532fc9d0",
+    "semantic_hash": ""
+  },
+  "presentazione/test/feed-gate.test.mjs": {
+    "mtime": 1787398998.3532953,
+    "ast_hash": "1e8a93332b8eb104fc4bdbf6e5369ed9",
+    "semantic_hash": ""
+  },
+  "presentazione/test/nav-ui.test.mjs": {
+    "mtime": 1787397423.709058,
+    "ast_hash": "dfe14cdba3a4799cd90798a4fccd5344",
+    "semantic_hash": ""
+  },
+  "presentazione/test/nodi.test.mjs": {
+    "mtime": 1787393707.252911,
+    "ast_hash": "37ee03180d0002bab0a72b2fc050b710",
+    "semantic_hash": ""
+  },
+  "presentazione/test/sbarco-stream.test.mjs": {
+    "mtime": 1787393707.252911,
+    "ast_hash": "f346148a64bd8810fb865e0ea4eda425",
+    "semantic_hash": ""
+  },
+  "raw/mercato/subito-vele-2026-08-22.json": {
+    "mtime": 1787395339.094491,
+    "ast_hash": "c5391c048d111add675537b1077b1e01",
+    "semantic_hash": ""
+  },
+  "scripts/transcribe-whatsapp-20260820.py": {
+    "mtime": 1787394272.3202734,
+    "ast_hash": "b10e3bfcd1f28550548f5244af091acc",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-08-12-sbarco-session-token.md": {
+    "mtime": 1787393707.2321336,
+    "ast_hash": "cc439e4c23040e730a7b969aad398d4f",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-08-21-nodi-telecamera-gesto.md": {
+    "mtime": 1787393707.2321336,
+    "ast_hash": "351169355419d8ce0c1eefe875917bcb",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-08-21-nodi-telecamera-gesto-design.md": {
+    "mtime": 1787393707.2321336,
+    "ast_hash": "98868942b7f40ac3c2d19cc39add80ea",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-08-23-sbarco-thinking-formattazione-design.md": {
+    "mtime": 1787485204.3426619,
+    "ast_hash": "33b1205bcdd46ae5fb6f126172733fd7",
+    "semantic_hash": ""
+  },
+  "presentazione/documenti.html": {
+    "mtime": 1787393707.2389734,
+    "ast_hash": "838ae952bc67f44b2db3a9c79dce2f65",
+    "semantic_hash": ""
+  },
+  "presentazione/nodi.html": {
+    "mtime": 1787393707.2389734,
+    "ast_hash": "9e62332023d9dae4eb4fa070d907a15d",
+    "semantic_hash": ""
+  },
+  "presentazione/public/documenti/costi.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "83e06b702d561884ae371a7a1ed0d8af",
+    "semantic_hash": ""
+  },
+  "presentazione/public/documenti/patto.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "982afcc3f39b75c5aadcd3cdc423ed22",
+    "semantic_hash": ""
+  },
+  "presentazione/public/documenti/varo.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "124472cd943666626c408802f306efdd",
+    "semantic_hash": ""
+  },
+  "presentazione/simulazioni.html": {
+    "mtime": 1787393707.245898,
+    "ast_hash": "b2faa93a42ec13d8cafcfe3eada39b67",
+    "semantic_hash": ""
+  },
+  "presentazione/vele.html": {
+    "mtime": 1787395298.1097078,
+    "ast_hash": "426a945d58ac6b186aa6e2e29e694721",
+    "semantic_hash": ""
+  },
+  "raw/annunci/report-annunci-vela-2026-08-22.md": {
+    "mtime": 1787394522.3662343,
+    "ast_hash": "7912d305c55c414838707de49b199eae",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/TRASCRIZIONE.md": {
+    "mtime": 1787394793.040099,
+    "ast_hash": "9969d83aa039e05bb7521da55e86e178",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 16.57.35.txt": {
+    "mtime": 1787394289.9494607,
+    "ast_hash": "d31c618b4a88d33418f3e323f26f2bd5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 16.58.25.txt": {
+    "mtime": 1787394294.1504588,
+    "ast_hash": "dffbdcba759a8d0d55da6b642c1a94dc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 16.59.03.txt": {
+    "mtime": 1787394296.3796406,
+    "ast_hash": "1fc816076e129bb4c8242d8dad911fb5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 16.59.44.txt": {
+    "mtime": 1787394299.9411483,
+    "ast_hash": "8ec8c85d89b82308ab6034ca3958c1db",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.00.23.txt": {
+    "mtime": 1787394303.640828,
+    "ast_hash": "073f3d3ea4efab8303892943cd915458",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.00.39.txt": {
+    "mtime": 1787394305.0315528,
+    "ast_hash": "2498bd9a41ecd6723f8d40cc190ce2c0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.01.53.txt": {
+    "mtime": 1787394308.7128685,
+    "ast_hash": "961f24e0aa83bc60724f1a0e59a29f66",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.04.15.txt": {
+    "mtime": 1787394320.254441,
+    "ast_hash": "806259861665be4dab6ba9b217e2c6df",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.06.09.txt": {
+    "mtime": 1787394331.611296,
+    "ast_hash": "837a8817b8ba68c559046e7c61bb7c33",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.06.39.txt": {
+    "mtime": 1787394334.0555122,
+    "ast_hash": "a489d7dd1f177ddd23a84d9c1a399715",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.07.23.txt": {
+    "mtime": 1787394338.8674283,
+    "ast_hash": "9ce6c9f8d0e65106f5e22416fdbb3eb8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.10.02.txt": {
+    "mtime": 1787394356.1215134,
+    "ast_hash": "f135178785ecd31511966931563df578",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.10.56.txt": {
+    "mtime": 1787394360.7510087,
+    "ast_hash": "5f46868af8f31781aacc6c72a5d32778",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.11.42.txt": {
+    "mtime": 1787394365.076429,
+    "ast_hash": "3b356d765f795043fc5041ccc10a227a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.12.43.txt": {
+    "mtime": 1787394369.705567,
+    "ast_hash": "9050f619a823bb42108648c9a2cc8ae8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.13.15.txt": {
+    "mtime": 1787394371.3066244,
+    "ast_hash": "990e050531bc32b38673c430754eb2d0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.16.13.txt": {
+    "mtime": 1787394386.7053857,
+    "ast_hash": "bb591d53ae64f5b3898a9fa80ce93b5b",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.24.05.txt": {
+    "mtime": 1787394388.6574216,
+    "ast_hash": "2bb89ce9747da8d5d8960e3cbfd32185",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.25.09.txt": {
+    "mtime": 1787394390.8025968,
+    "ast_hash": "7ab1f5162c269c8b0b1f5ef434207e16",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.28.46.txt": {
+    "mtime": 1787394480.996454,
+    "ast_hash": "a2c99b6f0f3502d57a37e2e1e11a70de",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.50.58.txt": {
+    "mtime": 1787394487.3298323,
+    "ast_hash": "e7c4cf412fdddd9f71dc7ae9a10fab6f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.51.11.txt": {
+    "mtime": 1787394488.7188354,
+    "ast_hash": "1ff782f382cc5da5903307349462f169",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.54.41.txt": {
+    "mtime": 1787394490.4860816,
+    "ast_hash": "78bcb93bd6a970868da45810cc16c8cf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.55.14.txt": {
+    "mtime": 1787394492.1914873,
+    "ast_hash": "8275dd969cbbd859fa7c6bbdd6326c6f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.55.53.txt": {
+    "mtime": 1787394494.0034523,
+    "ast_hash": "d99d205a431d208a50f76ac195292268",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.57.00.txt": {
+    "mtime": 1787394495.664305,
+    "ast_hash": "12357ee1fe59eae986cc033a21d07094",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.57.32.txt": {
+    "mtime": 1787394497.2731936,
+    "ast_hash": "13e83a667ee7293a2c3dcd6d7b2c10b7",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 17.59.36.txt": {
+    "mtime": 1787394499.1977441,
+    "ast_hash": "8a910c9958e771afdae86faf54f3f7f5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 18.03.15.txt": {
+    "mtime": 1787394503.0737183,
+    "ast_hash": "09beceac047be46d9a88b24cce681e74",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 18.45.23.txt": {
+    "mtime": 1787394513.1224787,
+    "ast_hash": "b3cc287bcc7c5a01191ae646a4676dfc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 18.47.18.txt": {
+    "mtime": 1787394515.270897,
+    "ast_hash": "ced41d0f608d3a93e5cbd457f9e8d9d6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 19.04.53.txt": {
+    "mtime": 1787394517.1419623,
+    "ast_hash": "b8185c50c64e9101fc05cc001906cd88",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 19.06.46.txt": {
+    "mtime": 1787394518.7543213,
+    "ast_hash": "53337a83ea47846e2a99cb7bbcd2e133",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 19.06.59.txt": {
+    "mtime": 1787394519.9636517,
+    "ast_hash": "aa7949a89a89abc9739cee52ad4d1ee9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 19.07.45.txt": {
+    "mtime": 1787394521.8850663,
+    "ast_hash": "946bc0cf39821894fd77d3bc1379a595",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.05.48.txt": {
+    "mtime": 1787394528.0934784,
+    "ast_hash": "8c1490ec6b14847245d3bf97f743d468",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.09.17.txt": {
+    "mtime": 1787394530.7725494,
+    "ast_hash": "3b3959c32ec052b2988c3f3ddf1013b4",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.09.30.txt": {
+    "mtime": 1787394534.568099,
+    "ast_hash": "5f4b324e566e37f4bce6680f3cc3946d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.10.50.txt": {
+    "mtime": 1787394544.9347813,
+    "ast_hash": "d504d911eedfb067b2c3a002e39c3705",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.11.36.txt": {
+    "mtime": 1787394546.5523615,
+    "ast_hash": "60ac229a253c6c0478ba60cf5f402260",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.11.47.txt": {
+    "mtime": 1787394551.0202923,
+    "ast_hash": "803bd8891b519016c668f4f6a1732c2f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.12.02.txt": {
+    "mtime": 1787394552.5389373,
+    "ast_hash": "e57c75085679d4de3582dae8c224f84e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.13.50.txt": {
+    "mtime": 1787394559.5150743,
+    "ast_hash": "16e7f4ca666e87b35e43d0c36bbc027b",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.13.59.txt": {
+    "mtime": 1787394608.266806,
+    "ast_hash": "e0b64e1e5955bfe75ab18d46c7461bbc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.14.51.txt": {
+    "mtime": 1787394612.0324798,
+    "ast_hash": "075c3be998118309f8a079d9f50eee4e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.15.45.txt": {
+    "mtime": 1787394613.9791317,
+    "ast_hash": "f7406c61a9eaee9a63239192dd4d16d1",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.16.12.txt": {
+    "mtime": 1787394617.828802,
+    "ast_hash": "f168517f83de56747dc9daa621c45e32",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.16.15.txt": {
+    "mtime": 1787394619.788638,
+    "ast_hash": "8ee58dbe96b3eb2d7ce792686caab5da",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.17.17.txt": {
+    "mtime": 1787394621.807972,
+    "ast_hash": "a2598120b185a42716273477bbd70a17",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.17.46.txt": {
+    "mtime": 1787394628.451021,
+    "ast_hash": "2c113374a33dfd690576a10c22cab2d2",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.17.54.txt": {
+    "mtime": 1787394630.8522341,
+    "ast_hash": "0c2d37fe819b6cfefdb6103183d252f2",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.20.25.txt": {
+    "mtime": 1787394637.6550796,
+    "ast_hash": "011742c46a30a226a1ad5530ea3f0cb0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.21.03.txt": {
+    "mtime": 1787394641.4945302,
+    "ast_hash": "a31dfdc5fa40011f03eebaa5c8634331",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.21.26.txt": {
+    "mtime": 1787394643.3483768,
+    "ast_hash": "aa64c7f890da665c52b4c3abda409479",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.21.58.txt": {
+    "mtime": 1787394645.467502,
+    "ast_hash": "eb0e18ecdd3e8dda3293314e09c3a51e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.23.47.txt": {
+    "mtime": 1787394647.5999322,
+    "ast_hash": "313e68de35f5b20ff886e5434fe3768a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.26.49.txt": {
+    "mtime": 1787394656.3562877,
+    "ast_hash": "8848df96b706e459a67b4f562abd5cef",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.28.53.txt": {
+    "mtime": 1787394664.8840096,
+    "ast_hash": "14432cf8ff504edab7c1235ab8294ec6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.29.31.txt": {
+    "mtime": 1787394668.5506792,
+    "ast_hash": "455977aac4d1ed3f39924717984aa182",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.30.16.txt": {
+    "mtime": 1787394672.1895528,
+    "ast_hash": "49f095a3daa521552494d0b741cd7c96",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.31.02.txt": {
+    "mtime": 1787394675.9209638,
+    "ast_hash": "217dc87aa0cea671d47e1d24173aad4f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.31.21.txt": {
+    "mtime": 1787394677.4256277,
+    "ast_hash": "7dceef6d8ce67f8d2e1aaa6807461ae8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.31.57.txt": {
+    "mtime": 1787394678.8326702,
+    "ast_hash": "6b4b234e1afa7c58b0bec35f984e690e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.32.13.txt": {
+    "mtime": 1787394682.3671105,
+    "ast_hash": "8409d428955b133e5a30788454194654",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.33.16.txt": {
+    "mtime": 1787394686.7102256,
+    "ast_hash": "f2d0b03a9a62253892c46166f0c64d33",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.34.18.txt": {
+    "mtime": 1787394689.0713599,
+    "ast_hash": "50abc002788b77a20a2cf7180319b795",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.34.24.txt": {
+    "mtime": 1787394695.02967,
+    "ast_hash": "f670088b16ec3966c3b33aaaf7e7d247",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.34.49.txt": {
+    "mtime": 1787394696.481044,
+    "ast_hash": "209f686d55c1bbc4fade306abeb0638c",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.35.09.txt": {
+    "mtime": 1787394698.7310276,
+    "ast_hash": "bf5f70d1f3eb9611387c167361622745",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.35.18.txt": {
+    "mtime": 1787394700.5573823,
+    "ast_hash": "ceaf307cf6076f81489ec5280d401584",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.35.51.txt": {
+    "mtime": 1787394702.036533,
+    "ast_hash": "68acb7169c7c9d1cb498d6d048ecd9dc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.35.55.txt": {
+    "mtime": 1787394703.890692,
+    "ast_hash": "3658e483ba5ea0c4ba1aacc0156ebf6b",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.36.02.txt": {
+    "mtime": 1787394705.2031746,
+    "ast_hash": "b57915f14955ffd0ba5e24b4545bb66c",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.36.42.txt": {
+    "mtime": 1787394706.6823304,
+    "ast_hash": "ec6dc00d3613012aa9018d7e55e53b4f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.36.45.txt": {
+    "mtime": 1787394708.4670646,
+    "ast_hash": "3925c1e6e1c7f46008fc93bc40270296",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.37.47.txt": {
+    "mtime": 1787394712.7656143,
+    "ast_hash": "b1fef6b59ed3b8934c328b061937b984",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.39.30.txt": {
+    "mtime": 1787394716.3767114,
+    "ast_hash": "5c5dafcbbb174638f095dfb0b6663804",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.40.38.txt": {
+    "mtime": 1787394717.6961143,
+    "ast_hash": "e369ba5290b3e3003bef5ec67768201d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.41.16.txt": {
+    "mtime": 1787394719.1822107,
+    "ast_hash": "9f7abf0afa949a008f0fad40b75b347c",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.42.10.txt": {
+    "mtime": 1787394723.392818,
+    "ast_hash": "8716b93ad170762ddaf2c0bcc0fe7f5d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.42.44.txt": {
+    "mtime": 1787394726.64742,
+    "ast_hash": "75fafbbc3ab96a59bb075c041daa4ee3",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.43.38.txt": {
+    "mtime": 1787394729.955222,
+    "ast_hash": "c54ea2c1fab09acf5b6da08bcd56a09f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.44.39.txt": {
+    "mtime": 1787394734.2766178,
+    "ast_hash": "f1e8778e7c8c392685b374937db767c5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.44.43.txt": {
+    "mtime": 1787394736.1219108,
+    "ast_hash": "e59b5bd692aaef8e619785e5b04fcb86",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.45.37.txt": {
+    "mtime": 1787394737.5015664,
+    "ast_hash": "c4ff1f9b98e7b17f7b95cf02c173523f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.46.10.txt": {
+    "mtime": 1787394739.177548,
+    "ast_hash": "ddcb41560fbeb0fb2785266014f458ef",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.46.32.txt": {
+    "mtime": 1787394744.7369401,
+    "ast_hash": "c996bfbffbcb9b2a879a071c60f250a1",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.47.45.txt": {
+    "mtime": 1787394746.948478,
+    "ast_hash": "7785e29978d1237123f7996aefb907ad",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.48.42.txt": {
+    "mtime": 1787394750.6912112,
+    "ast_hash": "81681a08898ede45a8f57899e817f1ed",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.49.05.txt": {
+    "mtime": 1787394753.9021218,
+    "ast_hash": "19c529559a613edc456497e61754d963",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.50.02.txt": {
+    "mtime": 1787394758.0154257,
+    "ast_hash": "54d9c0b1facd34e7a84d5ec65820fc5e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.51.16.txt": {
+    "mtime": 1787394759.8347108,
+    "ast_hash": "5c153461283dbb7d791ed3e269b07edd",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.53.08.txt": {
+    "mtime": 1787394761.9387858,
+    "ast_hash": "87bb0d094cbb258778c5e42ee0ad0ce8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.53.50.txt": {
+    "mtime": 1787394763.8902402,
+    "ast_hash": "05d0f81e5f492db948da367091a232ca",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.54.09.txt": {
+    "mtime": 1787394765.376291,
+    "ast_hash": "cf6eacdf21971e24d943a3f1d29d7b7c",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 21.55.04.txt": {
+    "mtime": 1787394767.1620612,
+    "ast_hash": "d9a72c0e9515368d8166303db89d0b56",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.02.52.txt": {
+    "mtime": 1787394770.9456453,
+    "ast_hash": "8bd4b8413fb892aea969d81df71b7aa6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.11.46.txt": {
+    "mtime": 1787394772.570753,
+    "ast_hash": "f766810df7d7509c13e5e9b7b3a29693",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.14.55.txt": {
+    "mtime": 1787394775.7859683,
+    "ast_hash": "e5c1f19cb508944657f8b8671a8d8e3e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.49.55.txt": {
+    "mtime": 1787394778.9595206,
+    "ast_hash": "a935adb63f8557a4e60c73fb8e88952a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.50.10.txt": {
+    "mtime": 1787394780.3783193,
+    "ast_hash": "04658e917bba82c392ab336dee844212",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.50.36.txt": {
+    "mtime": 1787394781.632239,
+    "ast_hash": "40eab4f6b00e704059d12d67233d7b88",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.51.59.txt": {
+    "mtime": 1787394784.7929237,
+    "ast_hash": "3c423b58db36d90712c563da683339cd",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.56.00.txt": {
+    "mtime": 1787394786.4498782,
+    "ast_hash": "352294dd214bae3ae722efbe8d1f9eab",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 22.56.42.txt": {
+    "mtime": 1787394788.403909,
+    "ast_hash": "eb61cfa89bdb58f64d692b9eac02969f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 23.01.36.txt": {
+    "mtime": 1787394790.0150635,
+    "ast_hash": "632eac2d6e2e4deeddda05982684a755",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-20 at 23.01.46.txt": {
+    "mtime": 1787394791.2732332,
+    "ast_hash": "a6ab5b467e5e2157c4f8c1bc2737a832",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/_transcripts/WhatsApp Ptt 2026-08-21 at 11.21.34.txt": {
+    "mtime": 1787394793.040099,
+    "ast_hash": "36cdf123aad972a2f56d1e38a8cf5e1f",
+    "semantic_hash": ""
+  },
+  "raw/mercato/comet-770-scheda-2026-08-22.md": {
+    "mtime": 1787394900.5360732,
+    "ast_hash": "02935fa614b53f3556aa0867c2faee22",
+    "semantic_hash": ""
+  },
+  "raw/mercato/tco-cabinato-lazio-2026-08-22.md": {
+    "mtime": 1787394900.5370736,
+    "ast_hash": "c2b332af70035dc725210caed7f5686c",
+    "semantic_hash": ""
+  },
+  "raw/normativa/patente-vela-mit-2026-08-22.md": {
+    "mtime": 1787394900.5393288,
+    "ast_hash": "733dac28afc5999e856c29510047d48f",
+    "semantic_hash": ""
+  },
+  "report-annunci-vela.md": {
+    "mtime": 1787394522.3662343,
+    "ast_hash": "7912d305c55c414838707de49b199eae",
+    "semantic_hash": ""
+  },
+  "wiki/concetti/costi-possesso-cabinato.md": {
+    "mtime": 1787394997.5732422,
+    "ast_hash": "330e7e71ef16fc01398100adc0883943",
+    "semantic_hash": ""
+  },
+  "wiki/concetti/nodi-marinareschi.md": {
+    "mtime": 1787393707.32313,
+    "ast_hash": "da4b3dcb3763876dd75472cbf8f216bf",
+    "semantic_hash": ""
+  },
+  "wiki/concetti/simulazioni.md": {
+    "mtime": 1787393707.324191,
+    "ast_hash": "7cc4d6b2856c55f0807569f9df3bfd73",
+    "semantic_hash": ""
+  },
+  "wiki/confronti/report-annunci-vela.md": {
+    "mtime": 1787397384.2739606,
+    "ast_hash": "33db17b539605248b041ac8e8470c781",
+    "semantic_hash": ""
+  },
+  "wiki/documenti.md": {
+    "mtime": 1787393707.324191,
+    "ast_hash": "89cf2c55bb31c67721bc3240aaf826a8",
+    "semantic_hash": ""
+  },
+  "wiki/documenti/costi.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "ed6e6a25deffe8bbb793a7d7abdc382a",
+    "semantic_hash": ""
+  },
+  "wiki/documenti/patto.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "df33a611a8806db63d9dddaa24de6537",
+    "semantic_hash": ""
+  },
+  "wiki/documenti/varo.md": {
+    "mtime": 1787485180.3486688,
+    "ast_hash": "0135a4e28118894638f62c400c09bae5",
+    "semantic_hash": ""
+  },
+  "wiki/modelli/comet-770.md": {
+    "mtime": 1787395021.7652068,
+    "ast_hash": "c4cd6841a52b3420e1d117fcb21bf06f",
+    "semantic_hash": ""
+  },
+  "wiki/preferenze/track-vele.md": {
+    "mtime": 1787394997.5732422,
+    "ast_hash": "a0689d341942774f4485aa5ba2ce6b36",
+    "semantic_hash": ""
+  },
+  "wiki/sintesi/conversazioni-audio-20260820.md": {
+    "mtime": 1787394997.5732422,
+    "ast_hash": "88ba92acfefe5b4137751f173ba3734a",
+    "semantic_hash": ""
+  },
+  "wiki/sintesi/patto-bestie.md": {
+    "mtime": 1787393707.3337457,
+    "ast_hash": "65c5081e4def3a540ce2a9b41ad6963f",
+    "semantic_hash": ""
+  },
+  "raw/Tariffe ormeggi banchina anno 2026.pdf": {
+    "mtime": 1787393707.252911,
+    "ast_hash": "396d0e4c8817519df68b5a1c95cecda9",
+    "semantic_hash": ""
+  },
+  "raw/mercato/tariffe-ormeggi-banchina-anzio-2026.pdf": {
+    "mtime": 1787393707.252911,
+    "ast_hash": "396d0e4c8817519df68b5a1c95cecda9",
+    "semantic_hash": ""
+  },
+  "raw/mercato/tariffe-ormeggi-boa-anzio-2026.pdf": {
+    "mtime": 1787394440.172371,
+    "ast_hash": "fa83ef2a3b49ae75ffdbc18087dd0851",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 16.57.35.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "eefcdb82d5ba2b383a9878c3eebe6bf0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 16.58.25.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "35683f203f595989e02ecbf94b3f7a6a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 16.59.03.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "fd852dc29e7333d076b88b48c0fadc78",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 16.59.44.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "6868882822ce8930f96826cda52ed49d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.00.23.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "646015c919641858683510ecc55eda38",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.00.39.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "5c1c831747076bf3b0124bc8699854bc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.01.53.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "582723c7e977b4fd5897e9404d2e0c86",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.04.15.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "cfbeb369330569172db84a9aa7dd5a26",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.06.09.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "8c60d19ccafa3bb0944b07d51d9d09dc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.06.39.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "4f9dd64eed574e00df7768bf5196d814",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.07.23.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "636b598e5331c0ffdf449a0b8df8f49d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.10.02.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "745047478bfdaa2c41760101030ce3f4",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.10.56.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "23f6b119aef3a173f5996935dbb72fb0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.11.42.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "8dcff5afc6ce5b67bea0a6a86304aa5c",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.12.43.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e6e18f721223b368561d82feb39153b6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.13.15.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f76c35fd2584f9ca02b75ada69a89e83",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.16.13.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "370808d73647504d1c553e93fe732cc9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.24.05.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "8e14d61ccf1488254980bed3f459faaf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.25.09.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "05f247d0ff8f1968dfec85212ab92ccf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.28.46.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "34a8f9deb9783aa0fe5140d9d3a64776",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.50.58.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "68867b43d68d880d9628ea34988cf76a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.51.11.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "1f6fee51ba8c27174d01dedfd96433e0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.54.41.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f42712183b1ad5789f06af9c9b968081",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.55.14.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e4e4621197e55eaeea51c973ce091517",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.55.53.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "44fbd6e080ca6e1469320bcea0a44d92",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.57.00.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "2427e92057af7b96ec18daec1c9edcba",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.57.32.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e68c8da4d560f385c893dbe64a1b7f7d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 17.59.36.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "39468c45b66daccce17762ec74c6e8b2",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 18.03.15.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "b65ccb15f2a1beeb3b3c5b09ac6413b0",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 18.45.23.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "5b815ed47d26ff134f70bf8fda5427f4",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 18.47.18.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "2c61ce65b5ed83129da5249b4d75c8bf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 19.04.53.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "eacee066da9a114d82eb9ab38b71fa02",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 19.06.46.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "7b3938ff51a3492c1b84b2f62eb34d24",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 19.06.59.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "0c18802a5f054f7706fe4fa4011d42c9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 19.07.45.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "b1a4d51fc5d7af55a66d8b917b4fbad8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.05.48.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "3a6504d3c9adc6ac7df73d733434ed48",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.09.17.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "99326d26a172004ffa864feee44cd68d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.09.30.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e4436da6187ce61db352944814f7301a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.10.50.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "211c1c481cbd8b93fd13c3b35449c580",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.11.36.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "fb23e0178eb70b03dbba60e4cdf38717",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.11.47.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "31a84ed77f1b4ad531ca6bf0f69f76fb",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.12.02.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "ece33fe91e10c91c49607b8b25c53394",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.13.50.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "4668a3b17a6ba3b6307be7e9e8ed4262",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.13.59.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "73ce0ac396dc33364c1ca3728cc36569",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.14.51.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "851861f1641574de35375d37bde23940",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.15.45.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "bf789742a46b1cd91a202f80e32bf6b8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.16.12.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "0ac9f22f686f930ebd2f1e0b67ff5fcf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.16.15.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "7dab97836826c94af396fced06e068d7",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.17.17.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f34f93541b0a156e55afadb5c71724f9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.17.46.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "bbb61f5f56700275a79d8eb30c93ec17",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.17.54.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "6fb4e20be2c3bc5179db00db5e9329a6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.20.25.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "9553401bc6290164844da3997888aa2e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.21.03.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e5ac860960dcb3b61a21c07fa42271d3",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.21.26.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "838daa51521e4fd18df51ea5b3c96a30",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.21.58.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "1b70604c520dbf2fd1b7f748e52d635d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.23.47.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f7c4dc339c488edf53324f44fa39969a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.26.49.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "193eafb16c6efc2037761feef5fe55b5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.28.53.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "bd659efb9db90274b172c4300e925c16",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.29.31.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "5ffdffb2f6a4b0050f96441433ac86e4",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.30.16.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f54b53aef44ac948ced3330d30fe746a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.31.02.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "48107ce12bf5d0cabe4eda1996c374d1",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.31.21.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "5310906e15eae7c3e6047d4864016588",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.31.57.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "6e70a4be8e8c63f1f36d855096e1bb41",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.32.13.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "ae9ef14a50d03fefb05940f4b9886597",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.33.16.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "4846be26b96309943c39872882f4c393",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.34.18.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "3d3cc1357974031cd2c84098687a83ae",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.34.24.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "6fd2c72d8a5c298470e258dc10b168b5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.34.49.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "7eb157c1621606817c6a404bad43fd83",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.35.09.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "48c9efdadd4d66ef43e56bbac3ab626e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.35.18.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "3dd4c50b5cbec0cbf89535b5d53281fa",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.35.51.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "abe26a50bd18adedc7382e73c220ee2f",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.35.55.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "c81b994a2e406d9d9ca8729358c2863d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.36.02.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "7a221ec9aa345429440f9c3a61e577cc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.36.42.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "ee95546c375497841eab8053861bd1e2",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.36.45.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "a5b183c5269d6af256bbf65d2f4ee9d9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.37.47.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "66a349d28344a79e9fe3ca663ff33e74",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.39.30.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "c1908a2ff6a5fc1ac8d28448a3ad9740",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.40.38.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f75fd4505af21cd7b4087b91d78585f8",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.41.16.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e84c654b9402ccc8c58aef9535914fce",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.42.10.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "796721312ce74ec51167becbd048a10e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.42.44.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "42b8983f0094b6e8adae01d5b4236c32",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.43.38.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "a862f51cf4f1423e2932a6783bc75f77",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.44.39.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "c183725553193ed232c2ef230010a5d5",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.44.43.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e80f041b3c6aed5861d09ae7dbbd632a",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.45.37.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "3693a18de7c8426a00cd363dd33de0f1",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.46.10.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "709b233e59531a196f1152acde9d76bc",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.46.32.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "1c2f1146825e840414fbb784ab1f6e7e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.47.45.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "fbce2001680e1dd5ddf8c700a2ea584e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.48.42.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "1e8cfe7c980e07e8f6ef6fdd5a5801c6",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.49.05.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "91a91be2162af168c75702cb0bc71432",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.50.02.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "d25adf8f99782c821d57ba765f17b7bb",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.51.16.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "4c651dbe607210119f23094719c77c45",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.53.08.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f4c2b3a3087ddf9ceceb60d5f6710671",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.53.50.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "fe611288bdf50ac596019351e24abf29",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.54.09.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "7b217ba78636d58e90899f5535186422",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 21.55.04.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "532d5c5275a170031dbbcd10e9f8b9e9",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.02.52.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "726c35d4cbe1728908cc9fd317147385",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.11.46.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "325ae94a06b168b26986960931060b34",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.14.55.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "f1e8a6dcc922512a35df87aee46b0add",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.49.55.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "648513b592079eb0d81a15e0d3c8eafd",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.50.10.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "d936baf057bd1b711de1757483c9878d",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.50.36.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "bc8ba8b3d0b048bb338a8b7e3e758aaf",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.51.59.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "3751ad95ad9312820d0d0f91f442f530",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.56.00.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "5a88f4863269b72878faee3cdb14023e",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 22.56.42.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "2818595f97afbbebbbde8c1a7bb31c67",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 23.01.36.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "01aac28753f678c8ab9b9c9ede744c88",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-20 at 23.01.46.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "e12d551ea5aee3967d458ab411cf37d1",
+    "semantic_hash": ""
+  },
+  "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-21 at 11.21.34.ogg": {
+    "mtime": 1787324848.0,
+    "ast_hash": "83090aa5836bdad77adebe5f62ce8265",
     "semantic_hash": ""
   }
 }

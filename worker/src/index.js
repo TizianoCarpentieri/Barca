@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.3.2";
+const WORKER_VERSION = "2.4.0";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -534,7 +534,8 @@ REGOLE:
   titolo e contenuto completi: non basta affermare nel testo che il PDF e' pronto.
 - Se la domanda riguarda Peppe, Antonio o Tiziano, usa il nome.
 - Cita solo percorsi wiki presenti nell'indice o restituiti da read_wiki; non inventare wikilink.
-- Usa formattazione markdown: **grassetto**, elenchi, tabelle.`;
+- Usa formattazione markdown: **grassetto**, elenchi, tabelle.
+- Mai un blocco unico di testo: separa i concetti con a-capo, titoli brevi con ## ed elenchi; tabelle solo per confronti diretti.`;
 }
 
 function buildMessages(systemPrompt, question, memoryFacts, history, summary) {
@@ -866,10 +867,15 @@ async function executeTool(toolCall, context = {}) {
       if (context.state && context.state.webReads >= MAX_WEB_READS) return "Budget lettura fonti raggiunto: sintetizza i risultati disponibili.";
       if (context.state) context.state.webReads += 1;
       return await executeReadUrl(args.url || "", context.signal);
-    case "save_doc":
+    case "save_doc": {
       if (!args.title || !args.content) return "Titolo e contenuto del documento sono obbligatori.";
-      context.documents?.push({ title: String(args.title).slice(0, 100), content: String(args.content).slice(0, 30_000) });
-      return `Documento "${args.title}" preparato per l'esportazione PDF.`;
+      // Il documento finisce dritto nel PDF: il markup di tool e i blocchi
+      // think vanno rimossi qui, preservando gli a-capo del markdown.
+      const cleanTitle = stripToolCallMarkup(String(args.title)).replace(/\s*\n\s*/g, " ").slice(0, 100);
+      const cleanContent = stripToolCallMarkup(String(args.content)).slice(0, 30_000);
+      context.documents?.push({ title: cleanTitle, content: cleanContent });
+      return `Documento "${cleanTitle}" preparato per l'esportazione PDF.`;
+    }
     case "remember": {
       if (!args.fact || String(args.fact).length < 6) return "Fatto troppo breve: non salvato.";
       if (!context.kv) return "Memoria non disponibile: fatto non salvato.";
@@ -999,10 +1005,21 @@ function toolProgressLabel(toolCall) {
 // veri e mai mostrate all'utente, in nessuna variante del formato.
 
 function stripToolCallMarkup(value = "") {
-  return String(value)
-    .replace(/<\|([a-zA-Z_|]+)[^>]*>[\s\S]*?<\/\|\1>/g, " ")
-    .replace(/<\/?\|[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
+  // Pipe ASCII <| ... <|/ e varianti fullwidth <｜ … (U+FF5C, U+2581) usate
+  // da alcuni output DeepSeek. I blocchi appaiati e i tag orfani diventano
+  // spazi: gli a-capo del testo visibile devono sopravvivere, altrimenti la
+  // risposta arriva come muro di testo senza formattazione.
+  let text = String(value)
+    .replace(/<[|｜]([a-zA-Z_|\u2581\uff5c]+)[^>]*>[\s\S]*?<\/[|｜]\1>/g, " ")
+    .replace(/<think>[\s\S]*?<\/think>/gi, " ")
+    // <think> mai chiuso: tutto cio' che segue e' ragionamento, non risposta.
+    .replace(/<think>[\s\S]*$/gi, " ")
+    .replace(/<\/?[|｜][^>]*>/g, " ")
+    .replace(/<\/?think>/gi, " ");
+  return text
+    .replace(/[ \t]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
@@ -1049,17 +1066,25 @@ function parseToolCallMarkup(value = "") {
 }
 
 // Filtro riga per riga per gli stream: scarta le righe di markup e i valori
-// che vi si trovano dentro, anche se il blocco e' troncato a meta'.
+// che vi si trovano dentro, anche se il blocco e' troncato a meta'. Copre le
+// varianti con pipe ASCII e fullwidth e i blocchi <think>…</think>.
 function createMarkupLineFilter() {
-  let inside = false;
+  let insideMarkup = false;
+  let insideThink = false;
   return (line = "") => {
-    const opens = (line.match(/<\|/g) || []).length;
-    const closes = (line.match(/<\/\|/g) || []).length;
+    const opens = (line.match(/<[|｜]/g) || []).length;
+    const closes = (line.match(/<\/[|｜]/g) || []).length;
+    const thinkOpens = (line.match(/<think>/gi) || []).length;
+    const thinkCloses = (line.match(/<\/think>/gi) || []).length;
     if (opens > 0 || closes > 0) {
-      inside = opens > closes;
+      insideMarkup = opens > closes;
       return "";
     }
-    return inside ? "" : line;
+    if (thinkOpens > 0 || thinkCloses > 0) {
+      insideThink = thinkOpens > thinkCloses;
+      return "";
+    }
+    return insideMarkup || insideThink ? "" : line;
   };
 }
 
@@ -1093,32 +1118,42 @@ async function requestAgentStep(apiKey, model, messages, signal, requiredTool = 
   return data;
 }
 
-async function streamForcedFinal(apiKey, model, messages, signal, controller, encoder, usage, onFirstToken) {
+async function streamForcedFinal(apiKey, model, messages, signal, controller, encoder, usage, onFirstToken, { thinking = false } = {}) {
   const finalMessages = [
     ...messages,
     {
       role: "system",
-      content: "Formula ORA la risposta finale in italiano usando solo le evidenze raccolte. Non chiamare altri strumenti. Apri con la conclusione, cita gli URL o le pagine wiki, segnala limiti e dati mancanti.",
+      content: "Formula ORA la risposta finale in italiano usando solo le evidenze raccolte. Non chiamare altri strumenti. Apri con la conclusione, cita gli URL o le pagine wiki, segnala limiti e dati mancanti. Struttura la risposta in Markdown leggibile: titoli brevi con ##, elenchi e **grassetti**; mai un blocco unico di testo.",
     },
   ];
-  const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+  const buildBody = withThinking => JSON.stringify({
+    model: model || "deepseek-v4-flash",
+    messages: finalMessages,
+    tool_choice: "none",
+    temperature: 0.3,
+    max_tokens: FINAL_RESPONSE_TOKENS,
+    thinking: { type: withThinking ? "enabled" : "disabled" },
+    ...(withThinking ? { reasoning_effort: "high" } : {}),
+    stream: true,
+    stream_options: { include_usage: true },
+  });
+  const request = withThinking => fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({
-      model: model || "deepseek-v4-flash",
-      messages: finalMessages,
-      tool_choice: "none",
-      temperature: 0.3,
-      max_tokens: FINAL_RESPONSE_TOKENS,
-      thinking: { type: "disabled" },
-      stream: true,
-      stream_options: { include_usage: true },
-    }),
+    body: buildBody(withThinking),
   }, DEEPSEEK_TIMEOUT_MS, signal);
 
+  let thinkingUsed = thinking;
+  let resp = await request(thinking);
+  // Se il provider rifiuta il thinking (parametro non compatibile con la
+  // chiamata), un solo tentativo senza thinking: Pro non resta mai bloccato.
+  if (!resp.ok && thinking && (resp.status === 400 || resp.status === 422)) {
+    thinkingUsed = false;
+    resp = await request(false);
+  }
   if (!resp.ok) {
     const errorText = await readTextLimited(resp, 600);
     throw new Error(`DeepSeek final HTTP ${resp.status}: ${errorText.slice(0, 300)}`);
@@ -1131,6 +1166,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   let pending = "";
   let fullText = "";
   const flushLine = line => {
+    console.log(`[sbarco-line] ${JSON.stringify(line)}`);
     const clean = filter(line);
     if (!clean) return;
     onFirstToken?.();
@@ -1143,9 +1179,15 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
       try {
         const event = JSON.parse(raw);
         addUsage(usage, event.usage || {});
-        const delta = event.choices?.[0]?.delta?.content;
-        if (!delta) continue;
-        pending += delta;
+        const delta = event.choices?.[0]?.delta;
+        // In modalita' thinking il ragionamento arriva prima del contenuto:
+        // viene forwarded come evento dedicato, mai fuso nella risposta.
+        if (delta?.reasoning_content) {
+          onFirstToken?.();
+          emitSSE(controller, encoder, { reasoning: delta.reasoning_content });
+        }
+        if (!delta?.content) continue;
+        pending += delta.content;
         let index;
         while ((index = pending.indexOf("\n")) >= 0) {
           flushLine(pending.slice(0, index + 1));
@@ -1165,7 +1207,8 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   buffer += decoder.decode();
   processPayloads(drainSSEFrames(buffer, true).data);
   if (pending) flushLine(pending);
-  if (fullText.trim().length >= MIN_FINAL_TEXT_CHARS) return fullText;
+  console.log(`[sbarco-final] fullTextLen=${fullText.length} retryNeeded=${fullText.trim().length < MIN_FINAL_TEXT_CHARS}`);
+  if (fullText.trim().length >= MIN_FINAL_TEXT_CHARS) return { text: fullText, thinking: thinkingUsed };
 
   // Il modello ha scritto solo markup di chiamate strumenti nel testo:
   // un solo tentativo correttivo non-streaming, poi errore esplicito.
@@ -1201,7 +1244,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   const retryText = stripToolCallMarkup(retryData.choices?.[0]?.message?.content || "");
   if (!retryText.trim()) throw new Error("DeepSeek ha chiuso la sintesi senza contenuto.");
   await emitBufferedText(retryText, controller, encoder, signal, onFirstToken);
-  return retryText;
+  return { text: retryText, thinking: thinkingUsed };
 }
 
 function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal, tier = "base" }) {
@@ -1225,11 +1268,12 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
         let history = [];
         let finalText = "";
         let rounds = 0;
-        let contextReadyMs = null;
-        let firstAgentMs = null;
-        let firstTokenMs = null;
-        let promptStats = null;
-        let streamMode = "provider";
+          let contextReadyMs = null;
+          let firstAgentMs = null;
+          let firstTokenMs = null;
+          let promptStats = null;
+          let streamMode = "provider";
+          let thinkingUsed = false;
         const markFirstToken = () => {
           if (firstTokenMs == null) firstTokenMs = Date.now() - startedAt;
         };
@@ -1263,8 +1307,9 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
                   ? "save_doc"
                   : null;
             const data = await withHeartbeat(
-              // La profondita' viene dalle evidenze: il thinking e'
-              // intenzionalmente disattivato in ogni chiamata DeepSeek.
+              // I round con strumenti restano non-thinking: la combinazione
+              // V4 tool_choice + thinking nel loop agente non e' affidabile.
+              // La profondita' Pro arriva dal thinking nella sintesi finale.
               requestAgentStep(apiKey, model, messages, streamAbort.signal, requiredTool),
               controller,
               encoder
@@ -1309,6 +1354,10 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               continue;
             }
             if (candidate && choice.finish_reason !== "length") {
+              // Su Pro la risposta passa sempre dalla sintesi finale con
+              // thinking: il candidate resta nel contesto come bozza, non
+              // diventa il testo visibile. Su Base resta il percorso diretto.
+              if (tier === "pro") break;
               status("synthesis", "Sbarco tira le somme a bordo…", "Evidenze raccolte");
               finalText = candidate;
               streamMode = "paced";
@@ -1318,12 +1367,19 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
           }
 
           if (!finalText) {
-            status("synthesis", "Sbarco tira le somme a bordo…", "Risposta finale senza altri strumenti");
-            finalText = await withHeartbeat(
-              streamForcedFinal(apiKey, model, messages, streamAbort.signal, controller, encoder, usage, markFirstToken),
+            const thinkingEnabled = tier === "pro";
+            status(
+              "synthesis",
+              thinkingEnabled ? "Sbarco sta riflettendo a fondo…" : "Sbarco tira le somme a bordo…",
+              thinkingEnabled ? "Sintesi Pro con thinking attivo" : "Risposta finale senza altri strumenti"
+            );
+            const result = await withHeartbeat(
+              streamForcedFinal(apiKey, model, messages, streamAbort.signal, controller, encoder, usage, markFirstToken, { thinking: thinkingEnabled }),
               controller,
               encoder
             );
+            finalText = result.text;
+            thinkingUsed = result.thinking;
           }
 
           ensureRequestedPdfDocument(pdfRequested, documents, finalText);
@@ -1344,6 +1400,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             usage,
             prompt: promptStats,
             streamMode,
+            thinking: tier === "pro" ? (thinkingUsed ? "on" : "fallback") : "off",
             pdfRequested,
             documentsCreated: documents.length,
           };
@@ -1755,6 +1812,8 @@ export default {
         remaining: getRemainingToday(userId, rate.count),
         unlimited: quota.unlimited,
         policyVersion: RATE_LIMIT_POLICY_VERSION,
+        diagMarker: "probe-v1",
+        diagKvProbe: env.SBARCO_KV ? String(await env.SBARCO_KV.get("diag-probe") ?? null) : "no-kv",
       }), { headers: { ...corsHeaders, ...sessionResponseHeaders(tizianoSession) } });
     }
 
