@@ -34,6 +34,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[documenti/patto]] | Patto v1.10 integrale (non firmato) |
 | [[documenti/costi]] | Prospetto costi a norma integrale |
 | [[documenti/varo]] | Punti di lancio Lazio da JSON |
+| [[documenti/porti-fiumicino-sabaudia]] | Censimento porti/moli/approdi da Fiumicino foce a Sabaudia (nome, indirizzo, URL, stato verifica) |
 
 ## Sbarco
 

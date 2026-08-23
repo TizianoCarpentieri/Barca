@@ -54,8 +54,9 @@ Bozze **ipotetiche tra soci, non firmate**. L'impianto del patto si riusa per go
 | Patto soci v1.10 | [[sintesi/patto-bestie]] | [[documenti/patto]] | `contratto/bozza-patto-v1.md` |
 | Costi/obblighi/dotazioni | [[sintesi/prospetto-costi-a-norma]] | [[documenti/costi]] | `contratto/prospetto-costi-a-norma.md` |
 | Punti di lancio Lazio | [[normativa/varo-litorale-lazio]] | [[documenti/varo]] | `contratto/dati/punti-varo-lazio.json` |
+| Porti e moli Fiumicino→Sabaudia | [[documenti/porti-fiumicino-sabaudia]] | idem | ricerca web 2026-08-23 |
 
-Se l'utente chiede un articolo, una tabella o un punto di varo: **read_wiki** sui path `wiki/documenti/patto.md`, `wiki/documenti/costi.md`, `wiki/documenti/varo.md`. Hub: [[documenti]].
+Se l'utente chiede un articolo, una tabella o un punto di varo: **read_wiki** sui path `wiki/documenti/patto.md`, `wiki/documenti/costi.md`, `wiki/documenti/varo.md`. Se chiede porti, moli o ormeggi da Fiumicino a Sabaudia (elenchi, indirizzi, URL): **read_wiki** su `wiki/documenti/porti-fiumicino-sabaudia.md` **prima** di cercare sul web. Hub: [[documenti]].
 
 **Scuola sul sito:** [[concetti/simulazioni]] · trainer nodi `nodi.html` (gassa d'amante, parlato, otto, piano, giro morto, bandiera).
 

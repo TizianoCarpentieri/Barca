@@ -650,3 +650,11 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Sito live verificato: bundle `app-BlwatF1t.js` contiene il nuovo flusso enroll (POST con codice nel body).
 - Decisioni di gruppo registrate: quota Antonio/Peppe senza PIN accettata; deep mode resta a 1 credito.
 - Prossime osservazioni da /debug nei prossimi giorni: verifiche 1, 6, 7, 9 (vincoli CF, volume KV, thinking Pro, memoria).
+
+## [2026-08-23] ingest | Censimento porti e moli Fiumicino→Sabaudia
+
+- Incidente chat: deep research Pro ha esaurito il budget ricerca (3 search/5 read/14 tool call) sul censimento di tutti i moli/porti da Fiumicino a Sabaudia. Non è un limite account (Tiziano è illimitato): sono i budget di ricerca di progetto; il bot ha fatto bene a non inventare.
+- Fatto il censimento a mano con ricerca web: nuova pagina wiki/documenti/porti-fiumicino-sabaudia.md con nome, tipo, indirizzo, URL e stato di verifica (✅ ufficiale / ◐ aggregator / ✳ da confermare) per Fiumicino, Ostia, Pomezia/Torvaianica, Ardea/Tor San Lorenzo/Lavinio, Anzio, Nettuno, Latina (Foce Verde, Rio Martino), Sabaudia (Badino, Canale Sisto).
+- Verificato: Pomezia/Torvaianica e Ardea/Lavinio non hanno porti (solo PO e passaggi); Marina di Ardea resta progetto. URL ufficiali confermati: portoturisticodiroma.it, nettunomarina.com, portodianzio.eu; Rio Martino su fonti Comune Sabaudia.
+- Aggiornati: varo.md (link), index.md, contesto-sbarco.md (il bot ora apre il censimento con read_wiki invece di rifare la ricerca), log.
+- Resta da chiudere a telefono: indirizzi/URL mancanti (checklist nella pagina).
