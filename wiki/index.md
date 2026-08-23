@@ -41,6 +41,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 |--------|----------|
 | [[sintesi/contesto-sbarco]] | Contesto corrente compatto usato dal bot |
 | [[concetti/architettura-sbarco]] | Flusso chat/deep research, limiti, memoria e manutenzione |
+| [[concetti/worker-chiamate-review]] | Inventario chiamate del Worker (DeepSeek, web, KV) + punti migliorabili |
 
 ## Preferenze
 
@@ -119,3 +120,4 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[sintesi/prospetto-costi-a-norma]] | Digest obblighi/costi/dotazioni/fasce motore (fonte `contratto/prospetto-…`) |
 | [[sintesi/patto-bestie]] | Digest patto v1.10 (split, danni, uscite, formula recesso) |
 | [[sintesi/audit-sbarco-20260811]] | Audit memoria, streaming, token, PDF e UI mobile della revisione 2.2.0 |
+| [[sintesi/piano-miglioramenti-sbarco]] | Piano operativo v2 (19 punti + 11 verifiche): pulizie, retry, budget prompt/tempo, sicurezza |

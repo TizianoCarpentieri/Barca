@@ -607,3 +607,36 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
   libero o gratuito l'accesso terrestre della concessione.
 - Ridisegnata la mappa come guida operativa in quattro pagine, con zona casa,
   copione telefonico, sequenza di varo, livelli di certezza e piano B.
+
+## [2026-08-23] review | Chiamate del worker Sbarco: inventario e punti migliorabili
+
+- Analizzati i tipi di chiamate del worker (v2.4.0): DeepSeek Chat Completions (round agente, sintesi finale, retry, estrazione memoria), GitHub Raw (context/index in cache, read_wiki senza cache), DuckDuckGo (search_web), URL pubblici (read_url), KV interno.
+- Trovati e documentati 18 punti migliorabili in wiki/concetti/worker-chiamate-review.md: codice morto (/api/debug-url), README obsoleto con encoding rotto, nessun retry su 429/5xx DeepSeek, read_wiki senza cache KV, crescita del prompt coi tool result, estrazione memoria a chiamate vuote, credito scalato su errore, passkey senza rate limit, log del contenuto chat, residui diag in /api/status.
+- Priorita' consigliate: pulizie rapide (dead code, README, log), affidabilita' (retry DeepSeek, cache read_wiki), costi (euristiche memoria, rimborso credito), sicurezza (rate limit passkey).
+- Test worker: 42/42 verdi al momento della review.
+
+## [2026-08-23] sintesi | Piano miglioramenti Sbarco consolidato
+
+- Consolidati i 18 punti della review in wiki/sintesi/piano-miglioramenti-sbarco.md con priorita' P0-P4 e impatto atteso.
+- Aggiunte 10 verifiche da fare prima/durante gli interventi: timeout effettivo DeepSeek vs cap CF, stima prompt vs finestra di contesto, frequenza finish_reason length, sintesi a testo vuoto, affidabilita' DDG, volume scritture KV, Pro thinking in produzione, impatto rimozione diag su test, memoria condivisa, latenza quick mode.
+- Confermato da codice client: diagMarker/diagKvProbe non usati dalla UI (rimozione sicura, aggiornando i test).
+- Proposta opzionale chat persistente: trascritto client-side in localStorage per utente (barca_transcript:{userId}, cap ~50 msg/60KB), ri-render con renderMarkdown; sconsigliato endpoint GET history (esporrebbe chat senza auth).
+- Regola: margini di prompt si guadagnano riducendo l'ingresso (tool result, cache, euristiche), non alzando l'output.
+
+## [2026-08-23] sintesi | Piano miglioramenti Sbarco v2 — rivisto sul codice
+
+- Verificato il piano sul worker (v2.4.0), test e client: tutti i P0 confermati (dead code /api/debug-url, README 2.3.2+mojibake, log [sbarco-line] del contenuto, diagMarker/diagKvProbe assertati solo nei test).
+- Corretta la premessa timeout: nessun cap CF documentato di ~30 s sui fetch outbound; i limiti reali sono CPU time per piano (10 ms free / 5 min paid) e subrequest (50 free; cap 1000 rimosso 2026-02-11).
+- Aggiunti 3 punti: budget tempo che copra la sintesi finale (worst case quick ~275 s vs 70 s dichiarati), cap ~300 char/fatto memoria nel prompt (12x800 = ~9.600 char oggi), codice enroll passkey fuori dalla query string (finisce nei log CF).
+- Corrette le verifiche 2-5: servono metriche nuove (usage.prompt_tokens reali, finishReasons, finalTextLen/finalRetry, searchesEmpty) — senza, le verifiche erano impossibili. Aggiunta verifica su deep mode (1 credito come la rapida) da decidere in gruppo.
+- Numero totale: 19 punti + 11 verifiche; review aggiornata con sezione revisione v2.
+
+## [2026-08-23] fix(sbarco) | Esecuzione piano miglioramenti: P0 + P1 + P2 + P3.16 + P4.18
+
+- P0: rimosso handler /api/debug-url (dead code), README worker 2.4.0 con encoding UTF-8 corretto, eliminato il log riga-per-riga del contenuto delle risposte (restano solo metriche), rimossi diagMarker/diagKvProbe da /api/status (client verificato, test allineati).
+- P1: retry DeepSeek su 429/5xx e reti instabili con backoff (mai su abort); budget tempo con riserva ~25 s per la sintesi e timeout per step limitato al budget residuo; metriche nuove in /debug (finishReasons, searchesEmpty, finalTextLen/finalRetry, lastAgentPromptTokens, preSynthesisChars/ToolChars); cache KV per read_wiki (TTL 5 min) e DuckDuckGo (TTL 1 h); cap prompt in ingresso (16k/pagina a righe intere, 40k cumulativo sui tool result, 300 char/fatto memoria); kv.put fuori dal try della fetch wiki.
+- P2: euristiche estrazione memoria ristrette (domande scartate prima, "voglio sapere..." escluso) + finestra 6 h per utente; rimborso credito su agent_error (mai su cancel utente); session Tiziano rinnovata solo dopo 1/3 del TTL; debug:events bufferizzato con flush unico a fine chat.
+- P3: rate limit per IP su passkey challenge (5/min) ed enroll (10/min), confronto codice a tempo costante su SHA-256, codice enrollment spostato nel body POST (mai più in query string/log); quota Antonio/Peppe senza PIN accettata dal gruppo e deep mode confermato a 1 credito.
+- P4: DEEPSEEK_BASE_URL configurabile da env.
+- Test: 53/53 verdi in locale (isolamento in-process per il sandbox; la CI gira npm test completo); 11 test nuovi per retry, rimborso, cache, budget, rate limit e session sliding.
+- Docs: architettura-sbarco aggiornata (protezioni runtime + affidabilità chiamate), piano con stato di esecuzione.

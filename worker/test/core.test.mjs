@@ -72,6 +72,8 @@ test("estrae memoria solo da preferenze esplicite", () => {
   assert.equal(__test.shouldExtractMemory("Preferiamo un motore 15 CV quattro tempi"), true);
   assert.equal(__test.shouldExtractMemory("Quanto costa oggi un motore 15 CV?"), false);
   assert.equal(__test.shouldExtractMemory("Riassumi il piano"), false);
+  assert.equal(__test.shouldExtractMemory("Voglio sapere quanto costa un gommone"), false);
+  assert.equal(__test.shouldExtractMemory("Vogliamo restare sotto i 2000 euro"), true);
 });
 
 test("mantiene margini conservativi per l'output visibile", () => {
@@ -165,8 +167,6 @@ test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async (
     remaining: 5,
     unlimited: false,
     policyVersion: __test.rateLimitPolicyVersion,
-    diagMarker: "probe-v1",
-    diagKvProbe: "null",
   });
 
   const tizianoResponse = await worker.fetch(new Request("https://sbarco.test/api/status?userId=tiziano"), {
@@ -182,8 +182,6 @@ test("la policy v2 azzera i vecchi conteggi e rende esplicita la quota", async (
     remaining: null,
     unlimited: true,
     policyVersion: __test.rateLimitPolicyVersion,
-    diagMarker: "probe-v1",
-    diagKvProbe: "null",
   });
 });
 
@@ -727,7 +725,16 @@ test("la sintesi finale filtra il markup di tool call e riprova con testo pulito
     const body = await response.text();
     assert.match(body, /Sintesi finale pulita con le fonti verificate/);
     assert.match(body, /"done":true/);
-    assert.doesNotMatch(body, /tool_calls|invoke|parameter|<\|/);
+    // Il markup non deve mai raggiungere i token visibili (le metriche meta
+    // possono citare i finish_reason "tool_calls": si controlla solo il testo).
+    const visibleTokens = body
+      .split("\n")
+      .filter(line => line.startsWith("data: "))
+      .map(line => JSON.parse(line.slice(6)))
+      .filter(payload => payload && typeof payload.token === "string")
+      .map(payload => payload.token)
+      .join("\n");
+    assert.doesNotMatch(visibleTokens, /tool_calls|invoke|parameter|<\|/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
   } finally {
@@ -1029,4 +1036,275 @@ test("se il provider rifiuta il thinking la sintesi Pro degrada senza errori", a
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("retry DeepSeek: 500 transitori non uccidono la chat", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let agentCalls = 0;
+  globalThis.fetch = async (input) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      if (agentCalls <= 2) return new Response("errore temporaneo", { status: 500 });
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Risposta arrivata dopo due errori transitori." } }],
+        usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Riassumi il piano", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /Risposta arrivata dopo due errori transitori/);
+    assert.match(body, /"done":true/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 3, "tentativo + due retry con backoff");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("errore di sistema rimborsa il credito, il cancel utente no", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  const rateKey = __test.getRateLimitKey("antonio");
+  store.set(rateKey, "2");
+  let agentCalls = 0;
+  globalThis.fetch = async (input) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      return new Response("sovraccarico", { status: 503 });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "antonio", question: "Riassumi il piano", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+
+    const body = await response.text();
+    assert.match(body, /"code":"agent_error"/);
+    assert.match(body, /"done":true/);
+    await Promise.all(background);
+    assert.equal(agentCalls, 3, "retry esauriti senza risposta");
+    assert.equal(store.get(rateKey), "2", "il credito scalato viene rimborsato sull'errore di sistema");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("read_wiki usa la cache KV e tronca a righe intere dalla testa", async () => {
+  const originalFetch = globalThis.fetch;
+  const kv = mockKv();
+  let fetches = 0;
+  const page = "# Pagina test\n" + "Contenuto utile. ".repeat(2000);
+  globalThis.fetch = async () => {
+    fetches += 1;
+    return new Response(page, { status: 200, headers: { "content-type": "text/markdown" } });
+  };
+  try {
+    const call = () => __test.executeTool({
+      function: { name: "read_wiki", arguments: '{"page":"wiki/preferenze/track-gommoni.md"}' },
+    }, { kv });
+    const first = await call();
+    const second = await call();
+    assert.equal(fetches, 1, "la seconda lettura viene servita dalla cache KV");
+    assert.match(first, /^# Pagina test/);
+    assert.match(first, /\[\.\.\. troncato, pagina troppo lunga\]/);
+    assert.equal(second, first);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("search_web usa la cache KV e conta le ricerche a vuoto", async () => {
+  const originalFetch = globalThis.fetch;
+  const kv = mockKv();
+  let ddgCalls = 0;
+  globalThis.fetch = async () => {
+    ddgCalls += 1;
+    return new Response(
+      `<a class="result__a" href="https://example.com/x">Fonte X</a><a class="result__snippet">Dato.</a>`,
+      { status: 200, headers: { "content-type": "text/html" } }
+    );
+  };
+  try {
+    const state = { searches: 0, searchesEmpty: 0 };
+    const call = () => __test.executeTool({
+      function: { name: "search_web", arguments: '{"query":"gommone lazio"}' },
+    }, { kv, state });
+    const first = await call();
+    const second = await call();
+    assert.equal(ddgCalls, 1, "la seconda ricerca identica viene servita dalla cache KV");
+    assert.match(first, /example\.com\/x/);
+    assert.equal(second, first);
+    assert.equal(state.searchesEmpty, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("il budget sui tool result sostituisce i messaggi più vecchi", () => {
+  const messages = [
+    { role: "system", content: "s" },
+    { role: "tool", tool_call_id: "1", content: "a".repeat(500) },
+    { role: "tool", tool_call_id: "2", content: "b".repeat(500) },
+    { role: "tool", tool_call_id: "3", content: "c".repeat(500) },
+  ];
+  __test.applyToolResultBudget(messages, 700);
+  assert.match(messages[1].content, /omesso per budget/);
+  assert.match(messages[2].content, /omesso per budget/);
+  assert.equal(messages[3].content, "c".repeat(500), "i risultati più recenti restano integri");
+
+  const small = [
+    { role: "tool", tool_call_id: "1", content: "piccolo" },
+    { role: "tool", tool_call_id: "2", content: "altro" },
+  ];
+  __test.applyToolResultBudget(small, 1000);
+  assert.equal(small[0].content, "piccolo", "sotto budget non si tocca nulla");
+  assert.equal(small[1].content, "altro");
+});
+
+test("trimHeadWholeLines tiene la testa su righe intere", () => {
+  const text = "riga uno\nriga due\nriga tre";
+  const trimmed = __test.trimHeadWholeLines(text, 18);
+  assert.equal(trimmed, "riga uno\nriga due");
+});
+
+test("decrementRateLimit non va sotto zero e ignora gli unlimited", async () => {
+  const kv = mockKv();
+  const key = __test.getRateLimitKey("antonio");
+  await __test.incrementRateLimit(kv, "antonio", null, 1);
+  await __test.incrementRateLimit(kv, "antonio", null, 1);
+  assert.equal(await kv.get(key), "2");
+  await __test.decrementRateLimit(kv, "antonio", 1);
+  assert.equal(await kv.get(key), "1");
+  await __test.decrementRateLimit(kv, "antonio", 5);
+  assert.equal(await kv.get(key), "0");
+  await __test.decrementRateLimit(kv, "tiziano", 1);
+});
+
+test("confronto codice enroll a tempo costante", async () => {
+  assert.equal(await __test.constantTimeSecretEqual("codice", "codice"), true);
+  assert.equal(await __test.constantTimeSecretEqual("codice", "CODICE"), false);
+  assert.equal(await __test.constantTimeSecretEqual("", "x"), false);
+  assert.equal(await __test.constantTimeSecretEqual("x", ""), false);
+});
+
+test("rate limit passkey per IP: 5 challenge e 10 enroll al minuto", async () => {
+  const kv = mockKv();
+  const req = ip => new Request("https://sbarco.test/api/passkey/challenge", { headers: { "CF-Connecting-IP": ip } });
+  for (let i = 0; i < 5; i += 1) assert.equal(await __test.checkAuthRateLimit(kv, req("1.2.3.4"), "challenge", 5), true);
+  assert.equal(await __test.checkAuthRateLimit(kv, req("1.2.3.4"), "challenge", 5), false);
+  assert.equal(await __test.checkAuthRateLimit(kv, req("5.6.7.8"), "challenge", 5), true, "un altro IP ha il suo contatore");
+  for (let i = 0; i < 10; i += 1) assert.equal(await __test.checkAuthRateLimit(kv, req("1.2.3.4"), "enroll", 10), true);
+  assert.equal(await __test.checkAuthRateLimit(kv, req("1.2.3.4"), "enroll", 10), false);
+});
+
+test("enroll passkey solo via POST con codice nel body, e rate limit", async () => {
+  const env = {
+    SBARCO_KV: mockKv(),
+    ALLOWED_ORIGIN: "https://tizianocarpentieri.github.io",
+    TIZIANO_ENROLLMENT_CODE: "codice-segreto",
+  };
+  const post = code => worker.fetch(new Request("https://sbarco.test/api/passkey/challenge", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "CF-Connecting-IP": "9.9.9.9" },
+    body: JSON.stringify({ purpose: "enroll", code }),
+  }), env, {});
+
+  // GET non espone più l'enroll (niente codice negli URL/log)
+  const getEnroll = await worker.fetch(new Request("https://sbarco.test/api/passkey/challenge?purpose=enroll&code=codice-segreto"), env, {});
+  assert.equal(getEnroll.status, 401);
+
+  // Codice errato → 401
+  const bad = await post("sbagliato");
+  assert.equal(bad.status, 401);
+  assert.match((await bad.json()).error, /non valido/i);
+
+  // Codice giusto → 200 con le opzioni di creazione
+  const good = await post("codice-segreto");
+  assert.equal(good.status, 200);
+  const payload = await good.json();
+  assert.ok(payload.challenge);
+  assert.equal(payload.user.name, "tiziano");
+  assert.equal(payload.rp.id, "tizianocarpentieri.github.io");
+
+  // Rate limit: dopo 10 tentativi (1 riuscito + 9 errati) l'undicesimo è bloccato
+  for (let i = 0; i < 9; i += 1) await post("sbagliato");
+  const blocked = await post("codice-segreto");
+  assert.equal(blocked.status, 401);
+  assert.match((await blocked.json()).error, /Troppi tentativi/i);
+});
+
+test("la session Tiziano non riscrive KV finché resta più di 1/3 del TTL", async () => {
+  const base = mockKv();
+  const writesByKey = new Map();
+  const kv = {
+    get: base.get,
+    delete: base.delete,
+    async put(key, value, opts = {}) {
+      writesByKey.set(key, (writesByKey.get(key) || 0) + 1);
+      return base.put(key, value, opts);
+    },
+  };
+  const env = { SBARCO_KV: kv };
+  const issued = await __test.issueTizianoSession(env);
+  const hash = await __test.sha256Base64Url(issued.sessionToken);
+  const sessionKey = `auth:tiziano:session:${hash}`;
+  const writesAfterIssue = writesByKey.get(sessionKey) || 0;
+
+  // Verifica immediata: nessuna scrittura aggiuntiva (restano >2/3 del TTL)
+  const verified = await __test.verifyTizianoSession(issued.sessionToken, env);
+  assert.equal(verified.expiresAt, issued.expiresAt);
+  assert.equal(writesByKey.get(sessionKey) || 0, writesAfterIssue, "nessun renew immediato");
+
+  // Con meno di 1/3 di TTL residuo la sessione si rinnova e scrive KV
+  await base.put(sessionKey, JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 300, createdAt: new Date().toISOString() }));
+  const renewed = await __test.verifyTizianoSession(issued.sessionToken, env);
+  assert.ok(renewed.expiresAt > Date.now() + 25 * 60 * 1000, "il rinnovo riporta la sessione a 30 minuti");
+  assert.equal(writesByKey.get(sessionKey) || 0, writesAfterIssue + 1, "renew scritto una sola volta");
 });

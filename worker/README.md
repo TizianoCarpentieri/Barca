@@ -1,4 +1,4 @@
-﻿# Sbarco Worker â€” Cloudflare
+# Sbarco Worker — Cloudflare
 
 Assistente chat per Progetto Barca con contesto wiki, memoria KV deduplicata,
 strumenti web e risposta SSE progressiva.
@@ -27,15 +27,15 @@ npx wrangler secret put DEEPSEEK_API_KEY
 ### 2b. Attiva la passkey esclusiva di Tiziano
 
 Imposta un codice monouso, comunicalo solo a Tiziano e poi apri Sbarco dal suo
-Galaxy: selezionando **Tiziano** verrÃ  chiesto il codice e il telefono
-registrerÃ  una passkey platform con verifica biometrica/PIN. Da quel momento
+Galaxy: selezionando **Tiziano** verrà chiesto il codice e il telefono
+registrerà una passkey platform con verifica biometrica/PIN. Da quel momento
 chat, quota, status e `/debug` di Tiziano richiedono la firma della stessa
-passkey; scegliere â€œTizianoâ€ nel menu non Ã¨ sufficiente.
+passkey; scegliere "Tiziano" nel menu non è sufficiente.
 
 Dopo la **prima** verifica passkey riuscita, il Worker emette una **session**
 opaca (`X-Tiziano-Session`) valida **30 minuti** con rinnovo a ogni uso
 (sliding). Il browser la conserva in `localStorage` (`barca_tiziano_session`).
-FinchÃ© la session Ã¨ valida non serve un nuovo QR/impronta. Scaduta o revocata
+Finché la session è valida non serve un nuovo QR/impronta. Scaduta o revocata
 in KV (`auth:tiziano:session:*`), si ripete una sola passkey.
 
 ```bash
@@ -52,6 +52,8 @@ In `wrangler.toml`, modifica `ALLOWED_ORIGIN` con l'URL del tuo GitHub Pages:
 DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEEPSEEK_MODEL_PRO = "deepseek-v4-pro"
 ALLOWED_ORIGIN = "https://tizianocarpentieri.github.io"
+# Opzionale: base URL DeepSeek per test o gateway (default https://api.deepseek.com/v1)
+# DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 ```
 
 ### 4. Aggiorna l'URL nel frontend
@@ -69,7 +71,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# â†’ {"status":"ok","version":"2.3.2","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# → {"status":"ok","version":"2.4.0","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -83,7 +85,7 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 
 ## Quote giornaliere
 
-- **Tiziano:** utilizzo illimitato; il Worker non legge nÃ© incrementa una
+- **Tiziano:** utilizzo illimitato; il Worker non legge né incrementa una
   chiave quota per questo profilo.
 - **Antonio e Peppe:** 5 utilizzi al giorno ciascuno.
 - Il giorno cambia a mezzanotte nel fuso `Europe/Rome`. La versione nella
@@ -101,11 +103,12 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 |----------|--------|-----|
 | `/api/health` | GET | versione e stato Worker |
 | `/api/status?userId=...` | GET | contatore giornaliero reale |
-| `/api/chat` | POST | chat SSE; body `{userId, question, mode}` |
+| `/api/chat` | POST | chat SSE; body `{userId, question, mode, tier}` |
 
-`mode` puÃ² essere `auto` o `deep`. La modalitÃ  profonda apre lo stream prima
-della ricerca, invia fasi/heartbeat, limita fonti e round e forza la sintesi
-finale senza ulteriori tool. Dettaglio: `wiki/concetti/architettura-sbarco.md`.
+`mode` può essere `auto` o `deep`; `tier` può essere `base` o `pro`. La
+modalità profonda apre lo stream prima della ricerca, invia fasi/heartbeat,
+limita fonti e round e forza la sintesi finale senza ulteriori tool.
+Dettaglio: `wiki/concetti/architettura-sbarco.md`.
 
 Le risposte rapide gia' complete vengono inviate in frame cadenzati per evitare
 che proxy e browser le accorpino. La sintesi forzata usa lo stream nativo del
@@ -126,7 +129,7 @@ cd .. && node scripts/lint-wiki.mjs
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.3.2` e la policy quota attiva (Base 1 credito, Pro 2).
+1. `/api/health` riporta `version: 2.4.0` e la policy quota attiva (Base 1 credito, Pro 2).
 2. Una domanda rapida produce stato e risposta.
 3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
 4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,
@@ -134,7 +137,7 @@ Dopo il deploy verificare:
 
 ## Aggiornare il grafo
 
-Il grafo serve alla navigazione e all'analisi del repository, ma non viene piÃ¹
+Il grafo serve alla navigazione e all'analisi del repository, ma non viene più
 incorporato nel bundle del Worker. Dopo modifiche sostanziali al progetto:
 
 ```bash
@@ -143,4 +146,4 @@ graphify update .
 ```
 
 Il Worker legge il contesto compatto e l'indice da GitHub Raw e li mantiene in
-cache KV per un'ora; non e' necessario incorporare o copiare il grafo.
+cache KV per 5 minuti; non e' necessario incorporare o copiare il grafo.

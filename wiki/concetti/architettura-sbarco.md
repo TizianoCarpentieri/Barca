@@ -97,11 +97,42 @@ strumento complessive e 4 strumenti concorrenti. Ogni fonte web ha timeout di
   **session token** (header `X-Tiziano-Session`, TTL 30 minuti sliding, hash in
   KV). Chat e status accettano la session al posto di una nuova asserzione
   passkey; a scadenza si ripete una sola conferma biometrica. Il selettore del
-  browser non costituisce autenticazione.
+  browser non costituisce autenticazione. Il rinnovo scrive KV solo quando è
+  trascorso più di 1/3 del TTL: meno scritture, stessa durata utile.
 - La prima associazione richiede un codice segreto esterno al repository; KV
-  conserva soltanto id credenziale, chiave pubblica e contatore di firma.
+  conserva soltanto id credenziale, chiave pubblica e contatore di firma. Il
+  codice di enrollment viaggia nel **body di una POST** (mai in query string:
+  gli URL finiscono nei log) e il confronto è a tempo costante su hash
+  SHA-256. Challenge e tentativi di enroll sono **rate-limitati per IP**
+  (5/min e 10/min, IP da `CF-Connecting-IP`).
 - `read_url` ricontrolla ogni redirect contro reti locali; il prompt tratta le
   pagine esterne come dati non affidabili, mai come istruzioni.
+
+## Affidabilità delle chiamate
+
+- Le chiamate DeepSeek **ritentano su 429/5xx** (2 tentativi, backoff con
+  `Retry-After`) e su errori di rete transitori; un abort (timeout o client
+  disconnesso) non viene mai ritentato. Le richieste sono idempotenti: i tool
+  li esegue il Worker solo dopo aver ricevuto la risposta.
+- Il **budget tempo copre anche la sintesi finale**: prima di ogni round resta
+  un margine di ~25 s per la sintesi e il timeout del passo non supera mai il
+  budget residuo del modo. Se il budget è quasi esaurito si salta direttamente
+  alla risposta finale.
+- `read_wiki` usa la **cache KV** (`wiki:cache:v6:<path>`, TTL 5 min) come
+  context/index; le ricerche DuckDuckGo sono cached per query (TTL 1 h).
+  Una scrittura KV fallita non butta via il testo appena scaricato.
+- **Budget sul prompt in ingresso**: una pagina wiki entra al modello per al
+  massimo 16.000 char (troncata su righe intere dalla testa), i risultati dei
+  tool hanno un budget cumulativo di ~40.000 char (i più vecchi vengono
+  sostituiti da un marker) e ogni fatto di memoria condivisa pesa al massimo
+  300 char nel prompt (in KV restano a 800).
+- Su errore di sistema (provider 429/5xx dopo i retry, timeout, errore
+  interno) il **credito viene rimborsato**; mai sul cancel dell'utente.
+- `/debug` espone in più: `finishReasons`, `searchesEmpty`, `finalTextLen`,
+  `finalRetry`, `lastAgentPromptTokens`, `preSynthesisChars` e
+  `preSynthesisToolChars` (prompt reale prima della sintesi, tool inclusi).
+- `debug:events` è bufferizzato in memoria e persistito in un unico
+  read-modify-write a fine chat (chiave condivisa, last-write-wins).
 
 ## Modello (Base / Pro)
 

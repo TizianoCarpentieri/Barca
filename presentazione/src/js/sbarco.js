@@ -240,7 +240,10 @@ const MAX_DAILY = 5;
       if (!/non ancora registrato/i.test(unavailable.error || "")) throw new Error(unavailable.error || "Galaxy non autorizzato.");
       const code = window.prompt("Prima attivazione: inserisci il codice ricevuto da Tiziano.");
       if (!code) throw new Error("Attivazione Galaxy annullata.");
-      const enrollOptions = await passkeyJson(await fetch(`${SBARCO_WORKER}/api/passkey/challenge?purpose=enroll&code=${encodeURIComponent(code)}`));
+      const enrollOptions = await passkeyJson(await fetch(`${SBARCO_WORKER}/api/passkey/challenge`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ purpose: "enroll", code }),
+      }));
       const created = await navigator.credentials.create({ publicKey: {
         ...enrollOptions,
         challenge: base64UrlToBytes(enrollOptions.challenge),

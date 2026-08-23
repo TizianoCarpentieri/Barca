@@ -28,6 +28,23 @@ const WEB_TIMEOUT_MS = 12_000;
 const SYNTHETIC_STREAM_CHARS = 48;
 const SYNTHETIC_STREAM_DELAY_MS = 24;
 const MIN_FINAL_TEXT_CHARS = 40;
+// Budget di uscita: prima di un round agente deve restare almeno questo
+// margine per la sintesi finale; il timeout del passo non supera mai il
+// budget residuo del modo (AGENTS.md §7: garanzia di uscita).
+const FINAL_RESERVE_MS = 25_000;
+// Retry DeepSeek solo su 429/5xx (e reti instabili): richieste idempotenti,
+// nessun side effect prima della risposta (i tool li eseguiamo noi).
+const DEEPSEEK_RETRY_MAX = 2;
+const DEEPSEEK_RETRY_BASE_DELAY_MS = 800;
+const DEEPSEEK_RETRY_STATUSES = new Set([429, 500, 502, 503, 504]);
+const WIKI_CACHE_TTL_SEC = 300;
+const SEARCH_CACHE_TTL_SEC = 3600;
+// Budget sul prompt in ingresso: cap per pagina wiki e cap cumulativo sui
+// risultati degli strumenti, per non far annegare la sintesi finale.
+const READ_WIKI_MAX_CHARS = 16_000;
+const TOOL_RESULT_BUDGET_CHARS = 40_000;
+const MEMORY_PROMPT_FACT_CHARS = 300;
+const MEMORY_EXTRACT_WINDOW_MS = 6 * 60 * 60 * 1000;
 
 function getDailyQuota(userId) {
   const unlimited = userId === "tiziano";
@@ -82,6 +99,40 @@ const PASSKEY_CHALLENGE_TTL = 300;
 const SESSION_TTL_SEC = 1800;
 const SESSION_KV_TTL_SEC = 2100;
 const SESSION_KEY_PREFIX = "auth:tiziano:session:";
+const AUTH_RATE_WINDOW_SEC = 60;
+const CHALLENGE_RATE_MAX = 5;
+const ENROLL_RATE_MAX = 10;
+
+function clientIp(request) {
+  return (
+    request.headers.get("CF-Connecting-IP")
+    || request.headers.get("X-Real-IP")
+    || String(request.headers.get("X-Forwarded-For") || "").split(",")[0]?.trim()
+    || "unknown"
+  );
+}
+
+async function checkAuthRateLimit(kv, request, scope, max) {
+  if (!kv) return true; // dev/test senza KV
+  const key = `auth:rl:${scope}:${clientIp(request)}`;
+  try {
+    const raw = await kv.get(key);
+    const count = Number.isFinite(Number(raw)) ? Number(raw) : 0;
+    if (count >= max) return false;
+    await kv.put(key, String(count + 1), { expirationTtl: AUTH_RATE_WINDOW_SEC });
+    return true;
+  } catch {
+    return true; // fail-open: l'enroll resta comunque protetto dal codice segreto
+  }
+}
+
+// Confronto a tempo costante su hash SHA-256: nessuna uscita anticipata sul
+// primo byte diverso e nessun segreto in chiaro nei confronti.
+async function constantTimeSecretEqual(provided, expected) {
+  const providedBytes = await sha256(new TextEncoder().encode(String(provided || "")));
+  const expectedBytes = await sha256(new TextEncoder().encode(String(expected || "")));
+  return bytesEqual(providedBytes, expectedBytes);
+}
 
 function bytesToBase64Url(bytes) {
   let binary = "";
@@ -250,6 +301,12 @@ async function verifyTizianoSession(token, env) {
     throw new Error("Sessione Tiziano scaduta");
   }
   const exp = now + SESSION_TTL_SEC;
+  const remaining = data.exp - now;
+  // Rinnovo solo quando è trascorso più di 1/3 del TTL: scrivere KV a ogni
+  // richiesta non allunga la sessione utile (il TTL di KV copre comunque).
+  if (remaining >= (SESSION_TTL_SEC * 2) / 3) {
+    return { sessionToken: token, expiresAt: data.exp * 1000 };
+  }
   await env.SBARCO_KV.put(
     key,
     JSON.stringify({ ...data, exp }),
@@ -392,6 +449,20 @@ function trimWholeLines(value, maxChars) {
   return kept.join("\n").slice(0, maxChars);
 }
 
+// Per le pagine wiki si tiene la testa (introduzione e decisioni in alto),
+// a differenza dei summary dove contano gli ultimi eventi.
+function trimHeadWholeLines(value, maxChars) {
+  const lines = String(value || "").split(/\r?\n/);
+  const kept = [];
+  let used = 0;
+  for (const line of lines) {
+    if (used + line.length + 1 > maxChars && kept.length > 0) break;
+    kept.push(line);
+    used += line.length + 1;
+  }
+  return kept.join("\n").slice(0, maxChars);
+}
+
 function compactHistory(history = []) {
   const normalized = history
     .filter(message => ["user", "assistant"].includes(message?.role) && message?.content)
@@ -416,6 +487,30 @@ function compactHistory(history = []) {
     evicted: normalized.slice(0, firstKept),
     recent: normalized.slice(firstKept),
   };
+}
+
+// Budget cumulativo sui risultati degli strumenti: i messaggi tool più
+// vecchi vengono sostituiti da un marker, i più recenti restano integri
+// (sono quelli su cui si basa la sintesi finale).
+function applyToolResultBudget(messages, maxChars = TOOL_RESULT_BUDGET_CHARS) {
+  const toolIndexes = [];
+  let total = 0;
+  for (let index = 0; index < messages.length; index += 1) {
+    const message = messages[index];
+    if (message.role === "tool") {
+      toolIndexes.push(index);
+      total += String(message.content || "").length;
+    }
+  }
+  if (total <= maxChars || toolIndexes.length <= 1) return;
+  for (const index of toolIndexes) {
+    const message = messages[index];
+    const content = String(message.content || "");
+    if (!content) continue;
+    total -= content.length;
+    messages[index] = { ...message, content: "[risultato precedente omesso per budget]" };
+    if (total <= maxChars) return;
+  }
 }
 
 // ── DeepSeek API ─────────────────────────────────────────────────
@@ -460,17 +555,21 @@ async function fetchWikiPage(kv, key, pageDef) {
   } catch {}
 
   const url = `${WIKI_REPO_RAW}/${pageDef.path}`;
+  let text = null;
   try {
     const resp = await fetchWithTimeout(url, {
       headers: { "User-Agent": "Sbarco/2.0" },
     }, WEB_TIMEOUT_MS);
     if (!resp.ok) return key === "context" ? EMBEDDED_WIKI.context : `[${key} non disponibile]`;
-    const text = await resp.text();
-    if (kv) await kv.put(cacheKey, text, { expirationTtl: pageDef.cacheTtl });
-    return text;
+    text = await resp.text();
   } catch {
     return key === "context" ? EMBEDDED_WIKI.context : `[${key} non disponibile]`;
   }
+  // Una scrittura KV fallita non deve buttare via il testo appena scaricato.
+  if (kv) {
+    try { await kv.put(cacheKey, text, { expirationTtl: pageDef.cacheTtl }); } catch {}
+  }
+  return text;
 }
 
 function compactWikiIndex(index = "") {
@@ -546,7 +645,7 @@ function buildMessages(systemPrompt, question, memoryFacts, history, summary) {
   const selectedMemory = compactMemoryFacts(memoryFacts);
   if (selectedMemory.length > 0) {
     const factsText = selectedMemory
-      .map(f => `- [${f.date?.slice(0, 10) || "?"}] ${f.user}: ${f.fact}`)
+      .map(f => `- [${f.date?.slice(0, 10) || "?"}] ${f.user}: ${String(f.fact).slice(0, MEMORY_PROMPT_FACT_CHARS)}`)
       .join("\n");
     messages.push({ role: "system", content: `MEMORIA CONDIVISA:\n${factsText}` });
   }
@@ -671,6 +770,45 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = WEB_TIMEOUT_MS, e
   }
 }
 
+function parseRetryAfterMs(header, fallbackMs) {
+  if (!header) return fallbackMs;
+  const seconds = Number(header);
+  if (Number.isFinite(seconds) && seconds > 0) return Math.min(seconds * 1000, 10_000);
+  const date = Date.parse(header);
+  if (!Number.isNaN(date)) return Math.max(0, Math.min(date - Date.now(), 10_000));
+  return fallbackMs;
+}
+
+// Retry su 429/5xx e su errori di rete transitori (POST idempotenti). Un
+// abort (timeout o client disconnesso) non viene mai ritentato: ripartire
+// brucerebbe altri 55 s o lavorerebbe per un client andato via.
+async function fetchWithRetry(url, options, timeoutMs, signal, { maxRetries = DEEPSEEK_RETRY_MAX } = {}) {
+  let lastError = null;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    if (signal?.aborted) {
+      const error = new Error("Richiesta annullata");
+      error.name = "AbortError";
+      throw error;
+    }
+    try {
+      const resp = await fetchWithTimeout(url, options, timeoutMs, signal);
+      if (!resp.ok && DEEPSEEK_RETRY_STATUSES.has(resp.status) && attempt < maxRetries) {
+        const delay = parseRetryAfterMs(resp.headers.get("retry-after"), DEEPSEEK_RETRY_BASE_DELAY_MS * 2 ** attempt);
+        await waitForFlush(signal, delay);
+        continue;
+      }
+      return resp;
+    } catch (err) {
+      if (err.name === "AbortError") throw err;
+      lastError = err;
+      if (attempt < maxRetries) {
+        await waitForFlush(signal, DEEPSEEK_RETRY_BASE_DELAY_MS * 2 ** attempt);
+      }
+    }
+  }
+  throw lastError;
+}
+
 async function readTextLimited(resp, maxChars = 96_000) {
   if (!resp.body) return (await resp.text()).slice(0, maxChars);
   const reader = resp.body.getReader();
@@ -786,12 +924,20 @@ function ensureRequestedPdfDocument(pdfRequested, documents, finalText) {
   return true;
 }
 
-async function executeSearchWeb(query, signal) {
+async function executeSearchWeb(query, signal, kv) {
   if (!query.trim()) return "Errore: query di ricerca vuota.";
+  const cacheKey = `search:cache:v1:${normalizeLabel(query).slice(0, 120)}`;
+  if (kv) {
+    try {
+      const cached = await kv.get(cacheKey);
+      if (cached) return cached;
+    } catch {}
+  }
   const endpoints = [
     `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`,
     `https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(query)}`,
   ];
+  let outcome = "Nessun risultato trovato: il motore di ricerca non ha restituito risultati leggibili.";
   try {
     for (const endpoint of endpoints) {
       const resp = await fetchWithTimeout(endpoint, {
@@ -801,33 +947,53 @@ async function executeSearchWeb(query, signal) {
       const html = await readTextLimited(resp, 140_000);
       const results = parseDuckDuckGoResults(html, 6);
       if (results.length > 0) {
-        return results
+        outcome = results
           .map((result, index) => `${index + 1}. **${result.title}**\n   ${result.snippet}\n   ${result.url}`)
           .join("\n\n");
+        break;
       }
     }
-    return "Nessun risultato trovato: il motore di ricerca non ha restituito risultati leggibili.";
   } catch (err) {
     return `Errore nella ricerca (${err.name === "AbortError" ? "timeout" : err.message}).`;
   }
+  if (kv) {
+    try { await kv.put(cacheKey, outcome, { expirationTtl: SEARCH_CACHE_TTL_SEC }); } catch {}
+  }
+  return outcome;
 }
 
-async function executeReadWiki(page, signal) {
+async function executeReadWiki(page, signal, kv) {
   const cleanPage = page.replace(/^\/+/, "").replace(/\.\.\//g, "");
   if (!cleanPage.startsWith("wiki/") || !cleanPage.endsWith(".md")) {
     return "Percorso wiki non valido: usa un file .md sotto wiki/.";
   }
+  const cacheKey = `wiki:cache:v6:${cleanPage}`;
+  // Cap sul prompt in ingresso: tronca su righe intere, non a metà frase.
+  // Vale anche per l'hit da cache (il KV conserva la pagina intera).
+  const capForPrompt = rawText => rawText.length > READ_WIKI_MAX_CHARS
+    ? trimHeadWholeLines(rawText, READ_WIKI_MAX_CHARS) + "\n\n[... troncato, pagina troppo lunga]"
+    : rawText;
+  if (kv) {
+    try {
+      const cached = await kv.get(cacheKey);
+      if (cached) return capForPrompt(cached);
+    } catch {}
+  }
   const url = `${WIKI_REPO_RAW}/${cleanPage}`;
+  let text = null;
   try {
     const resp = await fetchWithTimeout(url, {
       headers: { "User-Agent": "Sbarco/2.0" },
     }, WEB_TIMEOUT_MS, signal);
     if (!resp.ok) return `Pagina wiki '${cleanPage}' non trovata (HTTP ${resp.status}).`;
-    const text = await readTextLimited(resp, 60_000);
-    return text.length > 48_000 ? text.slice(0, 48_000) + "\n\n[... troncato, troppo lungo]" : text;
+    text = await readTextLimited(resp, 60_000);
   } catch (err) {
     return `Errore nel leggere la wiki (${err.name === "AbortError" ? "timeout" : err.message}).`;
   }
+  if (kv) {
+    try { await kv.put(cacheKey, text, { expirationTtl: WIKI_CACHE_TTL_SEC }); } catch {}
+  }
+  return capForPrompt(text);
 }
 
 async function executeReadUrl(url, signal) {
@@ -857,12 +1023,17 @@ async function executeTool(toolCall, context = {}) {
   }
 
   switch (name) {
-    case "search_web":
+    case "search_web": {
       if (context.state && context.state.searches >= MAX_SEARCH_CALLS) return "Budget ricerca raggiunto: sintetizza con le fonti gia' raccolte.";
       if (context.state) context.state.searches += 1;
-      return await executeSearchWeb(args.query || "", context.signal);
+      const result = await executeSearchWeb(args.query || "", context.signal, context.kv);
+      if (context.state && typeof result === "string" && result.startsWith("Nessun risultato")) {
+        context.state.searchesEmpty += 1;
+      }
+      return result;
+    }
     case "read_wiki":
-      return await executeReadWiki(args.page || args.path || "", context.signal);
+      return await executeReadWiki(args.page || args.path || "", context.signal, context.kv);
     case "read_url":
       if (context.state && context.state.webReads >= MAX_WEB_READS) return "Budget lettura fonti raggiunto: sintetizza i risultati disponibili.";
       if (context.state) context.state.webReads += 1;
@@ -1088,8 +1259,8 @@ function createMarkupLineFilter() {
   };
 }
 
-async function requestAgentStep(apiKey, model, messages, signal, requiredTool = null) {
-  const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+async function requestAgentStep(apiKey, model, messages, signal, requiredTool = null, { timeoutMs = DEEPSEEK_TIMEOUT_MS, baseUrl = "https://api.deepseek.com/v1" } = {}) {
+  const resp = await fetchWithRetry(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1107,7 +1278,7 @@ async function requestAgentStep(apiKey, model, messages, signal, requiredTool = 
       thinking: { type: "disabled" },
       stream: false,
     }),
-  }, DEEPSEEK_TIMEOUT_MS, signal);
+  }, timeoutMs, signal);
 
   if (!resp.ok) {
     const errorText = await readTextLimited(resp, 600);
@@ -1118,7 +1289,7 @@ async function requestAgentStep(apiKey, model, messages, signal, requiredTool = 
   return data;
 }
 
-async function streamForcedFinal(apiKey, model, messages, signal, controller, encoder, usage, onFirstToken, { thinking = false } = {}) {
+async function streamForcedFinal(apiKey, model, messages, signal, controller, encoder, usage, onFirstToken, { thinking = false, baseUrl = "https://api.deepseek.com/v1" } = {}) {
   const finalMessages = [
     ...messages,
     {
@@ -1137,7 +1308,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
     stream: true,
     stream_options: { include_usage: true },
   });
-  const request = withThinking => fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+  const request = withThinking => fetchWithRetry(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1166,7 +1337,6 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   let pending = "";
   let fullText = "";
   const flushLine = line => {
-    console.log(`[sbarco-line] ${JSON.stringify(line)}`);
     const clean = filter(line);
     if (!clean) return;
     onFirstToken?.();
@@ -1207,8 +1377,9 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   buffer += decoder.decode();
   processPayloads(drainSSEFrames(buffer, true).data);
   if (pending) flushLine(pending);
-  console.log(`[sbarco-final] fullTextLen=${fullText.length} retryNeeded=${fullText.trim().length < MIN_FINAL_TEXT_CHARS}`);
-  if (fullText.trim().length >= MIN_FINAL_TEXT_CHARS) return { text: fullText, thinking: thinkingUsed };
+  const retryNeeded = fullText.trim().length < MIN_FINAL_TEXT_CHARS;
+  console.log(`[sbarco-final] fullTextLen=${fullText.length} retryNeeded=${retryNeeded}`);
+  if (!retryNeeded) return { text: fullText, thinking: thinkingUsed, retryUsed: false };
 
   // Il modello ha scritto solo markup di chiamate strumenti nel testo:
   // un solo tentativo correttivo non-streaming, poi errore esplicito.
@@ -1219,7 +1390,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
       content: "La risposta precedente conteneva solo markup di chiamate strumenti. Rispondi ORA con SOLO il testo della risposta in italiano, senza tag e senza markup di strumenti. Apri con la conclusione e cita le fonti.",
     },
   ];
-  const retryResp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+  const retryResp = await fetchWithRetry(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1244,10 +1415,10 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   const retryText = stripToolCallMarkup(retryData.choices?.[0]?.message?.content || "");
   if (!retryText.trim()) throw new Error("DeepSeek ha chiuso la sintesi senza contenuto.");
   await emitBufferedText(retryText, controller, encoder, signal, onFirstToken);
-  return { text: retryText, thinking: thinkingUsed };
+  return { text: retryText, thinking: thinkingUsed, retryUsed: true };
 }
 
-function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal, tier = "base" }) {
+function createChatSSEStream({ env, ctx, apiKey, model, userId, question, requestedMode, remaining, requestSignal, tier = "base", refundCredits = null, deepseekBaseUrl = "https://api.deepseek.com/v1" }) {
   const encoder = new TextEncoder();
   const streamAbort = new AbortController();
   const abortFromRequest = () => streamAbort.abort(requestSignal?.reason || "client-disconnected");
@@ -1263,11 +1434,14 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
         const maxRounds = researchMode ? DEEP_RESEARCH_ROUNDS : QUICK_ROUNDS;
         const maxDuration = researchMode ? 150_000 : 70_000;
         const documents = [];
-        const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [] };
+        const state = { searches: 0, webReads: 0, toolCalls: 0, toolSequence: [], searchesEmpty: 0, finishReasons: [] };
         const usage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
         let history = [];
         let finalText = "";
+        let finalRetryUsed = false;
         let rounds = 0;
+        let lastPromptTokens = null;
+        let preSynthesisStats = null;
           let contextReadyMs = null;
           let firstAgentMs = null;
           let firstTokenMs = null;
@@ -1297,7 +1471,10 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
 
           for (let round = 0; round < maxRounds; round++) {
             rounds = round + 1;
-            if (Date.now() - startedAt > maxDuration) break;
+            // Budget di uscita: se resta meno del margine per la sintesi,
+            // si salta direttamente alla risposta finale (AGENTS.md §7).
+            const elapsedBeforeStep = Date.now() - startedAt;
+            if (elapsedBeforeStep > maxDuration - FINAL_RESERVE_MS) break;
             status("thinking", researchMode ? "Sbarco prepara le reti da ricerca…" : "Sbarco sta pensando…", `Passaggio ${rounds} di ${maxRounds}`);
             const requiredTool = researchMode && state.searches < 2
               ? "search_web"
@@ -1306,17 +1483,21 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
                 : pdfRequested && documents.length === 0
                   ? "save_doc"
                   : null;
+            // Il timeout del passo non supera mai il budget residuo del modo.
+            const stepTimeout = Math.min(DEEPSEEK_TIMEOUT_MS, Math.max(20_000, maxDuration - elapsedBeforeStep));
             const data = await withHeartbeat(
               // I round con strumenti restano non-thinking: la combinazione
               // V4 tool_choice + thinking nel loop agente non e' affidabile.
               // La profondita' Pro arriva dal thinking nella sintesi finale.
-              requestAgentStep(apiKey, model, messages, streamAbort.signal, requiredTool),
+              requestAgentStep(apiKey, model, messages, streamAbort.signal, requiredTool, { timeoutMs: stepTimeout, baseUrl: deepseekBaseUrl }),
               controller,
               encoder
             );
             if (firstAgentMs == null) firstAgentMs = Date.now() - startedAt;
             addUsage(usage, data.usage || {});
+            lastPromptTokens = data.usage?.prompt_tokens ?? lastPromptTokens;
             const choice = data.choices[0];
+            state.finishReasons.push(choice.finish_reason || "unknown");
             const parsed = parseToolCallMarkup(choice.message.content ?? "");
             const message = { ...choice.message, content: parsed.text };
             messages.push(message);
@@ -1340,6 +1521,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               toolCalls.forEach((toolCall, index) => {
                 messages.push({ role: "tool", tool_call_id: toolCall.id, content: results[index] });
               });
+              applyToolResultBudget(messages);
               if (!allowed) break;
               continue;
             }
@@ -1373,13 +1555,17 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               thinkingEnabled ? "Sbarco sta riflettendo a fondo…" : "Sbarco tira le somme a bordo…",
               thinkingEnabled ? "Sintesi Pro con thinking attivo" : "Risposta finale senza altri strumenti"
             );
+            // Prompt reale al momento della sintesi (system + memoria + summary +
+            // history + tool result cumulati): è la misura della verifica 2.
+            preSynthesisStats = measurePrompt(messages);
             const result = await withHeartbeat(
-              streamForcedFinal(apiKey, model, messages, streamAbort.signal, controller, encoder, usage, markFirstToken, { thinking: thinkingEnabled }),
+              streamForcedFinal(apiKey, model, messages, streamAbort.signal, controller, encoder, usage, markFirstToken, { thinking: thinkingEnabled, baseUrl: deepseekBaseUrl }),
               controller,
               encoder
             );
             finalText = result.text;
             thinkingUsed = result.thinking;
+            finalRetryUsed = result.retryUsed === true;
           }
 
           ensureRequestedPdfDocument(pdfRequested, documents, finalText);
@@ -1400,6 +1586,13 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             usage,
             prompt: promptStats,
             streamMode,
+            finalTextLen: finalText.length,
+            finalRetry: finalRetryUsed ? 1 : 0,
+            finishReasons: state.finishReasons,
+            searchesEmpty: state.searchesEmpty,
+            lastAgentPromptTokens: lastPromptTokens,
+            preSynthesisChars: preSynthesisStats ? preSynthesisStats.totalChars : null,
+            preSynthesisToolChars: preSynthesisStats ? preSynthesisStats.byRole.tool : null,
             thinking: tier === "pro" ? (thinkingUsed ? "on" : "fallback") : "off",
             pdfRequested,
             documentsCreated: documents.length,
@@ -1415,22 +1608,33 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
             finalText,
             apiKey,
             model,
-            metrics
+            metrics,
+            deepseekBaseUrl
           );
           if (ctx?.waitUntil) ctx.waitUntil(background);
           else void background;
           controller.close();
         } catch (err) {
+          // Il client che annulla non è un errore di sistema: nessun evento,
+          // nessun rimborso. Un timeout provider o un errore DeepSeek invece
+          // non deve consumare il credito.
           if (!streamAbort.signal.aborted) {
             emitSSE(controller, encoder, {
               error: "La ricerca si e' interrotta. Riprova: i dettagli tecnici sono disponibili con /debug.",
               code: err.name === "AbortError" ? "timeout" : "agent_error",
             });
             emitSSE(controller, encoder, { done: true, remaining });
-            const debugTask = appendDebugEvent(env.SBARCO_KV, {
+            appendDebugEvent(env.SBARCO_KV, {
               ts: new Date().toISOString(), user: userId, error: err.message, elapsedMs: Date.now() - startedAt,
             });
-            if (ctx?.waitUntil) ctx.waitUntil(debugTask);
+            if (ctx?.waitUntil) {
+              ctx.waitUntil(flushDebugEvents(env.SBARCO_KV));
+            }
+            if (refundCredits) {
+              const refundTask = refundCredits();
+              if (ctx?.waitUntil) ctx.waitUntil(refundTask);
+              else void refundTask;
+            }
           }
           try { controller.close(); } catch {}
         } finally {
@@ -1448,14 +1652,28 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
 function shouldExtractMemory(userMessage = "") {
   const text = normalizeLabel(userMessage);
   if (!text || text.length < 8) return false;
-  const explicitPreference = /\b(preferisco|preferiamo|voglio|vogliamo|decido|decidiamo|abbiamo deciso|scegliamo|escludo|escludiamo|non voglio|non vogliamo|il nostro budget|budget massimo|tetto massimo|per noi e importante|ci serve|deve avere|terremo|custodiremo)\b/.test(text);
+  // Le domande non sono preferenze: controllo prima di ogni pattern.
+  if (String(userMessage).trim().endsWith("?")) return false;
+  // "voglio sapere/capire/vedere..." è una richiesta di informazione, non una preferenza.
+  const cleaned = text.replace(
+    /\b(voglio|vogliamo|vorrei) (sapere|conoscere|capire|vedere|chiedere|informarmi|avere una lista|un elenco|dei consigli|un consiglio)\b/g,
+    " "
+  );
+  const explicitPreference = /\b(preferisco|preferiamo|voglio|vogliamo|abbiamo deciso|decidiamo|scegliamo|escludo|escludiamo|non voglio|non vogliamo|il nostro budget|budget massimo|tetto massimo|per noi e importante|ci serve|deve avere|terremo|custodiremo)\b/.test(cleaned);
   if (explicitPreference) return true;
-  if (/[?]$/.test(String(userMessage).trim())) return false;
   return /\b(la mia auto|la nostra auto|ho la patente|non ho la patente|abbiamo la patente|non abbiamo la patente|siamo in|usciamo da|peschiamo|saremo [3-9]|siamo [3-9])\b/.test(text);
 }
 
-async function extractMemoryIfNeeded(apiKey, model, userMessage, kv, userId) {
+async function extractMemoryIfNeeded(apiKey, model, userMessage, kv, userId, baseUrl = "https://api.deepseek.com/v1") {
   if (!kv || !shouldExtractMemory(userMessage)) return;
+  // Massimo una estrazione ogni finestra (default 6 h) per utente: le
+  // euristiche ampie non devono innescare chiamate LLM ripetute a vuoto.
+  const windowKey = `memory:extract:${userId}`;
+  try {
+    const lastRun = await kv.get(windowKey);
+    if (lastRun && Date.now() - Date.parse(lastRun) < MEMORY_EXTRACT_WINDOW_MS) return;
+  } catch {}
+  try { await kv.put(windowKey, new Date().toISOString()); } catch {}
   const extractPrompt = [
     {
       role: "system",
@@ -1483,7 +1701,7 @@ NON includere altro testo.`,
   ];
 
   try {
-    const resp = await fetchWithTimeout("https://api.deepseek.com/v1/chat/completions", {
+    const resp = await fetchWithTimeout(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -1552,7 +1770,7 @@ async function maybeSummarize(kv, userId, history) {
   ]);
 }
 
-async function persistConversation(kv, userId, history, question, fullText, apiKey, model, metrics) {
+async function persistConversation(kv, userId, history, question, fullText, apiKey, model, metrics, deepseekBaseUrl = "https://api.deepseek.com/v1") {
   const newHistory = [
     ...history,
     { role: "user", content: question },
@@ -1563,14 +1781,15 @@ async function persistConversation(kv, userId, history, question, fullText, apiK
     appendDebugEvent(kv, {
       ts: new Date().toISOString(),
       user: userId,
-      question: question.slice(0, 120),
+      question: question.slice(0,120),
       ...metrics,
     }),
   ];
   if (shouldExtractMemory(question)) {
-    background.push(extractMemoryIfNeeded(apiKey, model, question, kv, userId));
+    background.push(extractMemoryIfNeeded(apiKey, model, question, kv, userId, deepseekBaseUrl));
   }
   await Promise.all(background);
+  await flushDebugEvents(kv);
 }
 
 // ── Rate limiter ─────────────────────────────────────────────────
@@ -1610,18 +1829,41 @@ async function incrementRateLimit(kv, userId, knownCount = null, cost = 1) {
   }
 }
 
+// Rimborso su errore di sistema (mai su cancel utente): decrementa con clamp
+// a zero. Le race tra chat concorrenti possono al più perdere un rimborso.
+async function decrementRateLimit(kv, userId, cost = 1) {
+  if (getDailyQuota(userId).unlimited) return;
+  const remove = Math.max(1, Number(cost) || 1);
+  const key = getRateLimitKey(userId);
+  try {
+    const raw = await kv.get(key);
+    const count = Number.isFinite(Number(raw)) ? Number(raw) : 0;
+    await kv.put(key, String(Math.max(0, count - remove)), { expirationTtl: 36 * 60 * 60 });
+  } catch {}
+}
+
 // ── Debug log ────────────────────────────────────────────────────
 
 const DEBUG_BUFFER = []; // in-memory (lost on cold start, but fine for dev)
+let DEBUG_DIRTY = false;
 
-async function appendDebugEvent(kv, event) {
+function appendDebugEvent(kv, event) {
   DEBUG_BUFFER.push(event);
   if (DEBUG_BUFFER.length > 50) DEBUG_BUFFER.shift();
-  if (!kv) return;
+  DEBUG_DIRTY = true;
+}
+
+// La chiave condivisa debug:events non viene più scritta a ogni evento: gli
+// eventi si accumulano in memoria e vengono persistiti in un unico
+// read-modify-write a fine chat. Tra isolate vale last-write-wins: per la
+// telemetria è accettabile.
+async function flushDebugEvents(kv) {
+  if (!kv || !DEBUG_DIRTY) return;
+  DEBUG_DIRTY = false;
   try {
     const raw = await kv.get("debug:events");
     const events = raw ? JSON.parse(raw) : [];
-    events.push(event);
+    events.push(...DEBUG_BUFFER);
     await kv.put("debug:events", JSON.stringify(events.slice(-30)), { expirationTtl: 604800 });
   } catch {}
 }
@@ -1675,6 +1917,13 @@ async function getDebugReport(kv) {
         historyChars: (event.prompt.byRole?.user || 0) + (event.prompt.byRole?.assistant || 0),
         toolChars: event.prompt.byRole?.tool,
       } : undefined,
+      finishReasons: Array.isArray(event.finishReasons) ? event.finishReasons : undefined,
+      searchesEmpty: event.searchesEmpty,
+      finalTextLen: event.finalTextLen,
+      finalRetry: event.finalRetry,
+      lastAgentPromptTokens: event.lastAgentPromptTokens,
+      preSynthesisChars: event.preSynthesisChars,
+      preSynthesisToolChars: event.preSynthesisToolChars,
       streamMode: event.streamMode,
       error: event.error ? String(event.error).slice(0, 180) : undefined,
     })),
@@ -1740,28 +1989,51 @@ export default {
       );
     }
 
-    if (url.pathname === "/api/passkey/challenge" && request.method === "GET") {
-      try {
-        const purpose = url.searchParams.get("purpose");
-        if (!["assert", "enroll"].includes(purpose)) throw new Error("Operazione passkey non valida");
-        if (!env.SBARCO_KV) throw new Error("Archivio credenziali non disponibile");
-        const existing = await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY);
-        if (purpose === "enroll") {
-          if (existing) throw new Error("Il Galaxy di Tiziano è già registrato");
-          const code = url.searchParams.get("code") || "";
-          if (!env.TIZIANO_ENROLLMENT_CODE || code !== env.TIZIANO_ENROLLMENT_CODE) throw new Error("Codice di attivazione non valido");
-        } else if (!existing) {
-          throw new Error("Galaxy non ancora registrato");
+    if (url.pathname === "/api/passkey/challenge") {
+      // Assert: GET senza segreti. Enroll: POST con il codice nel body
+      // (mai in query string: gli URL finiscono nei log Cloudflare).
+      if (request.method === "GET") {
+        try {
+          const purpose = url.searchParams.get("purpose");
+          if (purpose !== "assert") throw new Error("L'enroll usa POST con il codice nel body");
+          if (!env.SBARCO_KV) throw new Error("Archivio credenziali non disponibile");
+          if (!(await checkAuthRateLimit(env.SBARCO_KV, request, "challenge", CHALLENGE_RATE_MAX))) {
+            throw new Error("Troppi tentativi: riprova tra un minuto");
+          }
+          const existing = await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY);
+          if (!existing) throw new Error("Galaxy non ancora registrato");
+          const challenge = await newPasskeyChallenge(env.SBARCO_KV, purpose);
+          const rpId = getRpId(env);
+          const payload = { challenge, rpId, allowCredentials: [JSON.parse(existing).credentialId], userVerification: "required", timeout: 60000 };
+          return new Response(JSON.stringify(payload), { headers: corsHeaders });
+        } catch (err) {
+          return new Response(JSON.stringify({ error: err.message }), { status: 401, headers: corsHeaders });
         }
-        const challenge = await newPasskeyChallenge(env.SBARCO_KV, purpose);
-        const rpId = getRpId(env);
-        const payload = purpose === "enroll"
-          ? { challenge, rp: { id: rpId, name: "Sbarco Barca" }, user: { id: bytesToBase64Url(new TextEncoder().encode("tiziano")), name: "tiziano", displayName: "Tiziano" }, pubKeyCredParams: [{ type: "public-key", alg: -7 }], authenticatorSelection: { authenticatorAttachment: "platform", residentKey: "required", userVerification: "required" }, attestation: "none", timeout: 60000 }
-          : { challenge, rpId, allowCredentials: [JSON.parse(existing).credentialId], userVerification: "required", timeout: 60000 };
-        return new Response(JSON.stringify(payload), { headers: corsHeaders });
-      } catch (err) {
-        return new Response(JSON.stringify({ error: err.message }), { status: 401, headers: corsHeaders });
       }
+      if (request.method === "POST") {
+        try {
+          if (!env.SBARCO_KV) throw new Error("Archivio credenziali non disponibile");
+          if (!(await checkAuthRateLimit(env.SBARCO_KV, request, "enroll", ENROLL_RATE_MAX))) {
+            throw new Error("Troppi tentativi: riprova tra un minuto");
+          }
+          let body = {};
+          try { body = await request.json(); } catch {}
+          if (body.purpose !== "enroll") throw new Error("Operazione passkey non valida");
+          const existing = await env.SBARCO_KV.get(TIZIANO_PASSKEY_KEY);
+          if (existing) throw new Error("Il Galaxy di Tiziano è già registrato");
+          const code = String(body.code || "");
+          if (!env.TIZIANO_ENROLLMENT_CODE || !(await constantTimeSecretEqual(code, env.TIZIANO_ENROLLMENT_CODE))) {
+            throw new Error("Codice di attivazione non valido");
+          }
+          const challenge = await newPasskeyChallenge(env.SBARCO_KV, "enroll");
+          const rpId = getRpId(env);
+          const payload = { challenge, rp: { id: rpId, name: "Sbarco Barca" }, user: { id: bytesToBase64Url(new TextEncoder().encode("tiziano")), name: "tiziano", displayName: "Tiziano" }, pubKeyCredParams: [{ type: "public-key", alg: -7 }], authenticatorSelection: { authenticatorAttachment: "platform", residentKey: "required", userVerification: "required" }, attestation: "none", timeout: 60000 };
+          return new Response(JSON.stringify(payload), { headers: corsHeaders });
+        } catch (err) {
+          return new Response(JSON.stringify({ error: err.message }), { status: 401, headers: corsHeaders });
+        }
+      }
+      return new Response(JSON.stringify({ error: "Metodo non ammesso." }), { status: 405, headers: corsHeaders });
     }
 
     if (url.pathname === "/api/passkey/enroll" && request.method === "POST") {
@@ -1812,8 +2084,6 @@ export default {
         remaining: getRemainingToday(userId, rate.count),
         unlimited: quota.unlimited,
         policyVersion: RATE_LIMIT_POLICY_VERSION,
-        diagMarker: "probe-v1",
-        diagKvProbe: env.SBARCO_KV ? String(await env.SBARCO_KV.get("diag-probe") ?? null) : "no-kv",
       }), { headers: { ...corsHeaders, ...sessionResponseHeaders(tizianoSession) } });
     }
 
@@ -1863,6 +2133,7 @@ export default {
         }
         const cost = getMessageCost(userId, tier);
         const model = resolveChatModel(env, tier);
+        const deepseekBaseUrl = String(env.DEEPSEEK_BASE_URL || "").replace(/\/+$/, "") || "https://api.deepseek.com/v1";
 
         const apiKey = env.DEEPSEEK_API_KEY;
         if (!apiKey) {
@@ -1917,6 +2188,8 @@ export default {
           remaining,
           requestSignal: request.signal,
           tier,
+          refundCredits: env.SBARCO_KV ? () => decrementRateLimit(env.SBARCO_KV, userId, cost) : null,
+          deepseekBaseUrl,
         });
 
         return new Response(stream, {
@@ -1932,11 +2205,11 @@ export default {
         });
 
       } catch (err) {
-        const debugTask = appendDebugEvent(env.SBARCO_KV, {
+        appendDebugEvent(env.SBARCO_KV, {
           ts: new Date().toISOString(),
           error: err.message,
         });
-        if (ctx?.waitUntil) ctx.waitUntil(debugTask);
+        if (ctx?.waitUntil) ctx.waitUntil(flushDebugEvents(env.SBARCO_KV));
         return new Response(
           JSON.stringify({ error: "Errore interno. Tiziano può usare /debug per i dettagli." }),
           { status: 500, headers: corsHeaders }
@@ -1963,19 +2236,6 @@ export default {
             base: BASE_MODEL,
             pro: PRO_MODEL,
           },
-        }),
-        { headers: corsHeaders }
-      );
-    }
-
-    // ── Debug: echo URL info (GET only) ────────────────────────
-    if (url.pathname === "/api/debug-url" && request.method === "GET") {
-      return new Response(
-        JSON.stringify({
-          pathname: url.pathname,
-          href: url.href,
-          host: url.host,
-          method: request.method,
         }),
         { headers: corsHeaders }
       );
@@ -2024,5 +2284,10 @@ export const __test = {
   verifyTizianoSession,
   verifyTizianoAuth,
   sessionResponseHeaders,
+  decrementRateLimit,
+  applyToolResultBudget,
+  trimHeadWholeLines,
+  constantTimeSecretEqual,
+  checkAuthRateLimit,
   sessionTtlSec: SESSION_TTL_SEC,
 };

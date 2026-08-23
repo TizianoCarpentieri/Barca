@@ -1,16 +1,16 @@
 # Graph Report - barca  (2026-08-23)
 
 ## Corpus Check
-- 175 files · ~386,608 words
+- 178 files · ~396,397 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2164 nodes · 2382 edges · 359 communities (158 shown, 201 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 42 edges (avg confidence: 0.55)
+- 2212 nodes · 2444 edges · 361 communities (161 shown, 200 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 47 edges (avg confidence: 0.54)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `47b4ab4f`
+- Built from commit: `3d2f25ab`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -48,7 +48,7 @@
 - #budget
 - fetch-annunci.mjs
 - Dal bagagliaio al mare
-- renderMarkdown
+- documenti.js
 - log.md
 - scripts
 - Design: Sessione Tiziano dopo passkey (meno QR/impronta)
@@ -63,7 +63,7 @@
 - 3. Punti rinforzabili (mappa completa)
 - 3. Punti rinforzabili (mappa completa)
 - lint-wiki.mjs
-- Setup
+- Sbarco Worker — Cloudflare
 - Art. 13 — Uscita di un socio (recesso) e formula di rimborso
 - Design: Nodi — «Telecamera del gesto» (capo chiaro, mobile-first)
 - #anzio
@@ -72,7 +72,7 @@
 - Dual Track
 - Gozzo
 - Art. 13 — Uscita di un socio (recesso) e formula di rimborso
-- fetch-vele.mjs
+- Punti migliorabili
 - Art. 13 — Uscita di un socio (recesso) e formula di rimborso
 - Temi
 - Patto di gestione condivisa — digest wiki
@@ -285,9 +285,9 @@
 - Requisiti v1 (intervista)
 - #shortlist
 - Contesto operativo Sbarco
-- getDebugReport
+- getDailyQuota
 - Sbarco — thinking su Pro e formattazione dell'output (design)
-- setUser
+- Piano miglioramenti Sbarco — sintesi operativa
 - Punti di ormeggio e corridoi - Ardea / Tor San Lorenzo
 - Art. 16 — Casi limite, inadempimento, esclusione
 - Art. 5 — Calendario, preavviso, priorità
@@ -311,7 +311,7 @@
 - Track Vele — sogno parallelo
 - Audit Sbarco e wiki — 10 agosto 2026
 - Scenario scafo rigido — con 5 soci
-- maybeSummarize
+- getDebugReport
 - core.test.mjs
 - Art. 11 — Manutenzione e ruoli
 - Art. 4 — Custodia e logistica
@@ -351,7 +351,7 @@
 - Art. 1 — Parti, oggetto, durata
 - Art. 2 — Quote e proprietà economica
 - Art. 3 — Intestazione, assicurazione, documenti
-- createStreamReveal
+- handleStream
 - vite.config.js
 - Intervista — patente nautica (risposta grezza)
 - Art. 12 — Multe, sanzioni, fermo
@@ -369,11 +369,13 @@
 - cantieri-anzio-nettuno-paginegialle-2026-08-04.md
 - raw/README.md
 - pesca-ricreativa-mare.md
+- renderMarkdown
+- Gommone o Vela_ Scelta della Barca.md
 
 ## God Nodes (most connected - your core abstractions)
 1. `Trascrizione WhatsApp 2026-08-20/21 — Tiziano e Antonio` - 109 edges
-2. `Log — Progetto Barca` - 79 edges
-3. `fetch()` - 24 edges
+2. `Log — Progetto Barca` - 83 edges
+3. `fetch()` - 28 edges
 4. `Patto di gestione condivisa — Gommone Le Bestie` - 21 edges
 5. `Patto di gestione condivisa — Gommone Le Bestie` - 21 edges
 6. `Patto di gestione condivisa — Gommone Le Bestie` - 21 edges
@@ -397,15 +399,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (359 total, 201 thin omitted)
+## Communities (361 total, 200 thin omitted)
 
 ### Community 0 - "Trascrizione WhatsApp 2026-08-20/21 — Tiziano e Antonio"
 Cohesion: 0.02
 Nodes (109): 2026-08-20 at 16.57.35, 2026-08-20 at 16.58.25, 2026-08-20 at 16.59.03, 2026-08-20 at 16.59.44, 2026-08-20 at 17.00.23, 2026-08-20 at 17.00.39, 2026-08-20 at 17.01.53, 2026-08-20 at 17.04.15 (+101 more)
 
 ### Community 1 - "Log — Progetto Barca"
-Cohesion: 0.03
-Nodes (79): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+71 more)
+Cohesion: 0.02
+Nodes (83): [2026-08-04] preferenze | Avvio intervista requisiti, [2026-08-04] preferenze | Budget ≤4500€ solo usato, [2026-08-04] preferenze | Cap gestione 1200€/testa/anno, [2026-08-04] preferenze | Frequenza moderata, [2026-08-04] preferenze | No gommone; scafo rigido + tendalino, [2026-08-04] preferenze | No patente (ideale), [2026-08-04] preferenze | No traino/carrello, [2026-08-04] preferenze | Priorità: pesca > giri > bagno > facilità (+75 more)
 
 ### Community 2 - "Prospetto costi e adempimenti a norma"
 Cohesion: 0.04
@@ -444,8 +446,8 @@ Cohesion: 0.07
 Nodes (26): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+18 more)
 
 ### Community 11 - "sbarco.js"
-Cohesion: 0.15
-Nodes (23): addAnswerChrome(), addDocumentMsg(), addMsg(), addProgress(), autoSizeInput(), base64UrlToBytes(), bytesToBase64Url(), capitalize() (+15 more)
+Cohesion: 0.14
+Nodes (22): autoSizeInput(), base64UrlToBytes(), bytesToBase64Url(), capitalize(), captureTizianoSessionFromResponse(), clearTizianoSession(), exportPdf(), fetchTiziano() (+14 more)
 
 ### Community 13 - "export-pdf.mjs"
 Cohesion: 0.16
@@ -456,12 +458,12 @@ Cohesion: 0.08
 Nodes (24): 1. Ingest (nuova fonte), 2. Query (domanda), 3. Preferenze (update), 4. Lint (salute wiki), 5. Ricerca attiva (web), 6. Decisione / shortlist, 7. Sbarco / deep research, AGENTS.md — Progetto Barca (Le Bestie) (+16 more)
 
 ### Community 15 - "index.js"
-Cohesion: 0.13
-Nodes (19): addUsage(), buildSystemPrompt(), compactWikiIndex(), createMarkupLineFilter(), drainSSEFrames(), EMBEDDED_WIKI, emitBufferedText(), emitSSE() (+11 more)
+Cohesion: 0.11
+Nodes (24): addUsage(), buildSystemPrompt(), checkAuthRateLimit(), clientIp(), compactWikiIndex(), createMarkupLineFilter(), DEEPSEEK_RETRY_STATUSES, drainSSEFrames() (+16 more)
 
 ### Community 18 - "fetch"
 Cohesion: 0.13
-Nodes (24): base64UrlToBytes(), bytesEqual(), bytesToBase64Url(), coseToJwk(), createChatSSEStream(), decodeCbor(), derSignatureToRaw(), fetch() (+16 more)
+Nodes (25): base64UrlToBytes(), bytesEqual(), bytesToBase64Url(), constantTimeSecretEqual(), coseToJwk(), createChatSSEStream(), decodeCbor(), derSignatureToRaw() (+17 more)
 
 ### Community 20 - "scripts"
 Cohesion: 0.09
@@ -480,12 +482,12 @@ Cohesion: 0.10
 Nodes (20): 1. Revisione Wiki, 2. Aggiornamento Sito (`presentazione/`), 3.1 System Prompt Dinamico, 3.2 Strumenti (Tools), 3.3 Tool Loop, 3.4 Modello, 3.5 Cosa rimane invariato, 3.6 Cosa viene rimosso/pulito (+12 more)
 
 ### Community 26 - "feed-normalizers.mjs"
-Cohesion: 0.22
-Nodes (19): detectIncludedMotor(), extractPreferredBrand(), extractPreferredPower(), extractPreferredShaft(), extractSailInventory(), findBrand(), findShaft(), isClubDinghy() (+11 more)
+Cohesion: 0.14
+Nodes (31): extractPreferredBrand(), extractPreferredPower(), extractPreferredShaft(), extractSailInventory(), findBrand(), findShaft(), isClubDinghy(), isSailboat() (+23 more)
 
 ### Community 27 - "fetch-gommoni.mjs"
-Cohesion: 0.17
-Nodes (20): classify(), __dirname, extractCv(), extractFloor(), extractKeel(), extractLength(), extractPersons(), feat() (+12 more)
+Cohesion: 0.16
+Nodes (21): detectIncludedMotor(), classify(), __dirname, extractCv(), extractFloor(), extractKeel(), extractLength(), extractPersons() (+13 more)
 
 ### Community 28 - "Dal bagagliaio al mare"
 Cohesion: 0.10
@@ -499,9 +501,9 @@ Nodes (17): classify(), __dirname, extractCv(), extractLength(), feat(), HEADERS
 Cohesion: 0.11
 Nodes (19): Approdo n. 3 · Fosso della Crocetta (Pomezia), Aree kite · Fosso Pratica di Mare / Fosso Crocetta, Checklist corridoio, Collegamenti, Contatti, Dal bagagliaio al mare, Decisioni rapide, Glossario (+11 more)
 
-### Community 33 - "renderMarkdown"
-Cohesion: 0.20
-Nodes (15): bodyEl, DOCS, load(), noteEl, stampEl, syncTabs(), titleEl, escapeHtml() (+7 more)
+### Community 33 - "documenti.js"
+Cohesion: 0.25
+Nodes (7): bodyEl, DOCS, load(), noteEl, stampEl, syncTabs(), titleEl
 
 ### Community 34 - "log.md"
 Cohesion: 0.16
@@ -551,9 +553,9 @@ Nodes (14): 1. Stato attuale della sezione annunci, 2. Cosa esiste già sulla Ve
 Cohesion: 0.14
 Nodes (11): allowedStatuses, contents, errors, filesByRelative, filesByStem, indexed, indexPath, relative() (+3 more)
 
-### Community 48 - "Setup"
-Cohesion: 0.13
-Nodes (14): 1. Crea KV namespace, 2. Imposta il secret DeepSeek, 2b. Attiva la passkey esclusiva di Tiziano, 3. Configura ALLOWED_ORIGIN, 4. Aggiorna l'URL nel frontend, 5. Deploy, 6. Test, Aggiornare il grafo (+6 more)
+### Community 48 - "Sbarco Worker — Cloudflare"
+Cohesion: 0.12
+Nodes (15): 1. Crea KV namespace, 2. Imposta il secret DeepSeek, 2b. Attiva la passkey esclusiva di Tiziano, 3. Configura ALLOWED_ORIGIN, 4. Aggiorna l'URL nel frontend, 5. Deploy, 6. Test, Aggiornare il grafo (+7 more)
 
 ### Community 49 - "Art. 13 — Uscita di un socio (recesso) e formula di rimborso"
 Cohesion: 0.14
@@ -567,9 +569,9 @@ Nodes (13): Approccio scelto, Deploy, Design: Nodi — «Telecamera del gesto» 
 Cohesion: 0.14
 Nodes (14): 13.10 Esempio C — dopo 3 anni, poco uso, stato medio, 13.11 Chi paga il rimborso e entro quanto, 13.12 Uscita di più soci, 13.13 Recesso per giusta causa, 13.1 Diritto di recesso, 13.2 Effetti, 13.3 Formula — principi, 13.4 Parametri (Proposta v1) (+6 more)
 
-### Community 57 - "fetch-vele.mjs"
-Cohesion: 0.23
-Nodes (13): classify(), __dirname, extractLength(), feat(), HEADERS, imgUrl(), main(), normalize() (+5 more)
+### Community 57 - "Punti migliorabili"
+Cohesion: 0.12
+Nodes (15): A. DeepSeek Chat Completions (`https://api.deepseek.com/v1/chat/completions`), Affidabilità, B. Chiamate web (non-LLM), Bug / codice morto (facili, a costo zero), C. KV interno (`SBARCO_KV`), Costi, D. Endpoint esposti, Inventario delle chiamate (+7 more)
 
 ### Community 58 - "Art. 13 — Uscita di un socio (recesso) e formula di rimborso"
 Cohesion: 0.14
@@ -596,8 +598,8 @@ Cohesion: 0.15
 Nodes (12): devDependencies, wrangler, name, private, scripts, check, deploy, dev (+4 more)
 
 ### Community 66 - "fetchWithTimeout"
-Cohesion: 0.26
-Nodes (13): decodeHtml(), executeReadUrl(), executeReadWiki(), executeSearchWeb(), executeTool(), fetchPublicUrl(), fetchWithTimeout(), isSafePublicUrl() (+5 more)
+Cohesion: 0.22
+Nodes (14): decodeHtml(), executeReadUrl(), executeReadWiki(), executeSearchWeb(), executeTool(), fetchPublicUrl(), fetchWithTimeout(), isSafePublicUrl() (+6 more)
 
 ### Community 67 - "Patto di gestione condivisa — Gommone Le Bestie"
 Cohesion: 0.17
@@ -624,8 +626,8 @@ Cohesion: 0.17
 Nodes (11): answer, decoder, done, error, events, headersAt, reader, report (+3 more)
 
 ### Community 76 - "Architettura e flusso di Sbarco"
-Cohesion: 0.17
-Nodes (11): Architettura e flusso di Sbarco, Flusso chat, Garanzie di uscita, Latenza percepita e misurata, Manutenzione, Memoria e wiki, Modalità, Modello (Base / Pro) (+3 more)
+Cohesion: 0.15
+Nodes (12): Affidabilità delle chiamate, Architettura e flusso di Sbarco, Flusso chat, Garanzie di uscita, Latenza percepita e misurata, Manutenzione, Memoria e wiki, Modalità (+4 more)
 
 ### Community 77 - "Patto di gestione condivisa — Gommone Le Bestie"
 Cohesion: 0.17
@@ -636,8 +638,8 @@ Cohesion: 0.17
 Nodes (12): Altri contatti utili, Collegamenti, Contatti zona casa, Cosa NON è un varo motore, Glossario, Infrastrutture litorale (piano B e hub), Priorità operativa consigliata, Quattro PO Ardea da chiamare (censiti atti 2025–2026) (+4 more)
 
 ### Community 79 - "normalizeLabel"
-Cohesion: 0.23
-Nodes (12): addMemory(), appendDebugEvent(), compactMemoryFacts(), DEBUG_BUFFER, detectPdfRequest(), detectResearchMode(), extractMemoryIfNeeded(), getMemory() (+4 more)
+Cohesion: 0.17
+Nodes (15): addMemory(), appendDebugEvent(), buildMessages(), compactHistory(), compactMemoryFacts(), DEBUG_BUFFER, detectPdfRequest(), detectResearchMode() (+7 more)
 
 ### Community 80 - "sync-documenti.mjs"
 Cohesion: 0.20
@@ -723,17 +725,17 @@ Nodes (8): Audit per area funzionale, Audit Sbarco - 11 agosto 2026, Colli di bo
 Cohesion: 0.22
 Nodes (8): Contesto operativo Sbarco, Decisione corrente, Patto, costi a norma, varo (ingeriti), Percorsi di approfondimento, Priorità, Questioni ancora aperte, Regole di affidabilità, Vincoli economici e tecnici
 
-### Community 270 - "getDebugReport"
-Cohesion: 0.28
-Nodes (9): checkRateLimit(), getChatHistory(), getDailyQuota(), getDebugReport(), getRateLimitKey(), getRemainingToday(), getRomeDateKey(), getSummary() (+1 more)
+### Community 270 - "getDailyQuota"
+Cohesion: 0.38
+Nodes (7): checkRateLimit(), decrementRateLimit(), getDailyQuota(), getRateLimitKey(), getRemainingToday(), getRomeDateKey(), incrementRateLimit()
 
 ### Community 271 - "Sbarco — thinking su Pro e formattazione dell'output (design)"
 Cohesion: 0.25
 Nodes (7): Client, Costi accettati, Problema, Sbarco — thinking su Pro e formattazione dell'output (design), Soluzione (approccio A), Verifica, Worker
 
-### Community 272 - "setUser"
-Cohesion: 0.36
-Nodes (8): isUnlimitedUser(), messageCost(), refreshStatus(), selectUser(), setChatTier(), setUser(), syncControls(), updateCounter()
+### Community 272 - "Piano miglioramenti Sbarco — sintesi operativa"
+Cohesion: 0.14
+Nodes (13): Cose da verificare prima/durante gli interventi, Esito della verifica su codice, I punti, per priorità, Migliorare le risposte senza alzare i budget, Opzionale: chat non vuota al riavvio, Ordine di esecuzione consigliato, P0 — Pulizie rapide (rischio basso, costo zero), P1 — Affidabilità e qualità delle risposte (+5 more)
 
 ### Community 273 - "Punti di ormeggio e corridoi - Ardea / Tor San Lorenzo"
 Cohesion: 0.25
@@ -827,9 +829,13 @@ Nodes (6): Audit Sbarco e wiki — 10 agosto 2026, Correzioni implementate, Esit
 Cohesion: 0.29
 Nodes (6): Cosa manca per attivare, Cosa serve, Perche' 5 soci, Scenario scafo rigido — con 5 soci, Svantaggi, Vantaggi dello scafo rigido
 
-### Community 296 - "maybeSummarize"
-Cohesion: 0.38
-Nodes (7): buildMessages(), compactHistory(), maybeSummarize(), sanitizeSummary(), setChatHistory(), setSummary(), trimWholeLines()
+### Community 296 - "getDebugReport"
+Cohesion: 0.36
+Nodes (8): getChatHistory(), getDebugReport(), getSummary(), maybeSummarize(), sanitizeSummary(), setChatHistory(), setSummary(), trimWholeLines()
+
+### Community 297 - "core.test.mjs"
+Cohesion: 0.33
+Nodes (3): __test, get(), put()
 
 ### Community 298 - "Art. 11 — Manutenzione e ruoli"
 Cohesion: 0.33
@@ -983,6 +989,10 @@ Nodes (4): 2.1 Quote, 2.2 Proprietà economica, 2.3 Divieto di smembramento unil
 Cohesion: 0.50
 Nodes (4): 3.1 Intestatario formale, 3.2 Assicurazione, 3.3 Documenti e luogo di custodia, Art. 3 — Intestazione, assicurazione, documenti
 
+### Community 336 - "handleStream"
+Cohesion: 0.23
+Nodes (10): addAnswerChrome(), addDocumentMsg(), addMsg(), addProgress(), drainSseBuffer(), handleStream(), isNearBottom(), scrollToBottom() (+2 more)
+
 ### Community 337 - "vite.config.js"
 Cohesion: 0.83
 Nodes (3): buildStart(), configureServer(), syncDocumenti()
@@ -1011,10 +1021,14 @@ Nodes (4): 2.1 Quote, 2.2 Proprietà economica, 2.3 Divieto di smembramento unil
 Cohesion: 0.50
 Nodes (4): 3.1 Intestatario formale, 3.2 Assicurazione, 3.3 Documenti e luogo di custodia, Art. 3 — Intestazione, assicurazione, documenti
 
+### Community 359 - "renderMarkdown"
+Cohesion: 0.50
+Nodes (8): escapeHtml(), isBlockStart(), isTableSeparator(), renderInline(), renderListItem(), renderMarkdown(), safeHttpUrl(), tableCells()
+
 ## Knowledge Gaps
-- **1456 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+1451 more)
+- **1485 isolated node(s):** `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git`, `AGENTS.md`, `.opencode/skills` (+1480 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **201 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **200 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -1022,14 +1036,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `Patto di gestione condivisa — Gommone Le Bestie` connect `Patto di gestione condivisa — Gommone Le Bestie` to `Art. 16 — Casi limite, inadempimento, esclusione`, `Art. 5 — Calendario, preavviso, priorità`, `log.md`, `Art. 17 — Modifiche, dispute, versioni`, `Art. 6 — Uscite condivise, parziali e individuali`, `Art. 8 — Condotta, conducenti, legalità`, `Art. 10 — Danni e sinistri`, `Art. 12 — Multe, sanzioni, fermo`, `Art. 15 — Vendita totale e scioglimento`, `Art. 1 — Parti, oggetto, durata`, `Art. 11 — Manutenzione e ruoli`, `Art. 2 — Quote e proprietà economica`, `Art. 9 — Costi`, `Art. 13 — Uscita di un socio (recesso) e formula di rimborso`, `Art. 4 — Custodia e logistica`, `Art. 3 — Intestazione, assicurazione, documenti`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Why does `Log — Progetto Barca` connect `Log — Progetto Barca` to `log.md`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Why does `Prospetto costi e adempimenti a norma` connect `Prospetto costi e adempimenti a norma` to `log.md`?**
   _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **What connects `$schema`, `.opencode/plugins/graphify.js`, `superpowers@git+https://github.com/obra/superpowers.git` to the rest of the system?**
-  _1456 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1485 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Trascrizione WhatsApp 2026-08-20/21 — Tiziano e Antonio` be split into smaller, more focused modules?**
   _Cohesion score 0.01818181818181818 - nodes in this community are weakly interconnected._
 - **Should `Log — Progetto Barca` be split into smaller, more focused modules?**
-  _Cohesion score 0.02531645569620253 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.024096385542168676 - nodes in this community are weakly interconnected._
 - **Should `Prospetto costi e adempimenti a norma` be split into smaller, more focused modules?**
   _Cohesion score 0.043478260869565216 - nodes in this community are weakly interconnected._

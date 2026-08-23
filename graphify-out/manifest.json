@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   "presentazione/src/js/sbarco.js": {
-    "mtime": 1787485151.0846243,
-    "ast_hash": "340acac8ee44a6bb967de1b8c4478287",
+    "mtime": 1787502044.4549093,
+    "ast_hash": "dc1262efbe2803e79b8c7e654181f90e",
     "semantic_hash": ""
   },
   "presentazione/vite.config.js": {
@@ -125,13 +125,13 @@
     "semantic_hash": ""
   },
   "worker/src/index.js": {
-    "mtime": 1787484988.7583964,
-    "ast_hash": "81647ab8dd8300e3d1ffb73e7f1ad786",
+    "mtime": 1787502232.8225553,
+    "ast_hash": "d1444299c7080559d4923779e4c22f76",
     "semantic_hash": ""
   },
   "worker/test/core.test.mjs": {
-    "mtime": 1787485126.797949,
-    "ast_hash": "b1770a262f15138d4be97c3e2312f3c7",
+    "mtime": 1787502192.369336,
+    "ast_hash": "4417215d944c5f173579e690e05d945b",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1787395150.530469,
-    "ast_hash": "ebc8fe63ad54411391f26032d6487ba3",
+    "mtime": 1787486961.4133193,
+    "ast_hash": "8d953359b0bdb1f77d7c451e9928215d",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-08-08-accessori-revamp-v2.md": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "wiki/concetti/architettura-sbarco.md": {
-    "mtime": 1787485229.0533674,
-    "ast_hash": "4920e4fabdd9b8cd621486c592833915",
+    "mtime": 1787502400.9233687,
+    "ast_hash": "18841a272a9acc9b23ddbe0bd560e5fc",
     "semantic_hash": ""
   },
   "wiki/concetti/costi-nascosti-gommone.md": {
@@ -440,13 +440,13 @@
     "semantic_hash": ""
   },
   "wiki/index.md": {
-    "mtime": 1787397406.8272707,
-    "ast_hash": "3185ca46555042dbfd54c591246e00b4",
+    "mtime": 1787501195.6461856,
+    "ast_hash": "fd56ecbe77adf98903e22b0a3ddecb32",
     "semantic_hash": ""
   },
   "wiki/log.md": {
-    "mtime": 1787485249.8782275,
-    "ast_hash": "37c60c31552512c914c20687f557643d",
+    "mtime": 1787502444.83736,
+    "ast_hash": "75e9295f4c92e21bd6ecaf2841bc8f60",
     "semantic_hash": ""
   },
   "wiki/mercato/feed-subito-live.md": {
@@ -555,8 +555,8 @@
     "semantic_hash": ""
   },
   "worker/README.md": {
-    "mtime": 1787402126.4743588,
-    "ast_hash": "12c895be1ade88d791336e880730ba2e",
+    "mtime": 1787502367.6958258,
+    "ast_hash": "67e6c1312409a3c1e566ee9bbbef991e",
     "semantic_hash": ""
   },
   "raw/mercato/Regolamento per la gestione del Porto Turistico di Anzio - Deliberazione n. 88 del 24.11.2025.pdf": {
@@ -965,17 +965,17 @@
     "semantic_hash": ""
   },
   "presentazione/public/documenti/costi.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.7122815,
     "ast_hash": "83e06b702d561884ae371a7a1ed0d8af",
     "semantic_hash": ""
   },
   "presentazione/public/documenti/patto.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.7122815,
     "ast_hash": "982afcc3f39b75c5aadcd3cdc423ed22",
     "semantic_hash": ""
   },
   "presentazione/public/documenti/varo.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.7122815,
     "ast_hash": "124472cd943666626c408802f306efdd",
     "semantic_hash": ""
   },
@@ -1585,17 +1585,17 @@
     "semantic_hash": ""
   },
   "wiki/documenti/costi.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.711282,
     "ast_hash": "ed6e6a25deffe8bbb793a7d7abdc382a",
     "semantic_hash": ""
   },
   "wiki/documenti/patto.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.710282,
     "ast_hash": "df33a611a8806db63d9dddaa24de6537",
     "semantic_hash": ""
   },
   "wiki/documenti/varo.md": {
-    "mtime": 1787485180.3486688,
+    "mtime": 1787502943.711282,
     "ast_hash": "0135a4e28118894638f62c400c09bae5",
     "semantic_hash": ""
   },
@@ -2172,6 +2172,21 @@
   "raw/audio/whatsapp-2026-08-21/WhatsApp Ptt 2026-08-21 at 11.21.34.ogg": {
     "mtime": 1787324848.0,
     "ast_hash": "83090aa5836bdad77adebe5f62ce8265",
+    "semantic_hash": ""
+  },
+  "raw/chat/Gommone o Vela_ Scelta della Barca.md": {
+    "mtime": 1787487102.8977804,
+    "ast_hash": "16bf75b487d7acb16e9f6508c9b2358f",
+    "semantic_hash": ""
+  },
+  "wiki/concetti/worker-chiamate-review.md": {
+    "mtime": 1787501186.281921,
+    "ast_hash": "76ec5c86c5ceb0e59ac6e341cf030b82",
+    "semantic_hash": ""
+  },
+  "wiki/sintesi/piano-miglioramenti-sbarco.md": {
+    "mtime": 1787502417.3100853,
+    "ast_hash": "d30990656b97728a502c061bd482479b",
     "semantic_hash": ""
   }
 }
