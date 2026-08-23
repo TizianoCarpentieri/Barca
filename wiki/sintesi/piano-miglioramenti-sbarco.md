@@ -180,6 +180,7 @@ le chat di Antonio/Peppe senza autenticazione.
 | P3 (16) | **Fatto**: rate limit per IP su challenge/enroll, confronto codice a tempo costante (SHA-256 + compare senza uscite anticipate), codice enroll nel body POST (mai più in query string) |
 | P3 (17) | **Deciso in gruppo**: quota Antonio/Peppe senza PIN accettata (gruppo piccolo, CORS già limita le origini); deep mode resta a 1 credito |
 | P4 (18–19) | **Fatto** `DEEPSEEK_BASE_URL` da env; DNS rebinding accettato come limite noto |
+| 20 (nuovo) | **Fatto**: modalità **ricerca estesa** (censimenti/multi-località: 12 round, 12 ricerche, 16 pagine, 48 tool call, tetto 300 s, garanzie di uscita invariate) con costo scalato Base 3 / Pro 5 e **regola esaurimento-richiesta**: parte con ≥1 credito, consuma `min(costo, residuo)` e completa comunque |
 | Verifiche | 1 e 6: da completare sui log reali post-deploy; 2–5: metriche ora disponibili in `/debug`; 10: coperta dal fix del punto 6 |
 
 Test worker dopo gli interventi: 53/53 verdi (`node --test`, isolamento
