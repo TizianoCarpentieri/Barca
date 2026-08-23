@@ -549,7 +549,7 @@ const EMBEDDED_WIKI = {
 - Patto v1.10: bozza ipotetica NON firmata; impianto anche per rigida/vela. Digest wiki/sintesi/patto-bestie.md; integrale wiki/documenti/patto.md
 - Prospetto costi a norma: wiki/documenti/costi.md (digest wiki/sintesi/prospetto-costi-a-norma.md) — RC obbligatoria, kit ~300-350 EUR.
 - Punti di lancio Lazio: wiki/documenti/varo.md (digest wiki/normativa/varo-litorale-lazio.md) — solo corridoi/scivoli; 4 PO Ardea.
-- Sito consultazione: presentazione/documenti.html (tab Patto, Costi, Varo).
+- Sito consultazione: presentazione/documenti.html (tab Patto, Costi, Varo, Porti).
 - Priorita': pesca, giri costa, bagno/relax, facilita'.
 - Tab Annunci Vele = osservazione, non shortlist. Feed live: annunci.html?cat=vele
 - Aperti: auto/custodia, conferma telefonica punto varo, preventivi RC, firma patto, shortlist ≤2000 EUR, preventivo Fiumicino foce.

@@ -22,6 +22,13 @@ const DOCS = {
     title: "Punti di lancio",
     note: "Corridoi e scivoli da confermare a telefono prima di uscire.",
   },
+  porti: {
+    file: "documenti/porti-fiumicino-sabaudia.md",
+    label: "Porti",
+    stamp: "Litorale",
+    title: "Porti e moli — Fiumicino→Sabaudia",
+    note: "Censimento con stato di verifica; confermare a telefono prima di uscire.",
+  },
 };
 
 const bodyEl = document.getElementById("doc-body");
