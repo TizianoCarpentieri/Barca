@@ -91,6 +91,16 @@ test("il widget espone Base e Pro e i compari pagano 2 crediti su Pro", async ()
   assert.match(source, /Pro costa \$\{PRO_CREDIT_COST\} crediti/);
 });
 
+test("il tasto modalita non deve andare a capo con etichette lunghe", async () => {
+  const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
+  assert.match(source, /strong: "Estesa"/);
+  assert.match(source, /strong: "Rapida"/);
+  assert.doesNotMatch(source, /Censimenti e multi-localit/);
+  const css = await readFile(new URL("../src/styles/sbarco.css", import.meta.url), "utf8");
+  assert.match(css, /\.sbarco-mode[\s\S]{0,400}white-space:\s*nowrap/);
+  assert.match(css, /\.sbarco-mode__copy small \{ display: none/);
+});
+
 test("il ragionamento Pro strema in un blocco ripiegabile separato dalla risposta", async () => {
   const source = await readFile(new URL("../src/js/sbarco.js", import.meta.url), "utf8");
   assert.match(source, /if \(data\.reasoning\)/);

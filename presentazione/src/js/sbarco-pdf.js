@@ -12,6 +12,8 @@ const COLORS = {
 
 const PDF_SYMBOL_REPLACEMENTS = [
   [/[✅☑✔]/gu, "OK"],
+  [/◐/gu, "PARZIALE"],
+  [/✳/gu, "DA CONFERMARE"],
   [/[❌✖]/gu, "NO"],
   [/⚠/gu, "ATTENZIONE"],
   [/🟢/gu, "OK"],

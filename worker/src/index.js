@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.5.1";
+const WORKER_VERSION = "2.6.0";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -963,6 +963,50 @@ function detectNeedsWikiPage(question = "") {
   return /\b(moli|porti|porto|ormeggi|ormeggio|scivoli|scivolo|varo|punti di lancio|censimento|elenco|lista|tutti i|tutti quanti|approdi|banchine|marina|circoli nautici|patto|prospetto|costi a norma)\b/.test(text);
 }
 
+function inferWikiPage(question = "") {
+  const text = normalizeLabel(question);
+  if (/\b(moli|porti|porto|ormeggi|ormeggio|approdi|banchine|marina)\b/.test(text)) {
+    return "wiki/documenti/porti-fiumicino-sabaudia.md";
+  }
+  if (/\b(varo|scivoli|scivolo|punti di lancio)\b/.test(text)) return "wiki/documenti/varo.md";
+  if (/\bpatto\b/.test(text)) return "wiki/documenti/patto.md";
+  if (/\b(costi a norma|prospetto costi)\b/.test(text)) return "wiki/documenti/costi.md";
+  return null;
+}
+
+function isWeakPdfContent(content = "") {
+  const text = String(content || "").trim();
+  if (!text) return true;
+  if (/\bpdf pronto\b/i.test(text) && !/\|.+\|/.test(text)) return true;
+  if (/motore vuoto|non ha restituito risultati leggibili|ho impaginato tutto/i.test(text) && !/\|.+\|/.test(text)) return true;
+  if (text.length < 180 && !/\|.+\|/.test(text) && !/^#/m.test(text)) return true;
+  return false;
+}
+
+function inferPdfTitle(question = "", page = "") {
+  if (page.includes("porti-fiumicino")) return "Porti e moli — Fiumicino → Sabaudia";
+  if (page.includes("varo")) return "Punti di lancio — litorale laziale";
+  if (page.includes("patto")) return "Patto tra le Bestie";
+  if (page.includes("costi")) return "Prospetto costi a norma";
+  const text = String(question || "").trim();
+  return text ? text.slice(0, 80) : "Documento Sbarco";
+}
+
+async function materializeWikiPdf(pdfRequested, documents, question, kv, signal) {
+  if (!pdfRequested || !Array.isArray(documents)) return false;
+  const weak = documents.length === 0 || documents.every(doc => isWeakPdfContent(doc.content));
+  if (!weak) return false;
+  const page = inferWikiPage(question);
+  if (!page) return false;
+  const raw = await executeReadWiki(page, signal, kv);
+  if (!raw || /^(Errore|Pagina wiki)/.test(raw)) return false;
+  const content = raw.replace(/^---[\s\S]*?---\s*/m, "").trim().slice(0, 30_000);
+  if (isWeakPdfContent(content)) return false;
+  documents.length = 0;
+  documents.push({ title: inferPdfTitle(question, page), content });
+  return true;
+}
+
 function detectSkipResearch(question = "") {
   const text = normalizeLabel(question);
   return /\b(nel contesto|contesto basta|contesto sufficient|usa la wiki|dalla wiki|con la wiki|quello che hai|cio che hai|non (serve|occorre) (il web|la ricerca|cercare)|non cercare|senza (ricerca|web)|basta la wiki|info sufficient|hai gia|gia (trovato|nel contesto)|hai nel contesto|non voglio (altre )?ricerche)\b/.test(text);
@@ -979,9 +1023,12 @@ function chooseRequiredTool({
   hasDocument = false,
   modelTriedToFinish = false,
   isLastRound = false,
+  searchesEmpty = 0,
+  wikiNeeded = false,
 } = {}) {
-  if (researchMode && !skipResearch && searches < minSearches) return "search_web";
-  if (researchMode && !skipResearch && webReads < minWebReads) return "read_url";
+  const forceWeb = researchMode && !skipResearch && searchesEmpty === 0 && !wikiNeeded;
+  if (forceWeb && searches < minSearches) return "search_web";
+  if (forceWeb && webReads < minWebReads) return "read_url";
   if (pdfRequested && !hasDocument && (modelTriedToFinish || isLastRound)) return "save_doc";
   return null;
 }
@@ -991,7 +1038,7 @@ function buildFinalInstruction({ pdfRequested = false, skipResearch = false, deg
     "Formula ORA la risposta finale in italiano usando solo le evidenze raccolte. Non chiamare altri strumenti. Apri con la conclusione, cita gli URL o le pagine wiki, segnala limiti e dati mancanti. Struttura la risposta in Markdown leggibile: titoli brevi con ##, elenchi e **grassetti**; mai un blocco unico di testo.",
   ];
   if (pdfRequested) {
-    parts.push("L'utente ha gia' chiesto un PDF: questo testo E' il documento. Non chiedere conferma. Tabelle complete e compatte; lacune = 'da verificare'. Un PDF parziale e' un successo, zero PDF e' un fallimento.");
+    parts.push("L'utente ha chiesto un PDF: deve esistere un save_doc con tabelle, non un messaggio 'PDF pronto'. In chat riassumi; il documento sono le tabelle. Lacune = 'da verificare'.");
   }
   if (skipResearch || degraded) {
     parts.push("Non dire che il budget ricerca e' esaurito e non rimandare a una prossima sessione: consegna ora con wiki e dati gia' in contesto.");
@@ -1000,10 +1047,16 @@ function buildFinalInstruction({ pdfRequested = false, skipResearch = false, deg
 }
 
 function ensureRequestedPdfDocument(pdfRequested, documents, finalText) {
-  if (!pdfRequested || documents.length > 0 || !String(finalText || "").trim()) return false;
+  if (!pdfRequested || !Array.isArray(documents)) return false;
+  if (documents.length > 0) {
+    if (documents.some(doc => !isWeakPdfContent(doc.content))) return false;
+    documents.length = 0;
+  }
+  const text = String(finalText || "").trim();
+  if (!text || isWeakPdfContent(text)) return false;
   documents.push({
     title: "Documento richiesto a Sbarco",
-    content: String(finalText).slice(0, 30_000),
+    content: text.slice(0, 30_000),
   });
   return true;
 }
@@ -1131,6 +1184,9 @@ async function executeTool(toolCall, context = {}) {
       // think vanno rimossi qui, preservando gli a-capo del markdown.
       const cleanTitle = stripToolCallMarkup(String(args.title)).replace(/\s*\n\s*/g, " ").slice(0, 100);
       const cleanContent = stripToolCallMarkup(String(args.content)).slice(0, 30_000);
+      if (isWeakPdfContent(cleanContent)) {
+        return "Contenuto troppo povero per un PDF: non e' un documento. Richiama save_doc con le tabelle complete della wiki (nome, comune, indirizzo, URL, stato). Vietato un messaggio 'PDF pronto' o 'motore vuoto'.";
+      }
       context.documents?.push({ title: cleanTitle, content: cleanContent });
       return `Documento "${cleanTitle}" preparato per l'esportazione PDF.`;
     }
@@ -1649,6 +1705,18 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               content: "L'utente vuole che usi wiki e contesto gia' disponibili. NON avviare ricerche web. Completa il compito ora.",
             });
           }
+          const harnessWikiPage = inferWikiPage(question);
+          if (harnessWikiPage) {
+            status("tools", "Sbarco apre la wiki delle Bestie…", harnessWikiPage);
+            const wikiText = await executeReadWiki(harnessWikiPage, streamAbort.signal, env.SBARCO_KV);
+            if (wikiText && !/^(Errore|Pagina wiki)/.test(wikiText)) {
+              messages.push({
+                role: "system",
+                content: `PAGINA WIKI GIA' APERTA DALL'HARNESS (${harnessWikiPage}). Usala come fonte primaria. Se l'utente ha chiesto un PDF, chiama save_doc con QUESTE tabelle impaginate (nome, comune, indirizzo, URL, stato), mai un messaggio di stato tipo "PDF pronto".\n\n${wikiText}`,
+              });
+              state.toolSequence.push("read_wiki");
+            }
+          }
           promptStats = measurePrompt(messages);
 
           for (let round = 0; round < maxRounds; round++) {
@@ -1670,6 +1738,8 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               hasDocument: documents.length > 0,
               modelTriedToFinish,
               isLastRound,
+              searchesEmpty: state.searchesEmpty,
+              wikiNeeded: Boolean(inferWikiPage(question) || detectNeedsWikiPage(question)),
             });
             const stepTokens = requiredTool === "save_doc" ? SAVE_DOC_STEP_TOKENS : AGENT_STEP_TOKENS;
             // Il timeout del passo non supera mai il budget residuo del modo.
@@ -1731,11 +1801,11 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
                 messages.push({ role: "tool", tool_call_id: toolCall.id, content: results[index] });
               });
               applyToolResultBudget(messages);
-              if (results.some(result => BUDGET_STOP_RE.test(String(result)))) {
+              if (results.some(result => BUDGET_STOP_RE.test(String(result)) || /^Nessun risultato trovato/.test(String(result)))) {
                 skipResearch = true;
                 messages.push({
                   role: "system",
-                  content: "Budget strumenti di QUESTO turno esaurito. Completa ora con wiki e dati raccolti. Vietato dire di aspettare il reset. Se serve un PDF, chiama save_doc.",
+                  content: "La ricerca web e' vuota o il budget e' esaurito. NON ritentare il web. Usa la wiki gia' in contesto e consegna. Se serve un PDF, save_doc con le tabelle, non un messaggio 'PDF pronto'.",
                 });
               }
               modelTriedToFinish = false;
@@ -1831,6 +1901,7 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
           }
 
           ensureRequestedPdfDocument(pdfRequested, documents, finalText);
+          await materializeWikiPdf(pdfRequested, documents, question, env.SBARCO_KV, streamAbort.signal);
           if (documents.length > 0) emitSSE(controller, encoder, { documents });
           const metrics = {
             mode: extendedMode ? "extended" : researchMode ? "deep" : "quick",
@@ -2523,6 +2594,9 @@ export const __test = {
   detectPdfIntent,
   detectSkipResearch,
   detectNeedsWikiPage,
+  inferWikiPage,
+  isWeakPdfContent,
+  materializeWikiPdf,
   chooseRequiredTool,
   ensureRequestedPdfDocument,
   isSafePublicUrl,

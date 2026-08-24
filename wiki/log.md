@@ -6,6 +6,16 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-24] fix(sbarco) | Harness apre la wiki, PDF vero, no search forzata a vuoto
+
+- Incidente live (Pro+estesa): DuckDuckGo vuoto, 90s bruciati, "PDF pronto" e il
+  documento era una riga di chat. Tasto Estesa andava a capo e cambiava forma.
+- Architettura: l'harness apre da solo la pagina wiki pertinente (porti/varo)
+  prima del loop; non forza search_web se la wiki basta o il motore e' vuoto;
+  save_doc rifiuta i messaggi di stato; se il PDF e' debole, si materializza
+  dal censimento wiki. UI: etichette Rapida/Profonda/Estesa, no wrap.
+- Worker **2.6.0**.
+
 ## [2026-08-24] fix(sbarco) | Pro legge la wiki, sintesi non troncata, chat scrollabile
 
 - Incidente live: elenco moli in Pro+rapida. Il modello diceva "non ho potuto

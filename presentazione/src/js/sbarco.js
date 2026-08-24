@@ -21,9 +21,9 @@ const SESSION_SKEW_MS = 30_000;
 const MAX_DAILY = 5;
 const MODE_ORDER = ["auto", "deep", "extended"];
 const MODE_COPY = {
-  auto: { strong: "Risposta rapida", small: "Wiki e contesto del progetto" },
-  deep: { strong: "Ricerca profonda", small: "Web e fonti incrociate" },
-  extended: { strong: "Ricerca estesa", small: "Censimenti e multi-località" },
+  auto: { strong: "Rapida", small: "Wiki" },
+  deep: { strong: "Profonda", small: "Web" },
+  extended: { strong: "Estesa", small: "Censimenti" },
 };
 
 (function () {

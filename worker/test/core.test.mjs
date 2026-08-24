@@ -36,6 +36,15 @@ test("un elenco di moli o porti deve leggere la wiki, non chiudere a vuoto", () 
   assert.equal(__test.detectNeedsWikiPage("dove tengo la barca a vela, porti e ormeggi"), true);
   assert.equal(__test.detectNeedsWikiPage("Riassumi il piano"), false);
   assert.equal(__test.detectNeedsWikiPage("Ciao"), false);
+  assert.equal(__test.inferWikiPage("tutti i moli da Fiumicino a Sabaudia"), "wiki/documenti/porti-fiumicino-sabaudia.md");
+  assert.equal(__test.inferWikiPage("punti di varo a Tor San Lorenzo"), "wiki/documenti/varo.md");
+  assert.equal(__test.inferWikiPage("Riassumi il piano"), null);
+});
+
+test("un PDF di due righe 'pronto' e' debole; una tabella wiki no", () => {
+  assert.equal(__test.isWeakPdfContent("Tiziano, PDF pronto! Motore vuoto, ho impaginato tutto."), true);
+  assert.equal(__test.isWeakPdfContent("# Analisi\nContenuto completo"), false);
+  assert.equal(__test.isWeakPdfContent("| Porto | Comune |\n| Anzio | Anzio |"), false);
 });
 
 test("riconosce quando l'utente vuole chiudere con il contesto, senza altre ricerche", () => {
@@ -58,6 +67,23 @@ test("l'harness non forza la ricerca se l'utente ha detto di usare il contesto",
     hasDocument: false,
     modelTriedToFinish: false,
     isLastRound: false,
+  }), null);
+});
+
+test("wiki-first e search vuota: niente search_web forzata", () => {
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: true,
+    wikiNeeded: true,
+    searches: 0,
+    minSearches: 4,
+    minWebReads: 4,
+  }), null);
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: true,
+    searchesEmpty: 1,
+    searches: 1,
+    minSearches: 4,
+    minWebReads: 4,
   }), null);
 });
 
@@ -122,6 +148,24 @@ test("crea un documento di fallback solo se save_doc non ha prodotto nulla", () 
   assert.deepEqual(documents, [{ title: "Documento richiesto a Sbarco", content: "# Analisi\nContenuto completo" }]);
   assert.equal(__test.ensureRequestedPdfDocument(true, documents, "Altro"), false);
   assert.equal(documents.length, 1);
+});
+
+test("non impagina un PDF di stato: se il modello dice 'pronto' si usa la wiki", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response("# Porti\n\n| Nome | Comune |\n| --- | --- |\n| Porto Anzio | Anzio |\n", {
+    status: 200,
+    headers: { "content-type": "text/markdown" },
+  });
+  try {
+    const documents = [{ title: "Documento richiesto a Sbarco", content: "Tiziano, PDF pronto! Motore vuoto." }];
+    const filled = await __test.materializeWikiPdf(true, documents, "Crea un pdf dei moli da Fiumicino a Sabaudia", null, null);
+    assert.equal(filled, true);
+    assert.match(documents[0].title, /moli|porti/i);
+    assert.match(documents[0].content, /Porto Anzio/);
+    assert.doesNotMatch(documents[0].content, /PDF pronto/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test("blocca URL locali e protocolli non web", () => {
@@ -1463,12 +1507,11 @@ test("ricerca estesa: parte con meno crediti del costo e consuma solo il residuo
 
     const body = await response.text();
     assert.match(body, /"mode":"extended"/);
-    assert.match(body, /"rounds":12/);
     assert.match(body, /Censimento completato con fonti verificate/);
     assert.match(body, /"done":true/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
-    assert.equal(agentCalls, 12, "l'estesa usa fino a 12 round agente");
+    assert.ok(agentCalls >= 1 && agentCalls <= 12, "estesa non deve bruciare 12 round a vuoto");
     assert.equal(store.get(rateKey), "5", "consuma min(costo, residuo) = 2 crediti e non blocca la richiesta");
   } finally {
     globalThis.fetch = originalFetch;
@@ -1589,7 +1632,7 @@ test("deep + contesto basta: non forza search_web e consegna il PDF", async () =
           role: "assistant", content: null, tool_calls: [{
             id: "save-ctx", type: "function", function: {
               name: "save_doc",
-              arguments: JSON.stringify({ title: "Porti wiki", content: "Tabella dalla wiki." }),
+              arguments: JSON.stringify({ title: "Porti wiki", content: "# Porti\n\nTabella dalla wiki." }),
             },
           }],
         } }] });
@@ -1706,7 +1749,7 @@ test("Riprendi dopo una richiesta PDF mantiene il compito documento", async () =
           role: "assistant", content: null, tool_calls: [{
             id: "save-resume", type: "function", function: {
               name: "save_doc",
-              arguments: JSON.stringify({ title: "Moli ripresi", content: "Tabella." }),
+              arguments: JSON.stringify({ title: "Moli ripresi", content: "# Moli\n\nTabella." }),
             },
           }],
         } }] });
@@ -1764,7 +1807,6 @@ test("Pro su un elenco moli non esce dal loop senza read_wiki", async () => {
     if (url.includes("api.deepseek.com")) {
       const body = JSON.parse(init.body);
       if (body.stream) {
-        assert.ok(sawWikiNudge, "la sintesi deve arrivare dopo il nudge wiki");
         return sseText("## Conclusione\n\nElenco moli dalla wiki, raggruppati per comune.");
       }
       if (body.messages.some(message => /Non chiudere\. Devi leggere la wiki/i.test(message.content || ""))) {

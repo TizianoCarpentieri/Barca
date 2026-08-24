@@ -185,6 +185,9 @@ html.sheet-open .sbarco-fab {
 .sbarco-tier__btn:disabled { opacity: .45; cursor: default; }
 .sbarco-mode {
   min-height: 38px;
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: 46%;
   border: 1px solid var(--sbarco-border);
   border-radius: 999px;
   padding: 6px 11px;
@@ -197,10 +200,12 @@ html.sheet-open .sbarco-fab {
   letter-spacing: .05em;
   text-transform: uppercase;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.sbarco-mode__copy { text-align: left; }
+.sbarco-mode__copy { text-align: left; min-width: 0; overflow: hidden; }
 .sbarco-mode__copy strong,
-.sbarco-mode__copy small { display: block; }
+.sbarco-mode__copy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sbarco-mode__copy strong { font: inherit; }
 .sbarco-mode__copy small { margin-top: 3px; color: var(--sbarco-muted); font: 500 9px/1 sans-serif; letter-spacing: .02em; text-transform: none; }
 .sbarco-mode__dot {
@@ -623,7 +628,16 @@ html.sheet-open .sbarco-fab {
   .sbarco-header__mark { display: none; }
   .sbarco-header__brand small { font-size: 10px; }
   .sbarco-header select { max-width: 118px; min-width: 96px; }
-  .sbarco-mode { flex: 1; min-height: 44px; }
+  .sbarco-mode { flex: 1 1 0; min-height: 44px; max-width: none; }
+  .sbarco-modebar { flex-wrap: nowrap; }
+  .sbarco-mode__copy small { display: none; }
+  .sbarco-mode__hint {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .sbarco-tier__btn { min-height: 40px; }
   .sbarco-msgs { padding: 14px 11px 16px; min-height: 0; }
   .sbarco-reasoning__body { max-height: none; overflow: visible; }
