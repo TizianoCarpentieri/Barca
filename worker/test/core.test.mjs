@@ -13,8 +13,100 @@ test("riconosce una richiesta esplicita di PDF senza confonderla con una domanda
   assert.equal(__test.detectPdfRequest("Me lo fai in pdf?"), true);
   assert.equal(__test.detectPdfRequest("Puoi darmi il pdf?"), true);
   assert.equal(__test.detectPdfRequest("Trasformalo in PDF"), true);
+  assert.equal(__test.detectPdfRequest("Crearmi il pdf dei moli"), true);
   assert.equal(__test.detectPdfRequest("PDF"), true);
   assert.equal(__test.detectPdfRequest("Perche il PDF non funziona?"), false);
+});
+
+test("il PDF richiesto resta un compito anche su Riprendi o si", () => {
+  const history = [
+    { role: "user", content: "Crearmi il pdf dei moli del Lazio" },
+    { role: "assistant", content: "Vuoi che prepari il PDF adesso?" },
+  ];
+  assert.equal(__test.detectPdfIntent("Riprendi", history), true);
+  assert.equal(__test.detectPdfIntent("si", history), true);
+  assert.equal(__test.detectPdfIntent("ok fallo", history), true);
+  assert.equal(__test.detectPdfIntent("Dimmi cosa hai trovato", history), false);
+  assert.equal(__test.detectPdfIntent("Prepara il pdf", []), true);
+  assert.equal(__test.detectPdfIntent("Riprendi", []), false);
+});
+
+test("riconosce quando l'utente vuole chiudere con il contesto, senza altre ricerche", () => {
+  assert.equal(__test.detectSkipResearch("Credo che hai nel contesto sufficienti info per creare il pdf"), true);
+  assert.equal(__test.detectSkipResearch("Usa la wiki, non cercare sul web"), true);
+  assert.equal(__test.detectSkipResearch("Basta la wiki"), true);
+  assert.equal(__test.detectSkipResearch("Cerca online i prezzi attuali"), false);
+  assert.equal(__test.detectSkipResearch("Prepara il pdf"), false);
+});
+
+test("l'harness non forza la ricerca se l'utente ha detto di usare il contesto", () => {
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: true,
+    skipResearch: true,
+    searches: 0,
+    webReads: 0,
+    minSearches: 2,
+    minWebReads: 2,
+    pdfRequested: true,
+    hasDocument: false,
+    modelTriedToFinish: false,
+    isLastRound: false,
+  }), null);
+});
+
+test("se il modello chiede conferma invece del PDF, il giro dopo forza save_doc", () => {
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: false,
+    skipResearch: false,
+    searches: 0,
+    webReads: 0,
+    minSearches: 2,
+    minWebReads: 2,
+    pdfRequested: true,
+    hasDocument: false,
+    modelTriedToFinish: true,
+    isLastRound: false,
+  }), "save_doc");
+});
+
+test("il primo round PDF non forza save_doc: prima puo' leggere la wiki", () => {
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: false,
+    skipResearch: false,
+    searches: 0,
+    webReads: 0,
+    minSearches: 2,
+    minWebReads: 2,
+    pdfRequested: true,
+    hasDocument: false,
+    modelTriedToFinish: false,
+    isLastRound: false,
+  }), null);
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: false,
+    pdfRequested: true,
+    hasDocument: false,
+    isLastRound: true,
+  }), "save_doc");
+});
+
+test("in ricerca profonda senza skip, i minimi restano search_web poi read_url", () => {
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: true,
+    skipResearch: false,
+    searches: 0,
+    webReads: 0,
+    minSearches: 2,
+    minWebReads: 2,
+  }), "search_web");
+  assert.equal(__test.chooseRequiredTool({
+    researchMode: true,
+    skipResearch: false,
+    searches: 2,
+    webReads: 0,
+    minSearches: 2,
+    minWebReads: 2,
+  }), "read_url");
 });
 
 test("crea un documento di fallback solo se save_doc non ha prodotto nulla", () => {
@@ -77,10 +169,9 @@ test("estrae memoria solo da preferenze esplicite", () => {
 });
 
 test("mantiene margini conservativi per l'output visibile", () => {
-  assert.deepEqual(__test.outputTokenBudgets, {
-    agentStep: 1000,
-    finalResponse: 2600,
-  });
+  assert.equal(__test.outputTokenBudgets.agentStep, 1000);
+  assert.equal(__test.outputTokenBudgets.finalResponse, 2600);
+  assert.ok(__test.outputTokenBudgets.saveDocStep >= 4000, "save_doc deve stare in un passo dedicato, non nei 1000 token del loop");
 });
 
 test("spezza le risposte gia pronte in chunk cadenzati visibili", () => {
@@ -317,23 +408,20 @@ test("una richiesta PDF forza save_doc ed emette il documento per il tasto downl
     if (url.includes("api.deepseek.com")) {
       agentCalls += 1;
       const body = JSON.parse(init.body);
-      if (agentCalls === 1) {
-        assert.equal(body.tool_choice.function.name, "save_doc");
-        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
-          role: "assistant", content: null, tool_calls: [{
-            id: "save-1", type: "function", function: {
-              name: "save_doc",
-              arguments: JSON.stringify({ title: "Piano Bestie", content: "# Piano Bestie\n\nContenuto completo." }),
-            },
-          }],
-        } }] });
+      if (body.stream) {
+        assert.ok(body.messages.some(message => message.role === "tool" && /preparato/.test(message.content)));
+        return sseText("Documento pronto: usa il tasto Scarica PDF.");
       }
-      assert.equal(body.tool_choice, "auto");
-      assert.ok(body.messages.some(message => message.role === "tool" && /preparato/.test(message.content)));
-      return Response.json({
-        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Documento pronto: usa il tasto Scarica PDF." } }],
-        usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
-      });
+      assert.equal(body.tool_choice, "auto", "il primo giro deve poter leggere la wiki prima di save_doc");
+      assert.ok(body.messages.some(message => /save_doc|PDF/i.test(message.content || "")));
+      return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+        role: "assistant", content: null, tool_calls: [{
+          id: "save-1", type: "function", function: {
+            name: "save_doc",
+            arguments: JSON.stringify({ title: "Piano Bestie", content: "# Piano Bestie\n\nContenuto completo." }),
+          },
+        }],
+      } }] });
     }
     throw new Error(`Fetch inatteso: ${url}`);
   };
@@ -363,7 +451,7 @@ test("una richiesta PDF forza save_doc ed emette il documento per il tasto downl
     assert.match(body, /"documentsCreated":1/);
     assert.match(body, /"done":true/);
     await Promise.all(background);
-    assert.equal(agentCalls, 2);
+    assert.equal(agentCalls, 2, "save_doc poi sintesi, senza giro di conferma");
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -1145,7 +1233,7 @@ test("errore di sistema rimborsa il credito, il cancel utente no", async () => {
     assert.match(body, /"code":"agent_error"/);
     assert.match(body, /"done":true/);
     await Promise.all(background);
-    assert.equal(agentCalls, 3, "retry esauriti senza risposta");
+    assert.equal(agentCalls, 6, "retry del passo + retry della sintesi, poi errore");
     assert.equal(store.get(rateKey), "2", "il credito scalato viene rimborsato sull'errore di sistema");
   } finally {
     globalThis.fetch = originalFetch;
@@ -1394,6 +1482,269 @@ test("ricerca estesa con zero crediti viene rifiutata prima di partire", async (
   const body = await response.json();
   assert.match(body.error, /Limite giornaliero/i);
   assert.equal(store.get(__test.getRateLimitKey("peppe")), "5");
+});
+
+function sseText(text) {
+  const encoder = new TextEncoder();
+  const frames = [
+    { choices: [{ delta: { content: text } }] },
+    { choices: [{ delta: {} }], usage: { prompt_tokens: 8, completion_tokens: 12, total_tokens: 20 } },
+  ].map(event => `data: ${JSON.stringify(event)}\n\n`).join("") + "data: [DONE]\n\n";
+  return new Response(new ReadableStream({
+    start(controller) {
+      controller.enqueue(encoder.encode(frames));
+      controller.close();
+    },
+  }), { status: 200, headers: { "content-type": "text/event-stream" } });
+}
+
+test("se il modello chiede conferma del PDF l'harness forza save_doc al giro dopo", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  const toolChoices = [];
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.stream) return sseText("## Conclusione\n\nPDF pronto con i moli della wiki.");
+      toolChoices.push(body.tool_choice);
+      if (body.tool_choice?.function?.name === "save_doc") {
+        assert.ok(body.max_tokens >= 4000, "save_doc non deve stare nei 1000 token del loop");
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [{
+            id: "save-forced", type: "function", function: {
+              name: "save_doc",
+              arguments: JSON.stringify({ title: "Moli Lazio", content: "| Porto | Comune |\n| Fiumicino | Fiumicino |" }),
+            },
+          }],
+        } }] });
+      }
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Vuoi che prepari il PDF adesso?" } }],
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "tiziano", question: "Prepara il pdf dei moli", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.match(body, /"documents":\[\{"title":"Moli Lazio"/);
+    assert.doesNotMatch(body, /"error"/);
+    assert.equal(toolChoices[0], "auto");
+    assert.equal(toolChoices[1].function.name, "save_doc");
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("deep + contesto basta: non forza search_web e consegna il PDF", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  const toolChoices = [];
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("duckduckgo.com")) {
+      throw new Error("search_web non deve partire quando l'utente ha detto di usare il contesto");
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.stream) return sseText("## Conclusione\n\nConsegno dalla wiki, senza nuove ricerche.");
+      toolChoices.push(body.tool_choice);
+      if (body.tool_choice?.function?.name === "save_doc") {
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [{
+            id: "save-ctx", type: "function", function: {
+              name: "save_doc",
+              arguments: JSON.stringify({ title: "Porti wiki", content: "Tabella dalla wiki." }),
+            },
+          }],
+        } }] });
+      }
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Posso fare il PDF se vuoi." } }],
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        userId: "tiziano",
+        question: "Credo che hai nel contesto sufficienti info per creare il pdf",
+        mode: "deep",
+      }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.equal(toolChoices[0], "auto");
+    assert.ok(toolChoices.every(choice => choice?.function?.name !== "search_web"));
+    assert.match(body, /"documents":\[\{"title":"Porti wiki"/);
+    assert.doesNotMatch(body, /"error"/);
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("un passo agente 503 non abortisce: si va alla sintesi con quello che c'e'", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let agentCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      agentCalls += 1;
+      const body = JSON.parse(init.body || "{}");
+      if (body.stream) {
+        return sseText("## Conclusione\n\nConsegno comunque dalla wiki dopo un passo fallito.");
+      }
+      return new Response("sovraccarico", { status: 503 });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, String(value)); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "tiziano", question: "Riassumi il piano", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.match(body, /Consegno comunque dalla wiki/);
+    assert.doesNotMatch(body, /"error"/);
+    assert.doesNotMatch(body, /La ricerca si e' interrotta/);
+    assert.ok(agentCalls >= 4, "retry del passo + sintesi");
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("Riprendi dopo una richiesta PDF mantiene il compito documento", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  store.set("chat:tiziano", JSON.stringify([
+    { role: "user", content: "Crearmi il pdf di tutti i moli da Fiumicino a Sabaudia" },
+    { role: "assistant", content: "Vuoi che prepari il PDF adesso?" },
+  ]));
+  const background = [];
+  const toolChoices = [];
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.stream) return sseText("## Conclusione\n\nDocumento dei moli pronto.");
+      toolChoices.push(body.tool_choice);
+      if (body.tool_choice?.function?.name === "save_doc") {
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [{
+            id: "save-resume", type: "function", function: {
+              name: "save_doc",
+              arguments: JSON.stringify({ title: "Moli ripresi", content: "Tabella." }),
+            },
+          }],
+        } }] });
+      }
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Riprendo. Vuoi il PDF?" } }],
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "tiziano", question: "Riprendi", mode: "auto" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.match(body, /"pdfRequested":true/);
+    assert.match(body, /"documents":\[\{"title":"Moli ripresi"/);
+    assert.ok(toolChoices.some(choice => choice?.function?.name === "save_doc"));
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("JSON tool troncato spiega di riprovare save_doc compatto", async () => {
+  const documents = [];
+  const output = await __test.executeTool({
+    function: { name: "save_doc", arguments: '{"title":"Moli Lazio","content":' },
+  }, { documents });
+  assert.equal(documents.length, 0);
+  assert.match(output, /troncat|malformato|compatte/i);
 });
 
 test("modalita' sconosciuta: 400 esplicito", async () => {

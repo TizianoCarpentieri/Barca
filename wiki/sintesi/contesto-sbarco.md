@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-22
+updated: 2026-08-24
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources:
@@ -29,7 +29,7 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 - **Piano B:** scafo rigido a motore soltanto con ≥5 soci e preventivi reali.
 - **Gruppo:** Tiziano, Antonio e Peppe sul gommone. Sul sogno vela il nucleo più probabile è Tiziano+Antonio; altri soci (Matteo, Giulia, padre di Giulia, Paolo) **benvenuti**. Peppe in chat 20 ago risulta freddo sul cabinato.
 - **Uso:** 3 comodi per pesca; fino a ~6 solo picco sociale.
-- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2, **ricerca estesa = 3 (Base) / 5 (Pro)**; l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`, completando comunque la richiesta. Worker `2.4.0`: su Pro la risposta passa sempre dalla sintesi finale con thinking attivo (blocco ripiegabile "Come ho ragionato" in chat); su Base percorso diretto. Modalità: rapida/profonda/**estesa** (censimenti e multi-località, 12 round, 12 ricerche, 16 pagine).
+- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2, **ricerca estesa = 3 (Base) / 5 (Pro)**; l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`, completando comunque la richiesta. Worker `2.5.0`: harness agentico (compito persistente, niente conferma su un ordine già dato, un passo fallito va in sintesi non in abort). Su Pro la risposta passa sempre dalla sintesi finale con thinking attivo (blocco ripiegabile "Come ho ragionato" in chat); su Base percorso diretto. Modalità: rapida/profonda/**estesa** (censimenti e multi-località, 12 round, 12 ricerche, 16 pagine). Se l'utente chiede i moli/porti Fiumicino→Sabaudia o un PDF di quel censimento: **read_wiki** `wiki/documenti/porti-fiumicino-sabaudia.md` e **save_doc**, senza aspettare un reset del budget web.
 
 ## Vincoli economici e tecnici
 

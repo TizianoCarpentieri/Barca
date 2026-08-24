@@ -6,6 +6,25 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-24] fix(sbarco) | Harness agentico: niente conferma, niente abort sulla ricerca
+
+- Incidente live (Pro + rapida): chiesto PDF dei moli Fiumicino→Sabaudia; Sbarco
+  chiedeva "vuoi che lo prepari?", trattava il budget web come sessione (è per
+  messaggio) e su "Prepara il pdf" / "Riprendi" abortiva con "La ricerca si è
+  interrotta". Root cause: tool_choice save_doc al giro 1 con soli 1.000 token
+  (JSON troncato/timeout), minimi search_web che bloccavano il compito, e
+  qualsiasi eccezione del loop chiudeva la chat invece di sintetizzare.
+- Harness Worker **2.5.0**: compito PDF persistente ("Riprendi"/"sì" dopo una
+  richiesta); skip ricerca se l'utente dice che il contesto basta; save_doc
+  forzato solo dopo un tentativo di chiusura senza documento (o all'ultimo
+  round), con 4.000 token; dopo save_doc si va alla sintesi, non a un'altra
+  conferma; passo agente 5xx/timeout → sintesi degradata; errore utente non
+  dice più "ricerca interrotta" su un PDF.
+- Prompt: Sbarco è un agente in harness, non un helpdesk. Budget strumenti
+  fresco a ogni messaggio. Lacune = "da verificare", mai bloccare o rimandare.
+- Test worker 68/68; presentazione 36/36. Doc: [[concetti/architettura-sbarco]]
+  · [[sintesi/contesto-sbarco]].
+
 ## [2026-08-23] fix(sbarco) | Thinking attivo su Pro + formattazione output ripristinata
 
 - Root cause "muro di testo" (soprattutto su Pro): `stripToolCallMarkup` collassava

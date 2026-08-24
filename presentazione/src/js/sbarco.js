@@ -645,7 +645,7 @@ const MODE_COPY = {
       info.className = "sbarco-msg__meta";
       const parts = [
         meta.tier === "pro" ? "Pro" : "Base",
-        meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida",
+        meta.mode === "extended" ? "Ricerca estesa" : meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida",
       ];
       if (meta.thinking === "on") parts.push("thinking");
       if (meta.sourcesRead) parts.push(`${meta.sourcesRead} fonti lette`);
@@ -727,7 +727,7 @@ const MODE_COPY = {
         failed = true;
         div.classList.add("is-error");
         labelEl.textContent = message;
-        detailEl.textContent = "Puoi riprovare o rendere la domanda piu' specifica.";
+        detailEl.textContent = "Riprova: Sbarco completa con quello che ha, non serve riformulare se il compito e' gia' chiaro.";
         stepEl.textContent = "";
       },
       remove() { if (div.isConnected) div.remove(); },

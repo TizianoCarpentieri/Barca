@@ -185,3 +185,11 @@ le chat di Antonio/Peppe senza autenticazione.
 
 Test worker dopo gli interventi: 53/53 verdi (`node --test`, isolamento
 in-process per il sandbox; la CI esegue `npm test` completo su Ubuntu).
+
+## Follow-up 2026-08-24 — harness agentico (v2.5.0)
+
+I budget estesi non bastavano: il bot chiedeva conferma sul PDF e abortiva
+il turno su un passo fallito. Chiuso nel Worker 2.5.0 (compito persistente,
+skip ricerca su "contesto basta", save_doc 4k token dopo un tentativo di
+chiusura, sintesi degradata invece di "ricerca interrotta"). Dettaglio in
+[[concetti/architettura-sbarco]] e [[log]].

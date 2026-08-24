@@ -1,7 +1,7 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-23
+updated: 2026-08-24
 status: active
 tags: [sbarco, bot, deep-research, worker]
 sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
@@ -24,6 +24,10 @@ widget mobile
 Il client riceve eventi di stato durante la lavorazione, quindi una ricerca
 lunga non appare più come una chat bloccata.
 
+Sbarco è un **LLM in un harness**, non un helpdesk: il Worker tiene il compito,
+esegue i tool, recupera gli errori e consegna. Non chiede conferma su un ordine
+già dato e non abortisce il turno se un passo (ricerca, timeout, 5xx) fallisce.
+
 ## Modalità
 
 | Modalità | Uso | Budget |
@@ -40,14 +44,17 @@ compattati dal budget del prompt: i riassunti del modello restano, i raw
 no). Ogni fonte web ha timeout di 12 secondi. Raggiunto un limite, Sbarco deve
 sintetizzare quanto raccolto: valgono le stesse garanzie di uscita della
 profonda (round, durata, riserva per la sintesi finale senza strumenti).
+Se l'utente dice che wiki/contesto bastano, i minimi di ricerca **non** vengono
+forzati: `read_wiki` + consegna (e `save_doc` se ha chiesto un PDF).
 
 ## Latenza percepita e misurata
 
 - Il widget mostra subito una riga di lavoro grigio-luminosa e la aggiorna con
   fasi reali o messaggi di attesa durante gli heartbeat.
-- I round intermedi mantengono il margine collaudato di 1.000 token; la sintesi
-  finale dispone di 2.600 token. I risparmi riguardano il prompt in ingresso,
-  non il tetto dell'output visibile, per evitare Markdown o tabelle troncati.
+- I round intermedi mantengono il margine collaudato di 1.000 token; un passo
+  `save_doc` ha 4.000 token (il contenuto del PDF sta negli argomenti del tool);
+  la sintesi finale dispone di 2.600 token. I risparmi riguardano il prompt in
+  ingresso, non il tetto dell'output visibile, per evitare Markdown o tabelle troncati.
 - Il `thinking` DeepSeek è **disattivato nei round con strumenti** (incompatibilità
   nota V4 con `tool_choice` nel loop agente) ma è **attivo sulla sintesi finale Pro**
   (`tool_choice: "none"`, con `reasoning_effort: "high"`). Se il provider rifiuta il
@@ -91,7 +98,11 @@ profonda (round, durata, riserva per la sintesi finale senza strumenti).
   chiamate strumenti. Se dopo il filtro il testo e' vuoto o minimo, il Worker
   ritenta una sola volta la sintesi senza strumenti e senza tag; se fallisce
   ancora, arriva un errore esplicito. Il markup non puo' raggiungere la chat.
-- Timeout, budget e annullamento impediscono ricerche senza fine.
+- Timeout, budget e annullamento impediscono ricerche senza fine. Un passo
+  agente fallito (timeout/5xx dopo i retry) **non** chiude la chat: si inietta
+  l'errore nel contesto e si passa alla sintesi con wiki e dati già raccolti.
+  Solo se anche la sintesi fallisce arriva un errore esplicito (mai più
+  "la ricerca si è interrotta" su un PDF o una risposta rapida).
 - `/debug` legge anche gli ultimi eventi persistiti in KV, non solo la memoria dell’istanza.
 
 ## Protezioni runtime
@@ -191,10 +202,14 @@ restano non-thinking. Client vecchi senza `tier` restano su Base.
   testo libero della chat: evita documenti poco strutturati e un doppio export.
 - `save_doc` produce una scheda dedicata con **Scarica PDF**; questa è l'unica
   via di export e MD/TXT non sono più l'output primario.
-- Una richiesta esplicita di PDF forza `save_doc` nel tool loop. Se il provider
-  non rispetta la chiamata obbligatoria, il Worker crea comunque la scheda dal
-  testo finale: Sbarco non può più dichiarare un PDF pronto senza emettere il
-  relativo evento `documents` verso la UI.
+- Una richiesta esplicita di PDF (anche un "Riprendi"/"sì" dopo averla già
+  chiesta) è un compito persistente. Il primo round resta `auto` così può
+  leggere la wiki; se il modello chiede conferma o tenta di chiudere senza
+  documento, l'harness forza `save_doc` (passo da 4.000 token). Dopo
+  `save_doc` si va alla sintesi, non a un altro "vuoi che lo faccia?".
+- Se il provider non emette `save_doc`, il Worker crea comunque la scheda dal
+  testo finale: Sbarco non può dichiarare un PDF pronto senza l'evento
+  `documents` verso la UI.
 - Il PDF è A4, multipagina, con titoli, callout, elenchi, tabelle, fonti,
   intestazione e numerazione. jsPDF viene caricato solo al click (chunk lazy).
 - Emoji e simboli da chat vengono convertiti in etichette testuali; gli altri
