@@ -517,6 +517,10 @@ const MODE_COPY = {
 
     // Su Pro il thinking strema qui sopra la risposta: blocco ripiegabile,
     // aperto mentre ragiona e richiuso quando arriva il primo token utile.
+    const collapseReasoning = () => {
+      if (reasoningEl) reasoningEl.open = false;
+    };
+
     const ensureReasoning = () => {
       if (reasoningEl) return;
       ensureMessage();
@@ -565,18 +569,20 @@ const MODE_COPY = {
           return;
         }
         if (data.token) {
-          if (reasoningEl?.open) reasoningEl.open = false;
+          collapseReasoning();
           reveal.push(data.token);
         }
         if (data.documents) data.documents.forEach(addDocumentMsg);
         if (data.meta) answerMeta = data.meta;
         if (data.error) {
           receivedError = true;
+          collapseReasoning();
           if (msgDiv) addMsg("sbarco", data.error);
           else progress.fail(data.error);
         }
         if (data.done) {
           receivedDone = true;
+          collapseReasoning();
           if (data.remaining !== undefined) updateCounter(data.remaining);
         }
       } catch {}
@@ -599,6 +605,7 @@ const MODE_COPY = {
       throw err;
     }
 
+    collapseReasoning();
     const fullText = reveal.received;
     if (!fullText && !receivedError) {
       progress.fail(receivedDone

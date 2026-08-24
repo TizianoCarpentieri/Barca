@@ -97,12 +97,14 @@ test("il ragionamento Pro strema in un blocco ripiegabile separato dalla rispost
   assert.match(source, /sbarco-reasoning/);
   assert.match(source, /Come ho ragionato/);
   assert.match(source, /reasoningEl\.open = false/);
+  assert.match(source, /collapseReasoning/);
   assert.match(source, /reasoningBody\.textContent \+= data\.reasoning/);
   assert.match(source, /meta\.thinking === "on"/);
   const css = await readFile(new URL("../src/styles/sbarco.css", import.meta.url), "utf8");
   assert.match(css, /\.sbarco-reasoning__body/);
   assert.match(css, /sbarco-reasoning-pulse/);
   assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /\.sbarco-msgs[\s\S]{0,180}min-height:\s*0/);
 });
 
 test("genera un PDF multipagina valido con tabella e fonti", () => {

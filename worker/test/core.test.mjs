@@ -31,6 +31,13 @@ test("il PDF richiesto resta un compito anche su Riprendi o si", () => {
   assert.equal(__test.detectPdfIntent("Riprendi", []), false);
 });
 
+test("un elenco di moli o porti deve leggere la wiki, non chiudere a vuoto", () => {
+  assert.equal(__test.detectNeedsWikiPage("lista di tutti i moli da Fiumicino a Sabaudia"), true);
+  assert.equal(__test.detectNeedsWikiPage("dove tengo la barca a vela, porti e ormeggi"), true);
+  assert.equal(__test.detectNeedsWikiPage("Riassumi il piano"), false);
+  assert.equal(__test.detectNeedsWikiPage("Ciao"), false);
+});
+
 test("riconosce quando l'utente vuole chiudere con il contesto, senza altre ricerche", () => {
   assert.equal(__test.detectSkipResearch("Credo che hai nel contesto sufficienti info per creare il pdf"), true);
   assert.equal(__test.detectSkipResearch("Usa la wiki, non cercare sul web"), true);
@@ -172,6 +179,7 @@ test("mantiene margini conservativi per l'output visibile", () => {
   assert.equal(__test.outputTokenBudgets.agentStep, 1000);
   assert.equal(__test.outputTokenBudgets.finalResponse, 2600);
   assert.ok(__test.outputTokenBudgets.saveDocStep >= 4000, "save_doc deve stare in un passo dedicato, non nei 1000 token del loop");
+  assert.ok(__test.outputTokenBudgets.finalThinking >= 6000, "su Pro il thinking non deve mangiare il tetto della risposta visibile");
 });
 
 test("spezza le risposte gia pronte in chunk cadenzati visibili", () => {
@@ -1538,7 +1546,7 @@ test("se il modello chiede conferma del PDF l'harness forza save_doc al giro dop
     const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ userId: "tiziano", question: "Prepara il pdf dei moli", mode: "auto" }),
+      body: JSON.stringify({ userId: "tiziano", question: "Prepara il pdf del piano attuale", mode: "auto" }),
     }), {
       SBARCO_KV: kv,
       DEEPSEEK_API_KEY: "test-key",
@@ -1732,6 +1740,154 @@ test("Riprendi dopo una richiesta PDF mantiene il compito documento", async () =
     assert.match(body, /"pdfRequested":true/);
     assert.match(body, /"documents":\[\{"title":"Moli ripresi"/);
     assert.ok(toolChoices.some(choice => choice?.function?.name === "save_doc"));
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("Pro su un elenco moli non esce dal loop senza read_wiki", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let wikiReads = 0;
+  let sawWikiNudge = false;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      if (url.includes("porti-fiumicino-sabaudia")) wikiReads += 1;
+      return new Response("# Porti\n| Porto | Comune |\n| Fiumicino | Fiumicino |", {
+        status: 200,
+        headers: { "content-type": "text/markdown" },
+      });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (body.stream) {
+        assert.ok(sawWikiNudge, "la sintesi deve arrivare dopo il nudge wiki");
+        return sseText("## Conclusione\n\nElenco moli dalla wiki, raggruppati per comune.");
+      }
+      if (body.messages.some(message => /Non chiudere\. Devi leggere la wiki/i.test(message.content || ""))) {
+        sawWikiNudge = true;
+        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
+          role: "assistant", content: null, tool_calls: [{
+            id: "wiki-1", type: "function", function: {
+              name: "read_wiki",
+              arguments: JSON.stringify({ page: "wiki/documenti/porti-fiumicino-sabaudia.md" }),
+            },
+          }],
+        } }] });
+      }
+      return Response.json({
+        choices: [{ finish_reason: "stop", message: {
+          role: "assistant",
+          content: "In questa sessione non ho potuto aprire la wiki. Vuoi che ci riprovi?",
+        } }],
+      });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        userId: "tiziano",
+        question: "Voglio la lista di tutti i moli da Fiumicino a Sabaudia per la barca a vela",
+        mode: "auto",
+        tier: "pro",
+      }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL: "deepseek-v4-flash",
+      DEEPSEEK_MODEL_PRO: "deepseek-v4-pro",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.match(body, /Elenco moli dalla wiki/);
+    assert.doesNotMatch(body, /non ho potuto aprire la wiki/);
+    assert.ok(wikiReads >= 1);
+    assert.match(body, /"read_wiki"/);
+    await Promise.all(background);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("se la sintesi Pro viene tagliata, continua senza ripetere", async () => {
+  const originalFetch = globalThis.fetch;
+  const store = new Map();
+  const background = [];
+  let streams = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.startsWith("https://raw.githubusercontent.com/")) {
+      return new Response("# Contesto test", { status: 200, headers: { "content-type": "text/markdown" } });
+    }
+    if (url.includes("api.deepseek.com")) {
+      const body = JSON.parse(init.body);
+      if (!body.stream) {
+        return Response.json({
+          choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Bozza." } }],
+        });
+      }
+      streams += 1;
+      const encoder = new TextEncoder();
+      if (streams === 1) {
+        const frames = [
+          { choices: [{ delta: { reasoning_content: "Devo elencare tutti i porti." } }] },
+          { choices: [{ delta: { content: "## Cosa\n\nTabella incompleta" } }] },
+          { choices: [{ finish_reason: "length", delta: {} }], usage: { prompt_tokens: 10, completion_tokens: 2600, total_tokens: 2610 } },
+        ].map(event => `data: ${JSON.stringify(event)}\n\n`).join("") + "data: [DONE]\n\n";
+        return new Response(new ReadableStream({
+          start(controller) { controller.enqueue(encoder.encode(frames)); controller.close(); },
+        }), { status: 200, headers: { "content-type": "text/event-stream" } });
+      }
+      assert.equal(body.thinking.type, "disabled");
+      assert.ok(body.messages.some(message => /tagliata|Continua/i.test(message.content || "")));
+      const frames = [
+        { choices: [{ delta: { content: " | Porto | Comune |\n| Anzio | Anzio |" } }] },
+        { choices: [{ finish_reason: "stop", delta: {} }] },
+      ].map(event => `data: ${JSON.stringify(event)}\n\n`).join("") + "data: [DONE]\n\n";
+      return new Response(new ReadableStream({
+        start(controller) { controller.enqueue(encoder.encode(frames)); controller.close(); },
+      }), { status: 200, headers: { "content-type": "text/event-stream" } });
+    }
+    throw new Error(`Fetch inatteso: ${url}`);
+  };
+
+  try {
+    const kv = {
+      async get(key) { return store.get(key) ?? null; },
+      async put(key, value) { store.set(key, value); },
+    };
+    const response = await worker.fetch(new Request("https://sbarco.test/api/chat", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ userId: "peppe", question: "Riassumi il piano", mode: "auto", tier: "pro" }),
+    }), {
+      SBARCO_KV: kv,
+      DEEPSEEK_API_KEY: "test-key",
+      DEEPSEEK_MODEL_PRO: "deepseek-v4-pro",
+      ALLOWED_ORIGIN: "*",
+      TIZIANO_PASSKEY_TEST_BYPASS: "true",
+    }, {
+      waitUntil(promise) { background.push(promise); },
+    });
+    const body = await response.text();
+    assert.match(body, /Tabella incompleta/);
+    assert.match(body, /Anzio/);
+    assert.equal(streams, 2);
+    assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
   } finally {
     globalThis.fetch = originalFetch;

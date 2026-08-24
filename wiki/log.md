@@ -6,6 +6,18 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-08-24] fix(sbarco) | Pro legge la wiki, sintesi non troncata, chat scrollabile
+
+- Incidente live: elenco moli in Pro+rapida. Il modello diceva "non ho potuto
+  aprire la wiki", la risposta finiva a meta' ("Cosa") e la chat non scrollava.
+- Root cause: su Pro il primo testo senza tool usciva dal loop (sintesi senza
+  read_wiki); il thinking da 2600 token tagliava il contenuto; `.sbarco-msgs`
+  in flex senza `min-height: 0` veniva clipato dal pannello (scroll bloccato).
+- Fix Worker **2.5.1**: se la domanda e' un elenco wiki (moli/porti/varo/patto)
+  il loop non chiude senza `read_wiki`; sintesi Pro 6000 token; se
+  `finish_reason=length` continua lo stream senza ripetere. Client: collapse
+  thinking a fine risposta; msgs scrollabile su telefono.
+
 ## [2026-08-24] fix(sbarco) | Harness agentico: niente conferma, niente abort sulla ricerca
 
 - Incidente live (Pro + rapida): chiesto PDF dei moli Fiumicino→Sabaudia; Sbarco

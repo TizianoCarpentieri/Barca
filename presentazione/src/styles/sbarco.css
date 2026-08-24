@@ -250,7 +250,11 @@ html.sheet-open .sbarco-fab {
 /* ── Messages ───────────────────────────────────────────────── */
 .sbarco-msgs {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 16px 14px 18px;
   display: flex;
   flex-direction: column;
@@ -345,8 +349,10 @@ html.sheet-open .sbarco-fab {
   animation: sbarco-reasoning-pulse 1.1s ease-in-out infinite;
 }
 .sbarco-reasoning__body {
-  max-height: 160px;
+  max-height: 7.5rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   padding: 8px 10px 9px;
   border-top: 1px solid var(--sbarco-border);
   font-size: 11.5px;
@@ -619,7 +625,8 @@ html.sheet-open .sbarco-fab {
   .sbarco-header select { max-width: 118px; min-width: 96px; }
   .sbarco-mode { flex: 1; min-height: 44px; }
   .sbarco-tier__btn { min-height: 40px; }
-  .sbarco-msgs { padding: 14px 11px 16px; }
+  .sbarco-msgs { padding: 14px 11px 16px; min-height: 0; }
+  .sbarco-reasoning__body { max-height: none; overflow: visible; }
   .sbarco-msg { max-width: 96%; }
   .sbarco-progress { width: 96%; }
   .sbarco-fab {

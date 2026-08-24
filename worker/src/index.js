@@ -2,7 +2,7 @@ const MAX_HISTORY = 8;
 const MAX_HISTORY_CHARS = 9_000;
 const MAX_HISTORY_USER_CHARS = 1_600;
 const MAX_HISTORY_ASSISTANT_CHARS = 2_800;
-const WORKER_VERSION = "2.5.0";
+const WORKER_VERSION = "2.5.1";
 const MAX_MEMORY_FACTS = 12;
 const MAX_MEMORY_STORE = 40;
 const MAX_SUMMARY_LENGTH = 1_400;
@@ -33,6 +33,7 @@ const EXTENDED_PRO_COST = 5;
 const AGENT_STEP_TOKENS = 1000;
 const SAVE_DOC_STEP_TOKENS = 4000;
 const FINAL_RESPONSE_TOKENS = 2600;
+const FINAL_THINKING_TOKENS = 6000;
 const BUDGET_STOP_RE = /Budget (ricerca|lettura fonti|strumenti) (raggiunto|esaurito)/i;
 const DEEPSEEK_TIMEOUT_MS = 55_000;
 const WEB_TIMEOUT_MS = 12_000;
@@ -957,6 +958,11 @@ function detectPdfIntent(question, history = []) {
   return (history || []).some(msg => msg?.role === "user" && detectPdfRequest(msg.content || ""));
 }
 
+function detectNeedsWikiPage(question = "") {
+  const text = normalizeLabel(question);
+  return /\b(moli|porti|porto|ormeggi|ormeggio|scivoli|scivolo|varo|punti di lancio|censimento|elenco|lista|tutti i|tutti quanti|approdi|banchine|marina|circoli nautici|patto|prospetto|costi a norma)\b/.test(text);
+}
+
 function detectSkipResearch(question = "") {
   const text = normalizeLabel(question);
   return /\b(nel contesto|contesto basta|contesto sufficient|usa la wiki|dalla wiki|con la wiki|quello che hai|cio che hai|non (serve|occorre) (il web|la ricerca|cercare)|non cercare|senza (ricerca|web)|basta la wiki|info sufficient|hai gia|gia (trovato|nel contesto)|hai nel contesto|non voglio (altre )?ricerche)\b/.test(text);
@@ -1383,7 +1389,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
     messages: finalMessages,
     tool_choice: "none",
     temperature: 0.3,
-    max_tokens: FINAL_RESPONSE_TOKENS,
+    max_tokens: withThinking ? FINAL_THINKING_TOKENS : FINAL_RESPONSE_TOKENS,
     thinking: { type: withThinking ? "enabled" : "disabled" },
     ...(withThinking ? { reasoning_effort: "high" } : {}),
     stream: true,
@@ -1417,6 +1423,7 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   let buffer = "";
   let pending = "";
   let fullText = "";
+  let finishReason = "";
   const flushLine = line => {
     const clean = filter(line);
     if (!clean) return;
@@ -1430,7 +1437,9 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
       try {
         const event = JSON.parse(raw);
         addUsage(usage, event.usage || {});
-        const delta = event.choices?.[0]?.delta;
+        const choice = event.choices?.[0];
+        if (choice?.finish_reason) finishReason = choice.finish_reason;
+        const delta = choice?.delta;
         // In modalita' thinking il ragionamento arriva prima del contenuto:
         // viene forwarded come evento dedicato, mai fuso nella risposta.
         if (delta?.reasoning_content) {
@@ -1459,7 +1468,75 @@ async function streamForcedFinal(apiKey, model, messages, signal, controller, en
   processPayloads(drainSSEFrames(buffer, true).data);
   if (pending) flushLine(pending);
   const retryNeeded = fullText.trim().length < MIN_FINAL_TEXT_CHARS;
-  console.log(`[sbarco-final] fullTextLen=${fullText.length} retryNeeded=${retryNeeded}`);
+  console.log(`[sbarco-final] fullTextLen=${fullText.length} retryNeeded=${retryNeeded} finish=${finishReason}`);
+  if (finishReason === "length" && fullText.trim()) {
+    const contResp = await fetchWithRetry(`${baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: model || "deepseek-v4-flash",
+        messages: [
+          ...finalMessages,
+          { role: "assistant", content: fullText },
+          {
+            role: "user",
+            content: "La risposta e' stata tagliata. Continua ESATTAMENTE da dove sei rimasto, senza ripetere il testo gia' scritto. Completa tabelle, elenchi e sezioni aperte.",
+          },
+        ],
+        tool_choice: "none",
+        temperature: 0.3,
+        max_tokens: FINAL_RESPONSE_TOKENS,
+        thinking: { type: "disabled" },
+        stream: true,
+        stream_options: { include_usage: true },
+      }),
+    }, DEEPSEEK_TIMEOUT_MS, signal);
+    if (contResp.ok && contResp.body) {
+      const contReader = contResp.body.getReader();
+      buffer = "";
+      pending = "";
+      const contFilter = createMarkupLineFilter();
+      const flushCont = line => {
+        const clean = contFilter(line);
+        if (!clean) return;
+        onFirstToken?.();
+        fullText += clean;
+        emitSSE(controller, encoder, { token: clean });
+      };
+      const processCont = payloads => {
+        for (const raw of payloads) {
+          if (raw === "[DONE]") continue;
+          try {
+            const event = JSON.parse(raw);
+            addUsage(usage, event.usage || {});
+            const delta = event.choices?.[0]?.delta;
+            if (!delta?.content) continue;
+            pending += delta.content;
+            let index;
+            while ((index = pending.indexOf("\n")) >= 0) {
+              flushCont(pending.slice(0, index + 1));
+              pending = pending.slice(index + 1);
+            }
+          } catch {}
+        }
+      };
+      while (true) {
+        const { done, value } = await contReader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const drained = drainSSEFrames(buffer);
+        buffer = drained.rest;
+        processCont(drained.data);
+      }
+      buffer += decoder.decode();
+      processCont(drainSSEFrames(buffer, true).data);
+      if (pending) flushCont(pending);
+      return { text: fullText, thinking: thinkingUsed, retryUsed: true };
+    }
+  }
   if (!retryNeeded) return { text: fullText, thinking: thinkingUsed, retryUsed: false };
 
   // Il modello ha scritto solo markup di chiamate strumenti nel testo:
@@ -1667,6 +1744,15 @@ function createChatSSEStream({ env, ctx, apiKey, model, userId, question, reques
               continue;
             }
 
+            const wikiRead = state.toolSequence.includes("read_wiki");
+            const wikiNeeded = detectNeedsWikiPage(question);
+            if (wikiNeeded && !wikiRead && !isLastRound) {
+              messages.push({
+                role: "system",
+                content: "Non chiudere. Devi leggere la wiki con read_wiki. Per moli/porti/ormeggi da Fiumicino a Sabaudia usa 'wiki/documenti/porti-fiumicino-sabaudia.md'. Per varo: 'wiki/documenti/varo.md'. Poi rispondi (e chiama save_doc se serve un PDF). Vietato dire che in questa sessione non puoi aprire la wiki: lo strumento e' disponibile.",
+              });
+              continue;
+            }
             if (pdfRequested && documents.length === 0 && !isLastRound) {
               modelTriedToFinish = true;
               messages.push({
@@ -2436,6 +2522,7 @@ export const __test = {
   detectPdfRequest,
   detectPdfIntent,
   detectSkipResearch,
+  detectNeedsWikiPage,
   chooseRequiredTool,
   ensureRequestedPdfDocument,
   isSafePublicUrl,
@@ -2466,6 +2553,7 @@ export const __test = {
     agentStep: AGENT_STEP_TOKENS,
     saveDocStep: SAVE_DOC_STEP_TOKENS,
     finalResponse: FINAL_RESPONSE_TOKENS,
+    finalThinking: FINAL_THINKING_TOKENS,
   },
   extendedBudgets: {
     rounds: EXTENDED_ROUNDS,
