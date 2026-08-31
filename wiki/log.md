@@ -707,3 +707,21 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Rimborso su agent_error ora ripristina l'importo effettivamente scalato (`charged`), non il costo teorico.
 - Test: 57/57 (nuovi: costi estesa, budget 12/12/16/48, complete-anyway con 2 crediti → consuma 2 e completa, 429 a 0 crediti, 400 su modalità sconosciuta). Docs aggiornate: architettura-sbarco (modalità+quote), contesto-sbarco, README worker.
 - Causa: censimento Fiumicino→Sabaudia che ha esaurito il budget profonda (3/5/14). Con l'estesa Sbarco ora può completare lavori del genere da solo; il censimento fatto a mano resta come base verificata.
+
+## [2026-08-31] fix(sbarco) | Orchestratore v3 evidence-first
+
+- Separati tier modello, profondità del lavoro e scelta delle fonti: profonda
+  esegue almeno 2 passaggi, estesa almeno 3, senza obbligare alla ricerca web.
+- Integrato Graphify nel runtime del Worker: query deterministica e prefetch di
+  pagine wiki prima della prima chiamata DeepSeek; grafo = navigazione, wiki/URL
+  letti = evidenze.
+- Ridotto il peso dello storico: 4 messaggi/4.800 caratteri e digest 900, usati
+  soltanto nei follow-up contestuali; memoria selezionata per pertinenza.
+- Aggiunti taccuino evidenze e budget raw più stretti; sintesi finale da 3.200
+  token con fino a due continuazioni contro il troncamento.
+- Reso `save_doc` opzionale: ogni richiesta PDF può essere materializzata dalla
+  sintesi o dalla wiki. Renderer con temi, colore, densità, copertina,
+  orientamento e tabelle larghe in landscape.
+- Test Worker aggiornati: 77/77 verdi. Vedi [[sintesi/audit-sbarco-v3-20260831]].
+- Frontend: 38/38 test, build Vite verde; dry-run Wrangler sul grafo definitivo
+  verde (598,09 KiB, 79,26 KiB gzip).

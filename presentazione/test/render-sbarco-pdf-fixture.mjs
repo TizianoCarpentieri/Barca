@@ -2,7 +2,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createSbarcoPdf } from "../src/js/sbarco-pdf.js";
 
-const outputDir = resolve("..", "tmp", "pdfs");
+const outputDir = process.env.SBARCO_PDF_OUTPUT
+  ? resolve(process.env.SBARCO_PDF_OUTPUT)
+  : resolve("..", "tmp", "pdfs");
 await mkdir(outputDir, { recursive: true });
 
 const content = `# 🎯 Verifica pre-acquisto
@@ -16,11 +18,11 @@ Qualità e affidabilità restano da verificare; il prezzo deve essere ≤ 2.000 
 
 ## Confronto
 
-| Voce | Candidato | Obiettivo | Esito |
-|---|---:|---:|---|
-| Gommone | 3,60 m | 3,30-3,90 m | ✅ OK |
-| Motore | 9.9 CV 4T | 9.9-15 CV 4T | 🟢 OK |
-| Prezzo bundle | 1.750 euro | max 2.000 euro | ⚠️ Verificare |
+| Voce | Candidato | Obiettivo | Esito | Fonte | Azione |
+|---|---:|---:|---|---|---|
+| Gommone | 3,90 m | min 3,90 m | ✅ OK | wiki/preferenze/track-gommoni.md | Misurare tubolari |
+| Motore | 15 CV 4T | 9-40 CV | 🟢 OK | wiki/preferenze/track-motori.md | Avvio a freddo |
+| Prezzo bundle | 1.750 euro | max 2.000 euro | ⚠️ Verificare | Annuncio del venditore | Trattare dopo prova |
 
 ## Checklist visita
 
@@ -36,14 +38,21 @@ Qualità e affidabilità restano da verificare; il prezzo deve essere ≤ 2.000 
 
 ## Note operative
 
-${"Il controllo va svolto con calma, fotografando matricole e difetti prima di versare una caparra.\n\n".repeat(18)}`;
+${"Il controllo va svolto con calma, fotografando matricole e difetti prima di versare una caparra.\n\n".repeat(8)}`;
 
 const doc = createSbarcoPdf({
   title: "Scheda candidato - bundle Argo 360",
   content,
   author: "Le Bestie",
   generatedAt: new Date("2026-08-11T10:30:00+02:00"),
+  presentation: {
+    theme: "cantiere",
+    orientation: "auto",
+    density: "comfortable",
+    accent: "#D36B2C",
+    subtitle: "Decisione evidence-first / prova in acqua prima della caparra",
+  },
 });
-const outputPath = resolve(outputDir, "sbarco-pdf-qa.pdf");
+const outputPath = resolve(outputDir, "sbarco-v3-evidence-first-qa.pdf");
 await writeFile(outputPath, Buffer.from(doc.output("arraybuffer")));
 console.log(outputPath);

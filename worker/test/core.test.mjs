@@ -6,6 +6,37 @@ test("riconosce la ricerca profonda esplicita o semantica", () => {
   assert.equal(__test.detectResearchMode("Come siamo messi col budget?"), false);
   assert.equal(__test.detectResearchMode("Cerca online i prezzi attuali"), true);
   assert.equal(__test.detectResearchMode("Domanda normale", "deep"), true);
+  assert.equal(__test.resolveWorkMode("Analizza il patto senza web", "deep"), "deep");
+  assert.equal(__test.detectWebResearchNeed("Analizza il patto senza web"), false);
+  assert.equal(__test.detectWebResearchNeed("Verifica online i prezzi attuali"), true);
+});
+
+test("Graphify runtime trova prima le pagine pertinenti della wiki", () => {
+  assert.ok(__test.projectGraphStats.nodes > 100);
+  assert.ok(__test.projectGraphStats.links > 100);
+  const piano = __test.queryProjectGraph("Riassumi il piano attuale");
+  assert.equal(piano.matched, true);
+  assert.equal(piano.pages[0].path, "wiki/overview.md");
+  const comet = __test.queryProjectGraph("Quali rischi ha il Comet 770?");
+  assert.ok(comet.pages.some(page => page.path === "wiki/modelli/comet-770.md"));
+});
+
+test("lo storico entra solo nei follow-up contestuali", () => {
+  assert.equal(__test.isContextualFollowUp("Riprendi"), true);
+  assert.equal(__test.isContextualFollowUp("si"), true);
+  assert.equal(__test.isContextualFollowUp("Preparami un PDF del piano attuale"), false);
+  assert.equal(__test.isContextualFollowUp("Quanto costa il Comet 770?"), false);
+});
+
+test("le istruzioni visuali PDF vengono tradotte in una presentazione sicura", () => {
+  assert.deepEqual(__test.inferPdfPresentation("PDF tecnico orizzontale compatto arancione senza copertina"), {
+    theme: "cantiere",
+    orientation: "landscape",
+    density: "compact",
+    cover: false,
+    accent: "#D36B2C",
+  });
+  assert.equal(__test.sanitizePdfPresentation({ theme: "inventato", accent: "red" }).theme, "nautico");
 });
 
 test("riconosce una richiesta esplicita di PDF senza confonderla con una domanda tecnica", () => {
@@ -87,7 +118,7 @@ test("wiki-first e search vuota: niente search_web forzata", () => {
   }), null);
 });
 
-test("se il modello chiede conferma invece del PDF, il giro dopo forza save_doc", () => {
+test("il PDF non forza save_doc: la sintesi finale viene materializzata dal Worker", () => {
   assert.equal(__test.chooseRequiredTool({
     researchMode: false,
     skipResearch: false,
@@ -99,10 +130,10 @@ test("se il modello chiede conferma invece del PDF, il giro dopo forza save_doc"
     hasDocument: false,
     modelTriedToFinish: true,
     isLastRound: false,
-  }), "save_doc");
+  }), null);
 });
 
-test("il primo round PDF non forza save_doc: prima puo' leggere la wiki", () => {
+test("nessun round PDF forza save_doc: resta disponibile come strumento opzionale", () => {
   assert.equal(__test.chooseRequiredTool({
     researchMode: false,
     skipResearch: false,
@@ -120,12 +151,12 @@ test("il primo round PDF non forza save_doc: prima puo' leggere la wiki", () => 
     pdfRequested: true,
     hasDocument: false,
     isLastRound: true,
-  }), "save_doc");
+  }), null);
 });
 
-test("in ricerca profonda senza skip, i minimi restano search_web poi read_url", () => {
+test("quando il web e' davvero necessario, i minimi restano search_web poi read_url", () => {
   assert.equal(__test.chooseRequiredTool({
-    researchMode: true,
+    forceWeb: true,
     skipResearch: false,
     searches: 0,
     webReads: 0,
@@ -133,7 +164,7 @@ test("in ricerca profonda senza skip, i minimi restano search_web poi read_url",
     minWebReads: 2,
   }), "search_web");
   assert.equal(__test.chooseRequiredTool({
-    researchMode: true,
+    forceWeb: true,
     skipResearch: false,
     searches: 2,
     webReads: 0,
@@ -221,7 +252,9 @@ test("estrae memoria solo da preferenze esplicite", () => {
 
 test("mantiene margini conservativi per l'output visibile", () => {
   assert.equal(__test.outputTokenBudgets.agentStep, 1000);
-  assert.equal(__test.outputTokenBudgets.finalResponse, 2600);
+  assert.equal(__test.outputTokenBudgets.quickAnswer, 2600);
+  assert.equal(__test.outputTokenBudgets.finalResponse, 3200);
+  assert.equal(__test.outputTokenBudgets.finalContinuations, 2);
   assert.ok(__test.outputTokenBudgets.saveDocStep >= 4000, "save_doc deve stare in un passo dedicato, non nei 1000 token del loop");
   assert.ok(__test.outputTokenBudgets.finalThinking >= 6000, "su Pro il thinking non deve mangiare il tetto della risposta visibile");
 });
@@ -447,7 +480,7 @@ test("lo stream rapido invia stato, testo e done senza seconda chiamata", async 
   }
 });
 
-test("una richiesta PDF forza save_doc ed emette il documento per il tasto download", async () => {
+test("una richiesta PDF puo' usare save_doc ed emette il documento per il tasto download", async () => {
   const originalFetch = globalThis.fetch;
   const store = new Map();
   const background = [];
@@ -499,7 +532,7 @@ test("una richiesta PDF forza save_doc ed emette il documento per il tasto downl
 
     const body = await response.text();
     assert.match(body, /"documents":\[\{"title":"Piano Bestie"/);
-    assert.match(body, /"toolSequence":\["save_doc"\]/);
+    assert.match(body, /"toolSequence":\[[^\]]*"query_graph"[^\]]*"save_doc"/);
     assert.match(body, /"documentsCreated":1/);
     assert.match(body, /"done":true/);
     await Promise.all(background);
@@ -534,6 +567,9 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
     if (url.includes("api.deepseek.com")) {
       agentCalls += 1;
       const body = JSON.parse(init.body);
+      if (body.stream) {
+        return sseText("Sintesi finale con due fonti verificate.");
+      }
       if (body.response_format) {
         return Response.json({ choices: [{ message: { content: '{"facts":[]}' } }] });
       }
@@ -599,7 +635,7 @@ test("la deep research usa fonti e termina sempre con testo", async () => {
     assert.match(body, /"done":true/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
-    assert.equal(agentCalls, 3, "tre round agente senza estrazione memoria superflua");
+    assert.equal(agentCalls, 4, "due round strumenti, una revisione e una sintesi finale separata");
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -961,7 +997,7 @@ test("i tool call DSML nel contenuto vengono eseguiti in silenzio e mai mostrati
       "il tool read_wiki DSML deve essere eseguito davvero"
     );
     assert.match(body, /Risposta dalla wiki del Comet 770/);
-    assert.match(body, /"toolSequence":\["read_wiki"\]/);
+    assert.match(body, /"toolSequence":\[[^\]]*"query_graph"[^\]]*"read_wiki"/);
     assert.match(body, /"done":true/);
     assert.doesNotMatch(body, /DSML|function_calls|invoke|parameter/);
     assert.doesNotMatch(body, /"error"/);
@@ -1549,7 +1585,7 @@ function sseText(text) {
   }), { status: 200, headers: { "content-type": "text/event-stream" } });
 }
 
-test("se il modello chiede conferma del PDF l'harness forza save_doc al giro dopo", async () => {
+test("se il modello chiede conferma del PDF, la sintesi finale diventa comunque il documento", async () => {
   const originalFetch = globalThis.fetch;
   const store = new Map();
   const background = [];
@@ -1561,19 +1597,8 @@ test("se il modello chiede conferma del PDF l'harness forza save_doc al giro dop
     }
     if (url.includes("api.deepseek.com")) {
       const body = JSON.parse(init.body);
-      if (body.stream) return sseText("## Conclusione\n\nPDF pronto con i moli della wiki.");
+      if (body.stream) return sseText("# Piano attuale\n\n## Sintesi\n\nIl piano A resta il gommone smontabile.\n\n| Voce | Stato |\n|---|---|\n| Requisiti | verificati nella wiki |");
       toolChoices.push(body.tool_choice);
-      if (body.tool_choice?.function?.name === "save_doc") {
-        assert.ok(body.max_tokens >= 4000, "save_doc non deve stare nei 1000 token del loop");
-        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
-          role: "assistant", content: null, tool_calls: [{
-            id: "save-forced", type: "function", function: {
-              name: "save_doc",
-              arguments: JSON.stringify({ title: "Moli Lazio", content: "| Porto | Comune |\n| Fiumicino | Fiumicino |" }),
-            },
-          }],
-        } }] });
-      }
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Vuoi che prepari il PDF adesso?" } }],
       });
@@ -1600,10 +1625,12 @@ test("se il modello chiede conferma del PDF l'harness forza save_doc al giro dop
       waitUntil(promise) { background.push(promise); },
     });
     const body = await response.text();
-    assert.match(body, /"documents":\[\{"title":"Moli Lazio"/);
+    assert.match(body, /"documents":\[\{/);
+    assert.match(body, /"documentsCreated":1/);
+    assert.doesNotMatch(body, /Vuoi che prepari il PDF/);
     assert.doesNotMatch(body, /"error"/);
     assert.equal(toolChoices[0], "auto");
-    assert.equal(toolChoices[1].function.name, "save_doc");
+    assert.ok(toolChoices.every(choice => choice === "auto"), "save_doc non viene imposto dall'harness");
     await Promise.all(background);
   } finally {
     globalThis.fetch = originalFetch;
@@ -1627,16 +1654,6 @@ test("deep + contesto basta: non forza search_web e consegna il PDF", async () =
       const body = JSON.parse(init.body);
       if (body.stream) return sseText("## Conclusione\n\nConsegno dalla wiki, senza nuove ricerche.");
       toolChoices.push(body.tool_choice);
-      if (body.tool_choice?.function?.name === "save_doc") {
-        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
-          role: "assistant", content: null, tool_calls: [{
-            id: "save-ctx", type: "function", function: {
-              name: "save_doc",
-              arguments: JSON.stringify({ title: "Porti wiki", content: "# Porti\n\nTabella dalla wiki." }),
-            },
-          }],
-        } }] });
-      }
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Posso fare il PDF se vuoi." } }],
       });
@@ -1669,7 +1686,10 @@ test("deep + contesto basta: non forza search_web e consegna il PDF", async () =
     const body = await response.text();
     assert.equal(toolChoices[0], "auto");
     assert.ok(toolChoices.every(choice => choice?.function?.name !== "search_web"));
-    assert.match(body, /"documents":\[\{"title":"Porti wiki"/);
+    assert.match(body, /"documents":\[\{/);
+    assert.match(body, /"documentsCreated":1/);
+    assert.match(body, /"mode":"deep"/);
+    assert.match(body, /"searches":0/);
     assert.doesNotMatch(body, /"error"/);
     await Promise.all(background);
   } finally {
@@ -1744,16 +1764,6 @@ test("Riprendi dopo una richiesta PDF mantiene il compito documento", async () =
       const body = JSON.parse(init.body);
       if (body.stream) return sseText("## Conclusione\n\nDocumento dei moli pronto.");
       toolChoices.push(body.tool_choice);
-      if (body.tool_choice?.function?.name === "save_doc") {
-        return Response.json({ choices: [{ finish_reason: "tool_calls", message: {
-          role: "assistant", content: null, tool_calls: [{
-            id: "save-resume", type: "function", function: {
-              name: "save_doc",
-              arguments: JSON.stringify({ title: "Moli ripresi", content: "# Moli\n\nTabella." }),
-            },
-          }],
-        } }] });
-      }
       return Response.json({
         choices: [{ finish_reason: "stop", message: { role: "assistant", content: "Riprendo. Vuoi il PDF?" } }],
       });
@@ -1781,8 +1791,9 @@ test("Riprendi dopo una richiesta PDF mantiene il compito documento", async () =
     });
     const body = await response.text();
     assert.match(body, /"pdfRequested":true/);
-    assert.match(body, /"documents":\[\{"title":"Moli ripresi"/);
-    assert.ok(toolChoices.some(choice => choice?.function?.name === "save_doc"));
+    assert.match(body, /"documents":\[\{"title":"Porti e moli/);
+    assert.match(body, /"contextualHistoryUsed":true/);
+    assert.ok(toolChoices.every(choice => choice === "auto"));
     await Promise.all(background);
   } finally {
     globalThis.fetch = originalFetch;
@@ -1936,13 +1947,13 @@ test("se la sintesi Pro viene tagliata, continua senza ripetere", async () => {
   }
 });
 
-test("JSON tool troncato spiega di riprovare save_doc compatto", async () => {
+test("JSON save_doc troncato non reitera e delega il PDF alla sintesi", async () => {
   const documents = [];
   const output = await __test.executeTool({
     function: { name: "save_doc", arguments: '{"title":"Moli Lazio","content":' },
   }, { documents });
   assert.equal(documents.length, 0);
-  assert.match(output, /troncat|malformato|compatte/i);
+  assert.match(output, /troncato.*non reiterare.*materializzera/i);
 });
 
 test("modalita' sconosciuta: 400 esplicito", async () => {

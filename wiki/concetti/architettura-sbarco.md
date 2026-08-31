@@ -1,10 +1,10 @@
 ---
 title: Architettura e flusso di Sbarco
 type: concetto
-updated: 2026-08-24
+updated: 2026-08-31
 status: active
 tags: [sbarco, bot, deep-research, worker]
-sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
+sources: [worker/src/index.js, worker/src/project-graph.js, worker/graph.json, presentazione/src/js/sbarco.js, presentazione/src/js/sbarco-format.js, presentazione/src/js/sbarco-pdf.js]
 ---
 
 # Architettura e flusso di Sbarco
@@ -15,7 +15,8 @@ sources: [worker/src/index.js, presentazione/src/js/sbarco.js, presentazione/src
 widget mobile
   → POST /api/chat
   → SSE aperto subito
-  → contesto wiki + memoria KV
+  → query Graphify deterministica + prefetch wiki
+  → contesto compatto + memoria KV pertinente
   → tool loop limitato
   → sintesi finale senza tool
   → risposta + metriche + persistenza KV
@@ -32,40 +33,44 @@ già dato e non abortisce il turno se un passo (ricerca, timeout, 5xx) fallisce.
 
 | Modalità | Uso | Budget |
 |----------|-----|--------|
-| Rapida/auto | domande sul progetto e wiki | fino a 3 round; step da 1.000 token |
-| Ricerca profonda | prezzi, normativa, dati correnti e richiesta esplicita | fino a 6 round; step da 1.000 token |
-| Ricerca estesa | censimenti, elenchi multi-località, lavori lunghi | fino a 12 round; tetto 300 s; step da 1.000 token |
+| Rapida/auto | risposta diretta, con strumenti autonomi se servono | fino a 3 round; primo output fino a 2.600 token |
+| Analisi profonda | almeno due passaggi: raccolta/analisi e revisione critica | fino a 6 round; web solo se necessario |
+| Analisi estesa | almeno tre passaggi per censimenti, documenti e lavori lunghi | fino a 12 round; tetto 300 s; web solo se necessario |
 
-La ricerca profonda usa al massimo 3 ricerche, 5 pagine web lette, 14 chiamate
-strumento complessive e 4 strumenti concorrenti. La **ricerca estesa** alza i
-tetti a 12 ricerche, 16 pagine, 48 chiamate strumento e chiede al modello di
-annotare i risultati man mano (i tool result più vecchi vengono comunque
-compattati dal budget del prompt: i riassunti del modello restano, i raw
-no). Ogni fonte web ha timeout di 12 secondi. Raggiunto un limite, Sbarco deve
+Profondità e fonti sono assi distinti. Scegliere profonda o estesa aumenta i
+passaggi anche per analisi, calcoli, scrittura o creazione documenti e **non
+obbliga** a cercare online. Il Worker forza il web soltanto quando l'utente lo
+chiede esplicitamente o quando riconosce un dato corrente/instabile; anche il
+modello può usarlo autonomamente dopo avere verificato che grafo e wiki non
+bastano. Se il web serve, la profonda usa al massimo 3 ricerche, 5 pagine lette
+e 14 chiamate; l'estesa alza i tetti a 12/16/48. Ogni fonte web ha timeout di
+12 secondi. Raggiunto un limite, Sbarco deve
 sintetizzare quanto raccolto: valgono le stesse garanzie di uscita della
 profonda (round, durata, riserva per la sintesi finale senza strumenti).
 Se l'utente dice che wiki/contesto bastano, i minimi di ricerca **non** vengono
-forzati: `read_wiki` + consegna (e `save_doc` se ha chiesto un PDF).
+forzati: Graphify + `read_wiki` + consegna.
 
 ## Latenza percepita e misurata
 
 - Il widget mostra subito una riga di lavoro grigio-luminosa e la aggiorna con
   fasi reali o messaggi di attesa durante gli heartbeat.
-- I round intermedi mantengono il margine collaudato di 1.000 token; un passo
-  `save_doc` ha 4.000 token (il contenuto del PDF sta negli argomenti del tool);
-  la sintesi finale dispone di 2.600 token. I risparmi riguardano il prompt in
-  ingresso, non il tetto dell'output visibile, per evitare Markdown o tabelle troncati.
+- I round intermedi mantengono 1.000 token; la rapida può usarne 2.600 al primo
+  passaggio. La sintesi finale dispone di 3.200 token e, se il provider chiude
+  per lunghezza, fino a due continuazioni che ripartono dal punto esatto. I
+  risparmi riguardano il prompt in ingresso, non il tetto dell'output visibile.
 - Il `thinking` DeepSeek è **disattivato nei round con strumenti** (incompatibilità
   nota V4 con `tool_choice` nel loop agente) ma è **attivo sulla sintesi finale Pro**
   (`tool_choice: "none"`, con `reasoning_effort: "high"`). Se il provider rifiuta il
   parametro, un solo retry senza thinking: metriche `thinking: on/off/fallback`.
 - Su Pro il candidate del loop agente non diventa più la risposta finale: si passa
-  sempre alla sintesi in streaming con thinking. Su Base resta il percorso diretto.
+  sempre alla sintesi in streaming con thinking. Anche Base passa dalla sintesi
+  separata nei modi profondo/esteso e per i PDF; solo una rapida ordinaria può
+  consegnare direttamente il candidate completo.
 - Il ragionamento della sintesi Pro arriva come evento SSE dedicato `{reasoning: "…"}`
   e il client lo mostra nel blocco ripiegabile "Come ho ragionato", aperto durante il
   ragionamento e richiuso al primo token della risposta. Mai fuso nel testo visibile.
-- La profondità di Base deriva dalla sequenza obbligatoria di ricerche e letture,
-  non da token di ragionamento.
+- La profondità di Base deriva dai passaggi obbligatori di analisi e revisione,
+  indipendentemente dal numero di ricerche web.
 - Ogni evento persistito in `/debug` separa `contextReadyMs`, `firstAgentMs`,
   `firstTokenMs` ed `elapsedMs`, così un rallentamento è localizzabile.
 - `/debug` registra anche token effettivi cumulativi, stima caratteri/token del
@@ -139,10 +144,10 @@ forzati: `read_wiki` + consegna (e `save_doc` se ha chiesto un PDF).
   context/index; le ricerche DuckDuckGo sono cached per query (TTL 1 h).
   Una scrittura KV fallita non butta via il testo appena scaricato.
 - **Budget sul prompt in ingresso**: una pagina wiki entra al modello per al
-  massimo 16.000 char (troncata su righe intere dalla testa), i risultati dei
-  tool hanno un budget cumulativo di ~40.000 char (i più vecchi vengono
-  sostituiti da un marker) e ogni fatto di memoria condivisa pesa al massimo
-  300 char nel prompt (in KV restano a 800).
+  massimo 16.000 char; ogni risultato tool è ridotto a 9.000 char e i raw hanno
+  un budget cumulativo di ~24.000 char. Un taccuino evidenze compatto da 12.000
+  char conserva path, URL e fatti chiave quando i raw vecchi vengono omessi.
+  Entrano al massimo 8 fatti di memoria, 220 char ciascuno.
 - Su errore di sistema (provider 429/5xx dopo i retry, timeout, errore
   interno) il **credito viene rimborsato**; mai sul cancel dell'utente.
 - `/debug` espone in più: `finishReasons`, `searchesEmpty`, `finalTextLen`,
@@ -182,36 +187,43 @@ restano non-thinking. Client vecchi senza `tier` restano su Base.
 ## Memoria e wiki
 
 - Contesto primario: [[sintesi/contesto-sbarco]] (GitHub Raw, cache KV `wiki:cache:v6:*`, TTL 5 min). Fallback: blocco `EMBEDDED_WIKI` nel Worker.
-- Indice compatto da [[index]]: il modello sceglie i path, poi `read_wiki` apre la pagina. **Non** carica `graphify-out/graph.json` né `worker/graph.json` a runtime: il grafo è per gli agenti nel repo (`graphify query`), non per la chat.
+- Il bundle carica `worker/graph.json`, proiezione compatta del grafo Graphify
+  generata da `graphify-out/graph.json`. Prima della prima chiamata LLM una query
+  deterministica trova nodi e relazioni e apre fino a due pagine wiki candidate.
+  Il grafo orienta la navigazione; solo la pagina aperta sostiene un claim.
 - Le altre pagine vengono aperte su richiesta tramite `read_wiki`.
 - `remember` salva davvero un fatto verificato in KV.
-- La memoria condivisa conserva al massimo 40 fatti e ne passa 12 al modello.
+- La memoria condivisa conserva al massimo 40 fatti e ne passa fino a 8, scelti
+  per pertinenza alla domanda (con un piccolo fallback sugli ultimi fatti).
   Una `key` tematica aggiorna il valore precedente, evitando duplicati e claim
   superati ripetuti nel prompt.
 - L'estrattore automatico si attiva soltanto quando il messaggio contiene una
   preferenza o decisione esplicita. Legge solo il testo dell'utente, non la
   risposta di Sbarco: domande e affermazioni generate dal bot non diventano memoria.
-- La cronologia conserva fino a 8 messaggi, ma anche un massimo di 9.000
-  caratteri complessivi. I messaggi sono troncati per ruolo e quelli espulsi
-  confluiscono in un digest di 1.400 caratteri tagliato solo su righe intere.
+- La cronologia persistita viene compattata a 4 messaggi / 4.800 caratteri e il
+  digest a 900 caratteri. Soprattutto, storico e digest entrano nel prompt
+  **solo** se la domanda è un follow-up contestuale (`riprendi`, `come prima`,
+  riferimenti al messaggio precedente); una domanda autonoma parte pulita.
 - La wiki resta la fonte persistente del progetto; la memoria KV non la sostituisce.
 
 ## Output e interfaccia
 
 - Ogni risposta ordinaria ha l'azione **Copia**. Il PDF non viene proposto sul
   testo libero della chat: evita documenti poco strutturati e un doppio export.
-- `save_doc` produce una scheda dedicata con **Scarica PDF**; questa è l'unica
-  via di export e MD/TXT non sono più l'output primario.
+- Un documento produce una scheda dedicata con **Scarica PDF**. `save_doc` resta
+  disponibile, ma è opzionale: la sintesi Markdown completa viene materializzata
+  dal Worker se il modello non chiama lo strumento.
 - Una richiesta esplicita di PDF (anche un "Riprendi"/"sì" dopo averla già
   chiesta) è un compito persistente. Il primo round resta `auto` così può
-  leggere la wiki; se il modello chiede conferma o tenta di chiudere senza
-  documento, l'harness forza `save_doc` (passo da 4.000 token). Dopo
-  `save_doc` si va alla sintesi, non a un altro "vuoi che lo faccia?".
+  leggere la wiki; la sintesi finale riceve l'ordine di scrivere il documento
+  completo e non può fermarsi a una richiesta di conferma.
 - Se il provider non emette `save_doc`, il Worker crea comunque la scheda dal
   testo finale: Sbarco non può dichiarare un PDF pronto senza l'evento
   `documents` verso la UI.
-- Il PDF è A4, multipagina, con titoli, callout, elenchi, tabelle, fonti,
-  intestazione e numerazione. jsPDF viene caricato solo al click (chunk lazy).
+- Il PDF è A4, multipagina, con copertina, titoli, callout, elenchi, tabelle
+  adattive, fonti, intestazione e numerazione. Supporta temi `nautico`,
+  `cantiere`, `minimal`, colore accento, densità, copertina e orientamento;
+  `auto` usa landscape sulle tabelle da almeno cinque colonne. jsPDF resta lazy.
 - Emoji e simboli da chat vengono convertiti in etichette testuali; gli altri
   glifi non supportati da Helvetica sono rimossi preservando gli accenti italiani.
 - Il Markdown è parsato a blocchi e sanificato; tabelle larghe scorrono
@@ -225,6 +237,6 @@ restano non-thinking. Client vecchi senza `tier` restano su Base.
 1. Dopo modifiche alle preferenze, aggiornare [[sintesi/contesto-sbarco]].
 2. Eseguire `node scripts/lint-wiki.mjs`.
 3. Verificare `worker/src/index.js` e fare la build di `presentazione/`.
-4. Eseguire `graphify update .` dopo modifiche sostanziali; il grafo resta un
-   indice del repository e non viene incorporato nel bundle del Worker.
+4. Eseguire `graphify update .` e poi `python -B graphify-out/build_graph.py`:
+   il secondo comando aggiorna la proiezione `worker/graph.json` usata a runtime.
 5. Dopo il deploy, provare una domanda rapida e una ricerca profonda.

@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-24
+updated: 2026-08-31
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources:
@@ -29,7 +29,7 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 - **Piano B:** scafo rigido a motore soltanto con ≥5 soci e preventivi reali.
 - **Gruppo:** Tiziano, Antonio e Peppe sul gommone. Sul sogno vela il nucleo più probabile è Tiziano+Antonio; altri soci (Matteo, Giulia, padre di Giulia, Paolo) **benvenuti**. Peppe in chat 20 ago risulta freddo sul cabinato.
 - **Uso:** 3 comodi per pesca; fino a ~6 solo picco sociale.
-- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2, **ricerca estesa = 3 (Base) / 5 (Pro)**; l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`, completando comunque la richiesta. Worker `2.6.0`: harness agentico (compito persistente, niente conferma su un ordine già dato, un passo fallito va in sintesi non in abort). Su Pro la risposta passa sempre dalla sintesi finale con thinking attivo (blocco ripiegabile "Come ho ragionato" in chat); su Base percorso diretto. Modalità: rapida/profonda/**estesa** (censimenti e multi-località, 12 round, 12 ricerche, 16 pagine). Se l'utente chiede i moli/porti Fiumicino→Sabaudia o un PDF di quel censimento: **read_wiki** `wiki/documenti/porti-fiumicino-sabaudia.md` e **save_doc**, senza aspettare un reset del budget web.
+- **Quote Sbarco:** Tiziano illimitato (Base e Pro). Antonio e Peppe 5 crediti/giorno: Base = 1, Pro = 2, **analisi estesa = 3 (Base) / 5 (Pro)**; l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`, completando comunque la richiesta. Worker `3.0.0`: Graphify runtime + prefetch wiki evidence-first; rapida/profonda/estesa indicano la profondità del lavoro, non l'obbligo di usare il web. La profonda fa almeno 2 passaggi, l'estesa almeno 3; il web parte solo se richiesto, se il dato è corrente/instabile o se il modello rileva una vera lacuna. Pro usa thinking nella sintesi; Base usa la stessa orchestrazione senza thinking. PDF: `save_doc` opzionale, fallback automatico dalla sintesi/wiki, temi e orientamento personalizzabili. Storico chat nel prompt solo per follow-up contestuali.
 
 ## Vincoli economici e tecnici
 
@@ -96,8 +96,11 @@ Dettaglio: [[preferenze/open-questions]].
 - Stime ≠ fatti; citare pagina wiki o URL.
 - Normativa/prezzi correnti: fonti aggiornate; prospetto è fonte operativa ma non legge.
 - Pagine storiche scafo rigido ≠ piano A attuale.
-- PDF solo via `save_doc` + tasto Scarica PDF.
-- Output: non scendere sotto 1000 token/step e 2600 sintesi senza prova.
+- PDF via scheda **Scarica PDF**; `save_doc` è opzionale e la sintesi completa
+  viene materializzata automaticamente. Temi: nautico/cantiere/minimal;
+  orientamento auto/verticale/orizzontale; colore e densità personalizzabili.
+- Output: 1.000 token/step, 2.600 nel primo passo rapido, 3.200 in sintesi e
+  fino a due continuazioni anti-troncamento. Storico solo nei follow-up reali.
 - Quota Tiziano illimitata; reset quote ≠ wipe memoria.
 
 ## Percorsi di approfondimento

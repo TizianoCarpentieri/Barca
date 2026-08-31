@@ -22,8 +22,8 @@ const MAX_DAILY = 5;
 const MODE_ORDER = ["auto", "deep", "extended"];
 const MODE_COPY = {
   auto: { strong: "Rapida", small: "Wiki" },
-  deep: { strong: "Profonda", small: "Web" },
-  extended: { strong: "Estesa", small: "Censimenti" },
+  deep: { strong: "Profonda", small: "2+ passaggi" },
+  extended: { strong: "Estesa", small: "Lavori lunghi" },
 };
 
 (function () {
@@ -67,7 +67,7 @@ const MODE_COPY = {
         </div>
         <button type="button" class="sbarco-mode" aria-pressed="false">
           <span class="sbarco-mode__dot"></span>
-          <span class="sbarco-mode__copy"><strong>Ricerca profonda</strong><small>Web e fonti incrociate</small></span>
+          <span class="sbarco-mode__copy"><strong>Profonda</strong><small>Più passaggi, web se serve</small></span>
         </button>
         <span class="sbarco-mode__hint">Off = risposta rapida</span>
       </div>
@@ -180,15 +180,15 @@ const MODE_COPY = {
     modeHint.textContent = modeState === "extended"
       ? `${tierLabel} · estesa (${EXTENDED_BASE_COST}/${EXTENDED_PRO_COST} crediti, basta 1 per partire)`
       : modeState === "deep"
-        ? `${tierLabel} · ricerca profonda`
+        ? `${tierLabel} · analisi profonda`
         : `${tierLabel} · risposta rapida`;
     if (!currentUser) inputEl.placeholder = "Seleziona chi sei per iniziare";
     else if (!unlimited && remaining <= 0) inputEl.placeholder = "Limite giornaliero raggiunto";
     else if (!unlimited && chatTier === "pro" && remaining < PRO_CREDIT_COST && modeState !== "extended") {
       inputEl.placeholder = `Pro costa ${PRO_CREDIT_COST} crediti (ne hai ${remaining})`;
     }
-    else if (modeState === "extended") inputEl.placeholder = "Censimento o ricerca multi-località: si completa sempre";
-    else if (modeState === "deep") inputEl.placeholder = "Cosa vuoi verificare con fonti web?";
+    else if (modeState === "extended") inputEl.placeholder = "Analisi, censimento o documento lungo";
+    else if (modeState === "deep") inputEl.placeholder = "Cosa vuoi analizzare in più passaggi?";
     else inputEl.placeholder = "Chiedi qualcosa a Sbarco...";
   }
 
@@ -430,10 +430,10 @@ const MODE_COPY = {
 
     addMsg("user", text, currentUser);
     const progress = addProgress(modeState === "extended"
-      ? "Sbarco issa tutte le vele: ricerca estesa in corso…"
+      ? "Sbarco issa tutte le vele: lavoro esteso in corso…"
       : modeState === "deep"
-        ? "Sbarco cala le reti per la ricerca profonda…"
-        : "Sbarco consulta la wiki delle Bestie…");
+        ? "Sbarco analizza il compito in più passaggi…"
+        : "Sbarco interroga grafo e wiki delle Bestie…");
     let responseStarted = false;
     // L'estesa può arrivare a 300 s + sintesi: il client non la uccide prima.
     const timeout = setTimeout(() => activeController?.abort("client-timeout"), modeState === "extended" ? 420_000 : 240_000);
@@ -628,13 +628,18 @@ const MODE_COPY = {
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
 
-  async function exportPdf(button, title, content) {
+  async function exportPdf(button, document) {
     const previous = button.textContent;
     button.disabled = true;
     button.textContent = "Creo PDF…";
     try {
       const { downloadSbarcoPdf } = await import("./sbarco-pdf.js");
-      downloadSbarcoPdf({ title, content, author: capitalize(currentUser || "Le Bestie") });
+      downloadSbarcoPdf({
+        title: document.title || "Documento Sbarco",
+        content: document.content || "",
+        presentation: document.presentation || {},
+        author: capitalize(currentUser || "Le Bestie"),
+      });
       button.textContent = "PDF pronto";
       setTimeout(() => { if (button.isConnected) button.textContent = previous; }, 1600);
     } catch {
@@ -652,9 +657,10 @@ const MODE_COPY = {
       info.className = "sbarco-msg__meta";
       const parts = [
         meta.tier === "pro" ? "Pro" : "Base",
-        meta.mode === "extended" ? "Ricerca estesa" : meta.mode === "deep" ? "Ricerca profonda" : "Risposta rapida",
+        meta.mode === "extended" ? "Analisi estesa" : meta.mode === "deep" ? "Analisi profonda" : "Risposta rapida",
       ];
       if (meta.thinking === "on") parts.push("thinking");
+      if (meta.graphMatches) parts.push(`${meta.graphMatches} nodi grafo`);
       if (meta.sourcesRead) parts.push(`${meta.sourcesRead} fonti lette`);
       if (meta.elapsedMs) parts.push(`${(meta.elapsedMs / 1000).toFixed(1)} s`);
       info.textContent = parts.join(" · ");
@@ -772,7 +778,9 @@ const MODE_COPY = {
     body.className = "sbarco-msg__body";
     const eyebrow = document.createElement("span");
     eyebrow.className = "sbarco-document__eyebrow";
-    eyebrow.textContent = "Documento di bordo";
+    const presentation = doc.presentation || {};
+    const orientation = presentation.orientation === "landscape" ? "orizzontale" : presentation.orientation === "portrait" ? "verticale" : "layout adattivo";
+    eyebrow.textContent = `Documento di bordo · ${presentation.theme || "nautico"} · ${orientation}`;
     const heading = document.createElement("h3");
     heading.textContent = doc.title || "Documento Sbarco";
     const preview = document.createElement("p");
@@ -785,7 +793,7 @@ const MODE_COPY = {
     button.type = "button";
     button.className = "sbarco-action sbarco-action--primary sbarco-document__button";
     button.textContent = "Scarica PDF";
-    button.addEventListener("click", () => exportPdf(button, doc.title || "Documento Sbarco", doc.content || ""));
+    button.addEventListener("click", () => exportPdf(button, doc));
     body.append(eyebrow, heading, preview, button);
     div.appendChild(body);
     msgsEl.appendChild(div);

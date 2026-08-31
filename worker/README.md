@@ -1,7 +1,7 @@
 # Sbarco Worker — Cloudflare
 
-Assistente chat per Progetto Barca con contesto wiki, memoria KV deduplicata,
-strumenti web e risposta SSE progressiva.
+Assistente chat per Progetto Barca con Graphify runtime, prefetch wiki
+evidence-first, memoria KV deduplicata, strumenti autonomi e risposta SSE.
 
 ## Setup
 
@@ -71,7 +71,7 @@ npm run deploy
 ### 6. Test
 ```bash
 curl https://sbarco.TUO_WORKER.workers.dev/api/health
-# → {"status":"ok","version":"2.6.0","deepResearch":true,"knowledgeSource":"wiki-runtime",...}
+# → {"status":"ok","version":"3.0.0","knowledgeSource":"graphify-runtime+wiki-runtime",...}
 ```
 
 ## Struttura KV
@@ -106,11 +106,12 @@ curl https://sbarco.TUO_WORKER.workers.dev/api/health
 | `/api/chat` | POST | chat SSE; body `{userId, question, mode, tier}` |
 
 `mode` può essere `auto`, `deep` o `extended`; `tier` può essere `base` o `pro`.
-La modalità profonda apre lo stream prima della ricerca, invia fasi/heartbeat,
-limita fonti e round e forza la sintesi finale senza ulteriori tool.
-La modalità **estesa** serve a censimenti e lavori multi-località: 12 round,
-12 ricerche, 16 pagine lette, 48 chiamate strumento, tetto 300 s — con le
-stesse garanzie di uscita. Costo: Base 1 · Pro 2 · estesa Base 3 · Pro 5; con
+Le modalità regolano la **profondità**, non l'obbligo di cercare online:
+`deep` esegue almeno due passaggi e `extended` almeno tre anche per analisi,
+scrittura e PDF offline. Il web viene forzato solo per richieste esplicite o
+dati correnti/instabili; resta disponibile autonomamente se grafo e wiki non
+bastano. L'estesa conserva i tetti massimi di 12 round, 12 ricerche, 16 pagine,
+48 chiamate e 300 s. Costo: Base 1 · Pro 2 · estesa Base 3 · Pro 5; con
 i profili limitati l'estesa parte con ≥1 credito e consuma `min(costo, residuo)`
 senza mai fermarsi a metà.
 Dettaglio: `wiki/concetti/architettura-sbarco.md`.
@@ -120,35 +121,46 @@ che proxy e browser le accorpino. La sintesi forzata usa lo stream nativo del
 provider. `/debug` espone token effettivi, stima del prompt, modalita' di stream
 e latenze, senza contenuto delle chat.
 
-Il widget esporta in PDF A4 i documenti `save_doc`; le risposte ordinarie
-mantengono la sola azione Copia. Il renderer jsPDF e' un chunk lazy: non pesa
-sul caricamento normale della chat.
+Il Worker crea la scheda PDF sia da `save_doc` sia dalla sintesi finale, quindi
+un JSON tool troncato non blocca più il compito. Il renderer jsPDF lazy supporta
+temi nautico/cantiere/minimal, colore accento, copertina, densità e orientamento
+automatico/verticale/orizzontale; le tabelle larghe passano in landscape.
+
+Prima della prima chiamata al modello, `project-graph.js` interroga la proiezione
+`worker/graph.json` e apre fino a due pagine wiki pertinenti. Il grafo orienta;
+le pagine aperte sono le evidenze. Cronologia e digest entrano nel prompt solo
+nei follow-up contestuali, con cap 4 messaggi / 4.800 caratteri.
 
 ## Verifica prima del deploy
 
 ```bash
 node --check src/index.js
+node --test --test-isolation=none test/core.test.mjs
 cd ../presentazione && npm run build
 cd .. && node scripts/lint-wiki.mjs
 ```
 
 Dopo il deploy verificare:
 
-1. `/api/health` riporta `version: 2.6.0` e la policy quota attiva (Base 1 credito, Pro 2).
+1. `/api/health` riporta `version: 3.0.0`, le statistiche del grafo e la policy quota attiva.
 2. Una domanda rapida produce stato e risposta.
-3. Una ricerca profonda mostra le fasi e cita almeno due fonti lette.
-4. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,
+3. Una profonda offline fa almeno due passaggi senza `search_web`; una domanda
+   su prezzi attuali usa e cita fonti web.
+4. Una richiesta PDF personalizzata produce sempre la scheda Scarica PDF.
+5. `/debug` mostra metriche persistenti (`rounds`, `searches`, `sourcesRead`,
    `contextReadyMs`, `firstAgentMs`, `firstTokenMs`, `elapsedMs`).
 
 ## Aggiornare il grafo
 
-Il grafo serve alla navigazione e all'analisi del repository, ma non viene più
-incorporato nel bundle del Worker. Dopo modifiche sostanziali al progetto:
+Graphify resta la fonte del grafo completo; il Worker incorpora una proiezione
+compatta delle sole pagine wiki. Dopo modifiche sostanziali al progetto:
 
 ```bash
 cd ..
 graphify update .
+python -B graphify-out/build_graph.py
 ```
 
-Il Worker legge il contesto compatto e l'indice da GitHub Raw e li mantiene in
-cache KV per 5 minuti; non e' necessario incorporare o copiare il grafo.
+Il secondo comando rigenera `graphify-out/sbarco-graph.json` e
+`worker/graph.json`. Contesto e pagine wiki restano letti da GitHub Raw con
+cache KV di 5 minuti.

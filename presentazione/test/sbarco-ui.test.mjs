@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { drainSseBuffer, renderMarkdown } from "../src/js/sbarco-format.js";
-import { createSbarcoPdf, normalizePdfText } from "../src/js/sbarco-pdf.js";
+import { createSbarcoPdf, normalizePdfText, resolvePdfPresentation } from "../src/js/sbarco-pdf.js";
 
 test("render Markdown con tabelle, hr e checkbox per i documenti", () => {
   const html = renderMarkdown(`# Titolo
@@ -57,6 +57,20 @@ test("normalizza i simboli da chat senza perdere gli accenti italiani", () => {
   assert.equal(clean, "OBIETTIVO Qualità <= 2.000 euro - OK; ATTENZIONE verifica; prova -> OK/RISCHIO");
   assert.doesNotMatch(clean, /\p{Extended_Pictographic}/u);
   assert.doesNotMatch(clean, /[^\x09\x0a\x0d\x20-\x7e\u00a0-\u00ff]/);
+});
+
+test("il PDF sceglie landscape per tabelle larghe e rispetta il tema richiesto", () => {
+  const content = "| A | B | C | D | E | F |\n|---|---|---|---|---|---|\n| 1 | 2 | 3 | 4 | 5 | 6 |";
+  const presentation = resolvePdfPresentation(content, {
+    theme: "cantiere",
+    orientation: "auto",
+    density: "compact",
+    accent: "#D36B2C",
+  });
+  assert.equal(presentation.orientation, "landscape");
+  assert.equal(presentation.theme, "cantiere");
+  assert.equal(presentation.density, "compact");
+  assert.deepEqual(presentation.colors.accent, [211, 107, 44]);
 });
 
 test("offre il PDF solo per i documenti preparati da Sbarco", async () => {

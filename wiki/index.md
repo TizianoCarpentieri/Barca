@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-22
+updated: 2026-08-31
 status: active
 tags: [index]
 ---
@@ -121,4 +121,5 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[sintesi/prospetto-costi-a-norma]] | Digest obblighi/costi/dotazioni/fasce motore (fonte `contratto/prospetto-…`) |
 | [[sintesi/patto-bestie]] | Digest patto v1.10 (split, danni, uscite, formula recesso) |
 | [[sintesi/audit-sbarco-20260811]] | Audit memoria, streaming, token, PDF e UI mobile della revisione 2.2.0 |
+| [[sintesi/audit-sbarco-v3-20260831]] | Orchestrazione evidence-first: Graphify runtime, profondità ≠ web, prompt bounded e PDF resilienti |
 | [[sintesi/piano-miglioramenti-sbarco]] | Piano operativo v2 (19 punti + 11 verifiche): pulizie, retry, budget prompt/tempo, sicurezza |
