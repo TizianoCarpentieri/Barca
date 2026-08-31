@@ -725,3 +725,15 @@ Dopo le conversazioni del 9 agosto e l'analisi dei costi fissi:
 - Test Worker aggiornati: 77/77 verdi. Vedi [[sintesi/audit-sbarco-v3-20260831]].
 - Frontend: 38/38 test, build Vite verde; dry-run Wrangler sul grafo definitivo
   verde (598,09 KiB, 79,26 KiB gzip).
+
+## [2026-08-31] deploy | Sbarco 3.0 online
+
+- Commit `f35542e` pubblicato su `main`.
+- Workflow **Deploy Sbarco Worker** verde: installazione, 77 test e deploy
+  Cloudflare completati. Smoke live `/api/health`: versione `3.0.0`,
+  `graphify-runtime+wiki-runtime`, 846 nodi e 672 relazioni.
+- Workflow **Deploy Presentazione** verde: 38 test, feed aggiornati, validazione,
+  build Vite e GitHub Pages completati.
+- Smoke sito: bundle `app-kpkY1W63.js` con modalità Analisi profonda/estesa,
+  URL Worker corretto e CORS Pages→Worker; chunk PDF `sbarco-pdf-DqHXwF25.js`
+  disponibile con temi `cantiere`/`minimal` e supporto landscape.
