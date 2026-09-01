@@ -17,11 +17,30 @@ const NOISE_RE =
 const ELSEWHERE_RE =
   /\b(argentario|cala galera|piombino|livorno|viareggio|grosseto|elba|olbia|cagliari|palermo|bari|brindisi|genova|la spezia|chioggia|venezia|lignano)\b/i
 const ANNUAL_RE =
-  /\b(annuale|annualit[aà]|canone\s+annu[oa]|12\s*mesi|tutto l['’]anno|per l['’]anno)\b/i
+  /\b(annuale|annualmente|annualit[aà]|canone\s+annu[oa]|12\s*mesi|tutto l['’]anno|per l['’]anno)\b/i
 const SEASONAL_RE =
-  /\b(stagion(?:ale|e)?|estiv[oa]|estate|giugno|luglio|agosto|settembre|weekend|week[\s-]?end|fine settimana|transito|giornalier[oaie]?|a giornata|al giorno|mensile|al mese|invern(?:o|ale)|semestre|semestrale|6\s*mesi|da aprile|da maggio)\b/i
-const SEASON_RANGE_RE =
-  /\bda\s+(?:ott(?:obre)?|nov(?:embre)?|dic(?:embre)?|gen(?:naio)?|feb(?:braio)?)\b.{0,40}\b(?:apr(?:ile)?|mag(?:gio)?|giu(?:gno)?)\b/i
+  /\b(stagion(?:ale|e)?|estiv[oa]|estate|weekend|week[\s-]?end|fine settimana|transito|giornalier[oaie]?|a giornata|al giorno|invernali?|semestre|semestrale|6\s*mesi|mesi estivi|mesi invernali)\b/i
+const MONTHLY_RATE_RE =
+  /\d+\s*(?:€|euro)\s*(?:al\s+)?mese\b|(?:€|euro)\s*mese\b|\/mese\b|\bal mese\b|\bmensile\b/i
+const WEEKDAY_SPAN_RE =
+  /\bdal\s+luned[iì]\s+al\s+venerd[iì]|\bdal\s+luned[iì]\s+alla\s+domenica|\bluned[iì]\s*[-–]\s*venerd[iì]/gi
+const LONG_CONCESSION_RE = /\bconcessione\s+fino\s+al\s+20(?:3[0-9]|[4-9]\d)\b/i
+const MONTH_NAME =
+  'gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre'
+const MONTH_INDEX = {
+  gennaio: 1,
+  febbraio: 2,
+  marzo: 3,
+  aprile: 4,
+  maggio: 5,
+  giugno: 6,
+  luglio: 7,
+  agosto: 8,
+  settembre: 9,
+  ottobre: 10,
+  novembre: 11,
+  dicembre: 12,
+}
 const RENT_RE = /\b(affitt\w*|canone)\b/i
 const SALE_RE = /\b(vend(?:o|i|e|ita|esi)|cessione|cedesi)\b/i
 const WANTED_RE = /\b(cerco|cercasi|cerchiamo|acquisto posto|cercasi posto)\b/i
@@ -76,10 +95,124 @@ export function detectDealType(item) {
   return hint || 'sale'
 }
 
+function expandYear(raw) {
+  if (raw == null || raw === '') return null
+  const n = Number.parseInt(raw, 10)
+  if (!Number.isFinite(n)) return null
+  if (n < 100) return n >= 70 ? 1900 + n : 2000 + n
+  return n
+}
+
+function monthFromName(name) {
+  if (!name) return null
+  return MONTH_INDEX[name.toLowerCase()] || null
+}
+
+function spanMonths(m1, y1, m2, y2) {
+  if (!m1 || !m2) return null
+  if (y1 != null && y2 != null) return y2 * 12 + m2 - (y1 * 12 + m1)
+  let delta = m2 - m1
+  if (delta <= 0) delta += 12
+  return delta
+}
+
+function isShortSpan(months) {
+  return months != null && months > 0 && months < 11
+}
+
+export function normalizePeriodText(text = '') {
+  return String(text)
+    .replace(/(\d)(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)/gi, '$1 $2')
+    .replace(/[°º]/g, '')
+}
+
+function hasShortOccupancy(text) {
+  const cleaned = String(text)
+    .replace(WEEKDAY_SPAN_RE, ' ')
+    .replace(LONG_CONCESSION_RE, ' ')
+
+  const numeric =
+    /\b(?:dal?|periodo)?\s*(\d{1,2})[./](\d{1,2})(?:[./](\d{2,4}))?\s*(?:al|fino\s+al|[-–])\s*(\d{1,2})[./](\d{1,2})(?:[./](\d{2,4}))?/gi
+  let match
+  while ((match = numeric.exec(cleaned))) {
+    const startMonth = Number.parseInt(match[2], 10)
+    const endMonth = Number.parseInt(match[5], 10)
+    if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) continue
+    const months = spanMonths(startMonth, expandYear(match[3]), endMonth, expandYear(match[6]))
+    if (isShortSpan(months)) return true
+  }
+
+  const named = new RegExp(
+    String.raw`\b(?:dal?|periodo)?\s*(?:(\d{1,2})\s+)?(${MONTH_NAME})\s*(20\d{2}|\d{2})?\s*(?:[-–]|ad?|al|fino\s+al|a\s+fine|tutto)\s*(?:(\d{1,2})\s+)?(${MONTH_NAME})\s*(20\d{2}|\d{2})?`,
+    'gi',
+  )
+  while ((match = named.exec(cleaned))) {
+    const months = spanMonths(
+      monthFromName(match[2]),
+      expandYear(match[3]),
+      monthFromName(match[5]),
+      expandYear(match[6]),
+    )
+    if (isShortSpan(months)) return true
+  }
+
+  const dalAlNamed = new RegExp(
+    String.raw`\bdal?\s+(?:(\d{1,2})\s+)?(${MONTH_NAME})\s+(?:al|ad|fino\s+al|a\s+fine|a\s+tutto|tutto)\s+(?:(\d{1,2})\s+)?(${MONTH_NAME})`,
+    'gi',
+  )
+  while ((match = dalAlNamed.exec(cleaned))) {
+    const months = spanMonths(monthFromName(match[2]), null, monthFromName(match[4]), null)
+    if (isShortSpan(months)) return true
+  }
+
+  const daMonthA = new RegExp(
+    String.raw`\bda\s+(?:(\d{1,2})\s+)?(${MONTH_NAME})\s+(?:(\d{2,4})\s+)?(?:ad?|al)\s+(?:(\d{1,2}\s*/\s*\d{1,2}\s+)?|(?:fine|tutto)\s+)?(${MONTH_NAME})(?:\s+(\d{2,4}))?`,
+    'gi',
+  )
+  while ((match = daMonthA.exec(cleaned))) {
+    const months = spanMonths(monthFromName(match[2]), expandYear(match[3]), monthFromName(match[5]), expandYear(match[6]))
+    if (isShortSpan(months)) return true
+  }
+
+  const dayMonthToDayMonth = new RegExp(
+    String.raw`\b(\d{1,2})\s+(${MONTH_NAME})\s+a\s+(?:\d{1,2}\s*/\s*)?(\d{1,2})?\s*(${MONTH_NAME})`,
+    'gi',
+  )
+  while ((match = dayMonthToDayMonth.exec(cleaned))) {
+    const months = spanMonths(monthFromName(match[2]), null, monthFromName(match[4]), null)
+    if (isShortSpan(months)) return true
+  }
+
+  const finoMonth = new RegExp(
+    String.raw`\bfino\s+(?:al|a\s+fine|a\s+met[aà])\s+(?:(\d{1,2})\s+)?(${MONTH_NAME})\s*(20\d{2})?`,
+    'gi',
+  )
+  while ((match = finoMonth.exec(cleaned))) {
+    const year = expandYear(match[3])
+    if (year != null && year >= 2030) continue
+    return true
+  }
+
+  const monthHits = []
+  const hitRe = new RegExp(String.raw`\b(${MONTH_NAME})\b`, 'gi')
+  while ((match = hitRe.exec(cleaned))) {
+    const month = monthFromName(match[1])
+    if (month) monthHits.push(month)
+  }
+  if (monthHits.length >= 2) {
+    const months = spanMonths(monthHits[0], null, monthHits[monthHits.length - 1], null)
+    if (isShortSpan(months)) return true
+  }
+
+  return false
+}
+
 export function detectPeriod(text = '') {
-  if (SEASON_RANGE_RE.test(text)) return 'seasonal'
-  if (ANNUAL_RE.test(text) && !SEASON_RANGE_RE.test(text)) return 'annual'
-  if (SEASONAL_RE.test(text)) return 'seasonal'
+  const normalized = normalizePeriodText(text)
+  if (MONTHLY_RATE_RE.test(normalized)) return 'seasonal'
+  if (hasShortOccupancy(normalized)) return 'seasonal'
+  if (ANNUAL_RE.test(normalized)) return 'annual'
+  if (SEASONAL_RE.test(normalized)) return 'seasonal'
   return 'unknown'
 }
 
@@ -141,6 +274,9 @@ export function classifyPosto(item) {
   }
   if (period === 'seasonal') {
     return reject('stagionale / non annuale')
+  }
+  if (deal_type === 'rent' && period === 'unknown' && price < 800) {
+    return reject('canone troppo basso / probabilmente mensile')
   }
   if (price >= PRICE_SANITY) {
     return reject('prezzo da cessione, non canone')

@@ -23,7 +23,7 @@ UI: `annunci.html?cat=posti`. Score: [[concetti/feed-annunci-scoring]].
 |------|--------|
 | Oggetto | Posto barca, ormeggio, pontile, darsena, rimessaggio |
 | Geografia | **Solo Lazio**. Fuori regione = scarto (un posto non si porta a casa) |
-| Periodo | **Solo annuale**. Stagionale / estate / weekend / transito / giornaliero / mensile / invernale = scarto |
+| Periodo | **Solo annuale**. Fuori: stagionale, estate, weekend, transito, giornaliero, mensile, invernale, **dal…al / da…a / fino al** su pochi mesi (`1ottobre-30aprile`, `dal 1/11 al 30/4`). Restano: «libero da ottobre» su un annuale, concessione fino al 2048, orari lunedì-venerdì |
 | Contratto | Affitto **e** vendita; **affitto pesa di più** sullo score |
 | Affitti | Nessun tetto di canone |
 | Vendite | Hard **≤ 20.000 €** |

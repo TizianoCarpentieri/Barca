@@ -6,6 +6,11 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-09-01] fix | Posti: scarta dal/al e da/a su pochi mesi
+
+- Il 1300€ Nettuno era un invernale `1ottobre-30aprile`, non un annuale.
+- Discriminazione: intervalli `dal…al`, `da…ad`, `fino al`, `euro mese`, mesi invernali/estivi. Restano libero-da su annuale e concessione lunga.
+
 ## [2026-09-01] preferenze | Vela in testa; tab Posti (annuale Lazio)
 
 - Caccia attiva: cabinato 7–9 m + **posto barca annuale** sul litorale laziale. Gommone/motori/rigide in secondo piano.
