@@ -140,13 +140,13 @@ Verità di dettaglio: `wiki/preferenze/*`, `wiki/overview.md`, `wiki/sintesi/req
 - **Sogno vela (in 2):** cabinato ≤9.000 € (stretch 10.000); fissi **≤700 €/testa/anno all-in** (stretch 900). Soci extra benvenuti
 - **Piano B rigido:** ≤4.500 € e solo con ≥5 soci + preventivi che reggano ≤30 €/testa/mese
 
-### Piano corrente (2026-08-22)
-1. **Gommoni — piano A** — pneumatici no RIB; **min 3,90 m**, nessun max duro se auto/trasporto; 3 comodi, 4+ preferibile, 6 bonus non rigido; Al floor / airdeck; Argo-Evo 360 resta solo riferimento storico di prezzo/dotazione
-2. **Motori abbinati** — **9–40 CV**, purché senza patente (≤30 kW/40,8 CV e cilindrata ammessa); 4T preferito; gambo compatibile con lo scafo
-3. **Vele — sogno parallelo** — cabinato 7–9 m, ref Comet 770; in 2 ≤9k/stretch 10k; fissi ≤700/900 €/testa all-in. Non si compra senza preventivo ormeggio
+### Piano corrente (2026-09-01)
+1. **Vele — caccia attiva** — cabinato 7–9 m, ref Comet 770; in 2 ≤9k/stretch 10k; fissi ≤700/900 €/testa all-in. Non si compra senza preventivo ormeggio annuale Lazio
+2. **Posti barca** — solo Lazio, solo annuali; affitto ≫ vendita; vendita ≤20k; nessun cap affitti; bandi/demanio in striscia ufficiale (non Subito)
+3. **Gommoni / motori** — restano in wiki e nei feed, in secondo piano (ex piano A)
 4. **Rigide — piano B condizionale** — gozzo/open/lancia; no carrello; tendalino; attivabile solo con ≥5 soci e preventivi compatibili
 
-Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori|**Vele**. Scoring: distanza da Lazio + regole track (`wiki/concetti/feed-annunci-scoring.md`). Vele = osservazione, non piano A.
+Feed live: `presentazione/annunci.html` tab Rigide|Gommoni|Motori|Vele|**Posti**. Scoring: `wiki/concetti/feed-annunci-scoring.md`.
 
 ### Ancora da definire (`wiki/preferenze/open-questions.md`)
 - Auto e custodia; accesso/scivolo; preventivi reali; checklist candidati; accordo e intestazione

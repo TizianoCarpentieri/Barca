@@ -6,6 +6,13 @@ Tipi: `setup` · `ingest` · `query` · `preferenze` · `lint` · `ricerca` · `
 
 ---
 
+## [2026-09-01] preferenze | Vela in testa; tab Posti (annuale Lazio)
+
+- Caccia attiva: cabinato 7–9 m + **posto barca annuale** sul litorale laziale. Gommone/motori/rigide in secondo piano.
+- Tab Annunci `?cat=posti`: Subito affitto+vendita, solo Lazio, stagionale escluso, affitto ≫ vendita, vendita ≤20k, nessun cap affitti.
+- Alternativa ai bandi: striscia **Bandi e gestori** da `posti-ufficiali.json` (Anzio albo/PEC, Nettuno, PTR, foce, Ardea, …). Niente scrape albi.
+- Gate posti **soft**. Script `fetch-posti.mjs`. Wiki: [[preferenze/track-posti]].
+
 ## [2026-08-24] fix(sbarco) | Harness apre la wiki, PDF vero, no search forzata a vuoto
 
 - Incidente live (Pro+estesa): DuckDuckGo vuoto, 90s bruciati, "PDF pronto" e il

@@ -1,7 +1,7 @@
 ---
 title: Contesto operativo Sbarco
 type: sintesi
-updated: 2026-08-31
+updated: 2026-09-01
 status: active
 tags: [sbarco, contesto, source-of-truth]
 sources:
@@ -24,8 +24,8 @@ corrente; i dettagli restano nelle pagine collegate (usare `read_wiki`).
 
 ## Decisione corrente
 
-- **Piano A:** gommone pneumatico smontabile, non RIB, trasportabile in auto.
-- **Sogno parallelo (track D):** cabinato a vela 7–9 m, ref [[modelli/comet-770]]. Non sostituisce il piano A. Si osserva; si compra solo se il TCO all-in sta nel cap.
+- **Caccia attiva (2026-09-01):** cabinato a vela 7–9 m, ref [[modelli/comet-770]], più **posto annuale Lazio**. Si compra solo se il TCO all-in sta nel cap. Tab Annunci `?cat=posti` + striscia bandi/gestori.
+- **Gommone (ex piano A):** pneumatico smontabile, non RIB, in auto. Resta in wiki e nei feed, in secondo piano.
 - **Piano B:** scafo rigido a motore soltanto con ≥5 soci e preventivi reali.
 - **Gruppo:** Tiziano, Antonio e Peppe sul gommone. Sul sogno vela il nucleo più probabile è Tiziano+Antonio; altri soci (Matteo, Giulia, padre di Giulia, Paolo) **benvenuti**. Peppe in chat 20 ago risulta freddo sul cabinato.
 - **Uso:** 3 comodi per pesca; fino a ~6 solo picco sociale.
@@ -112,4 +112,4 @@ Dettaglio: [[preferenze/open-questions]].
 - Logistica: [[concetti/logistica-trasporto]] · [[concetti/montaggio-gommone]]
 - Motori/scafo: [[preferenze/track-motori]] · [[preferenze/track-gommoni]]
 - Normativa: [[normativa/limiti-senza-patente]] · [[normativa/rc-obbligatoria-natanti]] · [[normativa/pesca-ricreativa-mare]]
-- Candidati: [[sintesi/shortlist]] · [[mercato/feed-subito-live]] (tab Vele = osservazione, non shortlist)
+- Candidati: [[sintesi/shortlist]] · [[mercato/feed-subito-live]] (tab Vele + **Posti**; ormeggio: [[preferenze/track-posti]])

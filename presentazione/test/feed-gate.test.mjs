@@ -29,6 +29,7 @@ function writeFeed(dir, name, extra = {}) {
           price: 1000 + i,
           ...(name === 'vele' ? { sail_type: 'cabinato', length_m: 7.7 } : {}),
           ...(name === 'gommoni' ? { has_engine: false, length_m: 3.8 } : {}),
+          ...(name === 'posti' ? { deal_type: 'rent', period: 'annual', length_m: 8 } : {}),
         }),
       ),
     }),
@@ -117,6 +118,47 @@ test('un duplicato che tocca solo vele o accessori resta un warning', () => {
     const result = validateFeeds(dir)
     assert.equal(result.errors.length, 0)
     assert.ok(result.warnings.some((w) => /cross-feed duplicato/.test(w)))
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('un feed posti assente o magro non blocca i feed core', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'feed-gate-'))
+  try {
+    for (const name of ['annunci', 'gommoni', 'motori', 'accessori', 'vele']) {
+      writeFeed(dir, name, { count: name === 'vele' ? 6 : 10 })
+    }
+    const missing = validateFeeds(dir)
+    assert.equal(missing.errors.length, 0)
+    assert.ok(missing.warnings.some((w) => /posti: file mancante/.test(w)))
+
+    writeFeed(dir, 'posti', { count: 1, items: [item({ id: 'p1', url: 'https://www.subito.it/nautica/p1.htm', deal_type: 'rent', period: 'annual', length_m: 8 })] })
+    const thin = validateFeeds(dir)
+    assert.equal(thin.errors.length, 0)
+    assert.ok(thin.warnings.some((w) => /posti: solo 1 annunci/.test(w)))
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('una vendita posti oltre 20mila e un deal_type assente restano warning', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'feed-gate-'))
+  try {
+    for (const name of ['annunci', 'gommoni', 'motori', 'accessori', 'vele']) {
+      writeFeed(dir, name, { count: name === 'vele' ? 6 : 10 })
+    }
+    writeFeed(dir, 'posti', {
+      items: [
+        item({ id: 'p-sale', url: 'https://www.subito.it/nautica/p-sale.htm', price: 25000, deal_type: 'sale', period: 'annual', length_m: 8 }),
+        item({ id: 'p-bad', url: 'https://www.subito.it/nautica/p-bad.htm', price: 2000, period: 'annual', length_m: 8 }),
+        item({ id: 'p-ok', url: 'https://www.subito.it/nautica/p-ok.htm', price: 3000, deal_type: 'rent', period: 'annual', length_m: 8 }),
+      ],
+    })
+    const result = validateFeeds(dir)
+    assert.equal(result.errors.length, 0)
+    assert.ok(result.warnings.some((w) => /posti: vendita oltre 20000/.test(w)))
+    assert.ok(result.warnings.some((w) => /posti: deal_type sconosciuto/.test(w)))
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }

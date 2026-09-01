@@ -13,6 +13,7 @@ const filterSummaryEl = document.getElementById('ads-filter-summary')
 const catsEl = document.getElementById('ads-cats')
 const stampEl = document.getElementById('ads-stamp')
 const howEl = document.getElementById('ads-how')
+const officialEl = document.getElementById('ads-official')
 
 if (!listEl) {
   /* not on annunci page */
@@ -127,6 +128,18 @@ if (!listEl) {
         'Sogno parallelo, non piano A. Cabinati 6,5–9 m, ref Comet 770. Hard ≤9.000€, stretch 10.000. L’ormeggio Lazio è il vero costo.',
       how: 'Feed vele (osservazione). Classe Comet 770, Lazio preferito, ausiliario ≤40,8 CV. Non è una shortlist d’acquisto: prima i preventivi porto.',
     },
+    posti: {
+      file: 'posti.json',
+      label: 'Posti',
+      stamp: 'Posti · vela',
+      hardMax: null,
+      fitHigh: 55,
+      ph: 'POSTO',
+      noDistancePenalty: true,
+      fallbackNote:
+        'Solo Lazio, solo annuali. Affitto sopra la vendita (cessione ≤20.000€). I bandi comunali stanno nella striscia ufficiale, non su Subito.',
+      how: 'Feed posti barca per il cabinato 7–9 m. Stagionale escluso. Score: affitto ≫ vendita, slot 6,5–9 m, hub Fiumicino–Ostia–Anzio–Nettuno.',
+    },
   }
 
   function detectCat() {
@@ -138,6 +151,7 @@ if (!listEl) {
     if (location.pathname.includes('gommoni')) return 'gommoni'
     if (location.pathname.includes('motori')) return 'motori'
     if (location.pathname.includes('vele')) return 'vele'
+    if (location.pathname.includes('posti')) return 'posti'
     return 'rigide'
   }
 
@@ -189,6 +203,11 @@ if (!listEl) {
       { label: 'Patente e budget', hint: 'Poi i vincoli Bestie', options: [option('no-patente', 'Ausiliario ≤40,8 CV'), option('hard', FEEDS[cat].hardLabel), option('alto', 'Fit alto')] },
       { label: 'Logistica', hint: 'Infine distanza e freschezza', options: [option('lazio', 'Lazio'), option('recent', 'Ultimi 7 giorni')] },
     ]
+    if (cat === 'posti') return [
+      { label: 'Contratto', hint: 'Prima affitto o vendita', options: [option('posti-affitto', 'Affitto'), option('posti-vendita', 'Vendita')] },
+      { label: 'Posto', hint: 'Poi forma e misura', options: [option('posti-acqua', 'In acqua'), option('posti-classe', 'Classe 6,5–9 m'), option('posti-hub', 'Hub Fiumicino–Nettuno')] },
+      { label: 'Occasione', hint: 'Infine certezza e freschezza', options: [option('posti-annuale', 'Annuale dichiarato'), option('alto', 'Fit alto'), option('recent', 'Ultimi 7 giorni')] },
+    ]
 
     const destOptions = Object.entries(DEST_LABELS).map(([key, label]) => option(key, label, 'dest'))
     const tipIds = destFilter === 'all' ? [] : (DEST_TIPS[destFilter] || [])
@@ -219,6 +238,12 @@ if (!listEl) {
     if (key === 'gambo-corto') return it.shaft === 'corto'
     if (key === 'vele-cabinato') return it.sail_type === 'cabinato'
     if (key === 'vele-comet') return it.length_m != null && it.length_m >= 6.5 && it.length_m <= 9
+    if (key === 'posti-affitto') return it.deal_type === 'rent'
+    if (key === 'posti-vendita') return it.deal_type === 'sale'
+    if (key === 'posti-acqua') return it.kind === 'water'
+    if (key === 'posti-classe') return it.length_m != null && it.length_m >= 6.5 && it.length_m <= 9
+    if (key === 'posti-hub') return Boolean(it.hub)
+    if (key === 'posti-annuale') return it.period === 'annual'
     return true
   }
 
@@ -342,6 +367,12 @@ if (!listEl) {
         ? 'Subito'
         : ''
     const bundle = it.has_engine ? 'motore incluso' : ''
+    const deal = it.deal_type === 'rent' ? 'Affitto' : it.deal_type === 'sale' ? 'Vendita' : ''
+    const period = it.period === 'annual' ? 'Annuale' : it.period === 'unknown' ? 'Periodo n.d.' : ''
+    const kindTag = it.kind === 'water' ? 'In acqua' : it.kind === 'dry' ? 'A secco' : ''
+    const slot =
+      it.length_m != null && it.width_m != null ? `${it.length_m} × ${it.width_m} m` : len
+    const hubTag = it.hub ? 'Hub' : ''
     const reasons = (it.reasons || []).slice(0, 4).join(' · ')
     const ph = FEEDS[cat].ph
     const img = it.image
@@ -373,8 +404,12 @@ if (!listEl) {
             ${it.dest_label ? `<span class="ads-tag--dest">${escapeHtml(it.dest_label)}</span>` : ''}
             ${catLabel ? `<span>${escapeHtml(catLabel)}</span>` : ''}
             ${cond ? `<span>${escapeHtml(cond)}</span>` : ''}
+            ${deal ? `<span class="${it.deal_type === 'rent' ? 'ads-tag--rent' : 'ads-tag--sale'}">${escapeHtml(deal)}</span>` : ''}
+            ${period ? `<span>${escapeHtml(period)}</span>` : ''}
+            ${kindTag ? `<span>${escapeHtml(kindTag)}</span>` : ''}
+            ${hubTag ? `<span>${escapeHtml(hubTag)}</span>` : ''}
             ${cv ? `<span>${escapeHtml(cv)}</span>` : ''}
-            ${len ? `<span>${escapeHtml(len)}</span>` : ''}
+            ${slot ? `<span>${escapeHtml(slot)}</span>` : ''}
             ${brand ? `<span>${escapeHtml(brand)}</span>` : ''}
             ${ratio ? `<span>${escapeHtml(ratio)}</span>` : ''}
             ${floor ? `<span>${escapeHtml(floor)}</span>` : ''}
@@ -494,6 +529,56 @@ if (!listEl) {
     throw lastErr || new Error('Feed non trovato')
   }
 
+  function telHref(value) {
+    const digits = String(value || '').replace(/[^\d+]/g, '')
+    return digits ? `tel:${digits}` : ''
+  }
+
+  function officialLink(href, label) {
+    if (!href) return ''
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`
+  }
+
+  function renderOfficial(items) {
+    if (!officialEl) return
+    if (cat !== 'posti' || !items?.length) {
+      officialEl.hidden = true
+      officialEl.innerHTML = ''
+      return
+    }
+    officialEl.hidden = false
+    const cards = items
+      .map((it) => {
+        const tel = telHref(it.phone)
+        const actions = [
+          tel ? `<a href="${tel}">${escapeHtml(it.phone)}</a>` : '',
+          officialLink(it.url, 'Sito'),
+          officialLink(it.albo_url, 'Albo'),
+          it.email ? `<a href="mailto:${escapeHtml(it.email)}">Email</a>` : '',
+          it.pec ? `<a href="mailto:${escapeHtml(it.pec)}">PEC</a>` : '',
+        ]
+          .filter(Boolean)
+          .join('')
+        return `<article class="ads-official__card">
+          <span class="ads-official__kind">${escapeHtml(it.kind_label || it.kind || 'Fonte')}</span>
+          <h3>${escapeHtml(it.name)}</h3>
+          <p class="ads-official__place">${escapeHtml(it.place || 'Lazio')}</p>
+          <p>${escapeHtml(it.note || '')}</p>
+          ${actions ? `<div class="ads-official__actions">${actions}</div>` : ''}
+        </article>`
+      })
+      .join('')
+    officialEl.innerHTML = `
+      <header class="ads-official__head">
+        <div>
+          <span class="ads-official__eyebrow">Fuori Subito</span>
+          <strong>Bandi e gestori</strong>
+        </div>
+        <p>Liste comunali, demanio e marina. Si telefona; non è un annuncio.</p>
+      </header>
+      <div class="ads-official__scroller">${cards}</div>`
+  }
+
   function showLoading() {
     updatedEl.textContent = 'Caricamento…'
     listEl.innerHTML = ''
@@ -502,6 +587,10 @@ if (!listEl) {
     errEl.textContent = ''
     statsEl.hidden = true
     if (filtersEl) filtersEl.hidden = true
+    if (officialEl) {
+      officialEl.hidden = true
+      officialEl.innerHTML = ''
+    }
     stampEl?.classList.remove('stamp--ok')
   }
 
@@ -517,11 +606,17 @@ if (!listEl) {
     const s = data.stats || {}
     const lazioN = all.filter((x) => x.region === 'Lazio' || /lazio/i.test(x.place || '')).length
     statsEl.hidden = false
+    const extra =
+      cat === 'posti'
+        ? `<div class="ads-stats__item"><strong>${s.rent ?? all.filter((x) => x.deal_type === 'rent').length}</strong><span>affitti</span></div>
+      <div class="ads-stats__item"><strong>${s.official ?? (data.official || []).length}</strong><span>gestori</span></div>`
+        : `<div class="ads-stats__item"><strong>${s.lazio_in_shown ?? lazioN}</strong><span>Lazio</span></div>`
     statsEl.innerHTML = `
       <div class="ads-stats__item"><strong>${s.shown ?? all.length}</strong><span>in lista</span></div>
-      <div class="ads-stats__item"><strong>${s.lazio_in_shown ?? lazioN}</strong><span>Lazio</span></div>
+      ${extra}
       <div class="ads-stats__item"><strong>${s.scanned_unique ?? '—'}</strong><span>scansionati</span></div>
     `
+    renderOfficial(data.official)
     if (filtersEl) filtersEl.hidden = false
     renderFilterTree()
     stampEl?.classList.add('stamp--ok')

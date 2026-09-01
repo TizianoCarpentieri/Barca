@@ -16,7 +16,14 @@ test('il tab Vele e marcato sogno e non e una pagina accessori', async () => {
   assert.match(html, /data-cat="vele"/)
   assert.match(html, /ads-cat--sogno/)
   assert.match(html, /ads-cat__badge/)
-  assert.match(html, /sogno parallelo/)
+  assert.match(html, /posti barca/)
+})
+
+test('la tab Posti e nella stessa pagina Annunci con striscia bandi', async () => {
+  const html = await readFile(new URL('../annunci.html', import.meta.url), 'utf8')
+  assert.match(html, /data-cat="posti"/)
+  assert.match(html, /id="ads-official"/)
+  assert.match(html, /Bandi e gestori/)
 })
 
 test('lo sheet non duplica Home/Regole e include Status + feed', async () => {
@@ -31,6 +38,7 @@ test('lo sheet non duplica Home/Regole e include Status + feed', async () => {
   assert.match(sheet, /annunci\.html\?cat=motori/)
   assert.match(sheet, /annunci\.html\?cat=rigide/)
   assert.match(sheet, /annunci\.html\?cat=vele/)
+  assert.match(sheet, /annunci\.html\?cat=posti/)
   assert.match(sheet, /accessori\.html/)
   assert.match(sheet, /status\.html/)
   assert.match(sheet, /equipaggio\.html/)

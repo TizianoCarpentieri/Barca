@@ -1,7 +1,7 @@
 ---
 title: Feed Subito live
 type: mercato
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [subito, automazione, pages]
 ---
@@ -17,7 +17,8 @@ tags: [subito, automazione, pages]
 | Gommoni | `?cat=gommoni` |
 | Motori | `?cat=motori` |
 | Vele (sogno) | `?cat=vele` |
-| Redirect legacy | `gommoni.html` / `motori.html` → tab corrispondente |
+| Posti barca | `?cat=posti` |
+| Redirect legacy | `gommoni.html` / `motori.html` / `posti.html` → tab corrispondente |
 
 ## Repo
 
@@ -39,19 +40,20 @@ npm run fetch-gommoni
 npm run fetch-motori
 npm run fetch-accessori
 npm run fetch-vele
+npm run fetch-posti
 npm run validate-feeds
 npm run build
 ```
 
 ## Snapshot raw
 
-Dopo fetch: `raw/mercato/subito-feed-*.json`, `subito-gommoni-*.json`, `subito-motori-*.json`, `subito-vele-*.json`.
+Dopo fetch: `raw/mercato/subito-feed-*.json`, `subito-gommoni-*.json`, `subito-motori-*.json`, `subito-vele-*.json`, `subito-posti-*.json`.
 
 La pubblicazione mantiene l'ultima versione online se un fetch **core** o il
 quality gate falliscono: non distribuisce tab mancanti fingendo un deploy
-riuscito. Il fetch **Vele** è `continue-on-error`: un Hades giù sul sogno non
-blocca gommoni/motori; il gate tratta vele come warning.
+riuscito. I fetch **Vele** e **Posti** sono `continue-on-error`: un Hades giù
+sul sogno/ormeggio non blocca gommoni/motori; il gate li tratta come warning.
 
 ## Documentazione logica
 
-[[concetti/feed-annunci-scoring]] · [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[preferenze/track-vele]] · [[modelli/argo-evo-360]] · [[modelli/comet-770]]
+[[concetti/feed-annunci-scoring]] · [[preferenze/track-gommoni]] · [[preferenze/track-motori]] · [[preferenze/track-vele]] · [[preferenze/track-posti]] · [[modelli/argo-evo-360]] · [[modelli/comet-770]]

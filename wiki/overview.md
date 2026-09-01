@@ -1,7 +1,7 @@
 ---
 title: Overview
 type: sintesi
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [stato]
 ---
@@ -10,14 +10,14 @@ tags: [stato]
 
 ## In una frase
 
-Le bestie cercano ancora un **gommone pneumatico smontabile no-patente** (piano A, ≤2.000 € bundle) per pesca e costa laziale. Dal 20 agosto Tiziano e Antonio hanno messo in pista il **sogno vela**: cabinato classe [[modelli/comet-770]], ≤9–10k se in due, fissi **≤700 €/testa/anno all-in** (stretch 900). Altri soci benvenuti. Lo scafo rigido a motore resta condizionale.
+Dal 1 settembre 2026 la **caccia attiva è il cabinato a vela** (classe [[modelli/comet-770]], ≤9–10k in due, fissi **≤700 €/testa/anno all-in**, stretch 900) **più un posto annuale sul litorale laziale**. Gommone, motori e rigide restano in wiki e nei feed, in secondo piano. Lo scafo rigido a motore resta condizionale.
 
-## Direzione attuale (2026-08-11)
+## Direzione attuale (2026-09-01)
 
 | Asse | Direzione |
 |------|-----------|
-| Mezzo primario (piano A) | **Gommone pneumatico smontabile** (no RIB), trasportabile in auto |
-| Sogno parallelo | **Cabinato a vela 7–9 m** (ref Comet 770). Non si compra senza TCO all-in |
+| Mezzo primario (caccia attiva) | **Cabinato a vela 7–9 m** (ref Comet 770) + posto annuale Lazio |
+| Gommone | In secondo piano; resta nei feed |
 | Scafo rigido a motore | Solo con ≥5 soci e preventivi reali |
 | Budget acquisto gommone | **≤2.000 €** bundle gommone+motore usato |
 | Budget acquisto vela (in 2) | **≤9.000 €**, stretch **10.000** |
@@ -27,7 +27,7 @@ Le bestie cercano ancora un **gommone pneumatico smontabile no-patente** (piano 
 | Motore | **9–40 CV**, purché senza patente; 4T preferito; gambo compatibile con lo scafo |
 | Reference | [[modelli/argo-evo-360]] a 970 € nuovo (benchmark scafo) |
 
-UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · **Vele** · Accessori). Vele = osservazione, badge sogno.  
+UI unica: [Annunci live](https://tizianocarpentieri.github.io/Barca/annunci.html) (tab Rigide · Gommoni · Motori · **Vele** · **Posti** · Accessori). Posti = ormeggio annuale Lazio + striscia bandi/gestori.  
 Documenti di bordo: [Patto · Costi · Varo](https://tizianocarpentieri.github.io/Barca/documenti.html) (bozze, non firmati).  
 Scuola: [Simulazioni](https://tizianocarpentieri.github.io/Barca/simulazioni.html) · [Nodi](https://tizianocarpentieri.github.io/Barca/nodi.html).
 Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scoring]].
@@ -39,7 +39,8 @@ Logica score: [[concetti/feed-annunci-scoring]] + [[concetti/feed-accessori-scor
 | Setup tool (wiki, presentazione, Pages) | ✅ |
 | Preferenze gruppo | ✅ |
 | Nuova direzione gommone primario | ✅ (2026-08-10) |
-| Sogno vela (Comet 770, cap 700/900) | 🟢 criteri chiusi 22 ago; ormeggio **non** chiuso |
+| Sogno vela (Comet 770, cap 700/900) | 🟢 **caccia attiva** (1 set 2026); ormeggio ancora da chiudere |
+| Feed posti barca Lazio | 🟢 tab Annunci + bandi/gestori curati |
 | Zona operativa | ✅ mare laziale — Ardea/Pomezia → Anzio/Circeo/Fiumicino |
 | Patente | ✅ nessuno; no-patente ≤40,8 CV |
 | Normativa no-patente IT | 🟡 presente; tenere fonti aggiornate |

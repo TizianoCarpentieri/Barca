@@ -1,7 +1,7 @@
 ---
 title: Must-have
 type: preferenza
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [requisiti]
 ---
@@ -14,7 +14,7 @@ Trasversali a **tutti** i track, poi vincoli per track.
 
 | # | Requisito | Note | Status |
 |---|-----------|------|--------|
-| 1 | Piano A: mezzo a **motore** | Il **sogno vela** è un track parallelo di osservazione, non il piano A. [[preferenze/track-vele]] | active |
+| 1 | Caccia attiva: **cabinato a vela** | Dal 2026-09-01 la vela prende la precedenza; gommone/motori restano in wiki e nei feed, in secondo piano. [[preferenze/track-vele]] · [[preferenze/track-posti]] | active |
 | 2 | Uso **senza patente** (target forte) | ≤30 kW / 40,8 CV + regole IT; nessuno ha patente | active |
 | 3 | Adatto a **pesca** di gruppo (core 3) | Layout, stabilità, stivaggio | active |
 | 4 | Divertimento **senza performance sportive** | Con 6 pax e ≤40 CV non si pretenda planata allegra | active |

@@ -1,7 +1,7 @@
 ---
 title: Indice wiki
 type: sintesi
-updated: 2026-08-31
+updated: 2026-09-01
 status: active
 tags: [index]
 ---
@@ -14,14 +14,14 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[overview]] | Stato attuale — **gommone primario** + **sogno vela** (Comet 770) |
+| [[overview]] | Stato attuale — **vela in testa** (Comet 770 + posto annuale); gommone in secondo piano |
 | [[log]] | Diario cronologico operazioni |
 
 ## Presentazione (per le bestie)
 
 | Path | Sommario |
 |------|----------|
-| `presentazione/` | Sito Vite mobile-first + annunci (incl. tab Vele) + widget Sbarco |
+| `presentazione/` | Sito Vite mobile-first + annunci (Vele + **Posti**) + widget Sbarco |
 | `presentazione/documenti.html` | Consultazione patto, costi, punti di lancio |
 | `presentazione/simulazioni.html` | Scuola di coperta: nodi (poi varo e no-patente) |
 | [[mercato/feed-subito-live]] | URL, script fetch, comandi, cron |
@@ -52,7 +52,8 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 | [[preferenze/must-have]] | Vincoli trasversali + per track |
 | [[preferenze/track-gommoni]] | **Track B** pneumatici (criteri + ref Argo) |
 | [[preferenze/track-motori]] | **Track C** fuoribordo ≥6 CV, sweet 9.9–15 |
-| [[preferenze/track-vele]] | **Track D** sogno: cabinato 7–9 m, ≤9/10k, fissi 700/900 all-in |
+| [[preferenze/track-vele]] | **Track D** cabinato 7–9 m, ≤9/10k, fissi 700/900 all-in — **caccia attiva** |
+| [[preferenze/track-posti]] | **Ormeggio annuale Lazio**: affitto ≫ vendita ≤20k; bandi fuori Subito |
 | [[preferenze/nice-to-have]] | Priorità uso + nice per track |
 | [[preferenze/split-costi]] | 1/N, danni 1/P presenti; digest patto in [[sintesi/patto-bestie]] |
 | [[preferenze/budget]] | Acquisto ≤2k; cap 30 € **non hard** sul gommone |
@@ -70,7 +71,7 @@ Catalogo di tutte le pagine. Aggiornare a ogni ingest.
 
 | Pagina | Sommario |
 |--------|----------|
-| [[concetti/feed-annunci-scoring]] | Score feed: distanza Lazio, −20% vs Argo, potenze motore |
+| [[concetti/feed-annunci-scoring]] | Score feed: distanza Lazio, gommoni/motori/vele/**posti** |
 | [[concetti/feed-accessori-scoring]] | **Accessori**: score ratio vs nuovo + ref_new/cap + doppia fonte Subito+eBay |
 | [[concetti/no-patente-6-pax-realta]] | Inviluppo ≤40,8 CV + fino a 6 pax |
 | [[concetti/pesca-da-barca-piccola]] | Bolentino vs surf; layout low budget |

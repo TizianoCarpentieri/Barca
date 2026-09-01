@@ -1,7 +1,7 @@
 ---
 title: Track vele (sogno parallelo)
 type: preferenza
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [vela, dual-track, comet, ormeggio]
 sources:
@@ -12,7 +12,7 @@ sources:
 
 # Track Vele — sogno parallelo
 
-Non sostituisce il piano A gommone. È il **sogno** emerso il 20 agosto 2026 tra Tiziano e Antonio. Il gommone resta il mezzo raggiungibile; la vela si osserva, si conta, si visita in porto. Si compra solo se i numeri all-in stanno in piedi.
+Dal **1 settembre 2026** è la **caccia attiva**. Il gommone resta in wiki e nei feed, in secondo piano. Si compra solo se i numeri all-in stanno in piedi — e senza posto annuale Lazio non si cerca la barca. Tab ormeggi: [[preferenze/track-posti]].
 
 Reference: [[modelli/comet-770]].  
 Audio: [[sintesi/conversazioni-audio-20260820]].  

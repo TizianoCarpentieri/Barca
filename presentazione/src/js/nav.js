@@ -5,7 +5,7 @@ const icons = {
   more: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg>`,
 }
 
-export const ADS_PAGES = ['annunci.html', 'accessori.html', 'gommoni.html', 'motori.html', 'vele.html']
+export const ADS_PAGES = ['annunci.html', 'accessori.html', 'gommoni.html', 'motori.html', 'vele.html', 'posti.html']
 export const DOCK_PAGES = ['index.html', 'regole.html', ...ADS_PAGES]
 
 export function mountNav() {
@@ -37,6 +37,7 @@ export function mountNav() {
         <a href="./annunci.html?cat=motori"><strong>Motori</strong><span>Fuoribordo no-patente</span></a>
         <a href="./annunci.html?cat=rigide"><strong>Rigide</strong><span>Piano B condizionale</span></a>
         <a href="./annunci.html?cat=vele"><strong>Vele</strong><span>Sogno Comet 770</span></a>
+        <a href="./annunci.html?cat=posti"><strong>Posti</strong><span>Ormeggio annuale Lazio</span></a>
         <a href="./accessori.html"><strong>Accessori</strong><span>Pesca, bimini, sicurezza</span></a>
       </div>
       <p class="dock-sheet__label">Manifesto</p>

@@ -1,7 +1,7 @@
 ---
 title: Open questions
 type: preferenza
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [todo]
 ---
@@ -48,7 +48,8 @@ Dettaglio: [[concetti/costi-nascosti-gommone]] · [[preferenze/budget]].
 
 Criteri del feed chiusi il 22 ago: [[preferenze/track-vele]] (cabinato 7–9 m, ≤9/10k, all-in 700/900, Subito + geo Lazio). Restano i fatti da terra:
 
-- [ ] Preventivo reale **Fiumicino foce** (e un secondo porto secondario): canone, IVA, acqua, luce, fondale vs pescaggio 1,5 m.
+- [ ] Preventivo reale **Fiumicino foce** (e un secondo porto secondario): canone, IVA, acqua, luce, fondale vs pescaggio 1,5 m. Tab Posti + striscia bandi: [[preferenze/track-posti]].
+- [ ] Telefono Anzio Demanio / PEC bando: c’è coda 2026 utile a non residenti, o si aspetta l’avviso 2027?
 - [ ] Anzio boa vs banchina: solo se il canone + resto sta nel cap; oggi la banchina 8,50 **non** ci sta.
 - [ ] Concessione demaniale: esiste una graduatoria utile? (chat: «casa popolare del posto barca»)
 - [ ] Scuola/patente 12 miglia vela+motore: preventivo Lazio, chi la fa per primo.

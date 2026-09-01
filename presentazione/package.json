@@ -13,6 +13,7 @@
     "fetch-motori": "node scripts/fetch-motori.mjs",
     "fetch-accessori": "node scripts/fetch-accessori.mjs",
     "fetch-vele": "node scripts/fetch-vele.mjs",
+    "fetch-posti": "node scripts/fetch-posti.mjs",
     "update-accessori-ref": "node scripts/update-accessori-ref.mjs",
     "validate-feeds": "node scripts/validate-feeds.mjs"
   },

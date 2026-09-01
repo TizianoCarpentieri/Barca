@@ -44,6 +44,7 @@ export default defineConfig({
         gommoni: resolve(__dirname, 'gommoni.html'),
         motori: resolve(__dirname, 'motori.html'),
         vele: resolve(__dirname, 'vele.html'),
+        posti: resolve(__dirname, 'posti.html'),
         accessori: resolve(__dirname, 'accessori.html'),
         documenti: resolve(__dirname, 'documenti.html'),
         simulazioni: resolve(__dirname, 'simulazioni.html'),

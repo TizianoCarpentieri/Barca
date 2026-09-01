@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { hasHardHull } from './feed-normalizers.mjs'
+import { SALE_HARD_MAX } from './posti-classify.mjs'
 
 export const MAX_AGE_MS = 2 * 60 * 60 * 1000
 
@@ -11,6 +12,7 @@ export const RULES = {
   motori: { minItems: 10, soft: false },
   accessori: { minItems: 10, soft: false },
   vele: { minItems: 5, soft: true },
+  posti: { minItems: 3, soft: true },
 }
 
 export function itemUrlKey(item) {
@@ -83,6 +85,23 @@ function validateItems(name, items, rule, errors, warnings) {
       }
       if (item.sail_type && !['cabinato', 'deriva'].includes(item.sail_type)) {
         pushIssue(errors, warnings, rule.soft, `vele: sail_type sconosciuto ${item.sail_type} (${item.subject})`)
+      }
+    }
+  }
+
+  if (name === 'posti') {
+    for (const item of items) {
+      if (item.deal_type !== 'rent' && item.deal_type !== 'sale') {
+        pushIssue(errors, warnings, rule.soft, `posti: deal_type sconosciuto (${item.subject || item.id})`)
+      }
+      if (item.deal_type === 'sale' && Number.isFinite(item.price) && item.price > SALE_HARD_MAX) {
+        pushIssue(errors, warnings, rule.soft, `posti: vendita oltre ${SALE_HARD_MAX} (${item.subject || item.id})`)
+      }
+      if (item.length_m != null && (!Number.isFinite(item.length_m) || item.length_m < 2 || item.length_m > 40)) {
+        pushIssue(errors, warnings, rule.soft, `posti: lunghezza fuori scala ${item.length_m} (${item.subject})`)
+      }
+      if (item.period && !['annual', 'unknown'].includes(item.period)) {
+        pushIssue(errors, warnings, rule.soft, `posti: periodo non annuale ${item.period} (${item.subject})`)
       }
     }
   }

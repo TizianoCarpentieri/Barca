@@ -57,6 +57,10 @@ jobs:
         working-directory: presentazione
         run: node scripts/fetch-vele.mjs
         continue-on-error: true
+      - name: Fetch posti barca (Lazio annuale)
+        working-directory: presentazione
+        run: node scripts/fetch-posti.mjs
+        continue-on-error: true
       - name: Valida freschezza e qualita feed
         working-directory: presentazione
         run: npm run validate-feeds

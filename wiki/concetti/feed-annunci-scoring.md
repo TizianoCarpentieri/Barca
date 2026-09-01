@@ -1,7 +1,7 @@
 ---
 title: Feed annunci e scoring
 type: concetto
-updated: 2026-08-22
+updated: 2026-09-01
 status: active
 tags: [subito, scoring, feed, distanza]
 sources:
@@ -9,6 +9,8 @@ sources:
   - presentazione/scripts/fetch-gommoni.mjs
   - presentazione/scripts/fetch-motori.mjs
   - presentazione/scripts/fetch-vele.mjs
+  - presentazione/scripts/fetch-posti.mjs
+  - presentazione/scripts/posti-classify.mjs
   - presentazione/scripts/geo-score.mjs
   - presentazione/scripts/feed-normalizers.mjs
   - presentazione/scripts/validate-feeds.mjs
@@ -16,7 +18,7 @@ sources:
 
 # Feed annunci Subito — logica di scoring
 
-Quattro tab + Accessori, **una sola UI** Annunci:
+Cinque tab + Accessori, **una sola UI** Annunci:
 
 | Tab | JSON | Script |
 |-----|------|--------|
@@ -24,6 +26,7 @@ Quattro tab + Accessori, **una sola UI** Annunci:
 | **Gommoni** | `gommoni.json` | `fetch-gommoni.mjs` |
 | **Motori** | `motori.json` | `fetch-motori.mjs` |
 | **Vele** | `vele.json` | `fetch-vele.mjs` |
+| **Posti** | `posti.json` | `fetch-posti.mjs` + `posti-classify.mjs` |
 
 - Live: https://tizianocarpentieri.github.io/Barca/annunci.html  
 - Deploy + cron 2×/giorno: `.github/workflows/pages.yml`  
@@ -92,10 +95,21 @@ Criteri: [[preferenze/track-vele]]. Reference: [[modelli/comet-770]].
 - `validate-feeds.mjs` (logica in `feed-gate.mjs`) blocca il deploy per i
   **feed core** (rigide, gommoni, motori, accessori): file mancanti, feed
   vecchi o piccoli, duplicati, misure/CV fuori scala e RIB sfuggiti al filtro.
-- **Vele è soft:** file assente, stantio o magro = **warning**, non ferma il
+- **Vele e Posti sono soft:** file assente, stantio o magro = **warning**, non ferma il
   piano A. Stesso URL in due tab = **warning** (anche rigide ∩ motori: bundle
   reali su Subito). Helper vela condivisi: `isSailboat`, `sailTypeOf`, inventario
-  randa/genoa/spinnaker.
+  randa/genoa/spinnaker. Posti: `deal_type` rent/sale, vendita ≤20k.
+
+## Track posti (ormeggio vela)
+
+Criteri: [[preferenze/track-posti]].
+
+- **Reject** fuori Lazio, stagionale, rumore (noleggio/charter/barca in vendita), vendita **> 20.000 €**
+- Affitti **senza cap**; affitto ≫ vendita sullo score
+- Sweet slot **7,3–8,5 m**; classe 6,5–9; in acqua > a secco
+- Bonus hub **Fiumicino–Ostia–Anzio–Nettuno**
+- Gate **soft** (come Vele)
+- Striscia **Bandi e gestori** da JSON curato: non è Subito
 
 ## Track motori
 

@@ -1576,6 +1576,128 @@ html.is-phone .badge {
   line-height: 1.45;
 }
 
+.ads-official {
+  margin: 0 0 1.1rem;
+  padding: 0.85rem 0.85rem 0.75rem;
+  border: 1px solid rgba(26, 138, 154, 0.32);
+  border-radius: 1.15rem;
+  background: linear-gradient(150deg, rgba(16, 40, 46, 0.94), rgba(15, 12, 11, 0.96));
+}
+
+.ads-official__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.55rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.ads-official__eyebrow {
+  display: block;
+  font-family: var(--font-cond);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--tide);
+}
+
+.ads-official__head strong {
+  display: block;
+  font-family: var(--font-cond);
+  font-size: 1.05rem;
+  color: var(--foam);
+}
+
+.ads-official__head p {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.88rem;
+  color: var(--foam-dim);
+  line-height: 1.4;
+}
+
+.ads-official__scroller {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 0.1rem 0.1rem 0.35rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ads-official__card {
+  flex: 0 0 min(17.5rem, 78vw);
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  padding: 0.75rem 0.8rem 0.8rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(243, 235, 224, 0.1);
+  background: rgba(11, 9, 8, 0.45);
+}
+
+.ads-official__kind {
+  align-self: flex-start;
+  font-family: var(--font-cond);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.ads-official__card h3 {
+  font-family: var(--font-cond);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.ads-official__place {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tide);
+}
+
+.ads-official__card p:last-of-type {
+  font-size: 0.82rem;
+  color: var(--foam-dim);
+  line-height: 1.4;
+}
+
+.ads-official__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.ads-official__actions a {
+  font-family: var(--font-cond);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(26, 138, 154, 0.4);
+  color: var(--foam);
+}
+
+.ads-tag--rent {
+  color: #8ee3ee !important;
+  border-color: rgba(26, 138, 154, 0.55) !important;
+}
+
+.ads-tag--sale {
+  color: var(--brass) !important;
+}
+
 .ads-filter-tree {
   margin: 1rem 0 1.1rem;
   padding: 0.8rem;
